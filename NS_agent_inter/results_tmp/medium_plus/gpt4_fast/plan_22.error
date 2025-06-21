@@ -1,0 +1,94 @@
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 2303, in <module>
+    success, plan, llm_time_cost = searcher.symbolic_search(query_i, idx, if_fast=fast_mode, result_dir=result_dir)
+TypeError: symbolic_search() got multiple values for argument 'if_fast'
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 2303, in <module>
+    success, plan, llm_time_cost = searcher.symbolic_search(query_i, if_fast=fast_mode)
+TypeError: symbolic_search() got multiple values for argument 'if_fast'
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 2302, in <module>
+    success, plan, llm_time_cost = searcher.symbolic_search(query_i)
+TypeError: symbolic_search() takes 1 positional argument but 2 were given
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 2302, in <module>
+    success, plan, llm_time_cost = searcher.symbolic_search(query_i)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 329, in symbolic_search
+    success, plan = search_plan(query, {"query_idx":query_idx},fast_mode=fast_mode, result_dir=result_dir)
+NameError: name 'query_idx' is not defined
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 2281, in <module>
+    success, plan, llm_time_cost = searcher.symbolic_search(query_i)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 324, in symbolic_search
+    success, plan = search_plan(query)
+NameError: name 'search_plan' is not defined
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 2281, in <module>
+    success, plan, llm_time_cost = searcher.symbolic_search(query_i)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 324, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 337, in search_plan
+    train_go = intercity_transport.select(start_city=source_city, end_city=target_city, intercity_type="train")
+NameError: name 'intercity_transport' is not defined
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1974, in <module>
+    success_count += int(success)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 321, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 656, in search_plan
+    success, plan = self.search_poi(query, poi_plan, plan=[], current_time = "", current_position="")
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 836, in search_poi
+    success, plan = self.search_poi(query, poi_plan, plan, new_time, new_position, current_day)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1057, in search_poi
+    success, plan = self.search_poi(query, poi_plan, plan, new_time, new_position, current_day)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1212, in search_poi
+    score_list = poi_info["attractions"]["importance"].values
+NameError: name 'poi_info' is not defined
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1800, in <module>
+    avialable_plan = {}
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 321, in symbolic_search
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 656, in search_plan
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 836, in search_poi
+    start_time=current_time, method=poi_plan["transport_preference"], verbose=False)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1057, in search_poi
+    # it is closed ...
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1217, in search_poi
+    # print("info before search poi type", current_day, current_time, current_position, poi_plan, plan)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1217, in search_poi
+    # print("info before search poi type", current_day, current_time, current_position, poi_plan, plan)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1102, in search_poi
+    self.restaurants_visiting.append(res_idx)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 862, in search_poi
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1217, in search_poi
+    # print("info before search poi type", current_day, current_time, current_position, poi_plan, plan)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 938, in search_poi
+    candidates_type.append("lunch")
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1273, in constraints_validation
+    success, plan = self.search_poi(query, poi_plan, plan, new_time, new_position, current_day)
+KeyError: 'query_idx'
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1804, in <module>
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 377, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 712, in search_plan
+    success, plan = self.search_poi(query, poi_plan, plan=[], current_time = "", current_position="")
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 892, in search_poi
+    success, plan = self.search_poi(query, poi_plan, plan, new_time, new_position, current_day)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1113, in search_poi
+    success, plan = self.search_poi(query, poi_plan, plan, new_time, new_position, current_day)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1273, in search_poi
+    success, plan = self.search_poi(query, poi_plan, plan, new_time, new_position, current_day)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1273, in search_poi
+    success, plan = self.search_poi(query, poi_plan, plan, new_time, new_position, current_day)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1158, in search_poi
+    success, plan = self.search_poi(query, poi_plan, plan, new_time, new_position, current_day + 1)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 918, in search_poi
+    success, plan = self.search_poi(query, poi_plan, plan, new_time, new_position, current_day)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1273, in search_poi
+    success, plan = self.search_poi(query, poi_plan, plan, new_time, new_position, current_day)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 994, in search_poi
+    res_bool, res_plan = self.constraints_validation(query, plan, poi_plan)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1331, in constraints_validation
+    print("validate the plan [for query {}]: ".format(poi_plan["query_idx"]))
+KeyError: 'query_idx'

@@ -1,0 +1,131 @@
+{'tag': 'hotel_name', 'start_city': '北京', 'target_city': '武汉', 'hard_logic': ['days==2', 'people_number==4', 'tickets==4', "{'金泰酒店(武汉世界城光谷步行街华中科技大学店)'}<=hotel_names"], 'nature_language': '当前位置北京。我们四个人想去武汉玩2天，住在华中科技大学附近的金泰酒店，请给我们一个旅行规划。', 'days': 2, 'people_number': 4, 'transport_preference': 'metro', 'hard_logic_unseen': [], 'hotel_names': {'金泰酒店(武汉世界城光谷步行街华中科技大学店)'}}
+北京 武汉
+from 北京 to 武汉: 10 flights, 35 trains
+from 武汉 to 北京: 10 flights, 35 trains
+武汉 accommmodation, 1 hotels (satisfied requirments)
+<llms.model_GPT_poi object at 0x7fe92cbb2640>
+score over
+<llms.model_GPT_poi object at 0x7fe92cbb2640>
+score over
+      id         name      type   latitude  ...  price recommendmintime recommendmaxtime importance
+5      5  武汉文旅集团·夜游长江  游乐园/体育娱乐  30.594310  ...   68.0              0.5              1.5   0.845283
+9      9     武汉极地海洋公园  游乐园/体育娱乐  30.670265  ...  275.0              3.0              4.0   0.828606
+12    12        武汉动物园  游乐园/体育娱乐  30.549057  ...   40.0              3.0              4.0   0.813087
+2      2       湖北省博物馆   博物馆/纪念馆  30.567827  ...    0.0              2.0              3.0   0.792939
+10    10        夜上黄鹤楼      人文景观  30.550317  ...  120.0              2.5              3.0   0.775227
+..   ...          ...       ...        ...  ...    ...              ...              ...        ...
+72    72         巴公房子      历史古迹  30.592026  ...    0.0              0.5              1.5   0.367779
+205  211         冰雪王国  游乐园/体育娱乐  30.670246  ...    0.0              3.0              4.0   0.364999
+20    20         木兰草原      自然风光  30.965586  ...   65.0              2.0              3.5   0.364393
+107  107       意大利风情街      商业街区  30.508259  ...    0.0              2.0              3.5   0.363047
+7      7          知音号  游乐园/体育娱乐  30.602236  ...  268.0              2.5              4.0   0.354059
+
+[334 rows x 12 columns]
+      id                  name        lat  ...  weekdayclosetime                         recommendedfood importance
+16    16  武汉万达瑞华酒店·和特色餐厅(东湖路店)  30.552431  ...             22:00                                           0.825016
+7      7        水樂棠江景餐厅(绿地江滩店)  30.585439  ...             21:00       茅台生焖东海大黄鱼,十年陈皮焗鸡,牛油果酸奶燕窝,水乐棠招牌御膳鸭   0.811088
+8      8       粗茶淡饭·汉口公馆(循礼门店)  30.587486  ...             21:00          香煎鲈鱼,鲜花椒牛蛙,小米排骨,豆腐圆子,三鲜豆皮,麻酱凤尾   0.800129
+96   101        武汉万达瑞华酒店·游宴中餐厅  30.552162  ...             22:00                                           0.761491
+1      1             青禾餐厅(东湖店)  30.584243  ...             21:00       古法南非溏心鲍,青禾招牌翅,金蒜焗帝王蟹,鲍汁扣辽参,玻璃脆皮乳鸽   0.755365
+..   ...                   ...        ...  ...               ...                                     ...        ...
+456  499        花见小鹿·烧肉放题自助专门店  30.595243  ...             21:30                                           0.439802
+50    51             蟹神·咩咩特色海鲜  30.541767  ...             23:30  【咩咩】招牌蟹钳 ,【咩咩】全味虾球,蟹神汤包,功夫卤牛蛙,花甲面,爆炒田螺   0.437698
+90    93                  六也抄手  30.579173  ...             14:00          鲜虾肠粉,小汤圆米酒桂花糊,糊汤抄手,鲜虾抄手,油条,虾饺皇   0.430378
+26    26               老通城豆皮大王  30.585527  ...             20:00   牛肉豆皮,三鲜豆皮,咖喱小龙虾豆皮,藤椒鸡肉豆皮,虾仁蛋皮豆皮,桂花糊米酒   0.428143
+100  105                 味美香豆皮  30.525459  ...             13:30             三鲜豆皮,全料热干面,牛肉豆皮,牛肉粉,桂花糊,糊米酒   0.427245
+
+[457 rows x 10 columns]
+{'query_idx': 179, 'transport_preference': 'metro', 'go_transport': TrainID        G484
+TrainType        高铁
+From            北京站
+To              武汉站
+BeginTime     06:48
+EndTime       13:08
+Duration       6.33
+Cost         684.27
+Name: 0, dtype: object, 'back_transport': TrainID        G402
+TrainType        高铁
+From            武汉站
+To             北京西站
+BeginTime     18:41
+EndTime       23:42
+Duration       5.08
+Cost         684.27
+Name: 34, dtype: object}
+search: ...
+0 1
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+try another poi type
+0 1
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+try another poi type
+0 1
+candidates_type:  ['attraction', 'lunch', 'hotel']
+1 1
+candidates_type:  ['attraction', 'lunch', 'dinner', 'back-intercity-transport']
+1 1
+candidates_type:  ['attraction', 'lunch', 'dinner', 'back-intercity-transport']
+1 1
+candidates_type:  ['attraction', 'dinner', 'back-intercity-transport']
+1 1
+candidates_type:  ['attraction', 'dinner', 'back-intercity-transport']
+validate the plan [for query 179]: 
+{'people_number': 4, 'start_city': '北京', 'target_city': '武汉', 'itinerary': [{'day': 1, 'activities': [{'start_time': '06:48', 'end_time': '13:08', 'start': '北京站', 'end': '武汉站', 'TrainID': 'G484', 'type': 'train', 'transports': [], 'cost': 684.27, 'tickets': 4}, {'position': '武汉文旅集团·夜游长江', 'type': 'attraction', 'transports': [{'start': '武汉站', 'end': '武汉站东广场-地铁站', 'mode': 'walk', 'start_time': '13:08', 'end_time': '13:10', 'cost': 0, 'distance': 0.19}, {'start': '武汉站东广场-地铁站', 'end': '三阳路-地铁站', 'mode': 'metro', 'start_time': '13:10', 'end_time': '13:34', 'cost': 4, 'distance': 12.07, 'tickets': 4}, {'start': '三阳路-地铁站', 'end': '武汉文旅集团·夜游长江', 'mode': 'walk', 'start_time': '13:34', 'end_time': '13:50', 'cost': 0, 'distance': 1.39}], 'cost': 68, 'start_time': '18:00', 'end_time': '18:30'}, {'position': '武汉万达瑞华酒店·和特色餐厅(东湖路店)', 'type': 'dinner', 'transports': [{'start': '武汉文旅集团·夜游长江', 'end': '三阳路-地铁站', 'mode': 'walk', 'start_time': '18:30', 'end_time': '18:46', 'cost': 0, 'distance': 1.39}, {'start': '三阳路-地铁站', 'end': '水果湖-地铁站', 'mode': 'metro', 'start_time': '18:46', 'end_time': '18:59', 'cost': 3, 'distance': 6.75, 'tickets': 4}, {'start': '水果湖-地铁站', 'end': '武汉万达瑞华酒店·和特色餐厅(东湖路店)', 'mode': 'walk', 'start_time': '18:59', 'end_time': '19:00', 'cost': 0, 'distance': 0.11}], 'cost': 445, 'start_time': '19:00', 'end_time': '20:30'}, {'position': '金泰酒店(武汉世界城光谷步行街华中科技大学店)', 'type': 'accommodation', 'room_type': 1, 'transports': [{'start': '武汉万达瑞华酒店·和特色餐厅(东湖路店)', 'end': '水果湖-地铁站', 'mode': 'walk', 'start_time': '20:30', 'end_time': '20:31', 'cost': 0, 'distance': 0.11}, {'start': '水果湖-地铁站', 'end': '珞雄路-地铁站', 'mode': 'metro', 'start_time': '20:31', 'end_time': '20:46', 'cost': 3, 'distance': 7.5, 'tickets': 4}, {'start': '珞雄路-地铁站', 'end': '金泰酒店(武汉世界城光谷步行街华中科技大学店)', 'mode': 'walk', 'start_time': '20:46', 'end_time': '20:59', 'cost': 0, 'distance': 1.09}], 'cost': 148.0, 'start_time': '20:59', 'end_time': '24:00', 'rooms': 4}]}, {'day': 2, 'activities': [{'position': '金泰酒店(武汉世界城光谷步行街华中科技大学店)', 'type': 'breakfast', 'transports': [], 'cost': 0, 'start_time': '08:00', 'end_time': '08:30'}, {'position': '武汉极地海洋公园', 'type': 'attraction', 'transports': [{'start': '金泰酒店(武汉世界城光谷步行街华中科技大学店)', 'end': '珞雄路-地铁站', 'mode': 'walk', 'start_time': '08:30', 'end_time': '08:43', 'cost': 0, 'distance': 1.09}, {'start': '珞雄路-地铁站', 'end': '宏图大道-地铁站', 'mode': 'metro', 'start_time': '08:43', 'end_time': '09:26', 'cost': 6, 'distance': 21.83, 'tickets': 4}, {'start': '宏图大道-地铁站', 'end': '武汉极地海洋公园', 'mode': 'walk', 'start_time': '09:26', 'end_time': '09:33', 'cost': 0, 'distance': 0.64}], 'cost': 275, 'start_time': '09:33', 'end_time': '12:33'}, {'position': 'POKIFIVE泰式五味茶餐厅(武汉天地店)', 'type': 'lunch', 'transports': [{'start': '武汉极地海洋公园', 'end': '宏图大道-地铁站', 'mode': 'walk', 'start_time': '12:33', 'end_time': '12:40', 'cost': 0, 'distance': 0.64}, {'start': '宏图大道-地铁站', 'end': '黄浦路-地铁站', 'mode': 'metro', 'start_time': '12:40', 'end_time': '12:54', 'cost': 3, 'distance': 7.46, 'tickets': 4}, {'start': '黄浦路-地铁站', 'end': 'POKIFIVE泰式五味茶餐厅(武汉天地店)', 'mode': 'walk', 'start_time': '12:54', 'end_time': '12:59', 'cost': 0, 'distance': 0.44}], 'cost': 116, 'start_time': '12:59', 'end_time': '14:29'}, {'position': '武汉动物园', 'type': 'attraction', 'transports': [{'start': 'POKIFIVE泰式五味茶餐厅(武汉天地店)', 'end': '黄浦路-地铁站', 'mode': 'walk', 'start_time': '14:29', 'end_time': '14:34', 'cost': 0, 'distance': 0.44}, {'start': '黄浦路-地铁站', 'end': '汉阳火车站-地铁站', 'mode': 'metro', 'start_time': '14:34', 'end_time': '14:50', 'cost': 3, 'distance': 8.22, 'tickets': 4}, {'start': '汉阳火车站-地铁站', 'end': '武汉动物园', 'mode': 'walk', 'start_time': '14:50', 'end_time': '14:55', 'cost': 0, 'distance': 0.42}], 'cost': 40, 'start_time': '14:55', 'end_time': '17:00'}, {'start_time': '18:41', 'end_time': '23:42', 'start': '武汉站', 'end': '北京西站', 'TrainID': 'G402', 'type': 'train', 'transports': [{'start': '武汉动物园', 'end': '汉阳火车站-地铁站', 'mode': 'walk', 'start_time': '17:00', 'end_time': '17:05', 'cost': 0, 'distance': 0.42}, {'start': '汉阳火车站-地铁站', 'end': '武汉站东广场-地铁站', 'mode': 'metro', 'start_time': '17:05', 'end_time': '17:40', 'cost': 5, 'distance': 17.77, 'tickets': 4}, {'start': '武汉站东广场-地铁站', 'end': '武汉站', 'mode': 'walk', 'start_time': '17:40', 'end_time': '17:42', 'cost': 0, 'distance': 0.19}], 'cost': 684.27, 'tickets': 4}]}]}
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 2, 'people_number': 4, 'cost': 8418.16, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'G'}, 'food_type': {'日本料理', '东南亚菜'}, 'spot_type': {'游乐园/体育娱乐'}, 'hotel_feature': {'免费停车'}, 'food_price': 280.5, 'hotel_price': 148.0, 'hotel_names': {'金泰酒店(武汉世界城光谷步行街华中科技大学店)'}, 'restaurant_names': {'武汉万达瑞华酒店·和特色餐厅(东湖路店)', 'POKIFIVE泰式五味茶餐厅(武汉天地店)'}, 'attraction_names': {'武汉动物园', '武汉文旅集团·夜游长江', '武汉极地海洋公园'}, 'tickets': 4, 'rooms': 4, 'room_type': 1}
+[True, True, True, True]
+days==2 passed!
+people_number==4 passed!
+tickets==4 passed!
+{'金泰酒店(武汉世界城光谷步行街华中科技大学店)'}<=hotel_names passed!
+
+ Pass! 
+
+True {'people_number': 4, 'start_city': '北京', 'target_city': '武汉', 'itinerary': [{'day': 1, 'activities': [{'start_time': '06:48', 'end_time': '13:08', 'start': '北京站', 'end': '武汉站', 'TrainID': 'G484', 'type': 'train', 'transports': [], 'cost': 684.27, 'tickets': 4}, {'position': '武汉文旅集团·夜游长江', 'type': 'attraction', 'transports': [{'start': '武汉站', 'end': '武汉站东广场-地铁站', 'mode': 'walk', 'start_time': '13:08', 'end_time': '13:10', 'cost': 0, 'distance': 0.19}, {'start': '武汉站东广场-地铁站', 'end': '三阳路-地铁站', 'mode': 'metro', 'start_time': '13:10', 'end_time': '13:34', 'cost': 4, 'distance': 12.07, 'tickets': 4}, {'start': '三阳路-地铁站', 'end': '武汉文旅集团·夜游长江', 'mode': 'walk', 'start_time': '13:34', 'end_time': '13:50', 'cost': 0, 'distance': 1.39}], 'cost': 68, 'start_time': '18:00', 'end_time': '18:30'}, {'position': '武汉万达瑞华酒店·和特色餐厅(东湖路店)', 'type': 'dinner', 'transports': [{'start': '武汉文旅集团·夜游长江', 'end': '三阳路-地铁站', 'mode': 'walk', 'start_time': '18:30', 'end_time': '18:46', 'cost': 0, 'distance': 1.39}, {'start': '三阳路-地铁站', 'end': '水果湖-地铁站', 'mode': 'metro', 'start_time': '18:46', 'end_time': '18:59', 'cost': 3, 'distance': 6.75, 'tickets': 4}, {'start': '水果湖-地铁站', 'end': '武汉万达瑞华酒店·和特色餐厅(东湖路店)', 'mode': 'walk', 'start_time': '18:59', 'end_time': '19:00', 'cost': 0, 'distance': 0.11}], 'cost': 445, 'start_time': '19:00', 'end_time': '20:30'}, {'position': '金泰酒店(武汉世界城光谷步行街华中科技大学店)', 'type': 'accommodation', 'room_type': 1, 'transports': [{'start': '武汉万达瑞华酒店·和特色餐厅(东湖路店)', 'end': '水果湖-地铁站', 'mode': 'walk', 'start_time': '20:30', 'end_time': '20:31', 'cost': 0, 'distance': 0.11}, {'start': '水果湖-地铁站', 'end': '珞雄路-地铁站', 'mode': 'metro', 'start_time': '20:31', 'end_time': '20:46', 'cost': 3, 'distance': 7.5, 'tickets': 4}, {'start': '珞雄路-地铁站', 'end': '金泰酒店(武汉世界城光谷步行街华中科技大学店)', 'mode': 'walk', 'start_time': '20:46', 'end_time': '20:59', 'cost': 0, 'distance': 1.09}], 'cost': 148.0, 'start_time': '20:59', 'end_time': '24:00', 'rooms': 4}]}, {'day': 2, 'activities': [{'position': '金泰酒店(武汉世界城光谷步行街华中科技大学店)', 'type': 'breakfast', 'transports': [], 'cost': 0, 'start_time': '08:00', 'end_time': '08:30'}, {'position': '武汉极地海洋公园', 'type': 'attraction', 'transports': [{'start': '金泰酒店(武汉世界城光谷步行街华中科技大学店)', 'end': '珞雄路-地铁站', 'mode': 'walk', 'start_time': '08:30', 'end_time': '08:43', 'cost': 0, 'distance': 1.09}, {'start': '珞雄路-地铁站', 'end': '宏图大道-地铁站', 'mode': 'metro', 'start_time': '08:43', 'end_time': '09:26', 'cost': 6, 'distance': 21.83, 'tickets': 4}, {'start': '宏图大道-地铁站', 'end': '武汉极地海洋公园', 'mode': 'walk', 'start_time': '09:26', 'end_time': '09:33', 'cost': 0, 'distance': 0.64}], 'cost': 275, 'start_time': '09:33', 'end_time': '12:33'}, {'position': 'POKIFIVE泰式五味茶餐厅(武汉天地店)', 'type': 'lunch', 'transports': [{'start': '武汉极地海洋公园', 'end': '宏图大道-地铁站', 'mode': 'walk', 'start_time': '12:33', 'end_time': '12:40', 'cost': 0, 'distance': 0.64}, {'start': '宏图大道-地铁站', 'end': '黄浦路-地铁站', 'mode': 'metro', 'start_time': '12:40', 'end_time': '12:54', 'cost': 3, 'distance': 7.46, 'tickets': 4}, {'start': '黄浦路-地铁站', 'end': 'POKIFIVE泰式五味茶餐厅(武汉天地店)', 'mode': 'walk', 'start_time': '12:54', 'end_time': '12:59', 'cost': 0, 'distance': 0.44}], 'cost': 116, 'start_time': '12:59', 'end_time': '14:29'}, {'position': '武汉动物园', 'type': 'attraction', 'transports': [{'start': 'POKIFIVE泰式五味茶餐厅(武汉天地店)', 'end': '黄浦路-地铁站', 'mode': 'walk', 'start_time': '14:29', 'end_time': '14:34', 'cost': 0, 'distance': 0.44}, {'start': '黄浦路-地铁站', 'end': '汉阳火车站-地铁站', 'mode': 'metro', 'start_time': '14:34', 'end_time': '14:50', 'cost': 3, 'distance': 8.22, 'tickets': 4}, {'start': '汉阳火车站-地铁站', 'end': '武汉动物园', 'mode': 'walk', 'start_time': '14:50', 'end_time': '14:55', 'cost': 0, 'distance': 0.42}], 'cost': 40, 'start_time': '14:55', 'end_time': '17:00'}, {'start_time': '18:41', 'end_time': '23:42', 'start': '武汉站', 'end': '北京西站', 'TrainID': 'G402', 'type': 'train', 'transports': [{'start': '武汉动物园', 'end': '汉阳火车站-地铁站', 'mode': 'walk', 'start_time': '17:00', 'end_time': '17:05', 'cost': 0, 'distance': 0.42}, {'start': '汉阳火车站-地铁站', 'end': '武汉站东广场-地铁站', 'mode': 'metro', 'start_time': '17:05', 'end_time': '17:40', 'cost': 5, 'distance': 17.77, 'tickets': 4}, {'start': '武汉站东广场-地铁站', 'end': '武汉站', 'mode': 'walk', 'start_time': '17:40', 'end_time': '17:42', 'cost': 0, 'distance': 0.19}], 'cost': 684.27, 'tickets': 4}]}]}
+llm time cost:  2.9291279315948486
+success rate [medium_plus]: 1/1
+{'tag': 'hotel_name', 'start_city': '北京', 'target_city': '武汉', 'hard_logic': ['days==2', 'people_number==4', 'tickets==4', "{'金泰酒店(武汉世界城光谷步行街华中科技大学店)'}<=hotel_names"], 'nature_language': '当前位置北京。我们四个人想去武汉玩2天，住在华中科技大学附近的金泰酒店，请给我们一个旅行规划。', 'days': 2, 'people_number': 4, 'transport_preference': 'metro', 'hard_logic_unseen': [], 'hotel_names': {'金泰酒店(武汉世界城光谷步行街华中科技大学店)'}}
+北京 武汉
+from 北京 to 武汉: 10 flights, 35 trains
+from 武汉 to 北京: 10 flights, 35 trains
+武汉 accommmodation, 1 hotels (satisfied requirments)
+### 武汉两日游旅行规划
+
+#### 第一天
+1. **黄鹤楼** (65.0元/人) - 历史古迹，武汉标志性景点，值得一游。
+2. **武汉大学** (免费) - 美丽的校园，适合散步和拍照。
+3. **户部巷** (免费) - 体验武汉小吃和当地文化。
+4. **夜上黄鹤楼** (120.0元/人) - 人文景观，夜景美丽，推荐。
+
+#### 第二天
+1. **武汉动物园** (40.0元/人) - 适合家庭游玩，适合放松。
+2. **武汉极地海洋公园** (275.0元/人) - 游乐园，适合喜欢海洋生物的游客。
+3. **汉秀剧场** (229.0元/人) - 观看表演，感受武汉的文化艺术。
+4. **长江荣耀游船** (免费) - 享受长江风光，适合结束行程。
+
+### 重要性评估
+- **高重要性**: 黄鹤楼、武汉大学、夜上黄鹤楼
+- **中重要性**: 武汉动物园、汉秀剧场
+- **低重要性**: 户部巷、武汉极地海洋公园
+
+### 总结
+建议优先安排高重要性景点，适当加入中等重要性景点，确保行程丰富而不拥挤。
+{'tag': 'hotel_name', 'start_city': '北京', 'target_city': '武汉', 'hard_logic': ['days==2', 'people_number==4', 'tickets==4', "{'金泰酒店(武汉世界城光谷步行街华中科技大学店)'}<=hotel_names"], 'nature_language': '当前位置北京。我们四个人想去武汉玩2天，住在华中科技大学附近的金泰酒店，请给我们一个旅行规划。', 'days': 2, 'people_number': 4, 'transport_preference': 'metro', 'hard_logic_unseen': [], 'hotel_names': {'金泰酒店(武汉世界城光谷步行街华中科技大学店)'}}
+北京 武汉
+from 北京 to 武汉: 10 flights, 35 trains
+from 武汉 to 北京: 10 flights, 35 trains
+武汉 accommmodation, 1 hotels (satisfied requirments)
+score over
+score over
+search: ...
+0 1
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+try another poi type
+0 1
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']

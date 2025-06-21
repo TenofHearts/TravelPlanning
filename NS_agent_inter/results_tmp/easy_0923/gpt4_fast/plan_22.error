@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1666, in <module>
+    #     print("fail: ", idx)
+ValueError: not enough values to unpack (expected 3, got 2)
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1618, in <module>
+    success, plan, llm_time_cost = searcher.symbolic_search(query_i)
+ValueError: not enough values to unpack (expected 3, got 2)

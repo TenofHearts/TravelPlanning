@@ -1,0 +1,300 @@
+{
+    "people_number": 4,
+    "start_city": "北京",
+    "target_city": "武汉",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "06:48",
+                    "end_time": "13:08",
+                    "start": "北京站",
+                    "end": "武汉站",
+                    "TrainID": "G484",
+                    "type": "train",
+                    "transports": [],
+                    "cost": 684.27,
+                    "tickets": 4
+                },
+                {
+                    "position": "武汉文旅集团·夜游长江",
+                    "type": "attraction",
+                    "transports": [
+                        {
+                            "start": "武汉站",
+                            "end": "武汉站东广场-地铁站",
+                            "mode": "walk",
+                            "start_time": "13:08",
+                            "end_time": "13:10",
+                            "cost": 0,
+                            "distance": 0.19
+                        },
+                        {
+                            "start": "武汉站东广场-地铁站",
+                            "end": "三阳路-地铁站",
+                            "mode": "metro",
+                            "start_time": "13:10",
+                            "end_time": "13:34",
+                            "cost": 4,
+                            "distance": 12.07,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "三阳路-地铁站",
+                            "end": "武汉文旅集团·夜游长江",
+                            "mode": "walk",
+                            "start_time": "13:34",
+                            "end_time": "13:50",
+                            "cost": 0,
+                            "distance": 1.39
+                        }
+                    ],
+                    "cost": 68,
+                    "start_time": "18:00",
+                    "end_time": "18:30"
+                },
+                {
+                    "position": "武汉万达瑞华酒店·和特色餐厅(东湖路店)",
+                    "type": "dinner",
+                    "transports": [
+                        {
+                            "start": "武汉文旅集团·夜游长江",
+                            "end": "三阳路-地铁站",
+                            "mode": "walk",
+                            "start_time": "18:30",
+                            "end_time": "18:46",
+                            "cost": 0,
+                            "distance": 1.39
+                        },
+                        {
+                            "start": "三阳路-地铁站",
+                            "end": "水果湖-地铁站",
+                            "mode": "metro",
+                            "start_time": "18:46",
+                            "end_time": "18:59",
+                            "cost": 3,
+                            "distance": 6.75,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "水果湖-地铁站",
+                            "end": "武汉万达瑞华酒店·和特色餐厅(东湖路店)",
+                            "mode": "walk",
+                            "start_time": "18:59",
+                            "end_time": "19:00",
+                            "cost": 0,
+                            "distance": 0.11
+                        }
+                    ],
+                    "cost": 445,
+                    "start_time": "19:00",
+                    "end_time": "20:30"
+                },
+                {
+                    "position": "金泰酒店(武汉世界城光谷步行街华中科技大学店)",
+                    "type": "accommodation",
+                    "room_type": 1,
+                    "transports": [
+                        {
+                            "start": "武汉万达瑞华酒店·和特色餐厅(东湖路店)",
+                            "end": "水果湖-地铁站",
+                            "mode": "walk",
+                            "start_time": "20:30",
+                            "end_time": "20:31",
+                            "cost": 0,
+                            "distance": 0.11
+                        },
+                        {
+                            "start": "水果湖-地铁站",
+                            "end": "珞雄路-地铁站",
+                            "mode": "metro",
+                            "start_time": "20:31",
+                            "end_time": "20:46",
+                            "cost": 3,
+                            "distance": 7.5,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "珞雄路-地铁站",
+                            "end": "金泰酒店(武汉世界城光谷步行街华中科技大学店)",
+                            "mode": "walk",
+                            "start_time": "20:46",
+                            "end_time": "20:59",
+                            "cost": 0,
+                            "distance": 1.09
+                        }
+                    ],
+                    "cost": 148.0,
+                    "start_time": "20:59",
+                    "end_time": "24:00",
+                    "rooms": 4
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "金泰酒店(武汉世界城光谷步行街华中科技大学店)",
+                    "type": "breakfast",
+                    "transports": [],
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30"
+                },
+                {
+                    "position": "武汉极地海洋公园",
+                    "type": "attraction",
+                    "transports": [
+                        {
+                            "start": "金泰酒店(武汉世界城光谷步行街华中科技大学店)",
+                            "end": "珞雄路-地铁站",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:43",
+                            "cost": 0,
+                            "distance": 1.09
+                        },
+                        {
+                            "start": "珞雄路-地铁站",
+                            "end": "宏图大道-地铁站",
+                            "mode": "metro",
+                            "start_time": "08:43",
+                            "end_time": "09:26",
+                            "cost": 6,
+                            "distance": 21.83,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "宏图大道-地铁站",
+                            "end": "武汉极地海洋公园",
+                            "mode": "walk",
+                            "start_time": "09:26",
+                            "end_time": "09:33",
+                            "cost": 0,
+                            "distance": 0.64
+                        }
+                    ],
+                    "cost": 275,
+                    "start_time": "09:33",
+                    "end_time": "12:33"
+                },
+                {
+                    "position": "POKIFIVE泰式五味茶餐厅(武汉天地店)",
+                    "type": "lunch",
+                    "transports": [
+                        {
+                            "start": "武汉极地海洋公园",
+                            "end": "宏图大道-地铁站",
+                            "mode": "walk",
+                            "start_time": "12:33",
+                            "end_time": "12:40",
+                            "cost": 0,
+                            "distance": 0.64
+                        },
+                        {
+                            "start": "宏图大道-地铁站",
+                            "end": "黄浦路-地铁站",
+                            "mode": "metro",
+                            "start_time": "12:40",
+                            "end_time": "12:54",
+                            "cost": 3,
+                            "distance": 7.46,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "黄浦路-地铁站",
+                            "end": "POKIFIVE泰式五味茶餐厅(武汉天地店)",
+                            "mode": "walk",
+                            "start_time": "12:54",
+                            "end_time": "12:59",
+                            "cost": 0,
+                            "distance": 0.44
+                        }
+                    ],
+                    "cost": 116,
+                    "start_time": "12:59",
+                    "end_time": "14:29"
+                },
+                {
+                    "position": "武汉动物园",
+                    "type": "attraction",
+                    "transports": [
+                        {
+                            "start": "POKIFIVE泰式五味茶餐厅(武汉天地店)",
+                            "end": "黄浦路-地铁站",
+                            "mode": "walk",
+                            "start_time": "14:29",
+                            "end_time": "14:34",
+                            "cost": 0,
+                            "distance": 0.44
+                        },
+                        {
+                            "start": "黄浦路-地铁站",
+                            "end": "汉阳火车站-地铁站",
+                            "mode": "metro",
+                            "start_time": "14:34",
+                            "end_time": "14:50",
+                            "cost": 3,
+                            "distance": 8.22,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "汉阳火车站-地铁站",
+                            "end": "武汉动物园",
+                            "mode": "walk",
+                            "start_time": "14:50",
+                            "end_time": "14:55",
+                            "cost": 0,
+                            "distance": 0.42
+                        }
+                    ],
+                    "cost": 40,
+                    "start_time": "14:55",
+                    "end_time": "17:00"
+                },
+                {
+                    "start_time": "18:41",
+                    "end_time": "23:42",
+                    "start": "武汉站",
+                    "end": "北京西站",
+                    "TrainID": "G402",
+                    "type": "train",
+                    "transports": [
+                        {
+                            "start": "武汉动物园",
+                            "end": "汉阳火车站-地铁站",
+                            "mode": "walk",
+                            "start_time": "17:00",
+                            "end_time": "17:05",
+                            "cost": 0,
+                            "distance": 0.42
+                        },
+                        {
+                            "start": "汉阳火车站-地铁站",
+                            "end": "武汉站东广场-地铁站",
+                            "mode": "metro",
+                            "start_time": "17:05",
+                            "end_time": "17:40",
+                            "cost": 5,
+                            "distance": 17.77,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "武汉站东广场-地铁站",
+                            "end": "武汉站",
+                            "mode": "walk",
+                            "start_time": "17:40",
+                            "end_time": "17:42",
+                            "cost": 0,
+                            "distance": 0.19
+                        }
+                    ],
+                    "cost": 684.27,
+                    "tickets": 4
+                }
+            ]
+        }
+    ]
+}

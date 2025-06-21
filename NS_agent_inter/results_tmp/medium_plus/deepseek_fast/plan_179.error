@@ -1,0 +1,202 @@
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_plus.py", line 2307, in <module>
+    success, plan, llm_time_cost = symbolic_search(query_i, idx, if_fast=fast_mode, result_dir=result_dir)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_plus.py", line 2169, in symbolic_search
+    success, plan = search_plan(query, {"query_idx":query_idx},fast_mode=fast_mode, result_dir=result_dir)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_plus.py", line 1856, in search_plan
+    success, plan = search_poi(query, poi_plan, plan=[], current_time = "", current_position="")
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_plus.py", line 840, in search_poi
+    success, plan = search_poi(query, poi_plan, plan, new_time, new_position, current_day, verbose)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_plus.py", line 1455, in search_poi
+    success, plan = search_poi(query, poi_plan, plan, new_time, new_position, current_day, verbose)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_plus.py", line 1100, in search_poi
+    transports_sel = goto(city=query["target_city"], start=current_position,
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/../envs.py", line 310, in goto
+    res = GoTo(city, start, end, start_time, method, verbose)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/../tools/transportation/apis.py", line 142, in GoTo
+    stationB, distanceB = find_nearest_station(
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/../tools/transportation/apis.py", line 277, in find_nearest_station
+    distance = geodesic(location, station['position']).kilometers
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/geopy/distance.py", line 540, in __init__
+    super().__init__(*args, **kwargs)
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/geopy/distance.py", line 276, in __init__
+    kilometers += self.measure(a, b)
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/geopy/distance.py", line 566, in measure
+    s12 = self.geod.Inverse(lat1, lon1, lat2, lon2,
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/geographiclib/geodesic.py", line 1030, in Inverse
+    a12, s12, salp1,calp1, salp2,calp2, m12, M12, M21, S12 = self._GenInverse(
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/geographiclib/geodesic.py", line 925, in _GenInverse
+    s12x, m12x, dummy, M12, M21 = self._Lengths(
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/geographiclib/geodesic.py", line 447, in _Lengths
+    Geodesic._C1f(eps, C1a)
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/geographiclib/geodesic.py", line 221, in _C1f
+    c[l] = d * Math.polyval(m, coeff, o, eps2) / coeff[o + m + 1]
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/geographiclib/geomath.py", line 68, in polyval
+    while N > 0:
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1618, in <module>
+    success, plan = searcher.symbolic_search(query_i)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 382, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 521, in search_plan
+    score_list = self.score_poi_think_overall_act_page(info_list, poi_info_list, react=True)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 755, in score_poi_think_overall_act_page
+    overall_plan, history_message_think_overall = self.reason_prompt(info_list, return_history_message=True, history_message=[])
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 792, in reason_prompt
+    thought = self.llm_model(json_scratchpad)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/../llms.py", line 37, in __call__
+    res_str = self.llm.chat.completions.create(
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/openai/_utils/_utils.py", line 274, in wrapper
+    return func(*args, **kwargs)
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/openai/resources/chat/completions.py", line 704, in create
+    return self._post(
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/openai/_base_client.py", line 1260, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/openai/_base_client.py", line 937, in request
+    return self._request(
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/openai/_base_client.py", line 973, in _request
+    response = self._client.send(
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/httpx/_client.py", line 1015, in _send_single_request
+    response = transport.handle_request(request)
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/httpx/_transports/default.py", line 233, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/httpcore/_sync/connection_pool.py", line 216, in handle_request
+    raise exc from None
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/httpcore/_sync/connection_pool.py", line 196, in handle_request
+    response = connection.handle_request(
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/httpcore/_sync/http_proxy.py", line 344, in handle_request
+    return self._connection.handle_request(request)
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/httpcore/_sync/http11.py", line 143, in handle_request
+    raise exc
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/httpcore/_sync/http11.py", line 113, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/httpcore/_sync/http11.py", line 186, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/httpcore/_sync/http11.py", line 224, in _receive_event
+    data = self._network_stream.read(
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/httpcore/_backends/sync.py", line 126, in read
+    return self._sock.recv(max_bytes)
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/ssl.py", line 1260, in recv
+    return self.read(buflen)
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/ssl.py", line 1135, in read
+    return self._sslobj.read(len)
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1647, in <module>
+    success, plan = searcher.symbolic_search(query_i)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 405, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 548, in search_plan
+    attr_info=mmr(df=attr_info)
+NameError: name 'mmr' is not defined
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1665, in <module>
+    success, plan = searcher.symbolic_search(query_i)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 423, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 562, in search_plan
+    score_list = self.score_poi_think_overall_act_page(info_list, poi_info_list, react=True)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 800, in score_poi_think_overall_act_page
+    overall_plan, history_message_think_overall = self.reason_prompt(info_list, return_history_message=True, history_message=[])
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 837, in reason_prompt
+    thought = self.llm_model(json_scratchpad)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/../llms.py", line 37, in __call__
+    res_str = self.llm.chat.completions.create(
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/openai/_utils/_utils.py", line 274, in wrapper
+    return func(*args, **kwargs)
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/openai/resources/chat/completions.py", line 704, in create
+    return self._post(
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/openai/_base_client.py", line 1260, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/openai/_base_client.py", line 937, in request
+    return self._request(
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/openai/_base_client.py", line 973, in _request
+    response = self._client.send(
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/httpx/_client.py", line 1015, in _send_single_request
+    response = transport.handle_request(request)
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/httpx/_transports/default.py", line 233, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/httpcore/_sync/connection_pool.py", line 216, in handle_request
+    raise exc from None
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/httpcore/_sync/connection_pool.py", line 196, in handle_request
+    response = connection.handle_request(
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/httpcore/_sync/http_proxy.py", line 344, in handle_request
+    return self._connection.handle_request(request)
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/httpcore/_sync/http11.py", line 143, in handle_request
+    raise exc
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/httpcore/_sync/http11.py", line 113, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/httpcore/_sync/http11.py", line 186, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/httpcore/_sync/http11.py", line 224, in _receive_event
+    data = self._network_stream.read(
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/httpcore/_backends/sync.py", line 126, in read
+    return self._sock.recv(max_bytes)
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/ssl.py", line 1260, in recv
+    return self.read(buflen)
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/ssl.py", line 1135, in read
+    return self._sslobj.read(len)
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1667, in <module>
+    success, plan = searcher.symbolic_search(query_i)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 423, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 716, in search_plan
+    if query["days"] > 1:
+KeyError: 'days'
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1667, in <module>
+    success, plan = searcher.symbolic_search(query_i)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 423, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 565, in search_plan
+    attr_info=mmr_algorithm(df=attr_info)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 63, in mmr_algorithm
+    selected_names = selected_data['name'].values.split('(')[0]
+AttributeError: 'numpy.ndarray' object has no attribute 'split'
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1667, in <module>
+    success, plan = searcher.symbolic_search(query_i)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 423, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 716, in search_plan
+    if query["days"] > 1:
+KeyError: 'days'
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1668, in <module>
+    success, plan = searcher.symbolic_search(query_i)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 424, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 717, in search_plan
+    if query["days"] > 1:
+KeyError: 'days'
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1667, in <module>
+    print(plan)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 423, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 716, in search_plan
+    if query["days"] > 1:
+KeyError: 'days'
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1666, in <module>
+    success, plan = searcher.symbolic_search(query_i)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 423, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 716, in search_plan
+    if query["days"] > 1:
+KeyError: 'days'

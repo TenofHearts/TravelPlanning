@@ -1,0 +1,73 @@
+import torch.nn.functional as F
+import torch
+from torch import Tensor
+from modelscope import AutoTokenizer, AutoModel
+
+def average_pool(last_hidden_states: Tensor,
+                 attention_mask: Tensor) -> Tensor:
+    last_hidden = last_hidden_states.masked_fill(~attention_mask[..., None].bool(), 0.0)
+    return last_hidden.sum(dim=1) / attention_mask.sum(dim=1)[..., None]
+class Retriever:
+    def __init__(self) -> None:
+        self.tokenizer = AutoTokenizer.from_pretrained('AI-ModelScope/bge-small-zh-v1.5')
+        self.model = AutoModel.from_pretrained('AI-ModelScope/bge-small-zh-v1.5').cuda()
+        self.input_text_list=None
+    
+        
+    def get_score(self,input_text_list,query_text):
+        input_texts = input_text_list+[query_text]
+        # Tokenize the input texts
+        batch_dict = self.tokenizer(input_texts,  max_length=512,padding=True, truncation=True, return_tensors='pt')
+        batch_dict['input_ids']=batch_dict['input_ids'].cuda()
+        batch_dict['token_type_ids']=batch_dict['token_type_ids'].cuda()
+        batch_dict['attention_mask']=batch_dict['attention_mask'].cuda()
+        with torch.no_grad():
+            embeddings = self.model(**batch_dict)[0][:, 0]
+        # embeddings = average_pool(outputs.last_hidden_state, batch_dict['attention_mask'])
+        # normalize embeddings
+        embeddings = F.normalize(embeddings, p=2, dim=1)
+        scores = (embeddings[:-1] @ embeddings[-1:].T) 
+        score_list=[k[0] for k in scores.tolist()]
+        # indexed_scores = [(i, score) for i, score in enumerate(score_list)]
+        # sorted_scores = sorted(indexed_scores, key=lambda x: x[1], reverse=True)
+            
+        return score_list
+    def retrieval_index(self,input_text_list,query_text,top_k=20):
+        input_texts = input_text_list+[query_text]
+        # Tokenize the input texts
+        batch_dict = self.tokenizer(input_texts,  max_length=512,padding=True, truncation=True, return_tensors='pt')
+        batch_dict['input_ids']=batch_dict['input_ids'].cuda()
+        batch_dict['token_type_ids']=batch_dict['token_type_ids'].cuda()
+        batch_dict['attention_mask']=batch_dict['attention_mask'].cuda()
+        with torch.no_grad():
+            embeddings = self.model(**batch_dict)[0][:, 0]
+        # embeddings = average_pool(outputs.last_hidden_state, batch_dict['attention_mask'])
+        # normalize embeddings
+        embeddings = F.normalize(embeddings, p=2, dim=1)
+        scores = (embeddings[:-1] @ embeddings[-1:].T) 
+        score_list=[k[0] for k in scores.tolist()]
+        indexed_scores = [(i, score) for i, score in enumerate(score_list)]
+        sorted_scores = sorted(indexed_scores, key=lambda x: x[1], reverse=True)
+        top_k_indices = [index for index, _ in sorted_scores[:top_k]]
+        return top_k_indices
+
+
+import numpy as np
+if __name__ == "__main__":
+    ret=Retriever()
+    # input_text_list=['中国南京','中国','英国']
+    query="黄鹤楼, 户部巷, 武汉大学, 东湖, 楚河汉街, 湖北省博物馆, 汉口江滩, 武汉欢乐谷, 武汉长江大桥, 夜游长江, 金泰酒店"
+    
+    input_text_list=['黄鹤楼', '晴川阁', '湖北省博物馆', '武汉欢乐谷', '汉口江滩', '武汉文旅集团·夜游长江', '东湖', '知音号', '武汉大学', '武汉极地海洋公园', '夜上黄鹤楼', '户部巷', '武汉动物园', '汉秀剧场', '武汉长江大桥', '木兰天池', '黄陂木兰文化生态旅游区', '武汉园博园(武汉自然博物馆)', '古德寺', '江汉路步行街', '木兰草原', '东湖磨山景区', '武汉植物园', '武汉杜莎夫人蜡像馆', '辛亥革命武昌起义纪念馆', '武汉文旅集团·粤汉码头(夜游长江)', '长江荣耀游船', '昙华林', '东湖落雁景区', '武汉文旅集团·汉阳门码头(夜游长江)', '武汉东湖海洋世界', '船长9号游船(夜游长江)', '武汉旅游观光巴士', '东湖游船', '东湖之眼摩天轮', '黎黄陂路', '东湖磨山索道', '楚河汉街', 'zoolungzoolung动物主题公园(东湖店)', '东湖沙滩景区', '九峰国家森林公园', '九峰森林动物园', 'WS热雪奇迹', '武汉博物馆', '武汉野生动物王国', '木兰花乡景区(木兰不夜城)', '辛亥革命博物馆', '归元禅寺', '湖北美术馆', 'WS梦乐园', '江汉关博物馆', '武昌江滩', '武汉观光游船', '武汉美术馆(汉口馆)', '珞喻路光谷广场', '花博汇(知音花月夜)', '吉庆民俗街', '汉口里', '木兰云雾山', '武汉东湖飞鸟世界', '东湖绿道观光车', '世界城光谷步行街', '2024东风岚图·武汉网球公开赛', '毛泽东同志旧居', '九真山风景区', '木兰山', '武汉关码头', '东湖海洋乐园东湖大马戏', '武汉科技馆', '中山公园', '木兰清凉寨', '东湖听涛景区', '巴公房子', '海底两万里', '百年轮渡·君旅号游船(来源记忆)', '鹦鹉洲长江大桥', '东湖海洋乐园', '湖北省科学技术馆', '武汉革命博物馆', '宝通禅寺', '东湖海洋乐园欢乐水世界', '长春观', '东湖绿道', '武汉悬空玻璃艺术馆', '武汉文旅集团·苗家码头/武汉关2号码头(夜游长江)', '梵高星空艺术馆(武汉旗舰店)', '龟山风景区', '武汉国际博览中心', '武汉体育中心', '昙华林历史文化街区', '锦里沟', '盘龙城国家考古遗址公园', '大余湾', '武汉中华奇石馆', '中国建筑科技馆', '平和打包厂旧址', '汉阳造艺术区', '东湖楚风园', '磨山滑道', '光谷国际网球中心', '紫薇都市田园', '武汉观光游船(晴川码头)', '武汉天地', '梁子湖龙湾半岛景区', '梁子湖风景区', '中共五大会址纪念馆', '凤娃古寨旅游风景区', '意大利风情街', '解放公园', '咸安坊', '桥梁博物馆', '东湖之森·飞越丛林探险乐园', '东湖智能游船', '马鞍山森林公园', '武汉观光游船(中华路1号码头)', '东湖游船磨山梅园码头', '长江武汉关', '姚家山风景区', '龙泉山风景区', '保成路夜市', '武汉青少年宫水上世界', '武汉美术馆(琴台馆)', '欢乐丛林樱花主题乐园', '中山舰博物馆', '江夏灵山生态文化旅游区', '湖北剧院', '沙湖公园', '武汉杂技厅', '农讲所旧址纪念馆', '木兰水镇', '平安大厦', '东湖冰雪大世界', '澜庭', '武汉国民政府旧址', '东湖国家湿地公园', '汉口镇戏码头', '江汉关大楼', '金龙水寨生态乐园', '汉口粤汉码头', '光谷天地', '桃源集亲子小镇', 'zoolung zoolung动物主题公园(壹方购物中心店)', '东湖南路凌波门', '八分山', '汉阳江滩', '万林艺术博物馆', '大英图书馆·世界像素-武汉站', '湖北地质博物馆', '长江文明馆(武汉自然博物馆)', '武汉文旅集团·红巷码头(夜游长江)', '武汉横渡长江博物馆', '首义公园', '嘉诺艺术教堂', '东湖游船行吟阁码头', '琴台大剧院', '蛇山', '楚天台', '琴台钢琴博物馆', '宋庆龄汉口旧居纪念馆', '梨园广场', '龟山电视塔', '行吟阁', '楚城', '武汉冰雪中心', '香草花田', '鹦鹉洲汉阳桥梁主题公园', '武汉国际会展中心', '汉口水塔', '汉阳铁厂', '古巷小吃街', '盘龙城遗址博物院', '武汉中心大厦', '小朱湾', '毛泽东同志故居', '白云洞景区', '华中科技大学-图书馆', '木兰湖', '金银湖国家城市湿地公园', '八七会议会址', '中润趣谷四季滑雪场', '武汉趣谷', '梧桐雨', '青山公园', '潮TOWN(卓刀泉店)', '汉江江滩公园', '飞越湖北(江汉路步行街店)', '紫阳公园', '张公山寨', '汤逊湖', '湖北省图书馆', '藏龙岛国家湿地公园', '月湖风景区', '大禹神话园', '落雁岛', '木兰胜天(农庄)景区', '青龙山国家森林公园', '鹅池', '南岸嘴', '古琴号游船', '花海乐园', '武大凌波门', '松鼠乐园', '东湖凌波门栈桥', '武汉大学-新图书馆', '天汇龙城蘑菇城堡', '冰雪王国', '黄鹤楼酒文化博览园', '宿于山野', '黄花涝古镇', '谭鑫培公园', '武汉长江大桥建成纪念碑', '水云乡', '万国公园', '华中科技大学光谷体育馆', '武汉警察博物馆', '晴川阁夜游(大禹晴川情）', '黄鹤楼故址', '起义门', '渔光岛-野人谷漂流', '鄂军都督府', '石门峰纪念公园', '同兴里', '东湖湖心岛动物博物馆', '屈原纪念馆', '武汉桃源集水乐园', '东西湖极地海洋公园', '青岛路历史风貌区', '武汉二七纪念馆', '光谷花海', '野村谷景区', '湖光阁', '武汉中共中央机关旧址纪念馆', '中国武钢博物馆', '后官湖湿地公园', '武汉剧院', '詹天佑故居', '武汉客厅中国文化博览中心-D馆', '素山寺森林公园', '听涛轩', '武汉图书馆', '花乡茶谷旅游景区', '禹稷行宫', '幻境空间超级元宇宙剧场', '白云阁', '香草伊甸园', '九真桃源', '虎泉夜市美食广场', '堤角公园', '黄鹤归来铜雕', '水生生物博物馆', '周恩来故居', '龙华寺', '辛亥革命纪念园', '武钢文化旅游区', '东湖游船落霞水榭码头', '武汉达临性学博物馆', '东湖帆船公园', '黎黄陂文化博物馆', '汉口历史文化风貌区', '武汉梁子湖拾光牧场', '老斋舍', '长江观景第一台', '维佳童话镇', '武汉理工大学南湖图书馆', '鲁迅广场', '合美术馆', '光谷有田', '大花山', '西北湖', '武汉汉口北嘉年华主题乐园', '武汉规划展示馆', '穿越武汉', '莲溪禅寺', '凌波门东湖观景点', '武汉火车文化主题乐园', '枫香云堡', '王家墩公园', '洪山宝塔', '龙灵山生态公园', '康之泉', '武汉大禹文化博物馆', '土拨鼠俱乐部·魔幻剧场乐园', '5D星空错觉艺术馆', '青山江滩', '得胜桥', '碧潭观鱼', '木兰花谷', '大智无界·空中小镇', '扬子江非遗文化馆', '杨春湖', '琴台音乐厅', '哈哈农场', '华中师范大学文物馆', '搁笔亭', '武汉赶海公园', '木兰玫瑰园', '楚望台', '墨水湖', '杨泗港长江大桥', '钱学森纪念馆', '湖北美术学院美术馆', '花朝河湾', '辛亥革命武昌起义史迹陈列', '明楚王墓群', '武汉甘露山文创城', '胜像宝塔', '田汉大剧院', 'ZS卡丁车俱乐部(汉口店)', '洪山公园', '盛世欢乐世界', '青山图书馆', '刘少奇同志旧居', '汉口美国领事馆旧址', '超级鸟局', '紫薇花海', '和平公园', '武汉安山国家湿地公园', '沧浪亭', '花山滑翔伞体验', '全明星蹦床运动馆(光谷店)', '三楚胜境', '古镇仓埠', '火星2035 沉浸式科学艺术展 武汉站', '中南民族大学-民族学博物馆', '汉口江滩芦苇荡', '武汉大学-风雨操场', '汉口新四军军部旧址', '武汉园博园-东广场', '环球艺术家美术馆', '府河湿地', '汉街', '岳飞铜雕', '中国共产党纪律建设历史陈列馆', '莫莉幻想室内儿童游乐城（武汉摩尔城店）']
+    
+    querys=query.split(', ')
+    scores=[]
+    for q in querys:
+        score=ret.get_score(input_text_list,q)
+        scores.append(score)
+    
+    scores=np.array(scores)
+    score_list=np.max(scores,axis=0)
+    indexed_scores = [(i, score) for i, score in enumerate(score_list)]
+    sorted_scores = sorted(indexed_scores, key=lambda x: x[1], reverse=True)
+    print([input_text_list[int(i)] for i,_ in sorted_scores[:50]])
