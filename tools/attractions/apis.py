@@ -3,7 +3,9 @@ from pandas import DataFrame
 from typing import Callable
 import os
 from geopy.distance import geodesic
-
+from tools.base_api import search_keywords
+import sys
+from datetime import datetime
 
 # class Attractions:
 #     def __init__(self, path: str = "../../database/attractions/nanjing/attractions_nanjing.csv"):
@@ -105,11 +107,64 @@ class Attractions:
     def keys(self, city: str):
         return self.key_type_tuple_list_map[city]
 
-    def select(self, city: str, key, func: Callable) -> DataFrame:
-        if key not in self.data[city].keys():
-            return "Key not found."
-        bool_list = [func(x) for x in self.data[city][key]]
-        return self.data[city][bool_list]
+    def select(self,city, keywords=None, key=None, func=None):
+        # 如果没有提供关键词，使用默认值
+        if keywords is None:
+            keywords = "景点"
+        
+        print(f"搜索关键词: {keywords}")
+        
+        # 调用API
+        result = search_keywords(keywords=keywords, region=city)
+        
+        if not result or 'pois' not in result or not result['pois']:
+            return pd.DataFrame()  # 返回空DataFrame
+        
+        # 转换API返回的结果为DataFrame
+        attractions_data = []
+        for poi in result['pois']:
+            url_list = [
+                photo['url'] 
+                for photo in poi['photos'] 
+                if photo and isinstance(photo, dict) and 'url' in photo
+            ]
+            location = poi['location'].split(",")
+            attraction_data = {
+                'name': poi['name'],
+                'id':poi['id'],
+                'type': poi.get('type', ''),  # 类型
+                'address': poi.get('address', ''),
+                'rating':poi.get('business', {}).get('rating',''),
+                'price':poi.get('business', {}).get('cost',''),
+                'ood_type':poi.get('business', {}).get('tag',''),
+                'open_time':poi.get('business', {}).get('opentime_week',''),
+                'indoor':poi.get('indoor', {}).get('indoor_map',''),
+                'latitude': float(location[1]) if len(location) > 1 else 0.0,
+                'longitude': float(location[0]) if len(location) > 0 else 0.0,
+                'phone': poi.get('business', {}).get('tel', ''),
+                'photos':url_list,
+                'city': city
+            }
+            
+            attractions_data.append(attraction_data)
+        
+        df = pd.DataFrame(attractions_data)
+        if key and func and key in df.columns:
+            bool_list = [func(x) for x in df[key]]
+            df = df[bool_list] 
+        if not df.empty: # 确保DataFrame不为空才保存
+            temp_dir = "temp_csv_files"
+            if not os.path.exists(temp_dir):
+                os.makedirs(temp_dir)
+
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            file_name = f"attractions_{city}_{timestamp}.csv"
+            file_path = os.path.join(temp_dir, file_name)
+
+            df.to_csv(file_path, index=False, encoding='utf-8-sig')
+            
+            print(f"成功将DataFrame保存到临时文件: {file_path}")
+        return df
 
     def id_is_open(self, city: str, id: int, time: str) -> bool:
         open_time = self.data[city]['opentime'][id]

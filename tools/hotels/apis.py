@@ -3,8 +3,9 @@ from pandas import DataFrame
 from typing import Callable
 from geopy.distance import geodesic
 import os
-
-
+from tools.base_api import search_keywords
+import sys
+from datetime import datetime
 # class Accommodations:
 
 #     def __init__(self, path: str = "../../database/hotels/nanjing/hotel.csv"):
@@ -118,12 +119,77 @@ class Accommodations:
     def keys(self, city):
         return self.key_type_tuple_list[city]
 
-    def select(self, city, key, func: Callable) -> DataFrame:
-        if key not in self.data[city].keys():
-            return "Key not found."
-        bool_list = [func(x) for x in self.data[city][key]]
-        return self.data[city][bool_list]
+    def select(self,city, keywords=None, key=None, func=None):
+        """
+        使用API调用获取酒店列表，替代原来的数据库查询方式
+        
+        :param city: 城市名称
+        :param keywords: 搜索关键词，由调用方构建
+        :param key: 查询的关键字类型，用于过滤结果
+        :param func: 筛选条件函数
+        :param query: 查询参数字典，用于价格和房型过滤
+        :return: 酒店信息的DataFrame
+        """
+        # 如果没有提供关键词，使用默认值
+        if keywords is None:
+            keywords = "酒店"
+        
+        print(f"搜索关键词: {keywords}")
+        
+        # 调用API
+        result = search_keywords(keywords=keywords, region=city)
+        
+        if not result or 'pois' not in result or not result['pois']:
+            return pd.DataFrame()  # 返回空DataFrame
+        
+        # 转换API返回的结果为DataFrame
+        hotels_data = []
+        for poi in result['pois']:
+            url_list = [
+                photo['url'] 
+                for photo in poi['photos'] 
+                if photo and isinstance(photo, dict) and 'url' in photo
+            ]
+            location = poi['location'].split(",")
+            hotel_data = {
+                'name': poi['name'],
+                'id':poi['id'],
+                'featurehoteltype': poi.get('type', ''),  # 类型
+                'address': poi.get('address', ''),
+                'rating':poi.get('business', {}).get('rating',''),
+                'cost':poi.get('business', {}).get('cost',''),
+                'tag':poi.get('business', {}).get('tag',''),
+                'latitude': float(location[1]) if len(location) > 1 else 0.0,
+                'longitude': float(location[0]) if len(location) > 0 else 0.0,
+                'phone': poi.get('business', {}).get('tel', ''),
+                'photos':url_list,
+                'city': city
+            }
+            
+            hotels_data.append(hotel_data)
+        
+        df = pd.DataFrame(hotels_data)
+        print("line164",df)
+        if key and func and key in df.columns:
+            bool_list = [func(x) for x in df[key]]
+            df = df[bool_list] 
+        if not df.empty: # 确保DataFrame不为空才保存
+            temp_dir = "temp_csv_files"
+            if not os.path.exists(temp_dir):
+                os.makedirs(temp_dir)
 
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            file_name = f"hotels_{city}_{timestamp}.csv"
+            file_path = os.path.join(temp_dir, file_name)
+
+            df.to_csv(file_path, index=False, encoding='utf-8-sig')
+            
+            print(f"成功将DataFrame保存到临时文件: {file_path}")
+        return df
+
+
+        
+        
     def nearby(self, city, lat: float, lon: float, topk: int = None, dist: float = 5) -> DataFrame:
         distance = [geodesic((lat, lon), (x, y)).km for x, y in zip(
             self.data[city]['latitude'], self.data[city]['longitude'])]

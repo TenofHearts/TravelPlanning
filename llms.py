@@ -198,8 +198,8 @@ class deepseek_poi:
 class deepseek_json:
     def __init__(self):
         self.llm = OpenAI(
-            base_url='https://api.deepseek.com/beta',
-            api_key='sk-500b3107741d49c38f2a945082d04598'
+            base_url='https://api.deepseek.com',
+            api_key='sk-66ed89bddd664c8eb4c31cfd2b0efb58'
         )
 
     def __call__(self, messages):
