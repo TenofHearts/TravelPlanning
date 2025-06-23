@@ -23,7 +23,7 @@ def search_keywords(keywords, region=None,show_fields="business,indoor,photos"):
     params = {
         'key': AMAP_KEY,
         'keywords': keywords,
-        'page_size':200,
+        'page_size':100,
     }
     
     if region:

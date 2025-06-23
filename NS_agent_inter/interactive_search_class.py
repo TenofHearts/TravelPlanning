@@ -604,46 +604,48 @@ class Interactive_Search():
                     
                         poi_plan["accommodation"] = hotel_info.iloc[hotel_i]
                         
-                        if "room_type" in query and query["room_type"] != poi_plan["accommodation"]["numbed"]:
-                            continue
+                        # if "room_type" in query and query["room_type"] != poi_plan["accommodation"]["numbed"]:
+                        #     continue
                         
-                        room_type = poi_plan["accommodation"]["numbed"]
+                        # room_type = poi_plan["accommodation"]["numbed"]
                         
-                        required_rooms = int((query["people_number"] - 1) / room_type) + 1  
+                        # required_rooms = int((query["people_number"] - 1) / room_type) + 1  
                         
-                        if "rooms" in query:
+                        # if "rooms" in query:
                             
-                            if "room_type" in query:
-                                pass
-                            else:
-                                if required_rooms > query["rooms"]:
-                                    print("Not enough bed")
-                                    continue
+                        #     if "room_type" in query:
+                        #         pass
+                        #     else:
+                        #         if required_rooms > query["rooms"]:
+                        #             print("Not enough bed")
+                        #             continue
                                 
                                 
-                            required_rooms = query["rooms"]
+                        #     required_rooms = query["rooms"]
                         
-                        query["required_rooms"] = required_rooms
+                        # query["required_rooms"] = required_rooms
                         
-                        if ("hotel_price" in query) and int(hotel_info.iloc[hotel_i]["price"]) * required_rooms > query["hotel_price"]:
-                            continue
+                        # if ("hotel_price" in query) and int(hotel_info.iloc[hotel_i]["price"]) * required_rooms > query["hotel_price"]:
+                        #     continue
                         
-                        if "cost" in query:
-                            hotel_cost = int(hotel_info.iloc[hotel_i]["price"]) * required_rooms * (query["days"] - 1)    
-                            print("hotel cost: ", hotel_cost)
-                            query["cost_wo_intercity"] =  cost_wo_inter_trans - hotel_cost
+                        # if "cost" in query:
+                        #     hotel_cost = int(hotel_info.iloc[hotel_i]["price"]) * required_rooms * (query["days"] - 1)    
+                        #     print("hotel cost: ", hotel_cost)
+                        #     query["cost_wo_intercity"] =  cost_wo_inter_trans - hotel_cost
                         
-                            if query["cost_wo_intercity"] <= 0:
-                                continue
+                        #     if query["cost_wo_intercity"] <= 0:
+                        #         continue
                         
-                            print("in-city budget: ", query["cost_wo_intercity"])
+                        #     print("in-city budget: ", query["cost_wo_intercity"])
                         
                         
                         
                         print("search: ...")
+                        print("line764,query",query)
+                        print("line764,poi_plan",poi_plan)
                         success, plan = self.search_poi(query, poi_plan, plan=[], current_time = "", current_position="")
 
-                        # exit(0)
+                        # exit(0)   
                         
                         if success:
                             return True, plan
