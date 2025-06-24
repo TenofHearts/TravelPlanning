@@ -207,7 +207,7 @@ def search_poi(query, poi_plan, plan, current_time, current_position, current_da
         return False, plan
         # return False, {"info": "TIME OUT"}
 
-    # 检查城市内预算是否超支
+    # 检查城市内预算是否超支，超出返回false
     if "cost_wo_intercity" in query:
         inner_city_cost = calc_cost_from_itinerary_wo_intercity(
             plan, query["people_number"])
@@ -373,11 +373,14 @@ def search_poi(query, poi_plan, plan, current_time, current_position, current_da
             haved_dinner_today = True
 
     # 动态生成候选POI类型
-    candidates_type = ["attraction"]
+    candidates_type = ["attraction"]  # 默认总是可以是景点
+    # 如果今天还没吃午餐，且当前时间早于等于12:30，则午餐可作为候选
     if (not haved_lunch_today) and time_compare_if_earlier_equal(current_time, "12:30"):
         candidates_type.append("lunch")
+    # 如果今天还没吃晚餐，且当前时间早于等于18:30，则晚餐可作为候选
     if (not haved_dinner_today) and time_compare_if_earlier_equal(current_time, "18:30"):
         candidates_type.append("dinner")
+    # 如果还没到最后一天，且有住宿信息，则酒店可作为候选
     if "accommodation" in poi_plan and current_day < query["days"]-1:
         candidates_type.append("hotel")
 
@@ -589,26 +592,9 @@ def search_poi(query, poi_plan, plan, current_time, current_position, current_da
 
     # 3. 景点
     elif poi_type == "attraction":
+        # 初始化每个景点的权重为1
         attr_weight = np.ones(poi_info["attractions_num"])
-
-        # if "cost_wo_intercity" in query:
-
-        #     # priority low cost
-
-        #     attr_price = poi_info["attractions"]["price"].values
-
-        #     max_price = attr_price.max()
-        #     min_price = attr_price.min()
-
-        #     # res_price.sort()
-        #     # print(res_price)
-        #     # exit(0)
-
-        #     regularized_price = (attr_price - min_price) / (max_price - min_price)
-
-        #     attr_weight = 1. - regularized_price
-        #     # print(regularized_price)
-
+        # 如果用户有“景点类型”要求，且还有没去过的类型，则优先安排这些类型的景点。
         if "spot_type" in query and (not set(query["spot_type"]) <= set(spot_type_visiting)):
 
             # weight_list = []
@@ -624,6 +610,7 @@ def search_poi(query, poi_plan, plan, current_time, current_position, current_da
                 #     raw_weight[res_i] *= int(cuisine_type in query["food_type"] and (not cuisine_type in food_type_visiting))
                 # else:
                 #     raw_weight[res_i] *= 0
+        # 如果用户指定了必须要去的景点，且还有没去过的，则优先安排这些景点
         if "attraction_names" in query and (not set(query["attraction_names"]) <= set(attraction_names_visiting)):
             attr_info = poi_info["attractions"]
 
@@ -633,16 +620,10 @@ def search_poi(query, poi_plan, plan, current_time, current_position, current_da
 
                 attr_weight[res_i] *= max(int(attr_name in query["attraction_names"] and (
                     not attr_name in attraction_names_visiting)), 1e-5)
-
+        # 排序
         ranking_idx = np.argsort(-np.array(attr_weight))
+        # 遍历候选景点
 
-        # print(attr_weight)
-        # print(ranking_idx)
-        # print(poi_info["attractions"].iloc[ranking_idx[0]])
-
-        # exit(0)
-
-        # for attr_idx in range(poi_info["attractions_num"]):
         for r_i in ranking_idx:
 
             attr_idx = r_i
@@ -655,10 +636,10 @@ def search_poi(query, poi_plan, plan, current_time, current_position, current_da
                 poi_sel = poi_info["attractions"].iloc[attr_idx]
 
                 # print(current_position, poi_sel["name"])
-
+                # 计算从当前位置到该景点的交通方式和到达时间
                 transports_sel = goto(city=query["target_city"], start=current_position,
                                       end=poi_sel["name"], start_time=current_time, method=poi_plan["transport_preference"], verbose=False)
-
+                # 处理交通方式的特殊字段
                 if len(transports_sel) == 3:
                     transports_sel[1]["tickets"] = query["people_number"]
                 elif transports_sel[0]["mode"] == "taxi":
@@ -666,29 +647,26 @@ def search_poi(query, poi_plan, plan, current_time, current_position, current_da
                         (query["people_number"] - 1) / 4) + 1
                 arrived_time = transports_sel[-1]["end_time"]
 
-                # print(transports_sel)
-                # print(poi_sel, arrived_time)
-
-                # exit(0)
-                # 开放时间
+                # 获取景点开放时间
                 opentime, endtime = poi_sel["opentime"],  poi_sel["endtime"]
 
-                # too late
+                # 如果到达时间太晚（21:00后），跳过   合理吗？？？？
                 if time_compare_if_earlier_equal("21:00", arrived_time):
                     continue
-                # it is closed ...
+                # 如果到达时景点已关门，跳过
                 if time_compare_if_earlier_equal(endtime, arrived_time):
                     continue
-
+                # 如果到达时间早于开放时间，则活动开始时间为开放时间，否则为到达时间
                 if time_compare_if_earlier_equal(arrived_time, opentime):
                     act_start_time = opentime
                 else:
                     act_start_time = arrived_time
-
+                # 动持续90分钟，计算结束时间
                 act_end_time = add_time_delta(act_start_time, 90)
+                # 如果结束时间超过关门时间，则以关门时间为准
                 if time_compare_if_earlier_equal(endtime, act_end_time):
                     act_end_time = endtime
-
+                # 构造本次活动
                 activity_i = {
                     "position": poi_sel["name"],
                     "type": poi_type,
@@ -697,41 +675,43 @@ def search_poi(query, poi_plan, plan, current_time, current_position, current_da
                     "start_time": act_start_time,
                     "end_time": act_end_time
                 }
-
+                # 将活动加入当天行程
                 plan[current_day]["activities"].append(activity_i)
-
+                # 更新递归参数
                 new_time = act_end_time
                 new_position = poi_sel["name"]
-
+                # 记录已访问的景点、类型、名称，防止重复
                 attractions_visiting.append(attr_idx)
                 spot_type_visiting.append(poi_sel["type"])
                 attraction_names_visiting.append(poi_sel["name"])
-
+                # 递归调用，继续安排后续活动
                 success, plan = search_poi(
                     query, poi_plan, plan, new_time, new_position, current_day, verbose)
 
                 if success:
                     return True, plan
-
+                # 如果后续失败，回溯撤销本次安排，尝试下一个景点
                 plan[current_day]["activities"].pop()
                 attractions_visiting.pop()
                 spot_type_visiting.pop()
                 attraction_names_visiting.pop()
 
         # The last event in a day: hotel or go-back
-
+         # 如果已经是最后一天，安排返程
         if current_day == query["days"] - 1:
             # go back
             transports_sel = goto(city=query["target_city"],
                                   start=current_position, end=poi_plan["back_transport"]["From"],
                                   start_time=current_time, method=poi_plan["transport_preference"], verbose=False)
-
+            # 判断交通方式，补充票数或车辆数
+            # 例如地铁+步行+公交等多段交通，第二段补充票数
             if len(transports_sel) == 3:
                 transports_sel[1]["tickets"] = query["people_number"]
+             # 例如地铁+步行+公交等多段交通，第二段补充票数
             elif transports_sel[0]["mode"] == "taxi":
                 transports_sel[0]["car"] = int(
                     (query["people_number"] - 1) / 4) + 1
-
+            # 判断返程交通工具类型，分别处理火车和飞机
             if "TrainID" in poi_plan["back_transport"]:
                 plan[current_day]["activities"].append(
                     {
