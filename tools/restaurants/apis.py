@@ -142,11 +142,14 @@ class Restaurants:
         # 转换API返回的结果为DataFrame
         restaurants_data = []
         for poi in result['pois']:
-            url_list = [
-                photo['url'] 
-                for photo in poi['photos'] 
-                if photo and isinstance(photo, dict) and 'url' in photo
+            '''
+            if poi['photos'] is not None:
+                url_list = [
+                    photo['url'] 
+                    for photo in poi['photos'] 
+                    if photo and isinstance(photo, dict) and 'url' in photo
             ]
+            '''#//todo 加入照片
             location = poi['location'].split(",")
             restaurant_data = {
                 'name': poi['name'],
@@ -157,10 +160,9 @@ class Restaurants:
                 'price':poi.get('business', {}).get('cost',''),
                 'recommendedfood':poi.get('business', {}).get('tag',''),
                 'opentime':poi.get('business', {}).get('opentime_week',''),
-                'lat': float(location[1]) if len(location) > 1 else 0.0,
-                'lon': float(location[0]) if len(location) > 0 else 0.0,
+                'latitude': float(location[1]) if len(location) > 1 else 0.0,
+                'longitude': float(location[0]) if len(location) > 0 else 0.0,
                 'phone': poi.get('business', {}).get('tel', ''),
-                'photos':url_list,
                 'city': city
             }
             

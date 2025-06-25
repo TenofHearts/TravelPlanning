@@ -418,32 +418,6 @@ def get_poi_type_from_time(current_time, candidates_type, back_transport_time):
     
     return poi_type
     
-            
-    hour, minuate = int(current_time.split(":")[0]), int(current_time.split(":")[1])
-    
-    # too late
-    if time_compare_if_earlier_equal("22:30", add_time_delta(current_time, 120)) and "hotel" in candidates_type:
-        return "hotel"
-    
-    
-    # lunch time
-    if ("lunch" in candidates_type) and \
-        (time_compare_if_earlier_equal("11:00", add_time_delta(current_time, 40)) \
-         or time_compare_if_earlier_equal("12:40", add_time_delta(current_time, 120))):
-        return "lunch"
-    
-    
-    
-    # dinner time
-    if ("dinner" in candidates_type) and \
-        (time_compare_if_earlier_equal("17:00", add_time_delta(current_time, 40)) or \
-            time_compare_if_earlier_equal("19:00", add_time_delta(current_time, 120))):
-        return "dinner"
-    
-    
-    return "attraction"
-    
-
 def score_poi(planning_info, poi_info, react=False, history_message = []):
     
     
@@ -1515,77 +1489,35 @@ def search_plan(query, poi_plan, fast_mode=False,result_dir=None):
     train_back_num = 0 if train_back is None else train_back.shape[0]
     
     
-    # if train_go is None:
-    #     train_go_num = 0
-    # if flight_back is None:
-    #     flight_back_num = 0
-    # if train_back is None:
-    #     train_back_num = 0
-    
-    # flight_go_num, train_go_num = flight_go.shape[0], train_go.shape[0]
-    # flight_back_num, train_back_num = flight_back.shape[0], train_back.shape[0]
-    
     print("from {} to {}: {} flights, {} trains".format(source_city, target_city, flight_go_num, train_go_num))
     print("from {} to {}: {} flights, {} trains".format(target_city, source_city, flight_back_num, train_back_num))
+    # 构建搜索关键词
+    keywords = "酒店"  
+    search_query = ""
     
-    
-    
+    # 1. 处理酒店特性
     if "hotel_feature" in query:
-        # hotel_info = hotel_info[hotel_info["featurehoteltype"] in query["hotel_feature"]]
-        hotel_info = accommodation.select(target_city, "featurehoteltype", lambda x:x in query["hotel_feature"])
-    
-    else:
-        hotel_info = accommodation.select(target_city, "name", lambda x:True)
-    
-        
-    if ("hotel_feature_unseen" in query):
-        
-        concept_seen = hotel_info["featurehoteltype"].unique()
-        # print(list(concept_seen))
-        
-        info_list = [
-            "请作为一个旅行规划助手，帮助我挑选酒店，酒店有这些特征：{}, 我需要在以下酒店描述中选择一个最匹配的：{}".format(str(query["hotel_feature_unseen"]), concept_seen), 
-            "请确保你的输出在给出的描述中"
-        ]
-        
-        
-        sel_feature = select_feature(planning_info=info_list)
-        
-        hotel_info = accommodation.select(target_city, "featurehoteltype", lambda x:x == sel_feature)
-    
-    if "hotel_names" in query:
-        hotel_info = accommodation.select(target_city, "name", lambda x:x==list(query["hotel_names"])[0])
-    
-    if ("hotel_names_unseen" in query):
-        concept_seen = hotel_info["name"].unique()
-        
-        info_list = [
-            "请作为一个旅行规划助手，帮助我挑选酒店，我想去{}酒店, 我需要在以下酒店名称中选择一个最匹配的：{}".format(str(query["hotel_names_unseen"]), concept_seen), 
-            "请确保你的输出在给出的名字中"
-        ]
-        sel_name = select_feature(planning_info=info_list)
-        
-        # print(sel_name)
-        
-        hotel_info = accommodation.select(target_city, "name", lambda x:x == sel_name)
-        
-        print(hotel_info)
-        # exit(0)
-        
-        
-    
-    # exit(0)
-    
-    if "room_type" in query :
-        hotel_info = hotel_info[hotel_info["numbed"] == query["room_type"]]
-                    
+        # 把特性添加到关键字前面
+        features = query["hotel_feature"]
+        if isinstance(features, list) and features:
+            for feature in features:
+                keywords = f"{feature}{keywords}"        
+    # 2. 处理酒店名称
+    if "hotel_names" in query and query["hotel_names"]:
+        hotel_name = list(query["hotel_names"])[0] if isinstance(query["hotel_names"], (list, tuple, set)) else query["hotel_names"]
+        search_query += f" 酒店名字为{hotel_name}"        
+    # 3. 处理价格筛选
     if "hotel_price" in query:
-        hotel_info = hotel_info[hotel_info["price"] * query["rooms"] <= query["hotel_price"]]
-        
+        price = query["hotel_price"]
+        search_query += f" 价格为{price}"
     
-        
+    # 组合最终搜索关键词
+    final_keywords = f"{keywords} {search_query}".strip()
+    print(f"482行搜索关键词: {final_keywords}")
+    
+    hotel_info = self.accommodation.select(target_city, keywords=final_keywords)    
+    print("line485",hotel_info)
     num_hotel = hotel_info.shape[0]
-    # print(hotel_info)
     
     print("{} accommmodation, {} hotels (satisfied requirments)".format(target_city, num_hotel))
     
@@ -1608,9 +1540,8 @@ def search_plan(query, poi_plan, fast_mode=False,result_dir=None):
     attraction_names_visiting = []
     restaurant_names_visiting = []
     
-    poi_info["restaurants"] = restaurants.select(target_city, "name", lambda x:True)
-    poi_info["attractions"] = attractions.select(target_city, "name", lambda x:True)
-    
+    self.poi_info["restaurants"] = self.restaurants.select(target_city, "餐厅")
+    self.poi_info["attractions"] = self.attractions.select(target_city, "景点")
     
 
     if fast_mode:
@@ -1626,30 +1557,19 @@ def search_plan(query, poi_plan, fast_mode=False,result_dir=None):
             info_list = [query["nature_language"]]
             info_list.append("在这次在{}的旅行中，请帮我评估每个景点的游玩重要性，看看是否需要安排到行程里".format(query["target_city"]))
 
-            if ("spot_type" in query) or ("spot_type_unseen" in query):
                 
-                req_spot_type = set()
-                
-                if "spot_type" in query:
-                    req_spot_type =  set.union(req_spot_type, set(query["spot_type"]))
-                
-                if "spot_type_unseen" in query:
-                    req_spot_type =  set.union(req_spot_type, set(query["spot_type_unseen"]))
-                    
-                info_list.append("本次旅行有对景点类型的需求，这些类型至少需要去一次 {}, 在选择景点的时候请根据景点的景点类型加以考虑".format(req_spot_type))
-            # print(info_list)
+            req_spot_type = set()
             
-            if ("attraction_names" in query) or ("attraction_names_unseen" in query):
-                
-                
-                req_attr_name = set()
-                if "attraction_names" in query:
-                    req_attr_name =  set.union(req_attr_name, set(query["attraction_names"]))
-                
-                if "attraction_names_unseen" in query:
-                    req_attr_name =  set.union(req_attr_name, set(query["attraction_names_unseen"]))
-                
-                info_list.append("本次旅行有对特定景点的需求，这几个地方至少需要去一次 {}, 在选择景点的时候请根据景点的名字加以考虑".format(req_attr_name))
+            if "spot_type" in query:
+                req_spot_type =  set.union(req_spot_type, set(query["spot_type"]))
+            
+            info_list.append("本次旅行有对景点类型的需求，这些类型至少需要去一次 {}, 在选择景点的时候请根据景点的景点类型加以考虑".format(req_spot_type))
+        
+            req_attr_name = set()
+            if "attraction_names" in query:
+                req_attr_name =  set.union(req_attr_name, set(query["attraction_names"]))
+                                
+            info_list.append("本次旅行有对特定景点的需求，这几个地方至少需要去一次 {}, 在选择景点的时候请根据景点的名字加以考虑".format(req_attr_name))
             info_list.append("请根据以上信息考虑什么样的景点满足我们的需求")
             attr_info = poi_info["attractions"]
             
@@ -1690,54 +1610,34 @@ def search_plan(query, poi_plan, fast_mode=False,result_dir=None):
                 rest_info = rest_info[rest_info["price"] <= upper_budget]
                 
             
-            if ("food_type" in query) or ("food_type_unseen" in query):
+            if ("food_type" in query):
                 req_food_type = set()
                 
                 if "food_type" in query:
                     req_food_type =  set.union(req_food_type, set(query["food_type"]))
                 
-                if "food_type_unseen" in query:
-                    req_food_type =  set.union(req_food_type, set(query["food_type_unseen"]))
-                
                 info_list.append("本次旅行有对餐饮类型的需求，这些类型至少需要吃一次 {}, 在选择餐厅的时候请根据餐厅的餐饮类型加以考虑".format(req_food_type))
                 
-            if ("restaurant_names" in query) or ("restaurant_names_unseen" in query):
-                
-                
+            if ("restaurant_names" in query):
                 req_res_name = set()
                 if "restaurant_names" in query:
-                    req_res_name =  set.union(req_res_name, set(query["restaurant_names"]))
-                
-                if "restaurant_names_unseen" in query:
-                    req_res_name =  set.union(req_res_name, set(query["restaurant_names_unseen"]))
-                
+                    req_res_name =  set.union(req_res_name, set(query["restaurant_names"]))                
                 info_list.append("本次旅行有对特定餐饮商家的需求，这几家至少需要去一次 {}, 在选择餐厅的时候请根据餐厅的名字加以考虑".format(req_res_name))
                 
-            
             info_list.append("请根据以上信息考虑什么样的餐厅满足我们的需求")
             
             poi_info_list = []
             score_list = []
             for idx in range(len(rest_info)):
-                
                 res_i = poi_info["restaurants"].iloc[idx]
-                
                 poi_info_list.append("**{}** name: {} , cusine: {}, price_per_preson: {}, recommended food: {}".format(idx, res_i["name"], res_i["cuisine"], res_i["price"], res_i["recommendedfood"]))
-                # poi_info_list.append("**{}** name: {} , arrived_time: {}, cusine: {}, price_per_preson: {}".format(idx, res_i["name"], arrived_time, res_i["cuisine"], res_i["price"]))
-
             score_list = score_poi_think_overall_act_page(info_list, poi_info_list, react=True)
             rest_info["importance"] = score_list
             rest_info = rest_info.sort_values(by = ["importance"], ascending=False)
         
             # rest_info.to_csv(rest_path, index=False)
             # print("save  >>> ", rest_path)
-        poi_info["restaurants"] = rest_info
-        
-        
-    # print(poi_info["attractions"])
-    # print(poi_info["restaurants"])
-    # exit(0)
-    
+        poi_info["restaurants"] = rest_info    
     poi_info["restaurants_num"] = poi_info["restaurants"].shape[0]
     poi_info["attractions_num"] = poi_info["attractions"].shape[0]
     
@@ -1800,20 +1700,7 @@ def search_plan(query, poi_plan, fast_mode=False,result_dir=None):
                     continue
 
                 else:
-                    cost_wo_inter_trans = query["cost"] - intercity_cost
-                    
-                    # if query["days"] > 1:
-                    #     hotel_cost = int(hotel_info.iloc[hotel_i]["price"]) * query["rooms"] * (query["days"] > 1 - 1)
-                        
-                    #     print("hotel cost: ", hotel_cost)
-                        
-                    #     query["cost_wo_intercity"] =  query["cost_wo_intercity"] - hotel_cost
-                    
-                    # if query["cost_wo_intercity"] <= 0:
-                    #     continue
-                    
-                    # print("in-city budget: ", query["cost_wo_intercity"])
-            
+                    cost_wo_inter_trans = query["cost"] - intercity_cost            
             if query["days"] > 1:
                 
                 # print(num_hotel)
@@ -1822,33 +1709,11 @@ def search_plan(query, poi_plan, fast_mode=False,result_dir=None):
                     # print(hotel_i)
                 
                     poi_plan["accommodation"] = hotel_info.iloc[hotel_i]
-                    
-                    if "room_type" in query and query["room_type"] != poi_plan["accommodation"]["numbed"]:
-                        continue
-                    
-                    room_type = poi_plan["accommodation"]["numbed"]
-                    
-                    required_rooms = int((query["people_number"] - 1) / room_type) + 1  
-                    
-                    if "rooms" in query:
-                        
-                        if "room_type" in query:
-                            pass
-                        else:
-                            if required_rooms > query["rooms"]:
-                                print("Not enough bed")
-                                continue
-                            
-                            
-                        required_rooms = query["rooms"]
-                    
-                    query["required_rooms"] = required_rooms
-                    
-                    if ("hotel_price" in query) and int(hotel_info.iloc[hotel_i]["price"]) * required_rooms > query["hotel_price"]:
+                    if ("hotel_price" in query) and int(hotel_info.iloc[hotel_i]["price"]) > query["hotel_price"]:
                         continue
                     
                     if "cost" in query:
-                        hotel_cost = int(hotel_info.iloc[hotel_i]["price"]) * required_rooms * (query["days"] - 1)    
+                        hotel_cost = int(hotel_info.iloc[hotel_i]["price"]) * query["people_number"] * (query["days"] - 1)    
                         print("hotel cost: ", hotel_cost)
                         query["cost_wo_intercity"] =  cost_wo_inter_trans - hotel_cost
                     
@@ -1927,76 +1792,45 @@ def symbolic_search(query, query_idx, if_fast=False, result_dir="results/"):
     
     
     
-    target_city = query["target_city"]
-    hotel_info = accommodation.select(target_city, "name", lambda x:True)
-    rest_info = restaurants.select(target_city, "name", lambda x:True)
-    attr_info = attractions.select(target_city, "name", lambda x:True)
-    
-    seen_attr_type_concept = set(attr_info["type"].unique())
-    seen_attr_name_concept = set(attr_info["name"].unique())
-    
-    seen_hotel_type_concept = set(hotel_info["featurehoteltype"].unique())
-    seen_hotel_name_concept = set(hotel_info["name"].unique())
-    # print(seen_hotel_type_concept)
-    
-    seen_rest_type_concept = set(rest_info["cuisine"].unique())
-    seen_rest_name_concept = set(rest_info["name"].unique())
-    # print(seen_rest_type_concept)
-    
-    # exit(0)
-    
-    
+    target_city = query["target_city"]    
     query["hard_logic_unseen"] = []
     
     
-    for idx, item in enumerate(query["hard_logic"]):
+    for idx, item in enumerate(query["hard_logic"]):#这里开始解析每个约束
         if item.startswith("rooms=="):
             
             # print(item)
             query["rooms"] = int(item.split("==")[1])
             
-        if item.startswith("cost<="):
+        elif item.startswith("cost<="):
             query["cost"] = int(item.split("<=")[1])
         
-        if item.startswith("room_type=="):
+        elif item.startswith("room_type=="):
             query["room_type"] = int(item.split("==")[1])
         
-        if item.startswith("train_type == "):
+        elif item.startswith("train_type == "):
             query["train_type"] = item.split("'")[1]
             
-        if item.endswith(" <= food_type") or item.endswith("food_type"):
+        elif item.endswith(" <= food_type") or item.endswith("food_type"):
             ftlist = item.split("<=")[0].split("}")[0].split("{")[1]
             
             seen_list = []
-            unseen_list = []
             for s_i in ftlist.split(","):
-                str_i = s_i.split("'")[1]
-                if str_i in seen_rest_type_concept:
-                    seen_list.append(str_i)
-                else:
-                    unseen_list.append(str_i)
-                
+                str_i = s_i.split("'")[1] # 提取想吃的菜系
+                seen_list.append(str_i) 
+
             if len(seen_list) > 0:            
                 query["food_type"] = set(seen_list)
                 query["hard_logic"][idx] = str(query["food_type"]) + "<=food_type"
             else:
-                query["hard_logic"][idx] = " 3 < 33"
-            
-            if len(unseen_list) > 0:
-                query["food_type_unseen"] = set(unseen_list)    
-                query["hard_logic_unseen"].append(str(query["food_type_unseen"]) + "<=food_type")
-                
-        
+                query["hard_logic"][idx] = " 3 < 33"            
         # print(item)
-        if item.startswith("transport_type"): 
+        elif item.startswith("transport_type"): 
             
             if ("<=") in item:
                 str_set = item.split("transport_type<=")[1]
             elif ("==") in item:
                 str_set = item.split("transport_type==")[1]
-                
-            
-            
             if "taxi" in str_set:
                 query["transport_preference"] = "taxi"
             elif "metro" in str_set: 
@@ -2005,167 +1839,83 @@ def symbolic_search(query, query_idx, if_fast=False, result_dir="results/"):
                 query["transport_preference"] = "walk"
                 
         
-        if item.startswith("hotel_price<="):
+        elif item.startswith("hotel_price<="):
             query["hotel_price"] = int(item.split("<=")[1])
         
-        if item.endswith("intercity_transport") or item.startswith("intercity_transport"):
+        elif item.endswith("intercity_transport") or item.startswith("intercity_transport"):
             query["intercity_transport_type"] = item.split("'")[1]
             
         
-        if item.endswith("spot_type"):
+        elif item.endswith("spot_type"):
             stlist = item.split("<=")[0].split("}")[0].split("{")[1]
             
-            spot_type_list = []
-            
             seen_list = []
-            unseen_list = []
             
-            
-            # for s_i in stlist.split(","):
-            #     spot_type_list.append(s_i.split("'")[1])
-                
-            #     str_i = s_i.split("'")[1]
-        
-            # query["spot_type"] = set(spot_type_list)
-            
-            # spot_name_list = []
             for s_i in stlist.split(","):
-                # spot_name_list.append(s_i.split("'")[1])
                 str_i = s_i.split("'")[1]
-                # res_name_list.append()
-                
-                if str_i in seen_attr_type_concept:
-                    seen_list.append(str_i)
-                else:
-                    unseen_list.append(str_i)
+                seen_list.append(str_i)
         
-            # query["attraction_names"] = set(spot_name_list)
             if len(seen_list) > 0:            
                 query["spot_type"] = set(seen_list)
                 query["hard_logic"][idx] = str(query["spot_type"]) + "<=spot_type"
             else:
-                query["hard_logic"][idx] = " 3 < 33"
+                query["hard_logic"][idx] = " 3 < 33"                
             
-            if len(unseen_list) > 0:
-                query["spot_type_unseen"] = set(unseen_list)    
-                query["hard_logic_unseen"].append(str(query["spot_type_unseen"]) + "<=spot_type")
-            
-            
-        if item.endswith("attraction_names"):
+        elif item.endswith("attraction_names"):
             stlist = item.split("<=")[0].split("}")[0].split("{")[1]
             
             seen_list = []
-            unseen_list = []
-            
-            spot_name_list = []
             for s_i in stlist.split(","):
-                # spot_name_list.append(s_i.split("'")[1])
                 str_i = s_i.split("'")[1]
-                # res_name_list.append()
-                
-                if str_i in seen_attr_name_concept:
-                    seen_list.append(str_i)
-                else:
-                    unseen_list.append(str_i)
-        
-            # query["attraction_names"] = set(spot_name_list)
+                seen_list.append(str_i)            
             if len(seen_list) > 0:            
                 query["attraction_names"] = set(seen_list)
                 query["hard_logic"][idx] = str(query["attraction_names"]) + "<=attraction_names"
             else:
                 query["hard_logic"][idx] = " 3 < 33"
-            
-            if len(unseen_list) > 0:
-                query["attraction_names_unseen"] = set(unseen_list)    
-                query["hard_logic_unseen"].append(str(query["attraction_names_unseen"]) + "<=attraction_names")
         
-        if item.endswith("restaurant_names"):
+        elif item.endswith("restaurant_names"):
             stlist = item.split("<=")[0].split("}")[0].split("{")[1]
             
-            res_name_list = []
-            
             seen_list = []
-            unseen_list = []
-            
             for s_i in stlist.split(","):
                 str_i = s_i.split("'")[1]
-                # res_name_list.append()
-                
-                if str_i in seen_rest_name_concept:
-                    seen_list.append(str_i)
-                else:
-                    unseen_list.append(str_i)
-        
-            # query["restaurant_names"] = set(res_name_list)
-            
+                seen_list.append(str_i)            
             if len(seen_list) > 0:            
                 query["restaurant_names"] = set(seen_list)
                 query["hard_logic"][idx] = str(query["restaurant_names"]) + "<=restaurant_names"
             else:
                 query["hard_logic"][idx] = " 3 < 33"
-            
-            if len(unseen_list) > 0:
-                query["restaurant_names_unseen"] = set(unseen_list)    
-                query["hard_logic_unseen"].append(str(query["restaurant_names_unseen"]) + "<=restaurant_names")
-            
-            # seen_rest_name_concept
         
-        if item.endswith("hotel_names"):
+        elif item.endswith("hotel_names"):
             stlist = item.split("<=")[0].split("}")[0].split("{")[1]
             
-            res_name_list = []
-            
             seen_list = []
-            unseen_list = []
-            
             for s_i in stlist.split(","):
                 str_i = s_i.split("'")[1]
-                # res_name_list.append()
-                
-                if str_i in seen_hotel_name_concept:
-                    seen_list.append(str_i)
-                else:
-                    unseen_list.append(str_i)
-        
-            # query["restaurant_names"] = set(res_name_list)
-            
+                seen_list.append(str_i)            
             if len(seen_list) > 0:            
                 query["hotel_names"] = set(seen_list)
                 query["hard_logic"][idx] = str(query["hotel_names"]) + "<=hotel_names"
             else:
                 query["hard_logic"][idx] = " 3 < 33"
-            
-            if len(unseen_list) > 0:
-                query["hotel_names_unseen"] = set(unseen_list)    
-                query["hard_logic_unseen"].append(str(query["hotel_names_unseen"]) + "<=hotel_names")
-            
-            # seen_rest_name_concept
-            
-            
         
-        if item.endswith("hotel_feature"):
+        elif item.endswith("hotel_feature"):
             stlist = item.split("<=")[0].split("}")[0].split("{")[1]
             
-            hf_list = []
-            
             seen_list = []
-            unseen_list = []
             for s_i in stlist.split(","):
                 str_i = s_i.split("'")[1]
-                if str_i in seen_hotel_type_concept:
-                    seen_list.append(str_i)
-                else:
-                    unseen_list.append(str_i)
-                
+                seen_list.append(str_i)            
             if len(seen_list) > 0:            
                 query["hotel_feature"] = set(seen_list)
                 query["hard_logic"][idx] = str(query["hotel_feature"]) + "<=hotel_feature"
             else:
                 query["hard_logic"][idx] = " 3 < 33"
-            
-            if len(unseen_list) > 0:
-                query["hotel_feature_unseen"] = set(unseen_list)    
-                query["hard_logic_unseen"].append(str(query["hotel_feature_unseen"]) + "<=hotel_feature")
+        
+        else:
+            if 'days==' not in item and 'people_number==' not in item  and 'tickets==' not in item:
+                query["hard_logic_unseen"].append(item)
             
             
     
@@ -2180,21 +1930,6 @@ def symbolic_search(query, query_idx, if_fast=False, result_dir="results/"):
     
     global llm_time_cost
     return success, plan, llm_time_cost
-    
-    
-    
-    
-
-    
-    # Env = ReactEnv(None, "")
-    # cmd_str = "attractions_keys('{}')".format(target_city)
-    # res = Env.run(cmd_str)
-    # print(res)
-    
-    # cmd_str = "attractions_select('{}', '{}', {})".format(target_city, "name", "lambda x:True")
-    # res = Env.run(cmd_str)
-    # print(res)
-
 import numpy as np
 class NpEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -2206,24 +1941,6 @@ class NpEncoder(json.JSONEncoder):
             return obj.tolist()
         return super(NpEncoder, self).default(obj)
 import argparse
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='argparse testing')
     parser.add_argument('--level','-l',type=str, default = "easy",choices=["easy", "medium", "medium_plus", "human", "human_small", "example"], help="query subset")

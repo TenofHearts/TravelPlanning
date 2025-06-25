@@ -165,44 +165,7 @@ class Interactive_Search():
         if self.verbose:
             print('query:',query)
         self.avialable_plan={}
-        # try:
-        #     query["days"] = int(query["hard_logic"][0].split("==")[1])
-        #     query["people_number"] = int(query["hard_logic"][1].split("==")[1])
-        # except:
-        #     day_flag, people_flag = False, False
-        
-        #     for item in query["hard_logic"]:
-        #         if "days==" in  item:
-        #             day_flag = True
-        #             query["days"] = int(item.split("==")[1])
-        #         if "people_number==" in  item:
-        #             people_flag = True
-        #             query["people_number"] = int(item.split("==")[1])
-        
-        #     if day_flag and people_flag:
-        #         pass
-        #     else:
-        #         raise Exception("You must provide the information about days and people")
-        
         query["transport_preference"] = "metro"
-        
-    #下面这部分都不需要，因为我们现在是api动态获取，不存在seen/unseen,统一合并到seen_list
-        # target_city = query["target_city"]
-        # hotel_info = self.accommodation.select(target_city, "name", lambda x:True)
-        # rest_info = self.restaurants.select(target_city, "name", lambda x:True)
-        # attr_info = self.attractions.select(target_city, "name", lambda x:True)
-        
-        # seen_attr_type_concept = set(attr_info["type"].unique())
-        # seen_attr_name_concept = set(attr_info["name"].unique())
-        
-        # seen_hotel_type_concept = set(hotel_info["featurehoteltype"].unique())
-        # seen_hotel_name_concept = set(hotel_info["name"].unique())
-        # # print(seen_hotel_type_concept)
-        
-        # seen_rest_type_concept = set(rest_info["cuisine"].unique())
-        # seen_rest_name_concept = set(rest_info["name"].unique())
-        # # print(seen_rest_type_concept)
-        
         query["hard_logic_unseen"] = []
         if self.verbose:
             print("line 208,hard_logic:",query["hard_logic"])
@@ -336,7 +299,13 @@ class Interactive_Search():
         if self.verbose:
             print('query:',query)
         poi_plan={}
-        
+        self.poi_info = {}
+        self.restaurants_visiting = []
+        self.attractions_visiting = []
+        self.food_type_visiting = []
+        self.spot_type_visiting = []
+        self.attraction_names_visiting = []
+        self.restaurant_names_visiting = []
         source_city = query["start_city"]
         target_city = query["target_city"]
         #todo:交通也改成调用api
@@ -355,175 +324,6 @@ class Interactive_Search():
             print("from {} to {}: {} flights, {} trains".format(source_city, target_city, flight_go_num, train_go_num))
             print("from {} to {}: {} flights, {} trains".format(target_city, source_city, flight_back_num, train_back_num))
             
-            
-        # 构建搜索关键词
-        keywords = "酒店"  
-        search_query = ""
-        
-        # 1. 处理酒店特性
-        if "hotel_feature" in query:
-            # 把特性添加到关键字前面
-            features = query["hotel_feature"]
-            if isinstance(features, list) and features:
-                for feature in features:
-                    keywords = f"{feature}{keywords}"        
-        # 2. 处理酒店名称
-        if "hotel_names" in query and query["hotel_names"]:
-            hotel_name = list(query["hotel_names"])[0] if isinstance(query["hotel_names"], (list, tuple, set)) else query["hotel_names"]
-            search_query += f" 酒店名字为{hotel_name}"        
-        # 3. 处理价格筛选
-        if "hotel_price" in query:
-            price = query["hotel_price"]
-            search_query += f" 价格为{price}"
-        
-        # 组合最终搜索关键词
-        final_keywords = f"{keywords} {search_query}".strip()
-        print(f"482行搜索关键词: {final_keywords}")
-        
-        hotel_info = self.accommodation.select(target_city, keywords=final_keywords)    
-        print("line485",hotel_info)
-        num_hotel = hotel_info.shape[0]
-        # print(hotel_info)
-        if self.verbose:
-            print("{} accommmodation, {} hotels (satisfied requirments)".format(target_city, num_hotel))
-        
-        # set_intercity_trannsport(train_go, train_back, flight_go, flight_back)
-        
-        
-        self.poi_info = {}
-        self.restaurants_visiting = []
-        self.attractions_visiting = []
-        self.food_type_visiting = []
-        self.spot_type_visiting = []
-        self.attraction_names_visiting = []
-        self.restaurant_names_visiting = []
-        
-        self.poi_info["restaurants"] = self.restaurants.select(target_city, "餐厅")
-        self.poi_info["attractions"] = self.attractions.select(target_city, "景点")
-        
-
-        ## attractions:
-        info_list = [query["nature_language"]]
-        info_list.append("在这次在{}的旅行中，请帮我评估每个景点的游玩重要性，看看是否需要安排到行程里".format(query["target_city"]))
-
-        if ("spot_type" in query) or ("spot_type_unseen" in query):
-            
-            req_spot_type = set()
-            
-            if "spot_type" in query:
-                req_spot_type =  set.union(req_spot_type, set(query["spot_type"]))
-            
-            if "spot_type_unseen" in query:
-                req_spot_type =  set.union(req_spot_type, set(query["spot_type_unseen"]))
-                
-            info_list.append("本次旅行有对景点类型的需求，这些类型至少需要去一次 {}, 在选择景点的时候请根据景点的景点类型加以考虑".format(req_spot_type))
-        # print(info_list)
-        
-        if ("attraction_names" in query) or ("attraction_names_unseen" in query):
-            
-            
-            req_attr_name = set()
-            if "attraction_names" in query:
-                req_attr_name =  set.union(req_attr_name, set(query["attraction_names"]))
-            
-            if "attraction_names_unseen" in query:
-                req_attr_name =  set.union(req_attr_name, set(query["attraction_names_unseen"]))
-            
-            info_list.append("本次旅行有对特定景点的需求，这几个地方至少需要去一次 {}, 在选择景点的时候请根据景点的名字加以考虑".format(req_attr_name))
-        info_list.append("请根据以上信息考虑什么样的景点满足我们的需求")
-        attr_info = self.poi_info["attractions"]
-        
-        
-        poi_info_list = []
-        for idx in range(len(attr_info)):
-            res_i = attr_info.iloc[idx]
-            poi_info_list.append("**{}** name: {} , price_per_preson: {}, type: {}".format(idx, res_i["name"], res_i["price"],res_i['type']))
-        
-        score_list = self.score_poi_think_overall_act_page(info_list, poi_info_list, react=True)
-        attr_info["importance"] = score_list
-        
-        attr_info=mmr_algorithm(name_key='name',df=attr_info)
-        # attr_info = attr_info.sort_values(by = ["importance"], ascending=False)
-        if self.verbose:
-            print(attr_info)
-        # attr_info.to_csv(attr_path, index=False)
-        # print("save  >>> ", attr_path)
-        
-        self.poi_info["attractions"] = attr_info
-        
-        
-        ## restruants
-       
-        info_list = [query["nature_language"]]
-        
-        info_list.append("在这次在{}的旅行中,请帮我选择一些餐厅去吃，评估每个餐厅的相关性，看看是否需要安排到行程里".format(query["target_city"]))
-        
-        
-        rest_info = self.poi_info["restaurants"]
-        
-        if "cost_wo_intercity" in query:
-            rest_cost = query["cost_wo_intercity"]
-            info_list.append("本次旅行有整体开销的约束，所有餐饮和景点的预算为: {} 元".format(rest_cost))
-            upper_budget = rest_cost / query["people_number"]
-            rest_info = rest_info[rest_info["price"] <= upper_budget]
-            
-        
-        if ("food_type" in query) or ("food_type_unseen" in query):
-            req_food_type = set()
-            
-            if "food_type" in query:
-                req_food_type =  set.union(req_food_type, set(query["food_type"]))
-            
-            if "food_type_unseen" in query:
-                req_food_type =  set.union(req_food_type, set(query["food_type_unseen"]))
-            
-            info_list.append("本次旅行有对餐饮类型的需求，这些类型至少需要吃一次 {}, 在选择餐厅的时候请根据餐厅的餐饮类型加以考虑".format(req_food_type))
-            
-        if ("restaurant_names" in query) or ("restaurant_names_unseen" in query):
-            
-            
-            req_res_name = set()
-            if "restaurant_names" in query:
-                req_res_name =  set.union(req_res_name, set(query["restaurant_names"]))
-            
-            if "restaurant_names_unseen" in query:
-                req_res_name =  set.union(req_res_name, set(query["restaurant_names_unseen"]))
-            
-            info_list.append("本次旅行有对特定餐饮商家的需求，这几家至少需要去一次 {}, 在选择餐厅的时候请根据餐厅的名字加以考虑".format(req_res_name))
-            
-        
-        info_list.append("请根据以上信息考虑什么样的餐厅满足我们的需求")
-        
-        poi_info_list = []
-        score_list = []
-        for idx in range(len(rest_info)):
-            
-            res_i = self.poi_info["restaurants"].iloc[idx]
-            
-            poi_info_list.append("**{}** name: {} , cusine: {}, price_per_preson: {}, recommended food: {}".format(idx, res_i["name"], res_i["cuisine"], res_i["price"], res_i["recommendedfood"]))
-            # poi_info_list.append("**{}** name: {} , arrived_time: {}, cusine: {}, price_per_preson: {}".format(idx, res_i["name"], arrived_time, res_i["cuisine"], res_i["price"]))
-
-        score_list = self.score_poi_think_overall_act_page(info_list, poi_info_list,need_db=True, react=True)
-        rest_info["importance"] = score_list
-        
-        rest_info=mmr_algorithm(name_key='name',df=rest_info)
-        # rest_info = rest_info.sort_values(by = ["importance"], ascending=False)
-        if self.verbose:
-            print(rest_info)
-        # rest_info.to_csv(rest_path, index=False)
-        # print("save  >>> ", rest_path)
-        self.poi_info["restaurants"] = rest_info
-        
-            
-        # print(poi_info["attractions"])
-        # print(poi_info["restaurants"])
-        # exit(0)
-        
-        self.poi_info["restaurants_num"] = self.poi_info["restaurants"].shape[0]
-        self.poi_info["attractions_num"] = self.poi_info["attractions"].shape[0]
-        
-        
-        
         poi_plan["transport_preference"] = query["transport_preference"]
         
         
@@ -583,89 +383,11 @@ class Interactive_Search():
                     else:
                         cost_wo_inter_trans = query["cost"] - intercity_cost
                         
-                        # if query["days"] > 1:
-                        #     hotel_cost = int(hotel_info.iloc[hotel_i]["price"]) * query["rooms"] * (query["days"] > 1 - 1)
-                            
-                        #     print("hotel cost: ", hotel_cost)
-                            
-                        #     query["cost_wo_intercity"] =  query["cost_wo_intercity"] - hotel_cost
-                        
-                        # if query["cost_wo_intercity"] <= 0:
-                        #     continue
-                        
-                        # print("in-city budget: ", query["cost_wo_intercity"])
-                
-                if query["days"] > 1:
-                    
-                    # print(num_hotel)
-                    for hotel_i in range(num_hotel):
-                        
-                        # print(hotel_i)
-                    
-                        poi_plan["accommodation"] = hotel_info.iloc[hotel_i]
-                        
-                        # if "room_type" in query and query["room_type"] != poi_plan["accommodation"]["numbed"]:
-                        #     continue
-                        
-                        # room_type = poi_plan["accommodation"]["numbed"]
-                        
-                        # required_rooms = int((query["people_number"] - 1) / room_type) + 1  
-                        
-                        # if "rooms" in query:
-                            
-                        #     if "room_type" in query:
-                        #         pass
-                        #     else:
-                        #         if required_rooms > query["rooms"]:
-                        #             print("Not enough bed")
-                        #             continue
-                                
-                                
-                        #     required_rooms = query["rooms"]
-                        
-                        # query["required_rooms"] = required_rooms
-                        
-                        # if ("hotel_price" in query) and int(hotel_info.iloc[hotel_i]["price"]) * required_rooms > query["hotel_price"]:
-                        #     continue
-                        
-                        # if "cost" in query:
-                        #     hotel_cost = int(hotel_info.iloc[hotel_i]["price"]) * required_rooms * (query["days"] - 1)    
-                        #     print("hotel cost: ", hotel_cost)
-                        #     query["cost_wo_intercity"] =  cost_wo_inter_trans - hotel_cost
-                        
-                        #     if query["cost_wo_intercity"] <= 0:
-                        #         continue
-                        
-                        #     print("in-city budget: ", query["cost_wo_intercity"])
-                        
-                        
-                        
-                        print("search: ...")
-                        print("line764,query",query)
-                        print("line764,poi_plan",poi_plan)
-                        success, plan = self.search_poi(query, poi_plan, plan=[], current_time = "", current_position="")
+        success, plan = self.search_poi(query, poi_plan, plan=[], current_time = "", current_position="")
 
-                        # exit(0)   
-                        
-                        if success:
-                            return True, plan
-                else:
-                    
-                    if time_compare_if_earlier_equal(poi_plan["back_transport"]["BeginTime"], poi_plan["go_transport"]["EndTime"]):
-                        continue
-                    
-                    if "cost" in query:
-                        query["cost_wo_intercity"] =  cost_wo_inter_trans
-                        print("in-city budget: ", query["cost_wo_intercity"])
-                    
-                    
-                    
-                    
-                    success, plan = self.search_poi(query, poi_plan, plan=[], current_time = "", current_position="")
-
-                    print(success, plan)
-                    if success:
-                        return True, plan
+        print(success, plan)
+        if success:
+            return True, plan
                     
                     
                     
@@ -677,11 +399,11 @@ class Interactive_Search():
         # new_poi_info=poi_info_list[0:30]
         new_poi_info=[]
         if need_db:
-            new_poi_info=random.choices(poi_info_list,k=50)
+            new_poi_info=random.choices(poi_info_list,k=25)
         for item in new_poi_info:
             info_list.append(item)
             
-        for p_i in planning_info:
+        for p_i in planning_info:#用户信息偏好或规划
             info_list.append(p_i)
 
         overall_plan, history_message_think_overall = self.reason_prompt(info_list, return_history_message=True, history_message=[])
@@ -750,7 +472,14 @@ class Interactive_Search():
             print(f"Answer:", thought)
         return thought
     def search_poi(self,query, poi_plan, plan, current_time, current_position, current_day=0):
-    
+        print("line874,query",query)
+        print("line874,poi_plan",poi_plan)
+        print("line874,plan",plan)
+        print("line874,current_time",current_time)
+        print("line874,current_position",current_position)
+        print("line874,current_day",current_day)
+
+        target_city = query["target_city"]
         if "cost_wo_intercity" in query:
             inner_city_cost = calc_cost_from_itinerary_wo_intercity(plan, query["people_number"])
             
@@ -770,7 +499,7 @@ class Interactive_Search():
         # We should go back in time ...
             transports_sel = goto(city=query["target_city"], 
                                 start=current_position, end=poi_plan["back_transport"]["From"], 
-                                start_time=current_time, method=poi_plan["transport_preference"], verbose=False)
+                                start_time=current_time, method=poi_plan["transport_preference"], verbose=True)
             arrived_time = transports_sel[-1]["end_time"]
             
             if time_compare_if_earlier_equal(poi_plan["back_transport"]["BeginTime"], arrived_time):
@@ -779,13 +508,37 @@ class Interactive_Search():
                 return False, plan
             
         elif current_time != "":
-            hotel_sel = poi_plan["accommodation"]
+            keywords = "酒店"  
+            search_query = ""
             
+            # 1. 处理酒店特性
+            if "hotel_feature" in query:
+                # 把特性添加到关键字前面
+                features = query["hotel_feature"]
+                if isinstance(features, list) and features:
+                    for feature in features:
+                        keywords = f"{feature}{keywords}"        
+            # 2. 处理酒店名称
+            if "hotel_names" in query and query["hotel_names"]:
+                hotel_name = list(query["hotel_names"])[0] if isinstance(query["hotel_names"], (list, tuple, set)) else query["hotel_names"]
+                search_query += f" 酒店名字为{hotel_name}"        
+            # 3. 处理价格筛选
+            if "hotel_price" in query:
+                price = query["hotel_price"]
+                search_query += f" 价格为{price}"
+            
+            # 组合最终搜索关键词
+            final_keywords = f"{keywords} {search_query}".strip()
+            print(f"482行搜索关键词: {final_keywords}")
+            
+            hotel_info = self.accommodation.select(target_city, keywords=final_keywords)    
+            hotel_sel = hotel_info.iloc[0]
+        
             transports_sel = goto(city=query["target_city"], 
                                 start=current_position, end=hotel_sel["name"], 
                                 start_time=current_time, method=poi_plan["transport_preference"], verbose=False)
             arrived_time = transports_sel[-1]["end_time"]
-            
+            arrived_time="23:00"
             if time_compare_if_earlier_equal("24:00", arrived_time):
                 if self.verbose:
                     print("Can not go back to hotel, current POI {}, hotel arrived time: {}".format(current_position, arrived_time))
@@ -867,9 +620,6 @@ class Interactive_Search():
                 haved_lunch_today = True
             if act_i["type"] == "dinner":
                 haved_dinner_today = True
-        
-        # print("info before search poi type", current_day, current_time, current_position, poi_plan, plan)
-        
         candidates_type = ["attraction"]
         if (not haved_lunch_today): # and time_compare_if_earlier_equal(current_time, "12:30"):
             candidates_type.append("lunch")
@@ -939,26 +689,42 @@ class Interactive_Search():
                     print("[We choose to go back transport and finish this trip], but constraints_validation failed...")
                     
             elif poi_type in ["lunch", "dinner"]:
-                
-                
-                    
-                # info_list = [query["nature_language"]]
-                
-                # info_list.append("在这次在{}的旅行中我们之前去过了{}，不要重复去".format(query["target_city"], str(self.restaurant_names_visiting)))
-                # info_list.append("现在是第{}天 {}, 请帮我选择一个餐厅去吃{}".format(current_day + 1, current_time, poi_type))
-                
-                
+                keywords = f"{current_position}"+"餐厅" #吃附近的餐厅
+                self.poi_info["restaurants"] = self.restaurants.select(target_city, keywords)
+                search_query = ""
+                info_list = [query["nature_language"]]
+                info_list.append("在这次在{}的旅行中,请帮我选择一些餐厅去吃，评估每个餐厅的相关性，看看是否需要安排到行程里".format(query["target_city"]))
                 rest_info = self.poi_info["restaurants"]
-                
-                # if "cost_wo_intercity" in query:
-                    
-                #     rest_cost = query["cost_wo_intercity"] - inner_city_cost
-                #     info_list.append("本次旅行有整体开销的约束，剩余用于餐饮和景点的预算为: {} 元".format(rest_cost))
-                    
-                #     upper_budget = rest_cost / query["people_number"]
-                #     rest_info = rest_info[rest_info["price"] <= upper_budget]
-                        
 
+                if ("food_type" in query): 
+                    req_food_type = set()
+                    req_food_type =  set.union(req_food_type, set(query["food_type"]))                    
+                    info_list.append("本次旅行有对餐饮类型的需求，这些类型至少需要吃一次 {}, 在选择餐厅的时候请根据餐厅的餐饮类型加以考虑".format(req_food_type))
+                if ("restaurant_names" in query):
+                    req_res_name = set()
+                    req_res_name =  set.union(req_res_name, set(query["restaurant_names"]))
+                    info_list.append("本次旅行有对特定餐饮商家的需求，这几家至少需要去一次 {}, 在选择餐厅的时候请根据餐厅的名字加以考虑".format(req_res_name))
+                    
+                
+                info_list.append("请根据以上信息考虑什么样的餐厅满足我们的需求")
+                
+                poi_info_list = []
+                score_list = []
+                for idx in range(len(rest_info)):
+                    
+                    res_i = self.poi_info["restaurants"].iloc[idx]
+                    
+                    poi_info_list.append("**{}** name: {} , cusine: {}, price_per_preson: {}, recommended food: {}".format(idx, res_i["name"], res_i["cuisine"], res_i["price"], res_i["recommendedfood"]))
+                    # poi_info_list.append("**{}** name: {} , arrived_time: {}, cusine: {}, price_per_preson: {}".format(idx, res_i["name"], arrived_time, res_i["cuisine"], res_i["price"]))
+
+                score_list = self.score_poi_think_overall_act_page(info_list, poi_info_list,need_db=True, react=True)
+                rest_info["importance"] = score_list
+                
+                rest_info=mmr_algorithm(name_key='name',df=rest_info)
+                if self.verbose:
+                    print(rest_info)
+                self.poi_info["restaurants"] = rest_info
+                
                 score_list = rest_info["importance"].values
                 
                 ranking_idx = list(range(len(score_list)))
@@ -993,8 +759,10 @@ class Interactive_Search():
                             arrived_time = transports_sel[-1]["end_time"]
                             
                             # 开放时间
-                            opentime, endtime = poi_sel["weekdayopentime"],  poi_sel["weekdayclosetime"]
-
+                            #todo:从高德api返还的字符串提取出该餐厅开放时间和关闭时间
+                            #opentime, endtime = poi_sel["weekdayopentime"],  poi_sel["weekdayclosetime"]
+                            opentime="08:00"
+                            endtime="22:00"
                             # it is closed ...
                             if time_compare_if_earlier_equal(endtime, arrived_time):
                                 continue
@@ -1102,17 +870,43 @@ class Interactive_Search():
                 plan[current_day]["activities"].pop()
             
             elif poi_type == "attraction":
+                self.poi_info["attractions"] = self.attractions.select(query["target_city"], "旅游景点") 
                 
+                info_list = [query["nature_language"]]
+                info_list.append("在这次在{}的旅行中，请帮我评估每个景点的游玩重要性，看看是否需要安排到行程里".format(query["target_city"]))
+                if ("spot_type" in query):
+                    req_spot_type = set()
+                    req_spot_type =  set.union(req_spot_type, set(query["spot_type"]))
+                    info_list.append("本次旅行有对景点类型的需求，这些类型至少需要去一次 {}, 在选择景点的时候请根据景点的景点类型加以考虑".format(req_spot_type))
+                if ("attraction_names" in query):
+                    req_attr_name = set()
+                    req_attr_name =  set.union(req_attr_name, set(query["attraction_names"]))
+                    info_list.append("本次旅行有对特定景点的需求，这几个地方至少需要去一次 {}, 在选择景点的时候请根据景点的名字加以考虑".format(req_attr_name))
+                info_list.append("请根据以上信息考虑什么样的景点满足我们的需求")
+                attr_info = self.poi_info["attractions"]
+                poi_info_list = []
+                for idx in range(len(attr_info)):
+                    res_i = attr_info.iloc[idx]
+                    poi_info_list.append("**{}** name: {} , price_per_preson: {}, type: {}".format(idx, res_i["name"], res_i["price"],res_i['type']))
                 
+                score_list = self.score_poi_think_overall_act_page(info_list, poi_info_list, react=True)
+                attr_info["importance"] = score_list
                 
-                score_list = self.poi_info["attractions"]["importance"].values
+                attr_info=mmr_algorithm(name_key='name',df=attr_info)
+                # attr_info = attr_info.sort_values(by = ["importance"], ascending=False)
+                if self.verbose:
+                    print(attr_info)
+                # attr_info.to_csv(attr_path, index=False)
+                # print("save  >>> ", attr_path)
+                
+                self.poi_info["attractions"] = attr_info
+                score_list = attr_info["importance"].values
                 for r_i in range(len(score_list)):
                 
                     attr_idx = r_i
                     # print(ranking_idx, r_i)
                     
                     # print("visiting: ", self.restaurants_visiting, res_idx)
-                    
                     if not (attr_idx in self.attractions_visiting):
                         
                         
@@ -1128,18 +922,16 @@ class Interactive_Search():
                             transports_sel[1]["tickets"] = query["people_number"]
                         elif transports_sel[0]["mode"] == "taxi":
                             transports_sel[0]["car"] = int((query["people_number"] - 1) / 4) + 1
-                        arrived_time = transports_sel[-1]["end_time"]
-                        
-                        # print(transports_sel)
-                        # print(poi_sel, arrived_time)
-                        
+                        arrived_time = transports_sel[-1]["end_time"]                        
                         # exit(0)
                         # 开放时间
-                        opentime, endtime = poi_sel["opentime"],  poi_sel["endtime"]
-
-                        
+                        #//todo 景点开放时间
+                        #opentime, endtime = poi_sel["opentime"],  poi_sel["endtime"]
+                        opentime="08:00"
+                        endtime="23:00"
+                        print("line973,arrived_time:",arrived_time)
                         # too late
-                        if time_compare_if_earlier_equal("21:00", arrived_time):
+                        if time_compare_if_earlier_equal("22:00", arrived_time):
                             continue
                         # it is closed ...
                         if time_compare_if_earlier_equal(endtime, arrived_time):
@@ -1164,10 +956,11 @@ class Interactive_Search():
                         planning_info = []
                         
                         # print(poi_sel)
-                        
-                        recommendmintime = int(poi_sel["recommendmintime"] * 60)
-                        recommendmaxtime = int(poi_sel["recommendmaxtime"] * 60)
-                        
+                        # //todo 景区游玩时间
+                        #recommendmintime = int(poi_sel["recommendmintime"] * 60)
+                        #recommendmaxtime = int(poi_sel["recommendmaxtime"] * 60)
+                        recommendmintime=60
+                        recommendmaxtime=180
                         planning_info.append("请作为一个旅行规划助手帮助我想构建行程，我的需求是{}".format(query["nature_language"]))
                         planning_info.append("现在是第{}天{},我到达了{},这个景点的开放时间是[{}--{}]，建议的游玩时间是{}-{}分钟，请帮助我思考我在这个景点游玩多久".format(current_day + 1, current_time, poi_sel["name"], opentime, endtime, recommendmintime, recommendmaxtime))
                         
@@ -1195,7 +988,7 @@ class Interactive_Search():
                             "position": poi_sel["name"],
                             "type": poi_type,
                             "transports": transports_sel,    
-                            "cost": int(poi_sel["price"]),
+                            "cost": 100, #//todo 景点门票价格xin'xi'que'shi
                             "start_time": act_start_time,
                             "end_time": act_end_time
                         }
@@ -1208,7 +1001,7 @@ class Interactive_Search():
                         self.attractions_visiting.append(attr_idx)
                         self.spot_type_visiting.append(poi_sel["type"])
                         self.attraction_names_visiting.append(poi_sel["name"])
-                        
+                        print("line1046,attraction_names_visiting:",self.attraction_names_visiting,new_time,new_position,current_day)
                         success, plan = self.search_poi(query, poi_plan, plan, new_time, new_position, current_day)
                         
                         
@@ -1218,10 +1011,7 @@ class Interactive_Search():
                         self.attractions_visiting.pop()
                         self.spot_type_visiting.pop()
                         self.attraction_names_visiting.pop()
-                
-                
             else:
-                # raise Exception("Not Implemented.")
                 if self.verbose:
                     print("incorrect poi type: {}".format(poi_type))
                 continue
@@ -1240,25 +1030,19 @@ class Interactive_Search():
             if time_compare_if_earlier_equal(back_transport_time, add_time_delta(current_time, 180)):
                 return 'back-intercity-transport'
         
-        hour, minuate = int(current_time.split(":")[0]), int(current_time.split(":")[1])
         
         # too late
-        if time_compare_if_earlier_equal("22:30", add_time_delta(current_time, 120)) and "hotel" in candidates_type:
+        print("line1036",current_time,candidates_type)
+        if time_compare_if_earlier_equal("22:00", current_time) and "hotel" in candidates_type:
             return "hotel"
         
-        
         # lunch time
-        if ("lunch" in candidates_type) and \
-            (time_compare_if_earlier_equal("11:00", add_time_delta(current_time, 40)) \
-            or time_compare_if_earlier_equal("12:40", add_time_delta(current_time, 120))):
+        if ("lunch" in candidates_type) and time_compare_if_earlier_equal("11:00",current_time) and time_compare_if_earlier_equal(current_time, "13:00"):
             return "lunch"
         
         # dinner time
-        if ("dinner" in candidates_type) and \
-            (time_compare_if_earlier_equal("17:00", add_time_delta(current_time, 40)) or \
-                time_compare_if_earlier_equal("19:00", add_time_delta(current_time, 120))):
+        if ("dinner" in candidates_type) and time_compare_if_earlier_equal("17:00", current_time) and time_compare_if_earlier_equal(current_time, "20:00"):
             return "dinner"
-        
         
         return "attraction"
     def constraints_validation(self,query, plan, poi_plan):
@@ -1388,69 +1172,6 @@ class Interactive_Search():
             return action, json_scratchpad
 
         return action
-        
-
-    
-
-    
-
-
-
-
-
-    
-    
-    
-
-    
-    
-    
-    
-
-    
-    # Env = ReactEnv(None, "")
-    # cmd_str = "attractions_keys('{}')".format(target_city)
-    # res = Env.run(cmd_str)
-    # print(res)
-    
-    # cmd_str = "attractions_select('{}', '{}', {})".format(target_city, "name", "lambda x:True")
-    # res = Env.run(cmd_str)
-    # print(res)
-
-import numpy as np
-class NpEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, np.integer):
-            return int(obj)
-        if isinstance(obj, np.floating):
-            return float(obj)
-        if isinstance(obj, np.ndarray):
-            return obj.tolist()
-        return super(NpEncoder, self).default(obj)
-import argparse
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='argparse testing')
     parser.add_argument('--level','-l',type=str, default = "easy",choices=["easy", "medium", "medium_plus", "human", "human_small", "example"], help="query subset")
@@ -1534,18 +1255,6 @@ if __name__ == "__main__":
         
         
         query_i = test_input[idx]
-        
-        
-        
-        # query_i = load_json_file("results/{}/query_{}.json".format(query_level, idx))
-        
-        # print(query_i)
-        # exit(0)
-        
-        
-        # with open("results/{}/query_{}.json".format(query_level, idx), "w", encoding="utf8") as dump_f:
-        #     json.dump(query_i, dump_f, ensure_ascii=False, indent=4)
-
         print("query {}/{}".format(idx, len(test_input)))
         
         sys.stdout = Logger(result_dir + "/plan_{}.log".format(idx), sys.stdout)
@@ -1558,40 +1267,7 @@ if __name__ == "__main__":
         query_i['nature_language']=query_i['nature_language']+"想去黄鹤楼"
         success, plan = searcher.symbolic_search(query_i)
         print(plan)
-        exit(0)
-
-            
-            
-        success_count += int(success)    
-        total+=1
-        
-        if not success:
-            fail_list.append(idx)
-            
-            with open(result_dir + "/fail_list.txt".format(query_level), "a+") as dump_f:
-                dump_f.write(str(idx)+"\n")
-            
-            plan = avialable_plan
-            
-            with open(result_dir + "/plan_{}.json".format(idx), "w", encoding="utf8") as dump_f:
-                json.dump(plan, dump_f, ensure_ascii=False, indent=4,  cls=NpEncoder)
-            
-            
-        else:
-            with open(result_dir + "/plan_{}.json".format(idx), "w", encoding="utf8") as dump_f:
-                json.dump(plan, dump_f, ensure_ascii=False, indent=4,  cls=NpEncoder)
-            
-                    
-            
-        # except:
-        #     total +=1
-        #     fail_list.append(idx)
-        
-        
-        # if success_count < total:
-        #     print("fail: ", idx)
-        #     break
-        
+        exit(0)        
     print("success rate [{}]: {}/{}".format(query_level, success_count, total))
     
     

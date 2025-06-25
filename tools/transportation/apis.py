@@ -72,6 +72,8 @@ poi_search = Poi()
 
 
 def GoTo(city, locationA, locationB, start_time, transport_type, verbose=True):
+    if(verbose):
+        print("GoTo: From {} to {}".format(locationA, locationB))
     coordinate_A = poi_search.search(city, locationA)
     coordinate_B = poi_search.search(city, locationB)
 
