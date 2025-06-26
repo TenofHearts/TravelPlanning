@@ -72,11 +72,12 @@ poi_search = Poi()
 
 
 def GoTo(city, locationA, locationB, start_time, transport_type, verbose=True):
-    if(verbose):
-        print("GoTo: From {} to {}".format(locationA, locationB))
+    
+    print("GoTo: From {} to {}".format(locationA, locationB))
     coordinate_A = poi_search.search(city, locationA)
     coordinate_B = poi_search.search(city, locationB)
-
+    print("coordinate_A", coordinate_A)
+    print("coordinate_B", coordinate_B)
     city_cn = city
 
     if city in city_list_chinese:
@@ -87,7 +88,7 @@ def GoTo(city, locationA, locationB, start_time, transport_type, verbose=True):
     locationA, locationB = coordinate_A, coordinate_B
     
     
-    assert (isinstance(locationA, tuple) or not isinstance(locationB, tuple))
+    #assert (isinstance(locationA, tuple) or not isinstance(locationB, tuple))
     transports = []
     if transport_type == 'walk':
         distance = geodesic(locationA, locationB).kilometers

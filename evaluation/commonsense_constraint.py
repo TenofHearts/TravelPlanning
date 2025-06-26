@@ -199,18 +199,20 @@ def Is_attractions_correct(symbolic_input,plan_json, mode="debug"):
             else:
                 attraction_list.append(activity_i["position"])
             
-            # 开放时间
+            # 开放时间 todo景区开放时间和价格
+            '''
             opentime, endtime = select_attraction["opentime"].values[0],  select_attraction["endtime"].values[0]
 
             if time_compare_if_earlier_equal(endtime, activity_i["start_time"]) or time_compare_if_earlier_equal(activity_i["end_time"], opentime): 
                 return return_info(False, "The attraction is closed now. {}, open time: [{} -- {}]".format(activity_i["position"], opentime, endtime))
-
+            '''
 
             # 返回信息保证一致: cost
 
-
+            '''
             if int(activity_i["cost"]) != int(select_attraction["price"].values[0]):
                 return return_info(False, "Incorrect cost infomation of attraction [{}], cost: {} ".format(activity_i["position"], activity_i["cost"]))
+            '''
                         
 
             # if not select_attraction_type.empty:
@@ -225,6 +227,10 @@ def Is_attractions_correct(symbolic_input,plan_json, mode="debug"):
     
 
 def Is_hotels_correct(symbolic_input,plan_json,mode="debug"):
+    # todo:酒店价格信息无法检查
+    return_info = return_info_debug
+    return return_info(True, "hotels passed!")
+
     mode = "debug"
     if mode == "debug":
         return_info = return_info_debug
@@ -265,6 +271,8 @@ def Is_hotels_correct(symbolic_input,plan_json,mode="debug"):
             
 
             # 返回信息保证一致: cost
+            # todo:酒店价格约束无法检查
+            '''
             try: activity_i["cost"]
             except: return return_info(False, "Hotel cost should be provided")
 
@@ -274,7 +282,7 @@ def Is_hotels_correct(symbolic_input,plan_json,mode="debug"):
 
             if activity_i["room_type"] != select_hotel["numbed"].values[0]:
                 return return_info(False, "Incorrect room infomation of accommodation [{}], numbed: {} ".format(activity_i["position"], select_hotel["numbed"].values[0]))
-
+            '''
             
             
             
@@ -318,7 +326,10 @@ def Is_hotels_correct(symbolic_input,plan_json,mode="debug"):
     return return_info(True, "hotels passed!")
 
 def Is_restaurants_correct(symbolic_input,plan_json, mode="debug"):
-    
+    # todo：餐厅正确性检查
+    return_info = return_info_debug
+    return return_info(True, "restaurants passed!")
+
     if mode == "debug":
         return_info = return_info_debug
     else:

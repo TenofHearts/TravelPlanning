@@ -298,7 +298,7 @@ def restaurants_cuisine(city: str):
     return restaurants.get_cuisine_list(city)
 
 
-def goto(city: str, start: str, end: str, start_time: str, method: str, verbose=False):
+def goto(city: str, start: str, end: str, start_time: str, method: str, verbose=True):
     if city not in city_list:
         return "Only support cities in " + str(city_list) + "." + "必须使用中文城市名。"
     # position_1 = Poi().search(city, start)

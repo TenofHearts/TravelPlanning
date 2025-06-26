@@ -132,6 +132,7 @@ class Accommodations:
         """
         # 如果没有提供关键词，使用默认值
         if keywords is None:
+        
             keywords = "酒店"
         
         print(f"搜索关键词: {keywords}")

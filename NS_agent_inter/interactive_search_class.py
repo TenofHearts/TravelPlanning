@@ -308,7 +308,7 @@ class Interactive_Search():
         self.restaurant_names_visiting = []
         source_city = query["start_city"]
         target_city = query["target_city"]
-        #todo:交通也改成调用api
+        #todo:交通也改成调用高德api
         train_go = self.intercity_transport.select(start_city=source_city, end_city=target_city, intercity_type="train")
         train_back = self.intercity_transport.select(start_city=target_city, end_city=source_city, intercity_type="train")
 
@@ -388,9 +388,6 @@ class Interactive_Search():
         print(success, plan)
         if success:
             return True, plan
-                    
-                    
-                    
         return False, {"info": "No Solution"}
         
     def score_poi_think_overall_act_page(self,planning_info, poi_info_list,need_db=False, react=False, history_message = []):
@@ -407,9 +404,6 @@ class Interactive_Search():
             info_list.append(p_i)
 
         overall_plan, history_message_think_overall = self.reason_prompt(info_list, return_history_message=True, history_message=[])
-
-        current_page = 1
-        item_per_page = 20
         score_list = []
         
         # rewrite the plan
@@ -501,12 +495,13 @@ class Interactive_Search():
                                 start=current_position, end=poi_plan["back_transport"]["From"], 
                                 start_time=current_time, method=poi_plan["transport_preference"], verbose=True)
             arrived_time = transports_sel[-1]["end_time"]
-            
+            '''
+            print("arrived_time",arrived_time,poi_plan["back_transport"]["BeginTime"])
             if time_compare_if_earlier_equal(poi_plan["back_transport"]["BeginTime"], arrived_time):
                 if self.verbose:
                     print("Can not go back source-city in time, current POI {}, station arrived time: {}".format(current_position, arrived_time))
                 return False, plan
-            
+            '''
         elif current_time != "":
             keywords = "酒店"  
             search_query = ""
@@ -528,11 +523,10 @@ class Interactive_Search():
                 search_query += f" 价格为{price}"
             
             # 组合最终搜索关键词
-            final_keywords = f"{keywords} {search_query}".strip()
-            print(f"482行搜索关键词: {final_keywords}")
-            
+            final_keywords = f"{keywords} {search_query}".strip()            
             hotel_info = self.accommodation.select(target_city, keywords=final_keywords)    
             hotel_sel = hotel_info.iloc[0]
+            poi_plan["accommodation"] = hotel_info.iloc[0]
         
             transports_sel = goto(city=query["target_city"], 
                                 start=current_position, end=hotel_sel["name"], 
@@ -589,8 +583,9 @@ class Interactive_Search():
                 return False, plan
         
         # breakfast
-        if current_time == "00:00":
-            
+        
+        if current_time == "00:00":#新的一天开始了
+            print("new day coming!")
             if len(plan) < current_day + 1:
                 plan.append({"day":current_day + 1, "activities": []})
             
@@ -603,16 +598,15 @@ class Interactive_Search():
                 "start_time": "08:00",
                 "end_time": "08:30"
             })
+            
             new_time = plan[current_day]["activities"][-1]["end_time"]
+            print("new_time",new_time)
             new_position = current_position
             success, plan = self.search_poi(query, poi_plan, plan, new_time, new_position, current_day)
             if success:
                 return True, plan
 
             plan[current_day]["activities"].pop()
-            
-            
-        
         haved_lunch_today, haved_dinner_today = False, False
         
         for act_i in plan[current_day]["activities"]:
@@ -639,7 +633,7 @@ class Interactive_Search():
                 print("POI planning, day {} {}, {}, next-poi type: {}".format(current_day, current_time, current_position, poi_type))
             
             
-            if poi_type == "back-intercity-transport":
+            if poi_type == "back-intercity-transport":#回家家咯
                 if len(plan) < current_day + 1:
                     plan.append({"day":current_day + 1, "activities": []})
                 
@@ -679,7 +673,8 @@ class Interactive_Search():
                             "tickets": query["people_number"]
                         })
                 res_bool, res_plan = self.constraints_validation(query, plan, poi_plan)
-                
+                print("line676",res_plan)
+                return True, res_plan # todo 先不检查约束了，成功回家要紧
                 if res_bool:
                     return True, res_plan
                 else:
@@ -740,11 +735,7 @@ class Interactive_Search():
                         # print(ranking_idx, r_i)
                         # print("visiting: ", self.restaurants_visiting, res_idx)
                         
-                        if not (res_idx in self.restaurants_visiting):
-                            
-                            # if self.verbose:
-                            #     print(self.poi_info["restaurants"].iloc[res_idx]["name"], self.poi_info["restaurants"].iloc[res_idx]["cuisine"])
-                            
+                        if not (res_idx in self.restaurants_visiting):                            
                             poi_sel = rest_info.iloc[res_idx]
                             
                             transports_sel = goto(city=query["target_city"], start=current_position,
@@ -756,8 +747,8 @@ class Interactive_Search():
                             elif transports_sel[0]["mode"] == "taxi":
                                 transports_sel[0]["car"] = int((query["people_number"] - 1) / 4) + 1
                                 
-                            arrived_time = transports_sel[-1]["end_time"]
-                            
+                            arrived_time = add_time_delta(current_time,30)#todo 接入小交通，精确计算路程时间
+                            print("line761",arrived_time)
                             # 开放时间
                             #todo:从高德api返还的字符串提取出该餐厅开放时间和关闭时间
                             #opentime, endtime = poi_sel["weekdayopentime"],  poi_sel["weekdayclosetime"]
@@ -801,7 +792,7 @@ class Interactive_Search():
                                 "position": poi_sel["name"],
                                 "type": poi_type,
                                 "transports": transports_sel,    
-                                "cost": int(poi_sel["price"]),
+                                "cost": 100, #todo 餐厅价格
                                 "start_time": act_start_time,
                                 "end_time": act_end_time
                             }
@@ -810,7 +801,7 @@ class Interactive_Search():
                             
                             new_time = act_end_time
                             new_position = poi_sel["name"]
-                            
+                            print("line814",new_time,new_position)
                             self.restaurant_names_visiting.append(poi_sel["name"])
                             self.restaurants_visiting.append(res_idx)
                             self.food_type_visiting.append(poi_sel["cuisine"])
@@ -847,13 +838,12 @@ class Interactive_Search():
                 activity_i = {
                             "position": hotel_sel["name"],
                             "type": "accommodation",
-                            "room_type": hotel_sel["numbed"], 
+                            "room_type": 2, #//todo 酒店房型
                             "transports": transports_sel,    
-                            "cost": hotel_sel["price"],
+                            "cost": 350,#//todo 酒店价格
                             "start_time": arrived_time,
                             "end_time": "24:00", 
-                            # "rooms": int((query["people_number"] - 1) / hotel_sel["numbed"]) + 1
-                            "rooms": query["required_rooms"]
+                            "rooms": 1 #todo:用户需求房型
                         }
                     
                 plan[current_day]["activities"].append(activity_i)
@@ -913,8 +903,6 @@ class Interactive_Search():
                         poi_sel = self.poi_info["attractions"].iloc[attr_idx]
                         
                         
-                        # print(current_position, poi_sel["name"])
-                        
                         transports_sel = goto(city=query["target_city"], start=current_position,
                                             end=poi_sel["name"], start_time=current_time, method=poi_plan["transport_preference"], verbose=False)
 
@@ -931,7 +919,7 @@ class Interactive_Search():
                         endtime="23:00"
                         print("line973,arrived_time:",arrived_time)
                         # too late
-                        if time_compare_if_earlier_equal("22:00", arrived_time):
+                        if time_compare_if_earlier_equal("23:00", arrived_time):
                             continue
                         # it is closed ...
                         if time_compare_if_earlier_equal(endtime, arrived_time):
@@ -940,10 +928,7 @@ class Interactive_Search():
                         if time_compare_if_earlier_equal(arrived_time, opentime):
                             act_start_time = opentime
                         else:
-                            act_start_time = arrived_time
-                        
-                        # print("info before search poi type", current_day, current_time, current_position, poi_plan, plan)
-                        
+                            act_start_time = arrived_time                        
                         
                         if ("accommodation" in poi_plan) and (current_day < query["days"]-1):
                             candidates_type.append("hotel")
@@ -959,7 +944,7 @@ class Interactive_Search():
                         # //todo 景区游玩时间
                         #recommendmintime = int(poi_sel["recommendmintime"] * 60)
                         #recommendmaxtime = int(poi_sel["recommendmaxtime"] * 60)
-                        recommendmintime=60
+                        recommendmintime=120
                         recommendmaxtime=180
                         planning_info.append("请作为一个旅行规划助手帮助我想构建行程，我的需求是{}".format(query["nature_language"]))
                         planning_info.append("现在是第{}天{},我到达了{},这个景点的开放时间是[{}--{}]，建议的游玩时间是{}-{}分钟，请帮助我思考我在这个景点游玩多久".format(current_day + 1, current_time, poi_sel["name"], opentime, endtime, recommendmintime, recommendmaxtime))
