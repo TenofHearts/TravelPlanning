@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from concurrent.futures import ThreadPoolExecutor
-from agent import main
+from agent import generate_plan
 import random
 from datetime import datetime
 from copy import deepcopy
@@ -17,7 +17,7 @@ def run_async_task(test_request, task_id):
     """在后台线程中执行耗时的任务"""
     try:
         print(f"Running task with ID {task_id}")
-        result = main(test_request, task_id)
+        result = generate_plan(test_request, task_id)
         print(f"Task {task_id} completed")
         return result  # 直接返回结果，Future 会自动处理
     except Exception as e:
@@ -64,6 +64,12 @@ def get_request():
     return jsonify(
         {"task_id": task_id, "message": "Task is running in the background."}
     )
+
+
+def modify_plan():
+    """
+    接收用户的修改请求, 并启动异步重新规划
+    """
 
 
 @app.route("/get_plan", methods=["GET"])

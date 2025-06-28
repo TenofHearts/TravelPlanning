@@ -217,7 +217,7 @@ def process_after_search(plan: dict):
     return result
 
 
-def main(request: dict, task_id, debug_mode=False):
+def generate_plan(request: dict, task_id, debug_mode=False):
     print(request)
     days = request["daysCount"]
     start_city = request["startCity"]
@@ -255,7 +255,8 @@ def main(request: dict, task_id, debug_mode=False):
     query_idx = task_id
     result_dir = f"query_results/{task_id}"
 
-    _, plan = searcher.symbolic_search(query=query, query_idx=query_idx)
+    flag, plan = searcher.symbolic_search(query=query, query_idx=query_idx)
+    assert flag, "fail to generate plan"
     # _, plan = symbolic_search(query=query,query_idx=query_idx)
     plan = decode_json(plan)
     if not os.path.exists(result_dir):
@@ -279,4 +280,4 @@ if __name__ == "__main__":
         "daysCount": 2,
         "additionalRequirements": "我想吃火锅",
     }
-    print(main(request=request_data, task_id=0, debug_mode=True))
+    print(generate_plan(request=request_data, task_id=0, debug_mode=True))

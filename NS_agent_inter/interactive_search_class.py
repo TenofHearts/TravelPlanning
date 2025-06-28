@@ -1349,17 +1349,13 @@ class Interactive_Search:
 
         bool_result = bool_result and logical_pass
 
-        if bool_result:
-            print("\n Pass! \n")
-
-        else:
-            print("\n Failed \n")
-
         # exit(0)
 
         if bool_result:
+            print("\n Pass! \n")
             return True, res_plan
         else:
+            print("\n Failed \n")
             return False, plan
 
     def select_feature(self, planning_info):
