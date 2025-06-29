@@ -272,6 +272,41 @@ def generate_plan(request: dict, task_id, debug_mode=False):
     return {"success": 1, "plan": plan, "brief_plan": brief_plan}
 
 
+def modify_plan(modify_str: str, task_id: int, debug_mode=False):
+    """
+    修改计划
+    Args:
+        modify_str: 修改内容
+        task_id: 任务id
+    Returns:
+        dict: 修改后的计划
+    """
+    result_dir = f"query_results/{task_id}"
+    if not os.path.exists(result_dir):
+        os.makedirs(result_dir)
+    with open(os.path.join(result_dir, "request.json"), "r", encoding="utf-8") as f:
+        request = json.load(f)
+    request["additionalRequirements"] += modify_str
+    return generate_plan(request=request, task_id=task_id, debug_mode=debug_mode)
+
+
+def plan_main(request: dict, task_id: int, debug_mode=False):
+    """
+    首次生成计划
+    Args:
+        request: 请求
+        task_id: 任务id
+    Returns:
+        dict: 计划
+    """
+    result_dir = f"query_results/{task_id}"
+    if not os.path.exists(result_dir):
+        os.makedirs(result_dir)
+    with open(os.path.join(result_dir, "request.json"), "r", encoding="utf-8") as f:
+        json.dump(request, f, indent=4, ensure_ascii=False)
+    return generate_plan(request=request, task_id=task_id, debug_mode=debug_mode)
+
+
 if __name__ == "__main__":
     request_data = {
         "startCity": "上海",
@@ -280,4 +315,4 @@ if __name__ == "__main__":
         "daysCount": 2,
         "additionalRequirements": "我想吃火锅",
     }
-    print(generate_plan(request=request_data, task_id=0, debug_mode=True))
+    print(plan_main(request=request_data, task_id=0, debug_mode=True))
