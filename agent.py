@@ -286,7 +286,7 @@ def modify_plan(modify_str: str, task_id: int, debug_mode=False):
         os.makedirs(result_dir)
     with open(os.path.join(result_dir, "request.json"), "r", encoding="utf-8") as f:
         request = json.load(f)
-    request["additionalRequirements"] += modify_str
+    request["additionalRequirements"] += f'，同时要求"{modify_str}"'
     return generate_plan(request=request, task_id=task_id, debug_mode=debug_mode)
 
 
