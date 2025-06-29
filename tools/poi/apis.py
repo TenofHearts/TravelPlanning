@@ -1,6 +1,7 @@
 import os
 import json
 from fuzzywuzzy import process, fuzz
+from tools.base_api import search_location
 
 
 class Poi:
@@ -29,19 +30,9 @@ class Poi:
             self.data[city_cn_list[i]] = self.data.pop(city)
         # print("Poi loaded.")
 
-    def search(self, city: str, name: str):
-        # 搜索最匹配的poi的坐标
-        # name, _ = process.extractOne(
-        #     name, [x[0] for x in self.data[city]])
-        # # print(f"匹配到的poi name: {name}")
-        # for x in self.data[city]:
-        #     if x[0] == name:
-        #         return x[1]
-        # 严格匹配
-        for x in self.data[city]:
-            if x[0] == name:
-                return x[1]
-        return None
+    def search_loc(self, city: str, name: str):
+        # 返回对应位置的经纬度坐标
+        return search_location(name, city)
 
 
 def test():

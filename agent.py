@@ -225,8 +225,8 @@ def main(request: dict, task_id,debug_mode=False):
 
 if __name__ == "__main__":
     request_data = {
-        "startCity": "上海",
-        "destinationCity": "杭州",
+        "startCity": "深圳",
+        "destinationCity": "上海",
         "peopleCount": 1,
         "daysCount": 2,
         "additionalRequirements": "我想吃火锅"

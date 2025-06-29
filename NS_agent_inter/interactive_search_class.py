@@ -532,7 +532,6 @@ class Interactive_Search():
                                 start=current_position, end=hotel_sel["name"], 
                                 start_time=current_time, method=poi_plan["transport_preference"], verbose=False)
             arrived_time = transports_sel[-1]["end_time"]
-            arrived_time="23:00"
             if time_compare_if_earlier_equal("24:00", arrived_time):
                 if self.verbose:
                     print("Can not go back to hotel, current POI {}, hotel arrived time: {}".format(current_position, arrived_time))
@@ -748,7 +747,6 @@ class Interactive_Search():
                                 transports_sel[0]["car"] = int((query["people_number"] - 1) / 4) + 1
                                 
                             arrived_time = add_time_delta(current_time,30)#todo 接入小交通，精确计算路程时间
-                            print("line761",arrived_time)
                             # 开放时间
                             #todo:从高德api返还的字符串提取出该餐厅开放时间和关闭时间
                             #opentime, endtime = poi_sel["weekdayopentime"],  poi_sel["weekdayclosetime"]
