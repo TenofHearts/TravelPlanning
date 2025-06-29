@@ -287,6 +287,7 @@ def modify_plan(modify_str: str, task_id: int, debug_mode=False):
     with open(os.path.join(result_dir, "request.json"), "r", encoding="utf-8") as f:
         request = json.load(f)
     request["additionalRequirements"] += f'，同时要求"{modify_str}"'
+    print(f"从{result_dir}/request.json中读取请求, 修改后请求为: \n{request}")
     return generate_plan(request=request, task_id=task_id, debug_mode=debug_mode)
 
 
@@ -302,8 +303,9 @@ def plan_main(request: dict, task_id: int, debug_mode=False):
     result_dir = f"query_results/{task_id}"
     if not os.path.exists(result_dir):
         os.makedirs(result_dir)
-    with open(os.path.join(result_dir, "request.json"), "r", encoding="utf-8") as f:
+    with open(os.path.join(result_dir, "request.json"), "w", encoding="utf-8") as f:
         json.dump(request, f, indent=4, ensure_ascii=False)
+    print(f"将请求保存到{result_dir}/request.json")
     return generate_plan(request=request, task_id=task_id, debug_mode=debug_mode)
 
 
@@ -315,4 +317,5 @@ if __name__ == "__main__":
         "daysCount": 2,
         "additionalRequirements": "我想吃火锅",
     }
-    print(plan_main(request=request_data, task_id=0, debug_mode=True))
+    # print(plan_main(request=request_data, task_id=0, debug_mode=True))
+    print(modify_plan(modify_str="也要吃烧烤", task_id=0, debug_mode=True))
