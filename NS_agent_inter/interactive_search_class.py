@@ -493,7 +493,7 @@ class Interactive_Search:
         # new_poi_info=poi_info_list[0:30]
         new_poi_info = []
         if need_db:
-            new_poi_info = random.choices(poi_info_list, k=25)
+            new_poi_info = random.choices(poi_info_list, k=min(25, len(poi_info_list)))
         for item in new_poi_info:
             info_list.append(item)
 
