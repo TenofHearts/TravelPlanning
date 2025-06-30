@@ -34,6 +34,10 @@ from NS_agent_inter.retrieval import Retriever
 import random
 
 random.seed(0)
+from evaluation.utils import (
+    score_go_intercity_transport,
+    score_back_intercity_transport,
+)
 
 
 def time_compare_if_earlier_equal(time_1, time_2):
@@ -358,6 +362,16 @@ class Interactive_Search:
         flight_back = self.intercity_transport.select(
             start_city=target_city, end_city=source_city, intercity_type="airplane"
         )
+
+        flight_go["Score"] = flight_go.apply(score_go_intercity_transport, axis=1)
+        flight_back["Score"] = flight_back.apply(score_back_intercity_transport, axis=1)
+        train_go["Score"] = train_go.apply(score_go_intercity_transport, axis=1)
+        train_back["Score"] = train_back.apply(score_back_intercity_transport, axis=1)
+
+        flight_go = flight_go.sort_values(by="Score", ascending=True)
+        flight_back = flight_back.sort_values(by="Score", ascending=True)
+        train_go = train_go.sort_values(by="Score", ascending=True)
+        train_back = train_back.sort_values(by="Score", ascending=True)
 
         flight_go_num = 0 if flight_go is None else flight_go.shape[0]
         train_go_num = 0 if train_go is None else train_go.shape[0]
@@ -810,7 +824,7 @@ class Interactive_Search:
                     )
                 res_bool, res_plan = self.constraints_validation(query, plan, poi_plan)
                 print("line676", res_plan)
-                return True, res_plan  # todo 先不检查约束了，成功回家要紧
+                # return True, res_plan  # todo 先不检查约束了，成功回家要紧
                 if res_bool:
                     return True, res_plan
                 else:

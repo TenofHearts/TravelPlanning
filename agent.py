@@ -318,5 +318,5 @@ if __name__ == "__main__":
         "daysCount": 2,
         "additionalRequirements": "我想吃火锅",
     }
-    # print(plan_main(request=request_data, task_id=0, debug_mode=True))
-    print(modify_plan(modify_str="也要吃烧烤", task_id=0, debug_mode=True))
+    print(plan_main(request=request_data, task_id=0, debug_mode=True))
+    # print(modify_plan(modify_str="也要吃烧烤", task_id=0, debug_mode=True))
