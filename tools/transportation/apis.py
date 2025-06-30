@@ -4,7 +4,7 @@ import heapq
 from fuzzywuzzy import process
 from geopy.distance import geodesic
 from datetime import datetime, timedelta
-
+from tools.base_api import search_routine
 import sys
 sys.path.append('../../')
 from tools.poi.apis import Poi
@@ -74,24 +74,17 @@ poi_search = Poi()
 def GoTo(city, locationA, locationB, start_time, transport_type, verbose=True):
     
     print("GoTo: From {} to {}".format(locationA, locationB))
-    coordinate_A = poi_search.search(city, locationA)
-    coordinate_B = poi_search.search(city, locationB)
-    print("coordinate_A", coordinate_A)
-    print("coordinate_B", coordinate_B)
+    coordinate_A,citycode_A = poi_search.search_loc(city, locationA)
+    coordinate_B,citycode_B = poi_search.search_loc(city, locationB)
     city_cn = city
-
-    if city in city_list_chinese:
-        city = city_list[city_list_chinese.index(city)]
-    # "walk", "metro", "taxi"
-
-    locationA_name, locationB_name = locationA, locationB
-    locationA, locationB = coordinate_A, coordinate_B
-    
+    # "walk", "metro", "taxi"    
     
     #assert (isinstance(locationA, tuple) or not isinstance(locationB, tuple))
     transports = []
+    start_time_in=start_time.replace(':', '-')
+    routine=search_routine(coordinate_A, coordinate_B,citycode_A,citycode_B,"0",start_time_in)
     if transport_type == 'walk':
-        distance = geodesic(locationA, locationB).kilometers
+        distance = float(routine['distance']) / 1000.0 #单位是km
         walking_speed = 5.
         time = distance / walking_speed
         cost = 0.
@@ -113,21 +106,21 @@ def GoTo(city, locationA, locationB, start_time, transport_type, verbose=True):
         return transports
 
     elif transport_type == 'taxi':
-        distance = geodesic(locationA, locationB).kilometers
+        distance = float(routine['distance']) / 1000.0 #单位是km
         taxi_speed = 40.  # km/h
         time = distance / taxi_speed  # hours
         cost = calculate_cost_taxi(distance)
         end_time = add_time(start_time, time)
-
+        
         transport = {
-            "start": locationA_name,
-            "end": locationB_name,
+            "start": locationA,
+            "end": locationB,
             "mode": "taxi",
             # "line": "",
             "start_time": start_time,
             "end_time": end_time,
             "cost": round(cost, 2),
-            "distance": round(distance, 2),
+            "distance": round(distance, 2), 
         }
         transports.append(transport)
 
@@ -137,80 +130,21 @@ def GoTo(city, locationA, locationB, start_time, transport_type, verbose=True):
         return transports
 
     elif transport_type == 'metro':
-
-        graph = graphs[city]
-
-        stationA, distanceA = find_nearest_station(
-            locationA, city_stations_dict[city])
-        stationB, distanceB = find_nearest_station(
-            locationB, city_stations_dict[city])
-        if stationA == stationB:
-            if verbose:
-                print('Too near. Walk.')
-            return GoTo(city_cn, locationA_name, locationB_name, start_time, transport_type='walk',verbose=verbose)
-
-        shortest_path = find_shortest_path(
-            graph, stationA['name'], stationB['name'])
-
-        if stationA and stationB:
-            distance_between_stations = geodesic(
-                stationA['position'], stationB['position']).kilometers
-            subway_speed = 30.
-            time_between_stations = distance_between_stations / subway_speed
-
-            walking_speed = 5.
-            timeA = distanceA / walking_speed
-            timeB = distanceB / walking_speed
-            total_time = timeA + time_between_stations + timeB
-
-            cost = calculate_cost(distance_between_stations)
-
-            distance = distanceA + distance_between_stations + distanceB
-
-            end_timeA = add_time(start_time, timeA)
-            end_timeB = add_time(end_timeA, time_between_stations)
-            end_time_final = add_time(end_timeB, timeB)
-
-            transports.append({
-                "start": locationA_name,
-                "end": stationA['name'] + '-地铁站',
-                "mode": "walk",
-                "start_time": start_time,
-                "end_time": end_timeA,
-                "cost": 0,
-                "distance": round(distanceA, 2)
-            })
-
-            transports.append({
-                "start": stationA['name'] + '-地铁站',
-                "end": stationB['name'] + '-地铁站',
+        if routine['time_cost'].get('end_time', '') == '':#说明距离太近，直接走路过去
+            return GoTo(city, locationA, locationB, start_time, "walk", verbose)
+        distance = float(routine['distance']) / 1000.0
+        transports.append({ 
+                "start": locationA,
+                "end": locationB,
                 "mode": "metro",
-                "start_time": end_timeA,
-                "end_time": end_timeB,
-                "cost": cost,
-                "distance": round(distance_between_stations, 2)
+                "start_time": start_time,
+                "end_time": routine['time_cost'].get('end_time', ''),
+                "cost": routine['fee_cost'].get('transit_fee', 0),
+                "distance":distance,
+                "nL_desc": routine['transit_desc']
             })
-
-            transports.append({
-                "start": stationB['name'] + '-地铁站',
-                "end": locationB_name,
-                "mode": "walk",
-                "start_time": end_timeB,
-                "end_time": end_time_final,
-                "cost": 0,
-                "distance": round(distanceB, 2)
-            })
-            if verbose:
-                print("Walk: From starting point to metro {}, Distance: {}.".format(
-                    stationA['name'] + '-地铁站', distanceA))
-                print(
-                    f"Subway: From {stationA['name'] + '-地铁站'} to {stationB['name'] + '-地铁站'}: {' -> '.join(shortest_path)}")
-                print('The cost of subway: {}¥'.format(cost))
-                print("Walk: From metro {} to ending point,  Distance: {}.".format(
-                    stationB['name'] + '-地铁站', distanceB))
-            return transports
-        else:
-            raise NotImplementedError
+        print("line142",transports)
+        return transports
 
 
 def get_line_change(station_to_line, path):

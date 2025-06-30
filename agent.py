@@ -1,5 +1,6 @@
 import json
 
+
 # from NS_agent_inter.interactive_search_plus import symbolic_search,set_model
 from NS_agent_inter.nl2sy import get_answer
 from NS_agent_inter.symbolic_search import symbolic_search
@@ -311,8 +312,8 @@ def plan_main(request: dict, task_id: int, debug_mode=False):
 
 if __name__ == "__main__":
     request_data = {
-        "startCity": "上海",
-        "destinationCity": "杭州",
+        "startCity": "深圳",
+        "destinationCity": "上海",
         "peopleCount": 1,
         "daysCount": 2,
         "additionalRequirements": "我想吃火锅",

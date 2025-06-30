@@ -6,6 +6,42 @@ from typing import Callable
 # ****************** 第一步：在此处填入你申请的API密钥 ******************
 AMAP_KEY = "fdba1f2fcdd9369564f871a149d6aa30"
 # ********************************************************************
+
+def search_location(keywords, region=None,show_fields="children"):
+
+    if AMAP_KEY == 'YOUR_KEY':
+        print("错误：请先在代码中填入您申请的高德API Key！")
+        return None
+    url = "https://restapi.amap.com/v5/place/text"
+    
+    params = {
+        'key': AMAP_KEY,
+        'keywords': keywords,
+        'page_size':25,
+        'page_num':1
+    }
+
+    if region:
+        params['region'] = region
+    if show_fields:
+        params['show_fields'] = show_fields
+    try:
+        # 第三步：发起请求并接收返回数据
+        response = requests.get(url, params=params)
+        response.raise_for_status()  # 如果请求失败 (状态码不是200), 则会抛出异常
+
+        # 解析返回的 JSON 数据
+        result = response.json()
+        
+        return result['pois'][0]['location'],result['pois'][0]['citycode']
+
+    except requests.exceptions.RequestException as e:
+        print(f"HTTP 请求发生错误: {e}")
+        return None
+    except json.JSONDecodeError:
+        print("解析返回的JSON数据失败")
+        return None
+    
 def search_keywords(keywords, region=None,show_fields="business,indoor,photos"):
     """
     调用高德 Web 服务 API v5 的关键字搜索功能。
@@ -130,9 +166,11 @@ def search_routine(origin, destination, city1, city2, type, time=None, originpoi
                         time_cost['end_time'] = ""
                 
                 # 计算费用
-                if 'transit_fee' in first_route['cost']:
-                    fee_cost['transit_fee'] = float(first_route['cost'].get('transit_fee', '0'))
-        
+                transit_fee_value = first_route['cost'].get('transit_fee')  # 先不设默认值，直接获取
+                if transit_fee_value:  # 如果值不是空字符串''或None
+                    fee_cost['transit_fee'] = float(transit_fee_value)
+                else:
+                    fee_cost['transit_fee'] = 0.0  # 如果是空字符串或None，则设置为0        
         # 统计发现的路线数
         routes_count = 0
         if raw_data and 'route' in raw_data and 'transits' in raw_data['route']:
@@ -144,7 +182,8 @@ def search_routine(origin, destination, city1, city2, type, time=None, originpoi
             'transit_info': transit_info,
             'transit_desc': transit_desc,
             'time_cost': time_cost,
-            'fee_cost': fee_cost
+            'fee_cost': fee_cost,
+            'distance':raw_data['route']['transits'][0].get('distance', 0)
         }
 
     except requests.exceptions.RequestException as e:
@@ -313,3 +352,4 @@ if __name__ == "__main__":
         print(f"测试过程中发生错误: {e}")
     
     print("测试完成!")
+    print(search_location("北京大学","北京"))
