@@ -37,6 +37,7 @@ random.seed(0)
 from evaluation.utils import (
     score_go_intercity_transport,
     score_back_intercity_transport,
+    combine_transport_dataframe,
 )
 
 
@@ -130,23 +131,11 @@ def add_time_delta(time1, time_delta):
 
     hour, minu = int(time1.split(":")[0]), int(time1.split(":")[1])
 
-    min_new = minu + time_delta
+    min_new = minu + time_delta % 60
+    hour_new = hour + int(min_new / 60) + int(time_delta / 60)
+    min_new = min_new % 60
 
-    if min_new >= 60:
-        hour_new = hour + int(min_new / 60)
-        min_new = min_new % 60
-    else:
-        hour_new = hour
-
-    if hour_new < 10:
-        time_new = "0" + str(hour_new) + ":"
-    else:
-        time_new = str(hour_new) + ":"
-    if min_new < 10:
-
-        time_new = time_new + "0" + str(min_new)
-    else:
-        time_new = time_new + str(min_new)
+    time_new = f"{hour_new:02d}:{min_new:02d}"
 
     return time_new
 
@@ -368,10 +357,23 @@ class Interactive_Search:
         train_go["Score"] = train_go.apply(score_go_intercity_transport, axis=1)
         train_back["Score"] = train_back.apply(score_back_intercity_transport, axis=1)
 
-        flight_go = flight_go.sort_values(by="Score", ascending=True)
-        flight_back = flight_back.sort_values(by="Score", ascending=True)
-        train_go = train_go.sort_values(by="Score", ascending=True)
-        train_back = train_back.sort_values(by="Score", ascending=True)
+        go_transport = combine_transport_dataframe(flight_go, train_go)
+        back_transport = combine_transport_dataframe(flight_back, train_back)
+
+        go_transport = go_transport.sort_values(by="Score", ascending=True)
+        back_transport = back_transport.sort_values(by="Score", ascending=True)
+
+        # flight_go = flight_go.sort_values(by="Score", ascending=True)
+        # flight_back = flight_back.sort_values(by="Score", ascending=True)
+        # train_go = train_go.sort_values(by="Score", ascending=True)
+        # train_back = train_back.sort_values(by="Score", ascending=True)
+
+        # print(flight_go)
+        # print(flight_back)
+        # print(train_go)
+        # print(train_back)
+        # print(flight_go.iloc[0])
+        # exit()
 
         flight_go_num = 0 if flight_go is None else flight_go.shape[0]
         train_go_num = 0 if train_go is None else train_go.shape[0]
@@ -392,10 +394,14 @@ class Interactive_Search:
 
         poi_plan["transport_preference"] = query["transport_preference"]
 
-        for go_i in range(train_go_num + flight_go_num):
+        found_intercity_transport = False
 
-            if go_i >= train_go_num:
-                poi_plan["go_transport"] = flight_go.iloc[go_i - train_go_num]
+        for go_i in range(go_transport.shape[0]):
+            if found_intercity_transport:
+                break
+
+            if go_transport.iloc[go_i]["Type"] == "飞机":
+                poi_plan["go_transport"] = go_transport.iloc[go_i]
 
                 if (
                     "intercity_transport_type" in query
@@ -405,7 +411,7 @@ class Interactive_Search:
                 if "train_type" in query:
                     continue
             else:
-                poi_plan["go_transport"] = train_go.iloc[go_i]
+                poi_plan["go_transport"] = go_transport.iloc[go_i]
 
                 if (
                     "intercity_transport_type" in query
@@ -418,18 +424,18 @@ class Interactive_Search:
                 # exit(0)
                 if (
                     "train_type" in query
-                    and query["train_type"] != poi_plan["go_transport"]["TrainID"][0]
+                    and query["train_type"] != poi_plan["go_transport"]["Type"]
                 ):
                     continue
 
-            for back_i in range(flight_back_num + train_back_num - 1, -1, -1):
+            for back_i in range(back_transport.shape[0]):
+                if found_intercity_transport:
+                    break
 
                 # print("go idx: ", go_i, "back id: ", back_i)
 
-                if back_i >= flight_back_num:
-                    poi_plan["back_transport"] = train_back.iloc[
-                        back_i - flight_back_num
-                    ]
+                if back_transport.iloc[back_i]["Type"] == "飞机":
+                    poi_plan["back_transport"] = back_transport.iloc[back_i]
 
                     if (
                         "intercity_transport_type" in query
@@ -439,12 +445,11 @@ class Interactive_Search:
 
                     if (
                         "train_type" in query
-                        and query["train_type"]
-                        != poi_plan["back_transport"]["TrainID"][0]
+                        and query["train_type"] != poi_plan["back_transport"]["Type"]
                     ):
                         continue
                 else:
-                    poi_plan["back_transport"] = flight_back.iloc[back_i]
+                    poi_plan["back_transport"] = back_transport.iloc[back_i]
 
                     if (
                         "intercity_transport_type" in query
@@ -470,6 +475,9 @@ class Interactive_Search:
 
                     else:
                         cost_wo_inter_trans = query["cost"] - intercity_cost
+                        found_intercity_transport = True
+                else:
+                    found_intercity_transport = True
 
         success, plan = self.search_poi(
             query, poi_plan, plan=[], current_time="", current_position=""
@@ -669,14 +677,14 @@ class Interactive_Search:
         if current_day == 0 and current_time == "":
             plan = [{"day": current_day + 1, "activities": []}]
 
-            if "TrainID" in poi_plan["go_transport"]:
+            if poi_plan["go_transport"]["Type"] == "train":
                 plan[current_day]["activities"].append(
                     {
                         "start_time": poi_plan["go_transport"]["BeginTime"],
                         "end_time": poi_plan["go_transport"]["EndTime"],
                         "start": poi_plan["go_transport"]["From"],
                         "end": poi_plan["go_transport"]["To"],
-                        "TrainID": poi_plan["go_transport"]["TrainID"],
+                        "ID": poi_plan["go_transport"]["ID"],
                         "type": "train",
                         "transports": [],
                         "cost": poi_plan["go_transport"]["Cost"],
@@ -690,7 +698,7 @@ class Interactive_Search:
                         "end_time": poi_plan["go_transport"]["EndTime"],
                         "start": poi_plan["go_transport"]["From"],
                         "end": poi_plan["go_transport"]["To"],
-                        "FlightID": poi_plan["go_transport"]["FlightID"],
+                        "ID": poi_plan["go_transport"]["ID"],
                         "type": "airplane",
                         "transports": [],
                         "cost": poi_plan["go_transport"]["Cost"],
@@ -794,14 +802,14 @@ class Interactive_Search:
                 elif transports_sel[0]["mode"] == "taxi":
                     transports_sel[0]["car"] = int((query["people_number"] - 1) / 4) + 1
 
-                if "TrainID" in poi_plan["back_transport"]:
+                if poi_plan["back_transport"]["Type"] == "train":
                     plan[current_day]["activities"].append(
                         {
                             "start_time": poi_plan["back_transport"]["BeginTime"],
                             "end_time": poi_plan["back_transport"]["EndTime"],
                             "start": poi_plan["back_transport"]["From"],
                             "end": poi_plan["back_transport"]["To"],
-                            "TrainID": poi_plan["back_transport"]["TrainID"],
+                            "ID": poi_plan["back_transport"]["ID"],
                             "type": "train",
                             "transports": transports_sel,
                             "cost": poi_plan["back_transport"]["Cost"],
@@ -815,7 +823,7 @@ class Interactive_Search:
                             "end_time": poi_plan["back_transport"]["EndTime"],
                             "start": poi_plan["back_transport"]["From"],
                             "end": poi_plan["back_transport"]["To"],
-                            "FlightID": poi_plan["back_transport"]["FlightID"],
+                            "ID": poi_plan["back_transport"]["ID"],
                             "type": "airplane",
                             "transports": transports_sel,
                             "cost": poi_plan["back_transport"]["Cost"],

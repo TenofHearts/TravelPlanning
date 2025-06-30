@@ -416,7 +416,7 @@ if __name__ == "__main__":
     # except Exception as e:
     #     print(f"测试过程中发生错误: {e}")
 
-    print(search_location("福州路文化街", "上海"))
+    print(search_location("上海文化广场", "上海"))
 
     print("测试完成!")
     # print(search_location("北京大学", "北京"))

@@ -34,8 +34,8 @@ def score_go_intercity_transport(transport):
     4. 以上三个标准不分先后, 可以通过函数评分, 评分越高, 优先级越高
     """
     score = (
-        abs(time_diff(transport["BeginTime"], "10:00"))
-        + transport["Duration"]
+        abs(time_diff(transport["BeginTime"], "10:00")) * 2
+        + transport["Duration"] * 100
         + transport["Cost"]
     )
     return score
@@ -44,16 +44,50 @@ def score_go_intercity_transport(transport):
 def score_back_intercity_transport(transport):
     """
     根据时间和排序, 排序标准如下:
-    1. BeginTime 在16:00之后, 越早越优先选择, 在16:00之前, 越晚越优先选择
+    1. BeginTime 在16:00之后, 越早越优先选择, 在17:00之前, 越晚越优先选择
     2. Duration 越短越优先选择
     3. Cost 越低优先级越高
     """
     score = (
-        abs(time_diff(transport["BeginTime"], "16:00")) * 20
-        + transport["Duration"] * 50
+        abs(time_diff(transport["BeginTime"], "17:00")) * 2
+        + transport["Duration"] * 100
         + transport["Cost"]
     )
     return score
+
+
+def combine_transport_dataframe(flight, train):
+    """
+    将flight和train合并, 其中
+
+    train: TrainID TrainType From To BeginTime EndTime Duration Cost Score
+    flight: FlightID From To BeginTime EndTime Duration Cost Score
+
+    输出: ID Type From To BeginTime EndTime Duration Cost Score
+    """
+    import pandas as pd
+
+    flight["Type"] = "飞机"
+    flight = flight.rename(columns={"FlightID": "ID"})
+
+    train = train.rename(columns={"TrainID": "ID", "TrainType": "Type"})
+
+    combined_df = pd.concat([flight, train], ignore_index=True)
+    combined_df = combined_df[
+        [
+            "ID",
+            "Type",
+            "From",
+            "To",
+            "BeginTime",
+            "EndTime",
+            "Duration",
+            "Cost",
+            "Score",
+        ]
+    ]
+
+    return combined_df
 
 
 if __name__ == "__main__":
