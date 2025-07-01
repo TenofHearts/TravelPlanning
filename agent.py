@@ -205,9 +205,13 @@ def process_after_search(plan: dict):
             act["cost"] = int(act["cost"])
             act["start_time"] = activity["start_time"]
             act["end_time"] = activity["end_time"]
-            act["picture"] = get_image_url(
-                city=city, poi_type=act["type"], name=act["position"]
-            )
+            if "photos" in activity:
+                act["picture"] = activity["photos"]
+            else:
+                act["picture"] = ""
+            # act["picture"] = get_image_url(
+            #     city=city, poi_type=act["type"], name=act["position"]
+            # )
             activities_per_day.append(act)
         activities.append(activities_per_day)
 

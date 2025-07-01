@@ -817,7 +817,7 @@ class Interactive_Search:
                     )
                 res_bool, res_plan = self.constraints_validation(query, plan, poi_plan)
                 print("line676", res_plan)
-                return True, res_plan  # todo 先不检查约束了，成功回家要紧
+                # return True, res_plan  # todo 先不检查约束了，成功回家要紧
                 if res_bool:
                     return True, res_plan
                 else:
@@ -965,7 +965,7 @@ class Interactive_Search:
                             ):
                                 continue
 
-                            act_end_time = add_time_delta(act_start_time, 90)
+                            act_end_time = add_time_delta(act_start_time, 50)
                             if time_compare_if_earlier_equal(endtime, act_end_time):
                                 act_end_time = endtime
 
@@ -990,6 +990,11 @@ class Interactive_Search:
                                 "cost": 100,  # todo 餐厅价格
                                 "start_time": act_start_time,
                                 "end_time": act_end_time,
+                                "photos": (
+                                    poi_sel["photos"][0]
+                                    if len(poi_sel["photos"]) > 0
+                                    else ""
+                                ),
                             }
 
                             plan[current_day]["activities"].append(activity_i)
@@ -1047,6 +1052,9 @@ class Interactive_Search:
                     "start_time": arrived_time,
                     "end_time": "24:00",
                     "rooms": 1,  # todo:用户需求房型
+                    "photos": (
+                        hotel_sel["photos"][0] if len(hotel_sel["photos"]) > 0 else ""
+                    ),
                 }
 
                 plan[current_day]["activities"].append(activity_i)
@@ -1236,9 +1244,14 @@ class Interactive_Search:
                             "position": poi_sel["name"],
                             "type": poi_type,
                             "transports": transports_sel,
-                            "cost": 100,  # //todo 景点门票价格xin'xi'que'shi
+                            "cost": 100,  # //todo 景点门票价格信息缺失
                             "start_time": act_start_time,
                             "end_time": act_end_time,
+                            "photos": (
+                                poi_sel["photos"][0]
+                                if len(poi_sel["photos"]) > 0
+                                else ""
+                            ),
                         }
 
                         plan[current_day]["activities"].append(activity_i)
