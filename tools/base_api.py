@@ -5,15 +5,26 @@ from typing import Callable
 import math
 
 # ****************** 第一步：在此处填入你申请的API密钥 ******************
-AMAP_KEY = "fdba1f2fcdd9369564f871a149d6aa30"
+AMAP_KEYS = ["fdba1f2fcdd9369564f871a149d6aa30", "76435a409d3ebf776460e55acb1a7171"]
+_CURRENT_KEY = 0
 # ********************************************************************
 
 
-def search_location(keywords, region=None, show_fields="children"):
+def get_amap_key():
+    if len(AMAP_KEYS) == 0:
+        return None
+    global _CURRENT_KEY
+    key = AMAP_KEYS[_CURRENT_KEY]
+    _CURRENT_KEY = (_CURRENT_KEY + 1) % len(AMAP_KEYS)
+    return key
 
-    if AMAP_KEY == "YOUR_KEY":
+
+def search_location(keywords, region=None, show_fields="children"):
+    AMAP_KEY = get_amap_key()
+    if AMAP_KEY is None:
         print("错误：请先在代码中填入您申请的高德API Key！")
         return None
+
     url = "https://restapi.amap.com/v5/place/text"
 
     params = {"key": AMAP_KEY, "keywords": keywords, "page_size": 25, "page_num": 1}
@@ -50,9 +61,11 @@ def search_keywords(keywords, region=None, show_fields="business,indoor,photos")
     :param show_fields: 可选参数，指定要返回的POI信息字段，多个字段用","分割，如"business,indoor,photos"
     :return: 解析后的JSON数据，或者在请求失败时返回 None
     """
-    if AMAP_KEY == "YOUR_KEY":
+    AMAP_KEY = get_amap_key()
+    if AMAP_KEY is None:
         print("错误：请先在代码中填入您申请的高德API Key！")
         return None
+
     url = "https://restapi.amap.com/v5/place/text"
 
     params = {"key": AMAP_KEY, "keywords": keywords, "page_size": 25, "page_num": 1}
@@ -136,7 +149,8 @@ def search_routine(
     :param destinationpoi: 目的地POI ID
     :return: 解析后的路线信息、自然语言描述、时间花费和费用
     """
-    if AMAP_KEY == "YOUR_KEY":
+    AMAP_KEY = get_amap_key()
+    if AMAP_KEY is None:
         print("错误：请先在代码中填入您申请的高德API Key！")
         return None
 
