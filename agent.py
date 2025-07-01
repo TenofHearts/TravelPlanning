@@ -43,7 +43,7 @@ def decode_json(json_obj):
 
 
 def get_lon_lat(city: str, poi_name: str):
-    poi_info = poi_tool.search(city=city, name=poi_name)
+    poi_info = poi_tool.search_loc(city=city, name=poi_name)
     poi_info = [poi_info[1], poi_info[0]]
     return poi_info
 
@@ -316,7 +316,7 @@ if __name__ == "__main__":
         "destinationCity": "上海",
         "peopleCount": 1,
         "daysCount": 2,
-        "additionalRequirements": "我想吃火锅",
+        "additionalRequirements": "",
     }
     print(plan_main(request=request_data, task_id=0, debug_mode=True))
     # print(modify_plan(modify_str="也要吃烧烤", task_id=0, debug_mode=True))

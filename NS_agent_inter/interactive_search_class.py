@@ -677,34 +677,19 @@ class Interactive_Search:
         if current_day == 0 and current_time == "":
             plan = [{"day": current_day + 1, "activities": []}]
 
-            if poi_plan["go_transport"]["Type"] == "train":
-                plan[current_day]["activities"].append(
-                    {
-                        "start_time": poi_plan["go_transport"]["BeginTime"],
-                        "end_time": poi_plan["go_transport"]["EndTime"],
-                        "start": poi_plan["go_transport"]["From"],
-                        "end": poi_plan["go_transport"]["To"],
-                        "ID": poi_plan["go_transport"]["ID"],
-                        "type": "train",
-                        "transports": [],
-                        "cost": poi_plan["go_transport"]["Cost"],
-                        "tickets": query["people_number"],
-                    }
-                )
-            else:
-                plan[current_day]["activities"].append(
-                    {
-                        "start_time": poi_plan["go_transport"]["BeginTime"],
-                        "end_time": poi_plan["go_transport"]["EndTime"],
-                        "start": poi_plan["go_transport"]["From"],
-                        "end": poi_plan["go_transport"]["To"],
-                        "ID": poi_plan["go_transport"]["ID"],
-                        "type": "airplane",
-                        "transports": [],
-                        "cost": poi_plan["go_transport"]["Cost"],
-                        "tickets": query["people_number"],
-                    }
-                )
+            plan[current_day]["activities"].append(
+                {
+                    "start_time": poi_plan["go_transport"]["BeginTime"],
+                    "end_time": poi_plan["go_transport"]["EndTime"],
+                    "start": poi_plan["go_transport"]["From"],
+                    "end": poi_plan["go_transport"]["To"],
+                    "ID": poi_plan["go_transport"]["ID"],
+                    "type": poi_plan["go_transport"]["Type"],
+                    "transports": [],
+                    "cost": poi_plan["go_transport"]["Cost"],
+                    "tickets": query["people_number"],
+                }
+            )
 
             new_time = poi_plan["go_transport"]["EndTime"]
             new_position = poi_plan["go_transport"]["To"]
@@ -832,7 +817,7 @@ class Interactive_Search:
                     )
                 res_bool, res_plan = self.constraints_validation(query, plan, poi_plan)
                 print("line676", res_plan)
-                # return True, res_plan  # todo 先不检查约束了，成功回家要紧
+                return True, res_plan  # todo 先不检查约束了，成功回家要紧
                 if res_bool:
                     return True, res_plan
                 else:
@@ -1298,15 +1283,15 @@ class Interactive_Search:
         self, current_time, candidates_type, back_transport_time
     ):
         if "back-intercity-transport" in candidates_type:
-            if time_compare_if_earlier_equal(
-                back_transport_time, add_time_delta(current_time, 180)
+            if not time_compare_if_earlier_equal(
+                add_time_delta(current_time, 240), back_transport_time
             ):
                 return "back-intercity-transport"
 
         # too late
         print("line1036", current_time, candidates_type)
         if (
-            time_compare_if_earlier_equal("22:00", current_time)
+            time_compare_if_earlier_equal("20:40", current_time)
             and "hotel" in candidates_type
         ):
             return "hotel"
