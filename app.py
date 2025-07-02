@@ -321,6 +321,10 @@ def get_request():
 def modify_plan():
     """
     接收用户的修改请求, 并启动异步重新规划
+
+    Args:
+        task_id (str): 任务ID
+        request (str): 修改的描述
     """
 
 

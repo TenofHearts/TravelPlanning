@@ -252,7 +252,12 @@ def generate_plan(request: dict, task_id, debug_mode=False):
     query["hard_logic"] = [
         logic_str
         for logic_str in query["hard_logic"]
-        if not (logic_str.startswith("days") or logic_str.startswith("people_number"))
+        if not (
+            logic_str.startswith("days")
+            or logic_str.startswith("people_number")
+            or "food_type" in logic_str
+            or "spot_type" in logic_str
+        )
     ]
     query["hard_logic"].insert(0, f"days=={days}")
     query["hard_logic"].insert(0, f"people_number=={people_number}")
@@ -316,11 +321,11 @@ def plan_main(request: dict, task_id: int, debug_mode=False):
 
 if __name__ == "__main__":
     request_data = {
-        "startCity": "深圳",
+        "startCity": "上海",
         "destinationCity": "南京",
-        "daysCount": 3,
         "peopleCount": 2,
-        "additionalRequirements": "旅行类型：relaxing，兴趣："
+        "daysCount": 3,
+        "additionalRequirements": "我想要去一些红色景点",
     }
-    print(plan_main(request=request_data, task_id=0, debug_mode=True))
+    print(plan_main(request=request_data, task_id=1, debug_mode=True))
     # print(modify_plan(modify_str="也要吃烧烤", task_id=0, debug_mode=True))

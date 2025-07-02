@@ -337,7 +337,6 @@ class Interactive_Search:
         self.restaurant_names_visiting = []
         source_city = query["start_city"]
         target_city = query["target_city"]
-        # todo:交通也改成调用高德api
         train_go = self.intercity_transport.select(
             start_city=source_city, end_city=target_city, intercity_type="train"
         )
@@ -817,7 +816,7 @@ class Interactive_Search:
                     )
                 res_bool, res_plan = self.constraints_validation(query, plan, poi_plan)
                 print("line676", res_plan)
-                # return True, res_plan  # todo 先不检查约束了，成功回家要紧
+                # return True, res_plan  # TODO 先不检查约束了，成功回家要紧
                 if res_bool:
                     return True, res_plan
                 else:
@@ -928,12 +927,10 @@ class Interactive_Search:
                                     int((query["people_number"] - 1) / 4) + 1
                                 )
 
-                            arrived_time = add_time_delta(
-                                current_time, 30
-                            )  # todo 接入小交通，精确计算路程时间
+                            arrived_time = transports_sel[-1]["end_time"]
                             print("line761", arrived_time)
                             # 开放时间
-                            # todo:从高德api返还的字符串提取出该餐厅开放时间和关闭时间
+                            # TODO:从高德api返还的字符串提取出该餐厅开放时间和关闭时间
                             # opentime, endtime = poi_sel["weekdayopentime"],  poi_sel["weekdayclosetime"]
                             opentime = "08:00"
                             endtime = "22:00"
@@ -987,7 +984,7 @@ class Interactive_Search:
                                 "position": poi_sel["name"],
                                 "type": poi_type,
                                 "transports": transports_sel,
-                                "cost": 100,  # todo 餐厅价格
+                                "cost": 100,  # TODO 餐厅价格
                                 "start_time": act_start_time,
                                 "end_time": act_end_time,
                                 "photos": (
@@ -1046,12 +1043,12 @@ class Interactive_Search:
                 activity_i = {
                     "position": hotel_sel["name"],
                     "type": "accommodation",
-                    "room_type": 2,  # //todo 酒店房型
+                    "room_type": 2,  # //TODO 酒店房型
                     "transports": transports_sel,
-                    "cost": 350,  # //todo 酒店价格
+                    "cost": 350,  # //TODO 酒店价格
                     "start_time": arrived_time,
                     "end_time": "24:00",
-                    "rooms": 1,  # todo:用户需求房型
+                    "rooms": 1,  # TODO:用户需求房型
                     "photos": (
                         hotel_sel["photos"][0] if len(hotel_sel["photos"]) > 0 else ""
                     ),
@@ -1144,8 +1141,8 @@ class Interactive_Search:
                             verbose=False,
                         )
 
-                        if len(transports_sel) == 3:
-                            transports_sel[1]["tickets"] = query["people_number"]
+                        if transports_sel[0]["mode"] == "metro":
+                            transports_sel[0]["tickets"] = query["people_number"]
                         elif transports_sel[0]["mode"] == "taxi":
                             transports_sel[0]["car"] = (
                                 int((query["people_number"] - 1) / 4) + 1
@@ -1153,7 +1150,7 @@ class Interactive_Search:
                         arrived_time = transports_sel[-1]["end_time"]
                         # exit(0)
                         # 开放时间
-                        # //todo 景点开放时间
+                        # //TODO 景点开放时间
                         # opentime, endtime = poi_sel["opentime"],  poi_sel["endtime"]
                         opentime = "08:00"
                         endtime = "23:00"
@@ -1185,7 +1182,7 @@ class Interactive_Search:
                         planning_info = []
 
                         # print(poi_sel)
-                        # //todo 景区游玩时间
+                        # //TODO 景区游玩时间
                         # recommendmintime = int(poi_sel["recommendmintime"] * 60)
                         # recommendmaxtime = int(poi_sel["recommendmaxtime"] * 60)
                         recommendmintime = 120
@@ -1244,7 +1241,7 @@ class Interactive_Search:
                             "position": poi_sel["name"],
                             "type": poi_type,
                             "transports": transports_sel,
-                            "cost": 100,  # //todo 景点门票价格信息缺失
+                            "cost": 100,  # //TODO 景点门票价格信息缺失
                             "start_time": act_start_time,
                             "end_time": act_end_time,
                             "photos": (
