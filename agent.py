@@ -252,7 +252,12 @@ def generate_plan(request: dict, task_id, debug_mode=False):
     query["hard_logic"] = [
         logic_str
         for logic_str in query["hard_logic"]
-        if not (logic_str.startswith("days") or logic_str.startswith("people_number"))
+        if not (
+            logic_str.startswith("days")
+            or logic_str.startswith("people_number")
+            or "food_type" in logic_str
+            or "spot_type" in logic_str
+        )
     ]
     query["hard_logic"].insert(0, f"days=={days}")
     query["hard_logic"].insert(0, f"people_number=={people_number}")
