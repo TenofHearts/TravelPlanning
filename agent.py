@@ -1,3 +1,48 @@
+#!/usr/bin/env python3
+"""
+Fixed version of agent.py with metadata patch
+"""
+
+# Apply the importlib.metadata patch first
+import importlib.metadata
+import importlib.util
+
+# Store original function
+_original_version = importlib.metadata.version
+
+def patched_version(distribution_name):
+    """
+    Patched version of importlib.metadata.version that handles None returns
+    """
+    try:
+        result = _original_version(distribution_name)
+        if result is None:
+            # Fallback: try to import the package and get __version__
+            if importlib.util.find_spec(distribution_name) is not None:
+                try:
+                    module = importlib.import_module(distribution_name)
+                    if hasattr(module, '__version__'):
+                        return module.__version__
+                except ImportError:
+                    pass
+            raise importlib.metadata.PackageNotFoundError(distribution_name)
+        return result
+    except Exception as e:
+        # If original function fails, try the fallback
+        if importlib.util.find_spec(distribution_name) is not None:
+            try:
+                module = importlib.import_module(distribution_name)
+                if hasattr(module, '__version__'):
+                    return module.__version__
+            except ImportError:
+                pass
+        raise e
+
+# Apply the patch
+importlib.metadata.version = patched_version
+
+# Now import the rest normally
+
 import json
 
 
