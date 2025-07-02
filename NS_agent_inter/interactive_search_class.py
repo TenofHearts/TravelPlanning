@@ -489,8 +489,8 @@ class Interactive_Search:
 
     def score_poi_think_overall_act_page(
         self,
-        planning_info,
-        poi_info_list,
+        planning_info,  # 提示词
+        poi_info_list,  # 景点信息
         need_db=False,
         react=False,
         history_message=[],
@@ -499,13 +499,14 @@ class Interactive_Search:
         info_list = []
         # new_poi_info=poi_info_list[0:30]
         new_poi_info = []
+
+        for p_i in planning_info:  # 用户信息偏好或规划
+            info_list.append(p_i)
+
         if need_db:
             new_poi_info = random.choices(poi_info_list, k=min(25, len(poi_info_list)))
         for item in new_poi_info:
             info_list.append(item)
-
-        for p_i in planning_info:  # 用户信息偏好或规划
-            info_list.append(p_i)
 
         overall_plan, history_message_think_overall = self.reason_prompt(
             info_list, return_history_message=True, history_message=[]
@@ -756,6 +757,9 @@ class Interactive_Search:
         ):  # and time_compare_if_earlier_equal(poi_plan["back_transport"]["BeginTime"], add_time_delta(current_time, 180)):
             candidates_type.append("back-intercity-transport")
 
+        attraction_list = []
+        restaurant_list = []
+
         while len(candidates_type) > 0:
 
             poi_type = self.get_poi_type_from_time_sym(
@@ -834,6 +838,7 @@ class Interactive_Search:
                 )
                 search_query = ""
                 info_list = [query["nature_language"]]
+                info_list.append(f"以下是目前计划中已有的行程: {restaurant_list}")
                 info_list.append(
                     "在这次在{}的旅行中,请帮我选择一些餐厅去吃，评估每个餐厅的相关性，看看是否需要安排到行程里".format(
                         query["target_city"]
@@ -860,7 +865,9 @@ class Interactive_Search:
                         )
                     )
 
-                info_list.append("请根据以上信息考虑什么样的餐厅满足我们的需求")
+                info_list.append(
+                    "请根据以上信息, 根据以下餐厅信息进行排序, 并选出最合适的餐厅"
+                )
 
                 poi_info_list = []
                 score_list = []
@@ -995,6 +1002,7 @@ class Interactive_Search:
                             }
 
                             plan[current_day]["activities"].append(activity_i)
+                            restaurant_list.append(activity_i["position"])
 
                             new_time = act_end_time
                             new_position = poi_sel["name"]
@@ -1074,6 +1082,7 @@ class Interactive_Search:
                 )
 
                 info_list = [query["nature_language"]]
+                info_list.append(f"以下是目前计划中已有的行程: {attraction_list}")
                 info_list.append(
                     "在这次在{}的旅行中，请帮我评估每个景点的游玩重要性，看看是否需要安排到行程里".format(
                         query["target_city"]
@@ -1097,7 +1106,9 @@ class Interactive_Search:
                             req_attr_name
                         )
                     )
-                info_list.append("请根据以上信息考虑什么样的景点满足我们的需求")
+                info_list.append(
+                    "请根据以上信息, 对以下景点信息进行排序, 并选出最合适的景点"
+                )
                 attr_info = self.poi_info["attractions"]
                 poi_info_list = []
                 for idx in range(len(attr_info)):
@@ -1252,6 +1263,7 @@ class Interactive_Search:
                         }
 
                         plan[current_day]["activities"].append(activity_i)
+                        attraction_list.append(activity_i["position"])
 
                         new_time = act_end_time
                         new_position = poi_sel["name"]

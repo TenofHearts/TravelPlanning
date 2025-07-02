@@ -325,7 +325,7 @@ if __name__ == "__main__":
         "destinationCity": "南京",
         "peopleCount": 2,
         "daysCount": 3,
-        "additionalRequirements": "我想要去一些红色景点",
+        "additionalRequirements": "我想要进行一次红色之旅, 多去几个红色景点",
     }
     print(plan_main(request=request_data, task_id=1, debug_mode=True))
     # print(modify_plan(modify_str="也要吃烧烤", task_id=0, debug_mode=True))
