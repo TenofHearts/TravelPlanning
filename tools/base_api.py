@@ -6,11 +6,11 @@ import math
 
 # ****************** 第一步：在此处填入你申请的API密钥 ******************
 AMAP_KEYS = [
+    "29650faace73ec6d40cac2c6ed1082d4",
     "fdba1f2fcdd9369564f871a149d6aa30",
     "76435a409d3ebf776460e55acb1a7171",
     "7d5951bd8860e044cb5967947f46388e",
     "e8641e97905135c164bb7e21f4bcfb1c",
-    "29650faace73ec6d40cac2c6ed1082d4",
 ]
 _CURRENT_KEY = 0
 # ********************************************************************
@@ -25,10 +25,11 @@ def get_amap_key():
     return key
 
 
-def search_location(keywords, region=None, show_fields="children"):
+def search_location(keywords, region=None, show_fields="children", verbose=False):
     AMAP_KEY = get_amap_key()
     if AMAP_KEY is None:
-        print("错误：请先在代码中填入您申请的高德API Key！")
+        if verbose:
+            print("[API_ERROR] 错误：请先在代码中填入您申请的高德API Key！")
         return None
 
     url = "https://restapi.amap.com/v5/place/text"
@@ -46,18 +47,23 @@ def search_location(keywords, region=None, show_fields="children"):
 
         # 解析返回的 JSON 数据
         result = response.json()
+        
+        if verbose:
+            print(f"[LOCATION_SEARCH] 位置搜索完成: {keywords}")
 
         return result["pois"][0]["location"], result["pois"][0]["citycode"]
 
     except requests.exceptions.RequestException as e:
-        print(f"HTTP 请求发生错误: {e}")
+        if verbose:
+            print(f"[API_ERROR] HTTP 请求发生错误: {e}")
         return None
     except json.JSONDecodeError:
-        print("解析返回的JSON数据失败")
+        if verbose:
+            print("[API_ERROR] 解析返回的JSON数据失败")
         return None
 
 
-def search_keywords(keywords, region=None, show_fields="business,indoor,photos"):
+def search_keywords(keywords, region=None, show_fields="business,indoor,photos", verbose=False):
     """
     调用高德 Web 服务 API v5 的关键字搜索功能。
     文档: https://lbs.amap.com/api/webservice/guide/api-v2/search#text
@@ -65,11 +71,13 @@ def search_keywords(keywords, region=None, show_fields="business,indoor,photos")
     :param keywords: 必填参数，查询的关键字，多个关键字用"|"分割，如"美食|酒店"
     :param region: 可选参数，指定在哪个城市/区域内搜索
     :param show_fields: 可选参数，指定要返回的POI信息字段，多个字段用","分割，如"business,indoor,photos"
+    :param verbose: 是否显示详细信息
     :return: 解析后的JSON数据，或者在请求失败时返回 None
     """
     AMAP_KEY = get_amap_key()
     if AMAP_KEY is None:
-        print("错误：请先在代码中填入您申请的高德API Key！")
+        if verbose:
+            print("[API_ERROR] 错误：请先在代码中填入您申请的高德API Key！")
         return None
 
     url = "https://restapi.amap.com/v5/place/text"
@@ -87,13 +95,19 @@ def search_keywords(keywords, region=None, show_fields="business,indoor,photos")
 
         # 解析返回的 JSON 数据
         result = response.json()
+        
+        if verbose:
+            print(f"[KEYWORD_SEARCH] 关键词搜索完成: {keywords} (区域: {region or '全国'})")
+        
         return result
 
     except requests.exceptions.RequestException as e:
-        print(f"HTTP 请求发生错误: {e}")
+        if verbose:
+            print(f"[API_ERROR] HTTP 请求发生错误: {e}")
         return None
     except json.JSONDecodeError:
-        print("解析返回的JSON数据失败")
+        if verbose:
+            print("[API_ERROR] 解析返回的JSON数据失败")
         return None
 
 
@@ -142,6 +156,7 @@ def search_routine(
     time=None,
     originpoi=None,
     destinationpoi=None,
+    verbose=False,
 ):
     """调用高德API进行公交路线规划
 
@@ -153,11 +168,13 @@ def search_routine(
     :param time: 出发时间，格式类似 "9-54"
     :param originpoi: 出发点POI ID
     :param destinationpoi: 目的地POI ID
+    :param verbose: 是否显示详细信息
     :return: 解析后的路线信息、自然语言描述、时间花费和费用
     """
     AMAP_KEY = get_amap_key()
     if AMAP_KEY is None:
-        print("错误：请先在代码中填入您申请的高德API Key！")
+        if verbose:
+            print("[API_ERROR] 错误：请先在代码中填入您申请的高德API Key！")
         return None
 
     url = "https://restapi.amap.com/v5/direction/transit/integrated"
@@ -187,10 +204,10 @@ def search_routine(
         raw_data = response.json()
 
         # 解析路线信息
-        transit_info = parse_route_result(raw_data)
+        transit_info = parse_route_result(raw_data, verbose=verbose)
 
         # 生成自然语言描述
-        transit_desc = format_transit_info(transit_info)
+        transit_desc = format_transit_info(transit_info, verbose=verbose)
 
         # 计算时间花费和费用
         time_cost = {}
@@ -229,7 +246,8 @@ def search_routine(
                         # 格式化为 "HH:MM" 形式
                         time_cost["end_time"] = f"{end_hour:02d}:{end_minute:02d}"
                     except Exception as e:
-                        print(f"时间格式处理错误: {e}")
+                        if verbose:
+                            print(f"[ROUTE_PLANNING] 时间格式处理错误: {e}")
                         time_cost["end_time"] = ""
 
                 # 计算费用
@@ -244,7 +262,9 @@ def search_routine(
         routes_count = 0
         if raw_data and "route" in raw_data and "transits" in raw_data["route"]:
             routes_count = len(raw_data["route"]["transits"])
-        print(f"找到 {routes_count} 条路线方案")
+        
+        if verbose:
+            print(f"[ROUTE_PLANNING] 路线规划完成: 找到 {routes_count} 条路线方案")
 
         return {
             "raw_data": raw_data,
@@ -260,34 +280,40 @@ def search_routine(
         }
 
     except requests.exceptions.RequestException as e:
-        print(f"HTTP 请求发生错误: {e}")
+        if verbose:
+            print(f"[API_ERROR] HTTP 请求发生错误: {e}")
         return None
     except json.JSONDecodeError:
-        print("解析返回的JSON数据失败")
+        if verbose:
+            print("[API_ERROR] 解析返回的JSON数据失败")
         return None
 
 
-def parse_route_result(result):
+def parse_route_result(result, verbose=False):
     """从API返回结果中提取公交/地铁信息
 
     :param result: API返回的原始JSON数据
+    :param verbose: 是否显示详细信息
     :return: 包含公交/地铁信息的列表
     """
     transit_info = []
 
     # 检查API返回状态
     if result["status"] != "1":
-        print(f"API请求失败，状态码：{result['status']}，消息：{result['info']}")
+        if verbose:
+            print(f"[API_ERROR] API请求失败，状态码：{result['status']}，消息：{result['info']}")
         return transit_info
 
     # 检查是否有返回的路线
     if "route" not in result or "transits" not in result["route"]:
-        print("未找到路线规划信息")
+        if verbose:
+            print("[ROUTE_PARSE] 未找到路线规划信息")
         return transit_info
 
     # 遍历所有可能的路线方案
     transits = result["route"]["transits"]
-    print(f"找到 {len(transits)} 条路线方案")
+    if verbose:
+        print(f"[ROUTE_PARSE] 路线解析: 找到 {len(transits)} 条路线方案")
 
     for i, transit in enumerate(transits):
         route_steps = []
@@ -325,13 +351,16 @@ def parse_route_result(result):
     return transit_info
 
 
-def format_transit_info(transit_info):
+def format_transit_info(transit_info, verbose=False):
     """将提取的公交/地铁信息转换为自然语言描述
 
     :param transit_info: 包含公交/地铁信息的列表
+    :param verbose: 是否显示详细信息
     :return: 自然语言描述字符串，只返回第一种路线
     """
     if not transit_info:
+        if verbose:
+            print("[ROUTE_FORMAT] 未找到可用的公交/地铁路线")
         return "未找到可用的公交/地铁路线"
 
     # 只处理第一条路线方案
@@ -351,34 +380,46 @@ def format_transit_info(transit_info):
 
             route_desc.append(desc)
 
-        return "\n".join(route_desc)
+        result = "\n".join(route_desc)
+        if verbose:
+            print(f"[ROUTE_FORMAT] 路线描述生成完成")
+        return result
 
+    if verbose:
+        print("[ROUTE_FORMAT] 未找到可用的公交/地铁路线")
     return "未找到可用的公交/地铁路线"
 
 
-def test_api_select():
+def test_api_select(verbose=True):
     """
     测试API搜索酒店功能
     """
-    print("=== 测试1: 基本搜索 ===")
+    if verbose:
+        print("[TEST] === 测试1: 基本搜索 ===")
     # 测试基本搜索功能
-    hotels = search_keywords("南京南站", "南京")
-    print(f"找到 {len(hotels)} 家酒店")
-    print("\n前3家酒店信息:")
-    print(hotels["pois"][:3])
+    hotels = search_keywords("南京南站", "南京", verbose=verbose)
+    if verbose and hotels:
+        print(f"[TEST] 找到 {len(hotels.get('pois', []))} 个搜索结果")
+        print("[TEST] 前3个结果信息:")
+        print(hotels.get("pois", [])[:3])
 
-    print("\n=== 测试2: 带过滤条件搜索 ===")
+    if verbose:
+        print("[TEST] === 测试2: 带过滤条件搜索 ===")
     # 测试带过滤条件的搜索
-    hotels = search_keywords("酒店 新街口", "南京")
-    print(f"找到 {len(hotels)} 家五星级酒店")
-    print("\n前3家酒店信息:")
-    print(hotels["pois"][:3])
+    hotels = search_keywords("酒店 新街口", "南京", verbose=verbose)
+    if verbose and hotels:
+        print(f"[TEST] 找到 {len(hotels.get('pois', []))} 个搜索结果")
+        print("[TEST] 前3个结果信息:")
+        print(hotels.get("pois", [])[:3])
 
     return hotels
 
 
-def test_api_routine_with_real_api():
+def test_api_routine_with_real_api(verbose=True):
     """使用真实API测试路径规划功能"""
+    if verbose:
+        print("[TEST] 开始测试路径规划功能...")
+    
     # 北京三元桥到望京测试
     result = search_routine(
         origin="116.466485,39.995197",  # 三元桥附近的坐标
@@ -387,33 +428,32 @@ def test_api_routine_with_real_api():
         city2="010",  # 北京市编码
         type="0",  # 最快捷模式
         time="9-30",  # 出发时间为早上9点30分
+        verbose=verbose,
     )
 
-    if result:
-        print("\n=== 原始数据 ===")
-        print(
-            json.dumps(result["raw_data"], indent=2, ensure_ascii=False)[:500] + "..."
-            if len(json.dumps(result["raw_data"], indent=2, ensure_ascii=False)) > 500
-            else json.dumps(result["raw_data"], indent=2, ensure_ascii=False)
-        )
+    if result and verbose:
+        print("[TEST] === 原始数据 ===")
+        raw_data_str = json.dumps(result["raw_data"], indent=2, ensure_ascii=False)
+        print(raw_data_str[:500] + "..." if len(raw_data_str) > 500 else raw_data_str)
 
-        print("\n=== 自然语言描述 ===")
+        print("[TEST] === 自然语言描述 ===")
         print(result["transit_desc"])
 
-        print("\n=== 路线时间花费 ===")
-        print(f"\u603b耗时: {result['time_cost'].get('duration_minutes', 0)} 分钟")
-        print(f"\u7ed3束时间: {result['time_cost'].get('end_time', '')}")
+        print("[TEST] === 路线时间花费 ===")
+        print(f"[TEST] 总耗时: {result['time_cost'].get('duration_minutes', 0)} 分钟")
+        print(f"[TEST] 结束时间: {result['time_cost'].get('end_time', '')}")
 
-        print("\n=== 路线费用 ===")
-        print(f"\u516c交费用: {result['fee_cost'].get('transit_fee', 0)} 元")
+        print("[TEST] === 路线费用 ===")
+        print(f"[TEST] 公交费用: {result['fee_cost'].get('transit_fee', 0)} 元")
 
     return result
 
 
 if __name__ == "__main__":
-    print("开始测试路线规划功能...")
+    print("[MAIN] 开始测试路线规划功能...")
+    
+    # 注释掉的测试代码已整理，现在使用新的测试方式
     # try:
-    #     # 测试使用固定的出发时间
     #     result = search_routine(
     #         origin="116.466485,39.995197",
     #         destination="116.46424,40.020642",
@@ -421,22 +461,25 @@ if __name__ == "__main__":
     #         city2="010",
     #         type="0",
     #         time="9-30",
+    #         verbose=True,
     #     )
-
+    
     #     if result:
-    #         print("\n=== 自然语言描述 ===")
+    #         print("[TEST] === 自然语言描述 ===")
     #         print(result["transit_desc"])
-
-    #         print("\n=== 路线时间花费 ===")
-    #         print(f"总耗时: {result['time_cost'].get('duration_minutes', 0)} 分钟")
-    #         print(f"结束时间: {result['time_cost'].get('end_time', '')}")
-
-    #         print("\n=== 路线费用 ===")
-    #         print(f"公交费用: {result['fee_cost'].get('transit_fee', 0)} 元")
+    
+    #         print("[TEST] === 路线时间花费 ===")
+    #         print(f"[TEST] 总耗时: {result['time_cost'].get('duration_minutes', 0)} 分钟")
+    #         print(f"[TEST] 结束时间: {result['time_cost'].get('end_time', '')}")
+    
+    #         print("[TEST] === 路线费用 ===")
+    #         print(f"[TEST] 公交费用: {result['fee_cost'].get('transit_fee', 0)} 元")
     # except Exception as e:
-    #     print(f"测试过程中发生错误: {e}")
+    #     print(f"[ERROR] 测试过程中发生错误: {e}")
 
-    print(search_location("上海文化广场", "上海"))
+    # 测试位置搜索
+    location_result = search_location("上海文化广场", "上海", verbose=True)
+    print(f"[MAIN] 位置搜索结果: {location_result}")
 
-    print("测试完成!")
-    # print(search_location("北京大学", "北京"))
+    print("[MAIN] 测试完成!")
+    # 备用测试: search_location("北京大学", "北京", verbose=True)

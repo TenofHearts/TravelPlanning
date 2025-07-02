@@ -102,8 +102,8 @@ def constraints_validation(query, plan, poi_plan):
 
     except:
         extracted_vars = None
-
-    print(extracted_vars)
+    print("-------------------------------------------------------------")
+    print("现在的硬性约束是:",extracted_vars)
 
     logical_result = evaluate_logical_constraints(extracted_vars, query["hard_logic"])
 

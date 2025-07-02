@@ -148,7 +148,7 @@ def get_symbolic_concepts(symbolic_input,plan_json):
     # Calculating average food and hotel prices
     food_price = sum(food_prices) / len(food_prices) if food_prices else 0
     hotel_price = sum(hotel_prices) / len(hotel_prices) if hotel_prices else 0
-
+    
     
     #change tickets to int
 

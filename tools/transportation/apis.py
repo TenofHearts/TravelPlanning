@@ -89,7 +89,8 @@ poi_search = Poi()
 
 
 def GoTo(city, locationA, locationB, start_time, transport_type, verbose=True):
-    print("GoTo: From {} to {}".format(locationA, locationB))
+    if verbose:
+        print(f"[TRANSPORT] 交通规划: 从 {locationA} 到 {locationB}")
     coordinate_A, citycode_A = poi_search.search_loc(city, locationA)
     coordinate_B, citycode_B = poi_search.search_loc(city, locationB)
     city_cn = city
@@ -119,11 +120,7 @@ def GoTo(city, locationA, locationB, start_time, transport_type, verbose=True):
         }
         transports.append(transport)
         if verbose:
-            print(
-                "Walk Distance {:.3} kilometers, Time {:.3} hour, Cost {}¥".format(
-                    distance, time, int(cost)
-                )
-            )
+            print(f"[TRANSPORT_WALK] 步行距离: {distance:.3f}km, 时间: {time:.3f}小时, 费用: {int(cost)}元")
         return transports
 
     elif transport_type == "taxi":
@@ -146,11 +143,7 @@ def GoTo(city, locationA, locationB, start_time, transport_type, verbose=True):
         transports.append(transport)
 
         if verbose:
-            print(
-                "Taxi Distance {:.3} kilometers, Time {:.2} hour, Cost {}¥".format(
-                    distance, time, int(cost)
-                )
-            )
+            print(f"[TRANSPORT_TAXI] 出租车距离: {distance:.3f}km, 时间: {time:.2f}小时, 费用: {int(cost)}元")
         return transports
 
     elif transport_type == "metro":
@@ -169,7 +162,8 @@ def GoTo(city, locationA, locationB, start_time, transport_type, verbose=True):
                 "nL_desc": routine["transit_desc"],
             }
         )
-        print("line142", transports)
+        if verbose:
+            print(f"[TRANSPORT_METRO] 地铁路线规划完成, 距离: {distance:.3f}km, 费用: {routine['fee_cost'].get('transit_fee', 0)}元")
         return transports
 
 
@@ -179,7 +173,7 @@ def get_line_change(station_to_line, path):
     for station in path:
         if station in station_to_line:
             line_changes.append(station_to_line[station])
-    # print(path,line_changes)
+    # 可用于调试: print(f"路径: {path}, 线路变化: {line_changes}")
 
 
 # def add_time(start_time, hours):

@@ -163,68 +163,126 @@ class Accommodations:
         :param keywords: 搜索关键词，由调用方构建
         :param key: 查询的关键字类型，用于过滤结果
         :param func: 筛选条件函数
-        :param query: 查询参数字典，用于价格和房型过滤
         :return: 酒店信息的DataFrame
         """
         # 如果没有提供关键词，使用默认值
         if keywords is None:
-
             keywords = "酒店"
 
-        print(f"搜索关键词: {keywords}")
+        print(f"酒店搜索 - 城市: {city}, 关键词: {keywords}")
 
-        # 调用API
-        result = search_keywords(keywords=keywords, region=city)
-
+        # 尝试多个搜索策略
+        search_strategies = [
+            keywords,                    # 原始关键词
+            "酒店",                     # 简单关键词
+            "住宿",                     # 更宽泛的关键词
+            f"{city}酒店",              # 城市+酒店
+        ]
+        
+        result = None
+        for strategy in search_strategies:
+            try:
+                print(f"尝试搜索策略: {strategy}")
+                result = search_keywords(keywords=strategy, region=city)
+                
+                if result and "pois" in result and result["pois"]:
+                    print(f"搜索成功，找到 {len(result['pois'])} 个结果")
+                    break
+                else:
+                    print(f"搜索策略 '{strategy}' 未找到结果")
+                    
+            except Exception as e:
+                print(f"搜索策略 '{strategy}' 发生异常: {str(e)}")
+                continue
+        
+        # 如果所有策略都失败，尝试使用本地数据库
         if not result or "pois" not in result or not result["pois"]:
-            return pd.DataFrame()  # 返回空DataFrame
+            print(f"API搜索失败，尝试使用本地数据库")
+            return self._get_local_hotels(city)
 
         # 转换API返回的结果为DataFrame
         hotels_data = []
-        url_list = None
         for poi in result["pois"]:
-            if "photos" in poi and poi["photos"] is not None:
-                url_list = [
-                    photo["url"]
-                    for photo in poi["photos"]
-                    if photo and isinstance(photo, dict) and "url" in photo
-                ]
-            location = poi["location"].split(",")
-            hotel_data = {
-                "name": poi["name"],
-                "id": poi["id"],
-                "featurehoteltype": poi.get("type", ""),  # 类型
-                "address": poi.get("address", ""),
-                "rating": poi.get("business", {}).get("rating", ""),
-                "cost": poi.get("business", {}).get("cost", ""),
-                "tag": poi.get("business", {}).get("tag", ""),
-                "latitude": float(location[1]) if len(location) > 1 else 0.0,
-                "longitude": float(location[0]) if len(location) > 0 else 0.0,
-                "phone": poi.get("business", {}).get("tel", ""),
-                "photos": url_list,
-                "city": city,
-            }
+            try:
+                url_list = []
+                if "photos" in poi and poi["photos"] is not None:
+                    url_list = [
+                        photo["url"]
+                        for photo in poi["photos"]
+                        if photo and isinstance(photo, dict) and "url" in photo
+                    ]
+                
+                location = poi.get("location", "0,0").split(",")
+                hotel_data = {
+                    "name": poi.get("name", "未知酒店"),
+                    "id": poi.get("id", ""),
+                    "featurehoteltype": poi.get("type", ""),
+                    "address": poi.get("address", ""),
+                    "rating": poi.get("business", {}).get("rating", ""),
+                    "cost": poi.get("business", {}).get("cost", ""),
+                    "tag": poi.get("business", {}).get("tag", ""),
+                    "latitude": float(location[1]) if len(location) > 1 and location[1] else 0.0,
+                    "longitude": float(location[0]) if len(location) > 0 and location[0] else 0.0,
+                    "phone": poi.get("business", {}).get("tel", ""),
+                    "photos": url_list,
+                    "city": city,
+                }
+                hotels_data.append(hotel_data)
+            except Exception as e:
+                print(f"解析酒店数据时出错: {str(e)}")
+                continue
 
-            hotels_data.append(hotel_data)
+        if not hotels_data:
+            print("没有成功解析到任何酒店数据")
+            return self._get_local_hotels(city)
 
         df = pd.DataFrame(hotels_data)
-        print("line164", df)
+        print(f"成功创建包含 {len(df)} 个酒店的DataFrame")
+        
+        # 应用过滤条件
         if key and func and key in df.columns:
-            bool_list = [func(x) for x in df[key]]
-            df = df[bool_list]
-        if not df.empty:  # 确保DataFrame不为空才保存
-            temp_dir = "temp_csv_files"
-            if not os.path.exists(temp_dir):
-                os.makedirs(temp_dir)
+            try:
+                bool_list = [func(x) for x in df[key]]
+                df = df[bool_list]
+                print(f"过滤后剩余 {len(df)} 个酒店")
+            except Exception as e:
+                print(f"过滤条件应用失败: {str(e)}")
+        
+        # 保存到临时文件
+        if not df.empty:
+            try:
+                temp_dir = "temp_csv_files"
+                if not os.path.exists(temp_dir):
+                    os.makedirs(temp_dir)
 
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            file_name = f"hotels_{city}_{timestamp}.csv"
-            file_path = os.path.join(temp_dir, file_name)
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                file_name = f"hotels_{city}_{timestamp}.csv"
+                file_path = os.path.join(temp_dir, file_name)
 
-            df.to_csv(file_path, index=False, encoding="utf-8-sig")
-
-            print(f"成功将DataFrame保存到临时文件: {file_path}")
+                df.to_csv(file_path, index=False, encoding="utf-8-sig")
+                print(f"成功将DataFrame保存到临时文件: {file_path}")
+            except Exception as e:
+                print(f"保存临时文件失败: {str(e)}")
+                
         return df
+    
+    def _get_local_hotels(self, city):
+        """
+        使用本地数据库作为备用方案
+        """
+        try:
+            if city in self.data:
+                print(f"使用本地数据库，城市: {city}")
+                local_data = self.data[city].copy()
+                if not local_data.empty:
+                    print(f"从本地数据库找到 {len(local_data)} 个酒店")
+                    return local_data
+            else:
+                print(f"本地数据库中没有城市 {city} 的数据")
+        except Exception as e:
+            print(f"访问本地数据库失败: {str(e)}")
+        
+        return pd.DataFrame()  # 返回空DataFrame
 
     def nearby(
         self, city, lat: float, lon: float, topk: int = None, dist: float = 5

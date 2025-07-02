@@ -176,12 +176,27 @@ class Interactive_Search:
 
     def symbolic_search(self, query, query_idx=0):
         if self.verbose:
-            print("query:", query)
+            print(f"[SYMBOLIC_SEARCH] 开始符号搜索，查询索引: {query_idx}")
+            print(f"[SYMBOLIC_SEARCH] 查询内容: {query}")
         self.avialable_plan = {}
         query["transport_preference"] = "metro"
         query["hard_logic_unseen"] = []
         if self.verbose:
-            print("line 208,hard_logic:", query["hard_logic"])
+            print(f"[SYMBOLIC_SEARCH] 硬约束条件: {query['hard_logic']}")
+#         **支持的约束类型**:
+# - `rooms==N`: 房间数量
+# - `cost<=N`: 总预算限制
+# - `room_type==N`: 房间类型
+# - `train_type=='XXX'`: 火车类型
+# - `{'川菜', '粤菜'} <= food_type`: 餐饮类型偏好
+# - `transport_type <= {'taxi'}`: 交通方式偏好
+# - `hotel_price<=N`: 酒店价格限制
+# - `intercity_transport=='train'`: 城际交通类型
+# - `{'文化遗址'} <= spot_type`: 景点类型偏好
+# - `{'天安门'} <= attraction_names`: 特定景点名称
+# - `{'全聚德'} <= restaurant_names`: 特定餐厅名称
+# - `{'北京饭店'} <= hotel_names`: 特定酒店名称
+# - `{'温泉'} <= hotel_feature`: 酒店特性需求
         for idx, item in enumerate(query["hard_logic"]):  # 这里开始解析每个约束
             if item.startswith("rooms=="):
 
@@ -210,13 +225,13 @@ class Interactive_Search:
                     query["hard_logic"][idx] = str(query["food_type"]) + "<=food_type"
                 else:
                     query["hard_logic"][idx] = " 3 < 33"
-            # print(item)
+            # 解析交通方式约束: transport_type <= {'taxi'} 或 transport_type == {'metro'}
             elif item.startswith("transport_type"):
-
                 if ("<=") in item:
                     str_set = item.split("transport_type<=")[1]
                 elif ("==") in item:
                     str_set = item.split("transport_type==")[1]
+                    
                 if "taxi" in str_set:
                     query["transport_preference"] = "taxi"
                 elif "metro" in str_set:
@@ -224,19 +239,19 @@ class Interactive_Search:
                 else:
                     query["transport_preference"] = "walk"
 
+            # 解析酒店价格约束: hotel_price<=N
             elif item.startswith("hotel_price<="):
                 query["hotel_price"] = int(item.split("<=")[1])
 
-            elif item.endswith("intercity_transport") or item.startswith(
-                "intercity_transport"
-            ):
+            # 解析城际交通类型约束: intercity_transport == 'train'
+            elif item.endswith("intercity_transport") or item.startswith("intercity_transport"):
                 query["intercity_transport_type"] = item.split("'")[1]
 
+            # 解析景点类型约束: {'文化遗址', '自然景观'} <= spot_type
             elif item.endswith("spot_type"):
                 stlist = item.split("<=")[0].split("}")[0].split("{")[1]
 
                 seen_list = []
-
                 for s_i in stlist.split(","):
                     str_i = s_i.split("'")[1]
                     seen_list.append(str_i)
@@ -247,6 +262,7 @@ class Interactive_Search:
                 else:
                     query["hard_logic"][idx] = " 3 < 33"
 
+            # 解析特定景点名称约束: {'天安门', '故宫'} <= attraction_names
             elif item.endswith("attraction_names"):
                 stlist = item.split("<=")[0].split("}")[0].split("{")[1]
 
@@ -262,6 +278,7 @@ class Interactive_Search:
                 else:
                     query["hard_logic"][idx] = " 3 < 33"
 
+            # 解析特定餐厅名称约束: {'全聚德', '东来顺'} <= restaurant_names
             elif item.endswith("restaurant_names"):
                 stlist = item.split("<=")[0].split("}")[0].split("{")[1]
 
@@ -277,6 +294,7 @@ class Interactive_Search:
                 else:
                     query["hard_logic"][idx] = " 3 < 33"
 
+            # 解析特定酒店名称约束: {'北京饭店', '王府井大饭店'} <= hotel_names
             elif item.endswith("hotel_names"):
                 stlist = item.split("<=")[0].split("}")[0].split("{")[1]
 
@@ -292,6 +310,7 @@ class Interactive_Search:
                 else:
                     query["hard_logic"][idx] = " 3 < 33"
 
+            # 解析酒店特性约束: {'温泉', '游泳池'} <= hotel_feature
             elif item.endswith("hotel_feature"):
                 stlist = item.split("<=")[0].split("}")[0].split("{")[1]
 
@@ -307,6 +326,7 @@ class Interactive_Search:
                 else:
                     query["hard_logic"][idx] = " 3 < 33"
 
+            # 其他无法识别的约束
             else:
                 if (
                     "days==" not in item
@@ -315,50 +335,82 @@ class Interactive_Search:
                 ):
                     query["hard_logic_unseen"].append(item)
 
+        # 过滤掉个性化约束
         query["hard_logic"] = [
             item
             for item in query["hard_logic"]
             if item not in query["hard_logic_unseen"]
         ]
+        
+        # 开始搜索计划
         success, plan = self.search_plan(query)
-        print("line425:success", success, "plan", plan)
+        if self.verbose:
+            print(f"[SYMBOLIC_SEARCH]line 348 搜索完成 - 成功: {success}, 计划: {plan}")
         return success, plan
 
     def search_plan(self, query):
+        """
+        搜索和生成完整的旅行计划
+        
+        这个函数负责：
+        1. 搜索城际交通（飞机、火车）
+        2. 为交通选项评分和排序
+        3. 选择最优的往返交通组合
+        4. 调用POI搜索生成详细行程
+        
+        Args:
+            query (dict): 解析后的用户查询字典
+            
+        Returns:
+            tuple: (success, plan) - 成功标志和生成的计划
+        """
         if self.verbose:
-            print("query:", query)
-        poi_plan = {}
-        self.poi_info = {}
-        self.restaurants_visiting = []
-        self.attractions_visiting = []
-        self.food_type_visiting = []
-        self.spot_type_visiting = []
-        self.attraction_names_visiting = []
-        self.restaurant_names_visiting = []
-        source_city = query["start_city"]
-        target_city = query["target_city"]
+            print(f"[SEARCH_PLAN] 开始规划搜索")
+            print(f"[SEARCH_PLAN] 查询参数: {query}")
+            
+        poi_plan = {}                                      # POI计划存储
+        self.poi_info = {}                                 # POI信息存储
+        
+        # 初始化访问记录列表（避免重复访问）
+        self.restaurants_visiting = []                     # 已访问餐厅索引
+        self.attractions_visiting = []                     # 已访问景点索引
+        self.food_type_visiting = []                       # 已尝试菜系类型
+        self.spot_type_visiting = []                       # 已访问景点类型
+        self.attraction_names_visiting = []                # 已访问景点名称
+        self.restaurant_names_visiting = []                # 已访问餐厅名称
+        
+        source_city = query["start_city"]                  # 出发城市
+        target_city = query["target_city"]                 # 目标城市
+        
+        # 搜索去程火车
         train_go = self.intercity_transport.select(
             start_city=source_city, end_city=target_city, intercity_type="train"
         )
+        # 搜索回程火车
         train_back = self.intercity_transport.select(
             start_city=target_city, end_city=source_city, intercity_type="train"
         )
 
+        # 搜索去程航班
         flight_go = self.intercity_transport.select(
             start_city=source_city, end_city=target_city, intercity_type="airplane"
         )
+        # 搜索回程航班
         flight_back = self.intercity_transport.select(
             start_city=target_city, end_city=source_city, intercity_type="airplane"
         )
 
+        # 为所有交通选项计算评分
         flight_go["Score"] = flight_go.apply(score_go_intercity_transport, axis=1)
         flight_back["Score"] = flight_back.apply(score_back_intercity_transport, axis=1)
         train_go["Score"] = train_go.apply(score_go_intercity_transport, axis=1)
         train_back["Score"] = train_back.apply(score_back_intercity_transport, axis=1)
 
+        # 合并飞机和火车的选项
         go_transport = combine_transport_dataframe(flight_go, train_go)
         back_transport = combine_transport_dataframe(flight_back, train_back)
 
+        # 按评分升序排列（分数越低越好）
         go_transport = go_transport.sort_values(by="Score", ascending=True)
         back_transport = back_transport.sort_values(by="Score", ascending=True)
 
@@ -380,16 +432,9 @@ class Interactive_Search:
         train_back_num = 0 if train_back is None else train_back.shape[0]
 
         if self.verbose:
-            print(
-                "from {} to {}: {} flights, {} trains".format(
-                    source_city, target_city, flight_go_num, train_go_num
-                )
-            )
-            print(
-                "from {} to {}: {} flights, {} trains".format(
-                    target_city, source_city, flight_back_num, train_back_num
-                )
-            )
+            print(f"[TRANSPORT_SEARCH] 交通搜索结果:")
+            print(f"  从 {source_city} 到 {target_city}: {flight_go_num} 个航班, {train_go_num} 个火车班次")
+            print(f"  从 {target_city} 到 {source_city}: {flight_back_num} 个航班, {train_back_num} 个火车班次")
 
         poi_plan["transport_preference"] = query["transport_preference"]
 
@@ -468,13 +513,14 @@ class Interactive_Search:
                         + poi_plan["back_transport"]["Cost"]
                     ) * query["people_number"]
 
-                    print("intercity_cost: ", intercity_cost)
                     if intercity_cost >= query["cost"]:
                         continue
 
                     else:
                         cost_wo_inter_trans = query["cost"] - intercity_cost
                         found_intercity_transport = True
+                        if self.verbose:
+                            print(f"[COST_CHECK] 城际交通费用: {intercity_cost}, 剩余预算: {cost_wo_inter_trans}")
                 else:
                     found_intercity_transport = True
 
@@ -482,7 +528,8 @@ class Interactive_Search:
             query, poi_plan, plan=[], current_time="", current_position=""
         )
 
-        print(success, plan)
+        if self.verbose:
+            print(f"[SEARCH_PLAN] POI搜索完成 - 成功: {success}")
         if success:
             return True, plan
         return False, {"info": "No Solution"}
@@ -535,7 +582,8 @@ class Interactive_Search:
         #     new_poi_info = random.choices(poi_info_list, k=min(25, len(poi_info_list)))
         for item in poi_info_list:
             info_list.append(item)
-
+        print("-------------------------------------------------------------------------")
+        print("poi_info_list前三条: ", poi_info_list[0:3])
         overall_plan, history_message_think_overall = self.reason_prompt(
             info_list, return_history_message=True, history_message=[]
         )
@@ -559,7 +607,7 @@ class Interactive_Search:
         # score_list = np.max(scores, axis=0)
 
         if self.verbose:
-            print("Score Over!")
+            print("[POI_SCORING] POI评分完成")
 
         return score_list
 
@@ -576,13 +624,13 @@ class Interactive_Search:
         json_scratchpad.append({"role": "user", "content": scratchpad})
 
         if self.verbose:
-            print("LLM query: ", json_scratchpad)
+            print(f"[LLM_QUERY] 发送查询: {json_scratchpad}")
         thought = self.llm_model(json_scratchpad)
         scratchpad = scratchpad + " " + thought
         json_scratchpad.append({"role": "assistant", "content": thought})
 
         if self.verbose:
-            print(f"Answer:", thought)
+            print(f"[LLM_RESPONSE] 回答: {thought}")
 
         if return_history_message:
             return thought, json_scratchpad
@@ -600,22 +648,22 @@ class Interactive_Search:
         json_scratchpad.append({"role": "user", "content": scratchpad})
 
         if self.verbose:
-            print("LLM query: ", json_scratchpad)
+            print(f"[REWRITE_PLAN] 发送查询: {json_scratchpad}")
         thought = self.llm_model(json_scratchpad)
 
         if self.verbose:
-            print(f"Answer:", thought)
+            print(f"[REWRITE_PLAN] 回答: {thought}")
         return thought
 
     def search_poi(
         self, query, poi_plan, plan, current_time, current_position, current_day=0
     ):
-        print("line874,query", query)
-        print("line874,poi_plan", poi_plan)
-        print("line874,plan", plan)
-        print("line874,current_time", current_time)
-        print("line874,current_position", current_position)
-        print("line874,current_day", current_day)
+        if self.verbose:
+            print(f"[SEARCH_POI] 开始POI搜索")
+            print(f"  查询: {query}")
+            print(f"  当前时间: {current_time}, 位置: {current_position}, 天数: {current_day}")
+            print(f"  计划: {plan}")
+            print(f"  POI计划: {poi_plan}")
 
         target_city = query["target_city"]
         if "cost_wo_intercity" in query:
@@ -626,17 +674,13 @@ class Interactive_Search:
             if inner_city_cost >= query["cost_wo_intercity"]:
 
                 if self.verbose:
-                    print(
-                        "budget run out: inner-city budget {}, cost {}".format(
-                            query["cost_wo_intercity"], inner_city_cost
-                        )
-                    )
+                    print(f"[BUDGET_CHECK] 预算不足 - 内城预算: {query['cost_wo_intercity']}, 当前花费: {inner_city_cost}")
 
                 return False, plan
 
         if current_time != "" and time_compare_if_earlier_equal("23:00", current_time):
             if self.verbose:
-                print("too late, after 23:00")
+                print("[TIME_CHECK] 时间过晚，超过23:00")
             return False, plan
 
         if current_time != "" and current_day == query["days"] - 1:
@@ -658,16 +702,26 @@ class Interactive_Search:
                 return False, plan
             """
         elif current_time != "":
+            # 搜索酒店的逻辑
             keywords = "酒店"
             search_query = ""
+            hotel_info = None  # 初始化 hotel_info 变量
+
+            if self.verbose:
+                print(f"[HOTEL_SEARCH] 开始搜索酒店")
+                print(f"  目标城市: {target_city}")
+                print(f"  查询条件: {query}")
 
             # 1. 处理酒店特性
             if "hotel_feature" in query:
                 # 把特性添加到关键字前面
                 features = query["hotel_feature"]
-                if isinstance(features, list) and features:
+                if isinstance(features, (list, tuple, set)) and features:
                     for feature in features:
                         keywords = f"{feature}{keywords}"
+                    if self.verbose:
+                        print(f"  添加酒店特性: {features}")
+                            
             # 2. 处理酒店名称
             if "hotel_names" in query and query["hotel_names"]:
                 hotel_name = (
@@ -676,16 +730,65 @@ class Interactive_Search:
                     else query["hotel_names"]
                 )
                 search_query += f" 酒店名字为{hotel_name}"
+                if self.verbose:
+                    print(f"  指定酒店名称: {hotel_name}")
+                    
             # 3. 处理价格筛选
             if "hotel_price" in query:
                 price = query["hotel_price"]
                 search_query += f" 价格为{price}"
+                if self.verbose:
+                    print(f"  价格限制: {price}")
 
             # 组合最终搜索关键词
             final_keywords = f"{keywords} {search_query}".strip()
-            hotel_info = self.accommodation.select(target_city, keywords=final_keywords)
+            if self.verbose:
+                print(f"  最终搜索关键词: '{final_keywords}'")
+            
+            # 执行酒店搜索
+            try:
+                hotel_info = self.accommodation.select(target_city, keywords=final_keywords)
+                if self.verbose:
+                    print(f"  酒店搜索结果: 类型={type(hotel_info)}")
+                    if hotel_info is not None:
+                        print(f"  搜索结果数量: {len(hotel_info) if hasattr(hotel_info, '__len__') else 'N/A'}")
+                    else:
+                        print("  搜索结果为None")
+            except Exception as e:
+                if self.verbose:
+                    print(f"  酒店搜索异常: {str(e)}")
+                hotel_info = None
+            
+            # 检查酒店搜索结果是否为空
+            if hotel_info is None or (hasattr(hotel_info, 'empty') and hotel_info.empty) or (hasattr(hotel_info, '__len__') and len(hotel_info) == 0):
+                if self.verbose:
+                    print(f"[HOTEL_SEARCH] 警告: 在{target_city}没有找到符合条件的酒店，搜索关键词: {final_keywords}")
+                
+                # 尝试使用更宽泛的搜索条件
+                backup_keywords = "酒店"
+                if self.verbose:
+                    print(f"[HOTEL_SEARCH] 尝试使用备用搜索关键词: {backup_keywords}")
+                    
+                try:
+                    hotel_info = self.accommodation.select(target_city, keywords=backup_keywords)
+                    if self.verbose:
+                        print(f"[HOTEL_SEARCH] 备用搜索结果: {hotel_info}")
+                except Exception as e:
+                    if self.verbose:
+                        print(f"[HOTEL_SEARCH] 备用酒店搜索异常: {str(e)}")
+                    hotel_info = None
+                
+                # 如果仍然没有结果，返回失败
+                if hotel_info is None or (hasattr(hotel_info, 'empty') and hotel_info.empty) or (hasattr(hotel_info, '__len__') and len(hotel_info) == 0):
+                    if self.verbose:
+                        print(f"[HOTEL_SEARCH] 错误: 在{target_city}没有找到任何酒店")
+                    return False, plan
+            
             hotel_sel = hotel_info.iloc[0]
             poi_plan["accommodation"] = hotel_info.iloc[0]
+            
+            if self.verbose:
+                print(f"[HOTEL_SEARCH] 选择的酒店: {hotel_sel.get('name', 'Unknown')}")
 
             transports_sel = goto(
                 city=query["target_city"],
@@ -699,11 +802,7 @@ class Interactive_Search:
             arrived_time = "23:00"
             if time_compare_if_earlier_equal("24:00", arrived_time):
                 if self.verbose:
-                    print(
-                        "Can not go back to hotel, current POI {}, hotel arrived time: {}".format(
-                            current_position, arrived_time
-                        )
-                    )
+                    print(f"[HOTEL_CHECK] 无法及时到达酒店 - 当前位置: {current_position}, 酒店到达时间: {arrived_time}")
                 return False, plan
 
         # intercity_transport - go
@@ -734,13 +833,14 @@ class Interactive_Search:
 
             else:
                 if self.verbose:
-                    print("No solution for the given Go Transport")
+                    print("[GO_TRANSPORT] 给定去程交通无解决方案")
                 return False, plan
 
         # breakfast
 
         if current_time == "00:00":  # 新的一天开始了
-            print("new day coming!")
+            if self.verbose:
+                print("[NEW_DAY] 新的一天开始")
             if len(plan) < current_day + 1:
                 plan.append({"day": current_day + 1, "activities": []})
 
@@ -757,7 +857,8 @@ class Interactive_Search:
             )
 
             new_time = plan[current_day]["activities"][-1]["end_time"]
-            print("new_time", new_time)
+            if self.verbose:
+                print(f"[NEW_DAY] 早餐结束时间: {new_time}")
             new_position = current_position
             success, plan = self.search_poi(
                 query, poi_plan, plan, new_time, new_position, current_day
@@ -797,11 +898,7 @@ class Interactive_Search:
             )
 
             if self.verbose:
-                print(
-                    "POI planning, day {} {}, {}, next-poi type: {}".format(
-                        current_day, current_time, current_position, poi_type
-                    )
-                )
+                print(f"[POI_PLANNING] 第{current_day + 1}天 {current_time}, 位置: {current_position}, 下一个POI类型: {poi_type}")
 
             if poi_type == "back-intercity-transport":  # 回家家咯
                 if len(plan) < current_day + 1:
@@ -849,7 +946,8 @@ class Interactive_Search:
                         }
                     )
                 res_bool, res_plan = self.constraints_validation(query, plan, poi_plan)
-                print("line676", res_plan)
+                if self.verbose:
+                    print(f"[BACK_TRANSPORT] 约束验证结果: {res_plan}")
                 # return True, res_plan  # TODO 先不检查约束了，成功回家要紧
                 if res_bool:
                     return True, res_plan
@@ -857,9 +955,8 @@ class Interactive_Search:
 
                     plan[current_day]["activities"].pop()
 
-                    print(
-                        "[We choose to go back transport and finish this trip], but constraints_validation failed..."
-                    )
+                    if self.verbose:
+                        print("[BACK_TRANSPORT] 选择回程交通并完成行程，但约束验证失败...")
 
             elif poi_type in ["lunch", "dinner"]:
                 keywords = f"{current_position}" + "附近美食"  # 吃附近的餐厅
@@ -926,7 +1023,7 @@ class Interactive_Search:
 
                 # rest_info = mmr_algorithm(name_key="name", df=rest_info)
                 if self.verbose:
-                    print(rest_info)
+                    print(f"[RESTAURANT_SEARCH] 餐厅搜索结果: {rest_info}")
                 self.poi_info["restaurants"] = rest_info
 
                 score_list = rest_info["importance"].values
@@ -968,7 +1065,8 @@ class Interactive_Search:
                                 )
 
                             arrived_time = transports_sel[-1]["end_time"]
-                            print("line761", arrived_time)
+                            if self.verbose:
+                                print(f"[RESTAURANT_TIME] 到达时间: {arrived_time}")
                             # 开放时间
                             # TODO:从高德api返还的字符串提取出该餐厅开放时间和关闭时间
                             # opentime, endtime = poi_sel["weekdayopentime"],  poi_sel["weekdayclosetime"]
@@ -1019,16 +1117,14 @@ class Interactive_Search:
                                 act_end_time, act_start_time
                             ):
                                 continue
-                            print("line1022", poi_sel["price"], query["people_number"])
-                            if poi_sel["price"] == "":
-                                total_cost = 100 #默认价格
-                            else:
-                                total_cost = float(poi_sel["price"]) * int(query["people_number"])
+                            if self.verbose:
+                                print(f"[RESTAURANT_COST] 餐厅价格: {poi_sel['price']}, 人数: {query['people_number']}")
+
                             activity_i = {
                                 "position": poi_sel["name"],
                                 "type": poi_type,
                                 "transports": transports_sel,
-                                "cost": total_cost,  
+                                "cost": 100,  
                                 "start_time": act_start_time,
                                 "end_time": act_end_time,
                                 "photos": (
@@ -1042,7 +1138,8 @@ class Interactive_Search:
 
                             new_time = act_end_time
                             new_position = poi_sel["name"]
-                            print("line814", new_time, new_position)
+                            if self.verbose:
+                                print(f"[RESTAURANT_PLAN] 餐厅规划完成 - 时间: {new_time}, 位置: {new_position}")
                             self.restaurant_names_visiting.append(poi_sel["name"])
                             self.restaurants_visiting.append(res_idx)
                             self.food_type_visiting.append(poi_sel["cuisine"])
@@ -1064,7 +1161,8 @@ class Interactive_Search:
                             self.food_type_visiting.pop()
                             self.restaurant_names_visiting.pop()
 
-                            print("res {} fail...".format(poi_sel["name"]))
+                            if self.verbose:
+                                print(f"[RESTAURANT_FAIL] 餐厅 {poi_sel['name']} 失败")
 
             elif poi_type == "hotel":
                 hotel_sel = poi_plan["accommodation"]
@@ -1087,13 +1185,13 @@ class Interactive_Search:
                     cost_per_room=random.randint(300, 400)
                 else:
                     cost_per_room=random.randint(250, 350)
-                total_cost=cost_per_room*query["people_number"]
+
                 activity_i = {
                     "position": hotel_sel["name"],
                     "type": "accommodation",
                     "room_type": 2,  
                     "transports": transports_sel,
-                    "cost": total_cost,  # //TODO 酒店价格
+                    "cost": 100,  # //TODO 酒店价格
                     "start_time": arrived_time,
                     "end_time": "24:00",
                     "rooms": 1,  # TODO:用户需求房型
@@ -1170,7 +1268,7 @@ class Interactive_Search:
                 )
                 # attr_info = attr_info.sort_values(by = ["importance"], ascending=False)
                 if self.verbose:
-                    print(attr_info)
+                    print(f"[ATTRACTION_SEARCH] 景点搜索结果(只输出前3条): {attr_info[0:3]}")
                 # attr_info.to_csv(attr_path, index=False)
                 # print("save  >>> ", attr_path)
 
@@ -1208,7 +1306,8 @@ class Interactive_Search:
                         # opentime, endtime = poi_sel["opentime"],  poi_sel["endtime"]
                         opentime = "08:00"
                         endtime = "23:00"
-                        print("line973,arrived_time:", arrived_time)
+                        if self.verbose:
+                            print(f"[ATTRACTION_TIME] 到达时间: {arrived_time}")
                         # too late
                         if time_compare_if_earlier_equal("23:00", arrived_time):
                             continue
@@ -1290,13 +1389,12 @@ class Interactive_Search:
 
                         if time_compare_if_earlier_equal(act_end_time, act_start_time):
                             continue
-                        cost_per_ticket=random.randint(50, 100)
-                        total_cost=cost_per_ticket*query["people_number"]
+                        
                         activity_i = {
                             "position": poi_sel["name"],
                             "type": poi_type,
                             "transports": transports_sel,
-                            "cost": total_cost, 
+                            "cost": 100, 
                             "start_time": act_start_time,
                             "end_time": act_end_time,
                             "photos": (
@@ -1314,13 +1412,8 @@ class Interactive_Search:
                         self.attractions_visiting.append(attr_idx)
                         self.spot_type_visiting.append(poi_sel["type"])
                         self.attraction_names_visiting.append(poi_sel["name"])
-                        print(
-                            "line1046,attraction_names_visiting:",
-                            self.attraction_names_visiting,
-                            new_time,
-                            new_position,
-                            current_day,
-                        )
+                        if self.verbose:
+                            print(f"[ATTRACTION_PLAN] 景点规划 - 已访问景点: {self.attraction_names_visiting}, 时间: {new_time}, 位置: {new_position}, 天数: {current_day}")
                         success, plan = self.search_poi(
                             query, poi_plan, plan, new_time, new_position, current_day
                         )
@@ -1333,14 +1426,14 @@ class Interactive_Search:
                         self.attraction_names_visiting.pop()
             else:
                 if self.verbose:
-                    print("incorrect poi type: {}".format(poi_type))
+                    print(f"[POI_TYPE_ERROR] 错误的POI类型: {poi_type}")
                 continue
 
             # list.remove(x): x not in list
             if poi_type in candidates_type:
                 candidates_type.remove(poi_type)
             if self.verbose:
-                print("try another poi type")
+                print("[POI_SEARCH] 尝试另一种POI类型")
 
         return False, plan
 
@@ -1354,7 +1447,8 @@ class Interactive_Search:
                 return "back-intercity-transport"
 
         # too late
-        print("line1036", current_time, candidates_type)
+        if self.verbose:
+            print(f"[POI_TYPE_SELECTION] 当前时间: {current_time}, 候选类型: {candidates_type}")
         if (
             time_compare_if_earlier_equal("20:40", current_time)
             and "hotel" in candidates_type
@@ -1391,30 +1485,33 @@ class Interactive_Search:
 
         if bool_result:
             self.avialable_plan = res_plan
-
+        #提取所有参数
         try:
+            print("现有的计划：",res_plan)
             extracted_vars = get_symbolic_concepts(query, res_plan)
 
         except:
             extracted_vars = None
         if self.verbose:
-            print(extracted_vars)
+            print("[CONSTRAINTS] ========================================")
+            print(f"[CONSTRAINTS] 硬性约束: {extracted_vars}")
 
         logical_result = evaluate_logical_constraints(
             extracted_vars, query["hard_logic"]
         )
         if self.verbose:
-            print(logical_result)
+            print(f"[CONSTRAINTS] 逻辑约束结果: {logical_result}")
 
         logical_pass = True
         for idx, item in enumerate(logical_result):
             logical_pass = logical_pass and item
 
             if item:
-                print(query["hard_logic"][idx], "passed!")
+                if self.verbose:
+                    print(f"[CONSTRAINTS] {query['hard_logic'][idx]} 通过!")
             else:
-
-                print(query["hard_logic"][idx], "failed...")
+                if self.verbose:
+                    print(f"[CONSTRAINTS] {query['hard_logic'][idx]} 失败...")
 
         # if logical_result:
         #     print("Logical passed!")
@@ -1424,10 +1521,12 @@ class Interactive_Search:
         # exit(0)
 
         if bool_result:
-            print("\n Pass! \n")
+            if self.verbose:
+                print("[CONSTRAINTS] ========== 通过! ==========")
             return True, res_plan
         else:
-            print("\n Failed \n")
+            if self.verbose:
+                print("[CONSTRAINTS] ========== 失败 ==========")
             return False, plan
 
     def select_feature(self, planning_info):
@@ -1447,12 +1546,12 @@ class Interactive_Search:
 
         result = self.react_prompt(info_list, action_prompt)
         if self.verbose:
-            print(result)
+            print(f"[SELECT_FEATURE] 特性选择结果: {result}")
 
         sel_feature = result.split("##")[1]
 
         if self.verbose:
-            print("selected_feature: ", sel_feature)
+            print(f"[SELECT_FEATURE] 选择的特性: {sel_feature}")
 
         return sel_feature
 
@@ -1471,21 +1570,21 @@ class Interactive_Search:
 
         # thought = self.llm(self.prompt+self.scratchpad)
         if self.verbose:
-            print("LLM query: ", json_scratchpad)
+            print(f"[REACT_PROMPT] LLM查询: {json_scratchpad}")
         thought = llm_model(json_scratchpad)
         scratchpad = scratchpad + " " + thought
 
         json_scratchpad.append({"role": "assistant", "content": thought})
         # if self.need_print:
         if self.verbose:
-            print(f"Thought:", thought)
+            print(f"[REACT_PROMPT] 思考: {thought}")
         # Act
         scratchpad = action_prompt + f"\nAction: "
 
         json_scratchpad.append({"role": "user", "content": scratchpad})
 
         if self.verbose:
-            print("LLM query: ", json_scratchpad)
+            print(f"[REACT_PROMPT] LLM查询: {json_scratchpad}")
         # action = self.llm(self.prompt+self.scratchpad)
         action = llm_model(json_scratchpad)
 
@@ -1495,7 +1594,7 @@ class Interactive_Search:
         scratchpad += " " + str(action)
         # # if self.need_print:
         if self.verbose:
-            print(f"Action:", str(action))
+            print(f"[REACT_PROMPT] 行动: {str(action)}")
 
         if return_history_message:
             return action, json_scratchpad
@@ -1605,7 +1704,7 @@ if __name__ == "__main__":
     for idx in test_idx:
 
         query_i = test_input[idx]
-        print("query {}/{}".format(idx, len(test_input)))
+        print(f"[QUERY] 查询 {idx}/{len(test_input)}")
 
         sys.stdout = Logger(result_dir + "/plan_{}.log".format(idx), sys.stdout)
         sys.stderr = Logger(result_dir + "/plan_{}.error".format(idx), sys.stderr)
@@ -1616,9 +1715,9 @@ if __name__ == "__main__":
         searcher = Interactive_Search()
         query_i["nature_language"] = query_i["nature_language"] + "想去黄鹤楼"
         success, plan = searcher.symbolic_search(query_i)
-        print(plan)
+        print(f"[RESULT] 计划: {plan}")
         exit(0)
-    print("success rate [{}]: {}/{}".format(query_level, success_count, total))
+    print(f"[EVALUATION] 成功率 [{query_level}]: {success_count}/{total}")
 
     res_stat = {
         "success": success_count,
@@ -1635,5 +1734,5 @@ if __name__ == "__main__":
 
     with open(result_dir + "/fail_list.txt", "a+") as dump_f:
         dump_f.write(
-            "success rate [{}]: {}/{}".format(query_level, success_count, total) + "\n"
+            f"[EVALUATION] 成功率 [{query_level}]: {success_count}/{total}" + "\n"
         )
