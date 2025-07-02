@@ -109,10 +109,10 @@ geocoding_db = load_geocoding_database()
 
 def geocode_with_amap(address, city=None):
     """
-    使用高德地图API进行地理编码
+    使用高德地图搜索API查找地点信息
     
     Args:
-        address (str): 结构化地址信息
+        address (str): 要搜索的地点名称或关键词
         city (str, optional): 指定查询的城市，可以是中文城市名、拼音、citycode或adcode
     
     Returns:
@@ -125,12 +125,14 @@ def geocode_with_amap(address, city=None):
         # 应用速率限制
         geocoding_rate_limiter.wait_if_needed()
         
-        # 高德地图地理编码API - 使用GET请求
-        url = "https://restapi.amap.com/v3/geocode/geo"
+        # 高德地图搜索API - 使用GET请求
+        url = "https://restapi.amap.com/v3/place/text"
         params = {
             'key': AMAP_KEY,
-            'address': address.strip(),
-            'output': 'json'  # 返回JSON格式
+            'keywords': address.strip(),
+            'output': 'json',  # 返回JSON格式
+            'page': '1',       # 返回第1页
+            'offset': '20'     # 每页返回20条记录
         }
         
         # 如果指定了城市，添加city参数
@@ -139,18 +141,20 @@ def geocode_with_amap(address, city=None):
         
         # 发送GET请求
         response = requests.get(url, params=params, timeout=10)
+        print(f"搜索请求: {response.url}")
+        print(f"响应内容: {response.text}")
         
         if response.status_code == 200:
             data = response.json()
             
             # 检查API响应状态
             if data.get('status') == '1':
-                geocodes = data.get('geocodes', [])
-                if geocodes and len(geocodes) > 0:
-                    geocode = geocodes[0]  # 取第一个结果
+                pois = data.get('pois', [])
+                if pois and len(pois) > 0:
+                    poi = pois[0]  # 取第一个搜索结果
                     
                     # 解析坐标点 - location格式为"经度,纬度"
-                    location = geocode.get('location', '')
+                    location = poi.get('location', '')
                     if location:
                         coords = location.split(',')
                         if len(coords) == 2:
@@ -159,44 +163,59 @@ def geocode_with_amap(address, city=None):
                                 latitude = float(coords[1])
                                 
                                 # 构建完整的地址信息
-                                formatted_address = geocode.get('formatted_address', address)
+                                name = poi.get('name', address)
+                                address_detail = poi.get('address', '')
+                                formatted_address = f"{address_detail}{name}" if address_detail else name
                                 
                                 # 返回详细信息
                                 result = {
                                     'longitude': longitude,
                                     'latitude': latitude,
+                                    'name': name,
                                     'formatted_address': formatted_address,
-                                    'country': geocode.get('country', ''),
-                                    'province': geocode.get('province', ''),
-                                    'city': geocode.get('city', ''),
-                                    'citycode': geocode.get('citycode', ''),
-                                    'district': geocode.get('district', ''),
-                                    'street': geocode.get('street', ''),
-                                    'number': geocode.get('number', ''),
-                                    'adcode': geocode.get('adcode', ''),
-                                    'level': geocode.get('level', '')
+                                    'address': address_detail,
+                                    'pname': poi.get('pname', ''),      # 省份名称
+                                    'cityname': poi.get('cityname', ''), # 城市名称
+                                    'adname': poi.get('adname', ''),     # 区域名称
+                                    'type': poi.get('type', ''),         # POI类型
+                                    'typecode': poi.get('typecode', ''), # POI类型编码
+                                    'tel': poi.get('tel', ''),           # 电话
+                                    'adcode': poi.get('adcode', ''),     # 区域编码
+                                    'citycode': poi.get('citycode', ''), # 城市编码
+                                    'business_area': poi.get('business_area', ''), # 商圈
+                                    'alias': poi.get('alias', ''),       # 别名
+                                    'tag': poi.get('tag', ''),           # 标签
+                                    'distance': poi.get('distance', ''), # 距离（如果有参考点）
+                                    'direction': poi.get('direction', ''), # 方向（如果有参考点）
+                                    'level': 'POI'  # 标识这是POI搜索结果
                                 }
                                 
                                 return result
                                 
                             except (ValueError, TypeError) as e:
+                                print(f"坐标解析错误: {e}")
                                 pass
                 else:
+                    print("未找到搜索结果")
                     pass
             else:
                 # API返回错误
                 error_info = data.get('info', '未知错误')
                 infocode = data.get('infocode', '')
+                print(f"API错误: {error_info} (代码: {infocode})")
         else:
-            pass
+            print(f"HTTP请求失败: {response.status_code}")
                 
         return None
         
     except requests.exceptions.Timeout:
+        print("请求超时")
         return None
     except requests.exceptions.ConnectionError:
+        print("连接错误")
         return None
     except Exception as e:
+        print(f"未知错误: {e}")
         return None
 
 def get_geocoding_from_cache_or_api(address, city=None):
