@@ -487,6 +487,30 @@ class Interactive_Search:
             return True, plan
         return False, {"info": "No Solution"}
 
+    def extract_score_from_plan(self, chart, name_list):
+        """从chart中提取分数"""
+        import re
+
+        score_list = [0 for _ in range(len(name_list))]
+        for i, name in enumerate(name_list):
+            match = re.search(rf"\| {name}\s*\|\s*(\d+)\s*\|", chart)
+            if match:
+                score_list[i] = int(match.group(1))
+        return score_list
+
+    def extract_name_list(self, poi_info_list):
+        """从poi_info_list中提取名字列表"""
+        import re
+
+        name_list = ["" for _ in range(len(poi_info_list))]
+        for i, rest in enumerate(poi_info_list):
+            match = re.search(r"^.*name: (.*) , .*$", rest)
+            if match:
+                name = match.group(1)
+                # print("name: ", name)
+                name_list[i] = name
+        return name_list
+
     def score_poi_think_overall_act_page(
         self,
         planning_info,  # 提示词
@@ -503,27 +527,36 @@ class Interactive_Search:
         for p_i in planning_info:  # 用户信息偏好或规划
             info_list.append(p_i)
 
-        if need_db:
-            new_poi_info = random.choices(poi_info_list, k=min(25, len(poi_info_list)))
-        for item in new_poi_info:
+        info_list.append(
+            f"以下是可以选择的景点/餐厅, 请为其中的每个景点/餐厅排序打分, 并输出为表格. 表格格式为: 景点/餐厅名字 | 分数. 请简洁的回复, 不要输出多余内容. 评分满分100分, 越满足用户要求分越高, 之前的行程中出现的地点打0分: "
+        )
+
+        # if need_db:
+        #     new_poi_info = random.choices(poi_info_list, k=min(25, len(poi_info_list)))
+        for item in poi_info_list:
             info_list.append(item)
 
         overall_plan, history_message_think_overall = self.reason_prompt(
             info_list, return_history_message=True, history_message=[]
         )
-        score_list = []
 
-        # rewrite the plan
-        rewrite_ans = self.rewrite_plan(overall_plan)
+        name_list = self.extract_name_list(poi_info_list)
+        score_list = self.extract_score_from_plan(overall_plan, name_list)
+        # print("score_list: ", score_list)
+        # print("poi_info_list: ", poi_info_list)
+        # exit(0)
 
-        querys = rewrite_ans.split(", ")
-        scores = []
-        for q in querys:
-            score = self.ret.get_score(poi_info_list, q)
-            scores.append(score)
+        # # rewrite the plan
+        # rewrite_ans = self.rewrite_plan(overall_plan)
 
-        scores = np.array(scores)
-        score_list = np.max(scores, axis=0)
+        # querys = rewrite_ans.split(", ")
+        # scores = []
+        # for q in querys:
+        #     score = self.ret.get_score(poi_info_list, q)
+        #     scores.append(score)
+
+        # scores = np.array(scores)
+        # score_list = np.max(scores, axis=0)
 
         if self.verbose:
             print("Score Over!")
@@ -537,7 +570,7 @@ class Interactive_Search:
         for info_i in info_list:
             scratchpad = scratchpad + info_i + "\n"
 
-        scratchpad += f"请简洁的回复，要求景点和餐厅在满足用户要求的同时尽可能多样:"
+        # scratchpad += f"请将以上餐厅或景点进行排序打分, 并输出为表格. 表格格式为: 景点/餐厅名字 | 分数. 请简洁的回复, 不要输出多余内容."
 
         json_scratchpad = history_message
         json_scratchpad.append({"role": "user", "content": scratchpad})
@@ -757,9 +790,6 @@ class Interactive_Search:
         ):  # and time_compare_if_earlier_equal(poi_plan["back_transport"]["BeginTime"], add_time_delta(current_time, 180)):
             candidates_type.append("back-intercity-transport")
 
-        attraction_list = []
-        restaurant_list = []
-
         while len(candidates_type) > 0:
 
             poi_type = self.get_poi_type_from_time_sym(
@@ -832,13 +862,15 @@ class Interactive_Search:
                     )
 
             elif poi_type in ["lunch", "dinner"]:
-                keywords = f"{current_position}" + "餐厅"  # 吃附近的餐厅
+                keywords = f"{current_position}" + "附近美食"  # 吃附近的餐厅
                 self.poi_info["restaurants"] = self.restaurants.select(
                     target_city, keywords
                 )
                 search_query = ""
                 info_list = [query["nature_language"]]
-                info_list.append(f"以下是目前计划中已有的行程: {restaurant_list}")
+                info_list.append(
+                    f"以下是计划中已有的行程: {self.extract_location_from_plan(plan)}"
+                )
                 info_list.append(
                     "在这次在{}的旅行中,请帮我选择一些餐厅去吃，评估每个餐厅的相关性，看看是否需要安排到行程里".format(
                         query["target_city"]
@@ -865,9 +897,7 @@ class Interactive_Search:
                         )
                     )
 
-                info_list.append(
-                    "请根据以上信息, 根据以下餐厅信息进行排序, 并选出最合适的餐厅"
-                )
+                # info_list.append("请根据以上信息, 从以下餐厅信息中选出最合适的餐厅. ")
 
                 poi_info_list = []
                 score_list = []
@@ -876,7 +906,7 @@ class Interactive_Search:
                     res_i = self.poi_info["restaurants"].iloc[idx]
 
                     poi_info_list.append(
-                        "**{}** name: {} , cusine: {}, price_per_preson: {}, recommended food: {}".format(
+                        "**{}** name: {} , cusine: {},price_per_preson: {},recommended food: {}".format(
                             idx,
                             res_i["name"],
                             res_i["cuisine"],
@@ -890,8 +920,11 @@ class Interactive_Search:
                     info_list, poi_info_list, need_db=True, react=True
                 )
                 rest_info["importance"] = score_list
+                rest_info = rest_info.sort_values(
+                    by="importance", ascending=False, ignore_index=True
+                )
 
-                rest_info = mmr_algorithm(name_key="name", df=rest_info)
+                # rest_info = mmr_algorithm(name_key="name", df=rest_info)
                 if self.verbose:
                     print(rest_info)
                 self.poi_info["restaurants"] = rest_info
@@ -927,8 +960,8 @@ class Interactive_Search:
                                 verbose=False,
                             )
 
-                            if len(transports_sel) == 3:
-                                transports_sel[1]["tickets"] = query["people_number"]
+                            if transports_sel[0]["mode"] == "metro":
+                                transports_sel[0]["tickets"] = query["people_number"]
                             elif transports_sel[0]["mode"] == "taxi":
                                 transports_sel[0]["car"] = (
                                     int((query["people_number"] - 1) / 4) + 1
@@ -1002,7 +1035,6 @@ class Interactive_Search:
                             }
 
                             plan[current_day]["activities"].append(activity_i)
-                            restaurant_list.append(activity_i["position"])
 
                             new_time = act_end_time
                             new_position = poi_sel["name"]
@@ -1041,8 +1073,8 @@ class Interactive_Search:
                     method=poi_plan["transport_preference"],
                     verbose=False,
                 )
-                if len(transports_sel) == 3:
-                    transports_sel[1]["tickets"] = query["people_number"]
+                if transports_sel[0]["mode"] == "metro":
+                    transports_sel[0]["tickets"] = query["people_number"]
                 elif transports_sel[0]["mode"] == "taxi":
                     transports_sel[0]["car"] = int((query["people_number"] - 1) / 4) + 1
 
@@ -1082,7 +1114,9 @@ class Interactive_Search:
                 )
 
                 info_list = [query["nature_language"]]
-                info_list.append(f"以下是目前计划中已有的行程: {attraction_list}")
+                info_list.append(
+                    f"以下是计划中已有的行程: {self.extract_location_from_plan(plan)}"
+                )
                 info_list.append(
                     "在这次在{}的旅行中，请帮我评估每个景点的游玩重要性，看看是否需要安排到行程里".format(
                         query["target_city"]
@@ -1106,15 +1140,13 @@ class Interactive_Search:
                             req_attr_name
                         )
                     )
-                info_list.append(
-                    "请根据以上信息, 对以下景点信息进行排序, 并选出最合适的景点"
-                )
+                # info_list.append("请根据以上信息, 从以下景点信息中选出最合适的景点. ")
                 attr_info = self.poi_info["attractions"]
                 poi_info_list = []
                 for idx in range(len(attr_info)):
                     res_i = attr_info.iloc[idx]
                     poi_info_list.append(
-                        "**{}** name: {} , price_per_preson: {}, type: {}".format(
+                        "**{}** name: {} , price_per_preson: {},type: {}".format(
                             idx, res_i["name"], res_i["price"], res_i["type"]
                         )
                     )
@@ -1124,7 +1156,10 @@ class Interactive_Search:
                 )
                 attr_info["importance"] = score_list
 
-                attr_info = mmr_algorithm(name_key="name", df=attr_info)
+                # attr_info = mmr_algorithm(name_key="name", df=attr_info)
+                attr_info = attr_info.sort_values(
+                    by="importance", ascending=False, ignore_index=True
+                )
                 # attr_info = attr_info.sort_values(by = ["importance"], ascending=False)
                 if self.verbose:
                     print(attr_info)
@@ -1263,7 +1298,6 @@ class Interactive_Search:
                         }
 
                         plan[current_day]["activities"].append(activity_i)
-                        attraction_list.append(activity_i["position"])
 
                         new_time = act_end_time
                         new_position = poi_sel["name"]
@@ -1458,6 +1492,16 @@ class Interactive_Search:
             return action, json_scratchpad
 
         return action
+
+    def extract_location_from_plan(self, plan):
+        """从plan中按照天数提取去过的地点(餐厅, 景点)"""
+        location_list = {}
+        for i, day in enumerate(plan):
+            location_list[i] = []
+            for activity in day["activities"]:
+                if "position" in activity:
+                    location_list[i].append(activity["position"])
+        return location_list
 
 
 if __name__ == "__main__":

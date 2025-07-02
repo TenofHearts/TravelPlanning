@@ -5,7 +5,12 @@ from typing import Callable
 import math
 
 # ****************** 第一步：在此处填入你申请的API密钥 ******************
-AMAP_KEYS = ["fdba1f2fcdd9369564f871a149d6aa30", "76435a409d3ebf776460e55acb1a7171"]
+AMAP_KEYS = [
+    "fdba1f2fcdd9369564f871a149d6aa30",
+    "76435a409d3ebf776460e55acb1a7171",
+    "7d5951bd8860e044cb5967947f46388e",
+    "e8641e97905135c164bb7e21f4bcfb1c",
+]
 _CURRENT_KEY = 0
 # ********************************************************************
 
