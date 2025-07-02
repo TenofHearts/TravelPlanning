@@ -317,10 +317,10 @@ def plan_main(request: dict, task_id: int, debug_mode=False):
 if __name__ == "__main__":
     request_data = {
         "startCity": "深圳",
-        "destinationCity": "上海",
-        "peopleCount": 1,
-        "daysCount": 2,
-        "additionalRequirements": "",
+        "destinationCity": "南京",
+        "daysCount": 3,
+        "peopleCount": 2,
+        "additionalRequirements": "旅行类型：relaxing，兴趣："
     }
     print(plan_main(request=request_data, task_id=0, debug_mode=True))
     # print(modify_plan(modify_str="也要吃烧烤", task_id=0, debug_mode=True))
