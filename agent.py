@@ -305,6 +305,11 @@ def generate_plan(request: dict, task_id, debug_mode=False):
     query["target_city"] = target_city
     query["days"] = days
     query["people_number"] = people_number
+    query["soft_logic"] = [
+        logic_str
+        for logic_str in query["hard_logic"]
+        if not (logic_str.startswith("days") or logic_str.startswith("people_number"))
+    ]
     query["hard_logic"] = [
         logic_str
         for logic_str in query["hard_logic"]

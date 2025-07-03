@@ -197,7 +197,7 @@ class Interactive_Search:
         # - `{'全聚德'} <= restaurant_names`: 特定餐厅名称
         # - `{'北京饭店'} <= hotel_names`: 特定酒店名称
         # - `{'温泉'} <= hotel_feature`: 酒店特性需求
-        for idx, item in enumerate(query["hard_logic"]):  # 这里开始解析每个约束
+        for idx, item in enumerate(query["soft_logic"]):  # 这里开始解析每个约束
             if item.startswith("rooms=="):
 
                 # print(item)
@@ -222,9 +222,10 @@ class Interactive_Search:
 
                 if len(seen_list) > 0:
                     query["food_type"] = set(seen_list)
-                    query["hard_logic"][idx] = str(query["food_type"]) + "<=food_type"
+                    # query["hard_logic"][idx] = str(query["food_type"]) + "<=food_type"
                 else:
-                    query["hard_logic"][idx] = " 3 < 33"
+                    # query["hard_logic"][idx] = " 3 < 33"
+                    pass
             # 解析交通方式约束: transport_type <= {'taxi'} 或 transport_type == {'metro'}
             elif item.startswith("transport_type"):
                 if ("<=") in item:
@@ -260,9 +261,10 @@ class Interactive_Search:
 
                 if len(seen_list) > 0:
                     query["spot_type"] = set(seen_list)
-                    query["hard_logic"][idx] = str(query["spot_type"]) + "<=spot_type"
+                    # query["hard_logic"][idx] = str(query["spot_type"]) + "<=spot_type"
                 else:
-                    query["hard_logic"][idx] = " 3 < 33"
+                    # query["hard_logic"][idx] = " 3 < 33"
+                    pass
 
             # 解析特定景点名称约束: {'天安门', '故宫'} <= attraction_names
             elif item.endswith("attraction_names"):
@@ -274,11 +276,12 @@ class Interactive_Search:
                     seen_list.append(str_i)
                 if len(seen_list) > 0:
                     query["attraction_names"] = set(seen_list)
-                    query["hard_logic"][idx] = (
-                        str(query["attraction_names"]) + "<=attraction_names"
-                    )
+                    # query["hard_logic"][idx] = (
+                    #     str(query["attraction_names"]) + "<=attraction_names"
+                    # )
                 else:
-                    query["hard_logic"][idx] = " 3 < 33"
+                    # query["hard_logic"][idx] = " 3 < 33"
+                    pass
 
             # 解析特定餐厅名称约束: {'全聚德', '东来顺'} <= restaurant_names
             elif item.endswith("restaurant_names"):
@@ -290,11 +293,12 @@ class Interactive_Search:
                     seen_list.append(str_i)
                 if len(seen_list) > 0:
                     query["restaurant_names"] = set(seen_list)
-                    query["hard_logic"][idx] = (
-                        str(query["restaurant_names"]) + "<=restaurant_names"
-                    )
+                    # query["hard_logic"][idx] = (
+                    #     str(query["restaurant_names"]) + "<=restaurant_names"
+                    # )
                 else:
-                    query["hard_logic"][idx] = " 3 < 33"
+                    # query["hard_logic"][idx] = " 3 < 33"
+                    pass
 
             # 解析特定酒店名称约束: {'北京饭店', '王府井大饭店'} <= hotel_names
             elif item.endswith("hotel_names"):
@@ -306,11 +310,12 @@ class Interactive_Search:
                     seen_list.append(str_i)
                 if len(seen_list) > 0:
                     query["hotel_names"] = set(seen_list)
-                    query["hard_logic"][idx] = (
-                        str(query["hotel_names"]) + "<=hotel_names"
-                    )
+                    # query["hard_logic"][idx] = (
+                    #     str(query["hotel_names"]) + "<=hotel_names"
+                    # )
                 else:
-                    query["hard_logic"][idx] = " 3 < 33"
+                    # query["hard_logic"][idx] = " 3 < 33"
+                    pass
 
             # 解析酒店特性约束: {'温泉', '游泳池'} <= hotel_feature
             elif item.endswith("hotel_feature"):
@@ -322,11 +327,12 @@ class Interactive_Search:
                     seen_list.append(str_i)
                 if len(seen_list) > 0:
                     query["hotel_feature"] = set(seen_list)
-                    query["hard_logic"][idx] = (
-                        str(query["hotel_feature"]) + "<=hotel_feature"
-                    )
+                    # query["hard_logic"][idx] = (
+                    #     str(query["hotel_feature"]) + "<=hotel_feature"
+                    # )
                 else:
-                    query["hard_logic"][idx] = " 3 < 33"
+                    # query["hard_logic"][idx] = " 3 < 33"
+                    pass
 
             # 其他无法识别的约束
             else:
@@ -1500,8 +1506,39 @@ class Interactive_Search:
 
             elif poi_type == "attraction":
                 self.poi_info["attractions"] = self.attractions.select(
-                    query["target_city"], "旅游景点"
+                    query["target_city"],
+                    "旅游景点",
+                    # + (str(query["spot_type"]) if "spot_type" in query else ""),
                 )
+                if "spot_type" in query:
+                    spot_type_attractions = self.attractions.select(
+                        query["target_city"],
+                        "旅游景点",
+                        str(query["spot_type"]),
+                    )
+                    if (
+                        spot_type_attractions is not None
+                        and not spot_type_attractions.empty
+                    ):
+                        # 只添加不重复条目
+                        # 假设景点唯一标识为'name'字段
+                        existing_names = (
+                            set(self.poi_info["attractions"]["name"])
+                            if not self.poi_info["attractions"].empty
+                            else set()
+                        )
+                        new_attractions = spot_type_attractions[
+                            ~spot_type_attractions["name"].isin(existing_names)
+                        ]
+                        if not new_attractions.empty:
+                            self.poi_info["attractions"] = pd.concat(
+                                [self.poi_info["attractions"], new_attractions],
+                                ignore_index=True,
+                            )
+                            if self.verbose:
+                                print(
+                                    f"[ATTRACTION_SEARCH] 添加了特定类型的景点（去重后）"
+                                )
 
                 info_list = [query["nature_language"]]
                 info_list.append(
