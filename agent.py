@@ -1,3 +1,50 @@
+#!/usr/bin/env python3
+"""
+Fixed version of agent.py with metadata patch
+"""
+
+# Apply the importlib.metadata patch first
+import importlib.metadata
+import importlib.util
+
+# Store original function
+_original_version = importlib.metadata.version
+
+
+def patched_version(distribution_name):
+    """
+    Patched version of importlib.metadata.version that handles None returns
+    """
+    try:
+        result = _original_version(distribution_name)
+        if result is None:
+            # Fallback: try to import the package and get __version__
+            if importlib.util.find_spec(distribution_name) is not None:
+                try:
+                    module = importlib.import_module(distribution_name)
+                    if hasattr(module, "__version__"):
+                        return module.__version__
+                except ImportError:
+                    pass
+            raise importlib.metadata.PackageNotFoundError(distribution_name)
+        return result
+    except Exception as e:
+        # If original function fails, try the fallback
+        if importlib.util.find_spec(distribution_name) is not None:
+            try:
+                module = importlib.import_module(distribution_name)
+                if hasattr(module, "__version__"):
+                    return module.__version__
+            except ImportError:
+                pass
+        raise e
+
+
+# Apply the patch
+importlib.metadata.version = patched_version
+
+# Now import the rest normally
+
 import json
 
 
@@ -192,14 +239,23 @@ def process_after_search(plan: dict):
             )
             act["type"] = activity["type"]
             if act["type"] in ["breakfast", "lunch", "dinner"]:
-                food_list = restaurants_tool.select(
+                food_list_df = restaurants_tool.select(
                     city=city, key="name", func=lambda x: x == act["position"]
                 )
-                food_list = food_list["recommendedfood"].values.tolist()
-                food_list = food_list[0] if len(food_list) > 0 else ""
-                food_list = str(food_list).replace(" ", "")
-                food_list = food_list.replace(",", "  ")
-                act["food_list"] = food_list
+                # 安全检查：确保DataFrame不为空且包含recommendedfood列
+                if (
+                    food_list_df is not None
+                    and not food_list_df.empty
+                    and "recommendedfood" in food_list_df.columns
+                ):
+                    food_list = food_list_df["recommendedfood"].values.tolist()
+                    food_list = food_list[0] if len(food_list) > 0 else ""
+                    food_list = str(food_list).replace(" ", "")
+                    food_list = food_list.replace(",", "  ")
+                    act["food_list"] = food_list
+                else:
+                    # 如果没有找到推荐食物信息，设置为空字符串
+                    act["food_list"] = ""
             act["cost"] = activity["cost"]
             # 转整数
             act["cost"] = int(act["cost"])

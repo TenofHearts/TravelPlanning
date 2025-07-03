@@ -14,8 +14,7 @@ class Retriever:
         self.tokenizer = AutoTokenizer.from_pretrained(
             "AI-ModelScope/bge-small-zh-v1.5"
         )
-        self.model = AutoModel.from_pretrained("AI-ModelScope/bge-small-zh-v1.5").cuda()
-        self.input_text_list = None
+        self.model = AutoModel.from_pretrained("AI-ModelScope/bge-small-zh-v1.5")
 
     def get_score(self, input_text_list, query_text):
         input_texts = input_text_list + [query_text]
@@ -27,9 +26,9 @@ class Retriever:
             truncation=True,
             return_tensors="pt",
         )
-        batch_dict["input_ids"] = batch_dict["input_ids"].cuda()
-        batch_dict["token_type_ids"] = batch_dict["token_type_ids"].cuda()
-        batch_dict["attention_mask"] = batch_dict["attention_mask"].cuda()
+        batch_dict["input_ids"] = batch_dict["input_ids"]
+        batch_dict["token_type_ids"] = batch_dict["token_type_ids"]
+        batch_dict["attention_mask"] = batch_dict["attention_mask"]
         with torch.no_grad():
             embeddings = self.model(**batch_dict)[0][:, 0]
         # embeddings = average_pool(outputs.last_hidden_state, batch_dict['attention_mask'])
@@ -52,9 +51,9 @@ class Retriever:
             truncation=True,
             return_tensors="pt",
         )
-        batch_dict["input_ids"] = batch_dict["input_ids"].cuda()
-        batch_dict["token_type_ids"] = batch_dict["token_type_ids"].cuda()
-        batch_dict["attention_mask"] = batch_dict["attention_mask"].cuda()
+        batch_dict["input_ids"] = batch_dict["input_ids"]
+        batch_dict["token_type_ids"] = batch_dict["token_type_ids"]
+        batch_dict["attention_mask"] = batch_dict["attention_mask"]
         with torch.no_grad():
             embeddings = self.model(**batch_dict)[0][:, 0]
         # embeddings = average_pool(outputs.last_hidden_state, batch_dict['attention_mask'])
