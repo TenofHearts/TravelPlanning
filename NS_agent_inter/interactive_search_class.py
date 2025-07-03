@@ -597,7 +597,7 @@ class Interactive_Search:
                             best_similarity = similarity
                             best_match_score = score
                 
-                if best_similarity > 0.3:
+                if best_similarity > 0.85:
                     score_list[i] = best_match_score
                     found_score = True
                     if self.verbose:
@@ -645,7 +645,7 @@ class Interactive_Search:
             info_list.append(p_i)
 
         info_list.append(
-            f"以下是可以选择的景点/餐厅, 请为其中的每个景点/餐厅排序打分, 并输出为表格. 表格格式为: 景点/餐厅名字 | 分数. 请简洁的回复, 不要输出多余内容. 评分满分100分, 越满足用户要求分越高, 之前的行程中出现的地点打0分: "
+            f"以下是可以选择的景点/餐厅, 请为其中的每个景点/餐厅排序打分, 并输出为表格. 表格格式为: 景点/餐厅名字 | 分数. 请简洁的回复, 不要输出多余内容. 评分满分100分, 越满足用户要求分越高。为了满足多样性,之前的行程中出现的景点/餐厅打0,与之前行程相似的景点/餐厅打低分: "
         )
 
         # if need_db:
@@ -1659,7 +1659,7 @@ class Interactive_Search:
         }
         print("[PLAN_RESULTS]现有的计划res_plan：",res_plan)
         bool_result = func_commonsense_constraints(query, res_plan)
-        print("[CONSTRAINTS]常识检验结果:",bool_result)
+        print("[CONSTRAINTS]常识检验结果:",bool)
         
         
         #提取所有参数
