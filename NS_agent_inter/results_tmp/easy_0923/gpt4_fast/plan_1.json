@@ -1,0 +1,248 @@
+{
+    "people_number": 1,
+    "start_city": "广州",
+    "target_city": "深圳",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "05:03",
+                    "end_time": "06:55",
+                    "start": "广州北站",
+                    "end": "深圳东站",
+                    "TrainID": "K9262",
+                    "type": "train",
+                    "transports": [],
+                    "cost": 41.68,
+                    "tickets": 1
+                },
+                {
+                    "position": "深圳平安金融中心云际观光层",
+                    "type": "attraction",
+                    "transports": [
+                        {
+                            "start": "深圳东站",
+                            "end": "布吉-地铁站",
+                            "mode": "walk",
+                            "start_time": "06:55",
+                            "end_time": "06:58",
+                            "cost": 0,
+                            "distance": 0.28
+                        },
+                        {
+                            "start": "布吉-地铁站",
+                            "end": "市民中心-地铁站",
+                            "mode": "metro",
+                            "start_time": "06:58",
+                            "end_time": "07:16",
+                            "cost": 4,
+                            "distance": 9.11,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "市民中心-地铁站",
+                            "end": "深圳平安金融中心云际观光层",
+                            "mode": "walk",
+                            "start_time": "07:16",
+                            "end_time": "07:20",
+                            "cost": 0,
+                            "distance": 0.34
+                        }
+                    ],
+                    "cost": 180,
+                    "start_time": "10:00",
+                    "end_time": "10:30"
+                },
+                {
+                    "position": "深圳盐田凯悦酒店·海鲜烧烤自助餐厅",
+                    "type": "lunch",
+                    "transports": [
+                        {
+                            "start": "深圳平安金融中心云际观光层",
+                            "end": "市民中心-地铁站",
+                            "mode": "walk",
+                            "start_time": "10:30",
+                            "end_time": "10:34",
+                            "cost": 0,
+                            "distance": 0.34
+                        },
+                        {
+                            "start": "市民中心-地铁站",
+                            "end": "海山-地铁站",
+                            "mode": "metro",
+                            "start_time": "10:34",
+                            "end_time": "11:10",
+                            "cost": 5,
+                            "distance": 18.22,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "海山-地铁站",
+                            "end": "深圳盐田凯悦酒店·海鲜烧烤自助餐厅",
+                            "mode": "walk",
+                            "start_time": "11:10",
+                            "end_time": "11:15",
+                            "cost": 0,
+                            "distance": 0.42
+                        }
+                    ],
+                    "cost": 213,
+                    "start_time": "11:15",
+                    "end_time": "12:45"
+                },
+                {
+                    "position": "招商蛇口邮轮母港游览",
+                    "type": "attraction",
+                    "transports": [
+                        {
+                            "start": "深圳盐田凯悦酒店·海鲜烧烤自助餐厅",
+                            "end": "海山-地铁站",
+                            "mode": "walk",
+                            "start_time": "12:45",
+                            "end_time": "12:50",
+                            "cost": 0,
+                            "distance": 0.42
+                        },
+                        {
+                            "start": "海山-地铁站",
+                            "end": "蛇口港-地铁站",
+                            "mode": "metro",
+                            "start_time": "12:50",
+                            "end_time": "13:59",
+                            "cost": 7,
+                            "distance": 34.6,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "蛇口港-地铁站",
+                            "end": "招商蛇口邮轮母港游览",
+                            "mode": "walk",
+                            "start_time": "13:59",
+                            "end_time": "14:08",
+                            "cost": 0,
+                            "distance": 0.82
+                        }
+                    ],
+                    "cost": 0,
+                    "start_time": "14:08",
+                    "end_time": "16:08"
+                },
+                {
+                    "position": "地王观光·深港之窗",
+                    "type": "attraction",
+                    "transports": [
+                        {
+                            "start": "招商蛇口邮轮母港游览",
+                            "end": "蛇口港-地铁站",
+                            "mode": "walk",
+                            "start_time": "16:08",
+                            "end_time": "16:17",
+                            "cost": 0,
+                            "distance": 0.82
+                        },
+                        {
+                            "start": "蛇口港-地铁站",
+                            "end": "老街-地铁站",
+                            "mode": "metro",
+                            "start_time": "16:17",
+                            "end_time": "17:01",
+                            "cost": 6,
+                            "distance": 22.34,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "老街-地铁站",
+                            "end": "地王观光·深港之窗",
+                            "mode": "walk",
+                            "start_time": "17:01",
+                            "end_time": "17:07",
+                            "cost": 0,
+                            "distance": 0.51
+                        }
+                    ],
+                    "cost": 79,
+                    "start_time": "17:07",
+                    "end_time": "19:07"
+                },
+                {
+                    "position": "深圳益田威斯汀酒店·威斯汀扒房",
+                    "type": "dinner",
+                    "transports": [
+                        {
+                            "start": "地王观光·深港之窗",
+                            "end": "老街-地铁站",
+                            "mode": "walk",
+                            "start_time": "19:07",
+                            "end_time": "19:13",
+                            "cost": 0,
+                            "distance": 0.51
+                        },
+                        {
+                            "start": "老街-地铁站",
+                            "end": "世界之窗-地铁站",
+                            "mode": "metro",
+                            "start_time": "19:13",
+                            "end_time": "19:42",
+                            "cost": 5,
+                            "distance": 14.7,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "世界之窗-地铁站",
+                            "end": "深圳益田威斯汀酒店·威斯汀扒房",
+                            "mode": "walk",
+                            "start_time": "19:42",
+                            "end_time": "19:44",
+                            "cost": 0,
+                            "distance": 0.2
+                        }
+                    ],
+                    "cost": 400,
+                    "start_time": "19:44",
+                    "end_time": "21:14"
+                },
+                {
+                    "start_time": "23:30",
+                    "end_time": "23:59",
+                    "start": "深圳北站",
+                    "end": "广州南站",
+                    "TrainID": "G6568",
+                    "type": "train",
+                    "transports": [
+                        {
+                            "start": "深圳益田威斯汀酒店·威斯汀扒房",
+                            "end": "世界之窗-地铁站",
+                            "mode": "walk",
+                            "start_time": "21:14",
+                            "end_time": "21:16",
+                            "cost": 0,
+                            "distance": 0.2
+                        },
+                        {
+                            "start": "世界之窗-地铁站",
+                            "end": "深圳北站-地铁站",
+                            "mode": "metro",
+                            "start_time": "21:16",
+                            "end_time": "21:35",
+                            "cost": 4,
+                            "distance": 9.98,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "深圳北站-地铁站",
+                            "end": "深圳北站",
+                            "mode": "walk",
+                            "start_time": "21:35",
+                            "end_time": "21:36",
+                            "cost": 0,
+                            "distance": 0.15
+                        }
+                    ],
+                    "cost": 67.73,
+                    "tickets": 1
+                }
+            ]
+        }
+    ]
+}

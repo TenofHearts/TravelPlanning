@@ -1,0 +1,270 @@
+query: {'start_city': '广州', 'target_city': '深圳', 'hard_logic': ['days==1', 'people_number==1', 'cost<=1000', 'tickets==1'], 'nature_language': '当前位置广州。我一个人想去深圳玩一天，预算1000人民币，请给我一个旅行规划。'}
+query: {'start_city': '广州', 'target_city': '深圳', 'hard_logic': ['days==1', 'people_number==1', 'cost<=1000', 'tickets==1'], 'nature_language': '当前位置广州。我一个人想去深圳玩一天，预算1000人民币，请给我一个旅行规划。', 'days': 1, 'people_number': 1, 'transport_preference': 'metro', 'hard_logic_unseen': [], 'cost': 1000}
+from 广州 to 深圳: 10 flights, 345 trains
+from 深圳 to 广州: 10 flights, 361 trains
+深圳 accommmodation, 498 hotels (satisfied requirments)
+LLM query:  [{'role': 'user', 'content': '**258** name: SGP卡丁车俱乐部 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**231** name: 塘朗山郊野公园 , price_per_preson: 0.0, type: 公园\n**128** name: 清平古墟影视文化园 , price_per_preson: 0.0, type: 文化旅游区\n**79** name: 观澜山水田园文化园 , price_per_preson: 99.0, type: 文化旅游区\n**156** name: 茶翁古镇 , price_per_preson: 0.0, type: 文化旅游区\n**123** name: 大鹏半岛地质公园 , price_per_preson: 0.0, type: 公园\n**239** name: 宝安体育馆 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**92** name: 海昌·乐漫冰雪王国(深圳海雅店) , price_per_preson: 178.0, type: 游乐园/体育娱乐\n**145** name: 中山公园 , price_per_preson: 0.0, type: 公园\n**178** name: 东部通航·空中的士直升机飞行基地(大中华店) , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**277** name: 石岩湿地公园 , price_per_preson: 0.0, type: 公园\n**154** name: 背仔角灯塔 , price_per_preson: 0.0, type: 人文景观\n**86** name: 蛇口口岸 , price_per_preson: 0.0, type: 人文景观\n**231** name: 塘朗山郊野公园 , price_per_preson: 0.0, type: 公园\n**189** name: 大澳湾沙滩 , price_per_preson: 0.0, type: 自然风光\n**76** name: 观澜版画村 , price_per_preson: 0.0, type: 文化旅游区\n**278** name: 天涯海角 , price_per_preson: 0.0, type: 自然风光\n**300** name: 彩虹星球游乐园 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**247** name: 银湖山郊野公园 , price_per_preson: 0.0, type: 公园\n**276** name: 深圳望野博物馆 , price_per_preson: 0.0, type: 博物馆/纪念馆\n**94** name: 奈尔宝家庭中心(卓悦店) , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**223** name: 光明滑草游乐园 , price_per_preson: 63.59, type: 游乐园/体育娱乐\n**275** name: 广东翔云跳伞俱乐部(深圳店) , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**209** name: 香蜜湖 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**144** name: 龙岗区科技馆 , price_per_preson: 0.0, type: 博物馆/纪念馆\n**30** name: 欢乐海岸海洋奇梦馆 , price_per_preson: 45.0, type: 游乐园/体育娱乐\n**132** name: 锦绣中华-莫高窟 , price_per_preson: 0.0, type: 人文景观\n**186** name: 海贝湾潜水基地 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**279** name: 葵涌官湖村海滩 , price_per_preson: 0.0, type: 自然风光\n**295** name: 龙兴寺 , price_per_preson: 0.0, type: 历史古迹\n**145** name: 中山公园 , price_per_preson: 0.0, type: 公园\n**264** name: 罗瑞合台湾美食街 , price_per_preson: 0.0, type: 商业街区\n**79** name: 观澜山水田园文化园 , price_per_preson: 99.0, type: 文化旅游区\n**246** name: 东部华侨城-1号观景台 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**167** name: 荔枝公园 , price_per_preson: 0.0, type: 公园\n**4** name: 深圳野生动物园 , price_per_preson: 99.0, type: 游乐园/体育娱乐\n**220** name: 深圳博物馆历史民俗馆 , price_per_preson: 0.0, type: 博物馆/纪念馆\n**122** name: 锦绣中华-少数民族民居 , price_per_preson: 0.0, type: 人文景观\n**252** name: 昭君墓 , price_per_preson: 0.0, type: 历史古迹\n**204** name: 香格里拉雪域 , price_per_preson: 0.0, type: 自然风光\n**0** name: 世界之窗 , price_per_preson: 115.0, type: 游乐园/体育娱乐\n**151** name: 深圳湾公园-流花山 , price_per_preson: 0.0, type: 公园\n**265** name: 深圳宝安马拉松 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**74** name: 愿望塔 , price_per_preson: 39.0, type: 游乐园/体育娱乐\n**99** name: 水围1368文化街区 , price_per_preson: 0.0, type: 商业街区\n**266** name: 深圳自由鹿游艇尾波冲浪俱乐部 , price_per_preson: 1770.0, type: 游乐园/体育娱乐\n**58** name: 湾区游轮 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**173** name: 深圳失恋博物馆（东门老街旗舰店） , price_per_preson: 138.0, type: 博物馆/纪念馆\n**73** name: 虹桥公园 , price_per_preson: 0.0, type: 公园\n**296** name: 东山村 , price_per_preson: 0.0, type: 历史古迹\n当前位置广州。我一个人想去深圳玩一天，预算1000人民币，请给我一个旅行规划。\n在这次在深圳的旅行中，请帮我评估每个景点的游玩重要性，看看是否需要安排到行程里\n请根据以上信息考虑什么样的景点满足我们的需求\n请简洁的回复:'}]
+Answer: ### 深圳一日游旅行规划
+
+#### 预算：1000人民币
+
+#### 行程安排：
+
+1. **早晨**
+   - **深圳野生动物园** (99.0元)
+     - 重要性：高，适合动物爱好者，适合早晨游玩。
+   - **早餐**：附近餐馆（约30元）
+
+2. **上午**
+   - **欢乐海岸海洋奇梦馆** (45.0元)
+     - 重要性：中，适合家庭和儿童，体验海洋文化。
+   
+3. **中午**
+   - **午餐**：罗瑞合台湾美食街（约50元）
+
+4. **下午**
+   - **观澜山水田园文化园** (99.0元)
+     - 重要性：高，体验文化和自然的结合。
+   - **大鹏半岛地质公园** (免费)
+     - 重要性：中，适合散步和欣赏自然风光。
+
+5. **傍晚**
+   - **世界之窗** (115.0元)
+     - 重要性：高，体验世界各地的文化和景观。
+   - **晚餐**：附近餐馆（约50元）
+
+6. **晚上**
+   - **深圳湾公园-流花山** (免费)
+     - 重要性：中，适合散步和放松。
+
+#### 总预算：
+- 深圳野生动物园：99.0元
+- 欢乐海岸海洋奇梦馆：45.0元
+- 午餐：50.0元
+- 观澜山水田园文化园：99.0元
+- 大鹏半岛地质公园：0.0元
+- 世界之窗：115.0元
+- 晚餐：50.0元
+- 深圳湾公园：0.0元
+
+**总计：458.0元**
+
+### 结论
+在预算内，以上行程涵盖了文化、自然和娱乐，适合单人游玩。希望你在深圳玩得愉快！
+LLM query:  [{'role': 'user', 'content': '### 深圳一日游旅行规划\n\n#### 预算：1000人民币\n\n#### 行程安排：\n\n1. **早晨**\n   - **深圳野生动物园** (99.0元)\n     - 重要性：高，适合动物爱好者，适合早晨游玩。\n   - **早餐**：附近餐馆（约30元）\n\n2. **上午**\n   - **欢乐海岸海洋奇梦馆** (45.0元)\n     - 重要性：中，适合家庭和儿童，体验海洋文化。\n   \n3. **中午**\n   - **午餐**：罗瑞合台湾美食街（约50元）\n\n4. **下午**\n   - **观澜山水田园文化园** (99.0元)\n     - 重要性：高，体验文化和自然的结合。\n   - **大鹏半岛地质公园** (免费)\n     - 重要性：中，适合散步和欣赏自然风光。\n\n5. **傍晚**\n   - **世界之窗** (115.0元)\n     - 重要性：高，体验世界各地的文化和景观。\n   - **晚餐**：附近餐馆（约50元）\n\n6. **晚上**\n   - **深圳湾公园-流花山** (免费)\n     - 重要性：中，适合散步和放松。\n\n#### 总预算：\n- 深圳野生动物园：99.0元\n- 欢乐海岸海洋奇梦馆：45.0元\n- 午餐：50.0元\n- 观澜山水田园文化园：99.0元\n- 大鹏半岛地质公园：0.0元\n- 世界之窗：115.0元\n- 晚餐：50.0元\n- 深圳湾公园：0.0元\n\n**总计：458.0元**\n\n### 结论\n在预算内，以上行程涵盖了文化、自然和娱乐，适合单人游玩。希望你在深圳玩得愉快！\n请将上述内容中涉及到的名字（景点、餐厅）提取出来，并用逗号隔开。Answer:'}]
+Answer: 深圳野生动物园, 欢乐海岸海洋奇梦馆, 罗瑞合台湾美食街, 观澜山水田园文化园, 大鹏半岛地质公园, 世界之窗, 深圳湾公园
+Score Over!
+LLM query:  [{'role': 'user', 'content': '**383** name: 克茗冰室(中心城店) , cusine: 粤菜, price_per_preson: 57.0, recommended food:  \n**214** name: 深圳福田香格里拉大酒店·大堂酒廊 , cusine: 咖啡店, price_per_preson: 139.0, recommended food:  \n**38** name: 龙腾海鲜火锅酒家 , cusine: 火锅, price_per_preson: 1054.0, recommended food:  \n**152** name: 1001西域餐厅·生日聚会餐厅(欢乐海岸店) , cusine: 新疆菜, price_per_preson: 110.0, recommended food: 大盘鸡,椒麻鸡,羊肉串,新疆炒米粉,丁丁炒面,米泉凉皮\n**242** name: 清晖小苑·功夫烧腊顺德菜(观澜湖MHmall店) , cusine: 粤菜, price_per_preson: 87.0, recommended food: 盐焗乳鸽,鲜嫩香豆滑,顺德捞起手撕鸡,顺德捞鱼皮,砂锅鱼头,顺德豆腐烧\n**445** name: 神坂烧肉酒场(博今国际店) , cusine: 日本料理, price_per_preson: 236.0, recommended food:  \n**52** name: 鮨政·Omakase(平安金融中心店) , cusine: 日本料理, price_per_preson: 283.0, recommended food: 红酒鹅肝,甜虾刺身,鮟鱇鱼肝,茶碗蒸,矶煮鲍鱼伴肝酱,鹅肝蓉伴吞拿鱼 \n**263** name: 深圳君悦酒店·悦景扒房·西餐厅 , cusine: 西餐, price_per_preson: 836.0, recommended food: 牛肉塔塔,纽约客牛排,战斧牛排,豪华海鲜拼盘,阿拉斯加冰淇淋,柑橘腌挪威三文鱼,法式椒香牛柳\n**337** name: Panos The Steakhouse & Lounge 潘若斯牛排馆酒廊 , cusine: 西餐, price_per_preson: 1141.0, recommended food: 澳洲干式熟成战斧牛排,招牌珍宝蟹肉饼,脆炸虎虾配塔布勒沙拉,熟成乳鸽配松露蘑菇\n**261** name: 新粤塔里木河餐厅 , cusine: 新疆菜, price_per_preson: 125.0, recommended food: 手抓饭,大盘鸡,手抓羊肉,风味馕包肉,新粤秘制烤羊排,新疆凉皮,羊肉串,西域大拌菜\n**389** name: 费大厨辣椒炒肉(皇庭广场店) , cusine: 湘菜, price_per_preson: 80.0, recommended food:  \n**258** name: 喜荟 , cusine: 粤菜, price_per_preson: 78.0, recommended food: 金沙红米肠,水晶虾饺皇,酱皇蒸凤爪,烤乳鸽,蜜汁叉烧包,荔湾艇仔粥\n**460** name: 哎呦喂小龙虾·川湘菜(下沙店) , cusine: 小吃, price_per_preson: 131.0, recommended food:  \n**288** name: 深圳趣墅HAJANA海边民宿·WildSpark·欢畔海景餐厅 , cusine: 西餐, price_per_preson: 225.0, recommended food: 香煎大黑虎虾,老人与海·烟熏银鳕鱼颊,惠灵顿牛排,老虎蟹炒年糕,芝士牛油果吞拿鱼·海员馅饼,大虾牛油果沙拉\n**280** name: 杉姐老火锅(深圳总店) , cusine: 火锅, price_per_preson: 140.0, recommended food:  \n**212** name: 3號碼頭·海鲜饭店(盐田店) , cusine: 海鲜, price_per_preson: 186.0, recommended food: 海胆炒饭,红烧乳鸽,鲜花椒蒸鱼,避风塘炒蟹,蒜蓉粉丝蒸元贝,盐焗海螺\n**285** name: 深圳登喜路国际大酒店·柏顿餐厅(西乡店) , cusine: 自助餐, price_per_preson: 223.0, recommended food: 长脚蟹,烤生蚝,三文鱼,龙虾,小鲍鱼,花螺\n**183** name: 潮悦牛肉火锅店(西丽龙井店) , cusine: 火锅, price_per_preson: 132.0, recommended food: 牛胸油,牛展肉,吊龙,牛肉丸,湿炒牛河,炸腐竹\n**275** name: 深圳湾万丽酒店·万丽轩WAN LI XUAN中餐厅 , cusine: 粤菜, price_per_preson: 599.0, recommended food: 黄椒酱鱼头,夫妻肺片,招牌盐香脆皮桂香鸡,牛油果脆皮卷,炭烧牛肋皇,龙虾泡饭\n**138** name: 牛小灶牛杂煲(中心城店) , cusine: 火锅, price_per_preson: 81.0, recommended food:  \n**90** name: 荣川菜(华侨城店) , cusine: 川菜, price_per_preson: 282.0, recommended food:  \n**89** name: 润园四季椰子鸡火锅(华侨城创意园店) , cusine: 火锅, price_per_preson: 125.0, recommended food: 竹荪椰子鸡,牛肉丸,炸腐竹,海南芋头,泰式轻甜椰冻\n**292** name: 南乡·精功顺德菜(卓悦中心店) , cusine: 粤菜, price_per_preson: 170.0, recommended food:  \n**313** name: 闽和南(深圳万象城店) , cusine: 闽菜, price_per_preson: 187.0, recommended food:  \n**227** name: MAGPIE喜鹊派餐厅(华侨城店) , cusine: 融合菜, price_per_preson: 285.0, recommended food: 地三鲜,谁又把我鸭子杀了,酸面包,锅巴棒棒肉,鳗鱼,烤羊肉\n**42** name: 炳胜品味(深圳湾万象城店) , cusine: 粤菜, price_per_preson: 323.0, recommended food: 招牌菠萝包,秘制黑叉烧,姜豉汁焗珊瑚鱼,捞起章红,豉油皇鹅肠,炳胜辣海参粒煮豆腐\n**362** name: 巴迪奥餐吧 , cusine: 西餐, price_per_preson: 169.0, recommended food:  \n**419** name: 胖明螺蛳粉 , cusine: 小吃, price_per_preson: 39.0, recommended food:  \n**441** name: 云来居素食馆(总店、原香蜜湖店) , cusine: 素食, price_per_preson: 111.0, recommended food:  \n**402** name: 鮨一日本料理(大中华店) , cusine: 日本料理, price_per_preson: 1486.0, recommended food:  \n**429** name: 翠华餐厅(华强北店) , cusine: 粤菜, price_per_preson: 62.0, recommended food:  \n**441** name: 云来居素食馆(总店、原香蜜湖店) , cusine: 素食, price_per_preson: 111.0, recommended food:  \n**258** name: 喜荟 , cusine: 粤菜, price_per_preson: 78.0, recommended food: 金沙红米肠,水晶虾饺皇,酱皇蒸凤爪,烤乳鸽,蜜汁叉烧包,荔湾艇仔粥\n**187** name: 老吉士·上海菜(深圳湾万象城店) , cusine: 本帮菜, price_per_preson: 327.0, recommended food: 外婆红烧肉,糖醋小排,熏小黄鱼,响油鳝丝,蟹粉小笼包,葱油拌面\n**337** name: Panos The Steakhouse & Lounge 潘若斯牛排馆酒廊 , cusine: 西餐, price_per_preson: 1141.0, recommended food: 澳洲干式熟成战斧牛排,招牌珍宝蟹肉饼,脆炸虎虾配塔布勒沙拉,熟成乳鸽配松露蘑菇\n**131** name: 新世界餐厅(万达店) , cusine: 粤菜, price_per_preson: 55.0, recommended food: 干炒牛河,品牌烧鹅饭,冰镇菠萝油,鲜虾云吞面,公司三文治,蜜汁叉烧\n**387** name: 岚山庭 , cusine: 日本料理, price_per_preson: 738.0, recommended food:  \n**406** name: 隐谷Omakase(福田财富店) , cusine: 日本料理, price_per_preson: 926.0, recommended food: 茶碗蒸,清酒煮鲍鱼,紫苏海胆天妇罗,日本生蚝,静冈蜜瓜,北海道松叶蟹肉啫喱\n**427** name: 润园四季椰子鸡火锅(卓悦汇店) , cusine: 火锅, price_per_preson: 129.0, recommended food:  \n**281** name: 好好味面家(桃园店) , cusine: 小吃, price_per_preson: 26.0, recommended food:  \n**453** name: 千叶·寿喜锅·和牛自助(KKONE店) , cusine: 自助餐, price_per_preson: 148.0, recommended food:  \n**277** name: GODIVA(海岸城店) , cusine: 面包甜点, price_per_preson: 54.0, recommended food:  \n**215** name: 亿民平安国际大酒店·西餐厅(彩田北路店) , cusine: 自助餐, price_per_preson: 163.0, recommended food:  \n**315** name: 木屋烧烤(东门一店) , cusine: 烧烤, price_per_preson: 90.0, recommended food:  \n**476** name: 周师兄重庆火锅(KK MALL 京基店) , cusine: 火锅, price_per_preson: 149.0, recommended food:  \n**438** name: 老碗会·陕西手工面(群星店) , cusine: 西北菜, price_per_preson: 38.0, recommended food:  \n**379** name: KYOKU日本料理(嘉里建设广场店) , cusine: 日本料理, price_per_preson: 331.0, recommended food:  \n**39** name: 1949全鸭季·北京烤鸭(欢乐海岸购物中心店) , cusine: 北京菜, price_per_preson: 438.0, recommended food: 北京烤鸭,樱桃鹅肝,鲜花椒炝海螺,香辣澳洲牛仔粒,宫保虾球,番茄脆菇沙拉\n**292** name: 南乡·精功顺德菜(卓悦中心店) , cusine: 粤菜, price_per_preson: 170.0, recommended food:  \n**232** name: 柿合缘新京菜(万象天地里巷店) , cusine: 北京菜, price_per_preson: 395.0, recommended food:  \n当前位置广州。我一个人想去深圳玩一天，预算1000人民币，请给我一个旅行规划。\n在这次在深圳的旅行中,请帮我选择一些餐厅去吃，评估每个餐厅的相关性，看看是否需要安排到行程里\n请根据以上信息考虑什么样的餐厅满足我们的需求\n请简洁的回复:'}]
+Answer: ### 深圳一日旅行规划
+
+#### 预算：1000人民币
+
+#### 餐厅推荐：
+
+1. **克茗冰室(中心城店)**  
+   - **Cuisine**: 粤菜  
+   - **Price**: 57.0  
+   - **推荐理由**: 价格实惠，适合早餐或午餐。
+
+2. **喜荟**  
+   - **Cuisine**: 粤菜  
+   - **Price**: 78.0  
+   - **推荐理由**: 特色点心，适合午餐。
+
+3. **南乡·精功顺德菜(卓悦中心店)**  
+   - **Cuisine**: 粤菜  
+   - **Price**: 170.0  
+   - **推荐理由**: 适合晚餐，顺德菜口味独特。
+
+4. **胖明螺蛳粉**  
+   - **Cuisine**: 小吃  
+   - **Price**: 39.0  
+   - **推荐理由**: 适合小吃，价格便宜。
+
+#### 行程安排：
+
+- **早餐**: 克茗冰室 (57.0)
+- **午餐**: 喜荟 (78.0)
+- **小吃**: 胖明螺蛳粉 (39.0)
+- **晚餐**: 南乡·精功顺德菜 (170.0)
+
+#### 总预算：
+- 早餐: 57.0
+- 午餐: 78.0
+- 小吃: 39.0
+- 晚餐: 170.0  
+**合计**: 344.0
+
+#### 剩余预算：1000 - 344 = 656.0
+
+### 其他活动建议：
+- 参观深圳的主要景点，如深圳湾公园、欢乐海岸等，享受美丽的海景和城市风光。
+
+这样安排可以让你在深圳享受美食的同时，保持在预算内。
+LLM query:  [{'role': 'user', 'content': '### 深圳一日旅行规划\n\n#### 预算：1000人民币\n\n#### 餐厅推荐：\n\n1. **克茗冰室(中心城店)**  \n   - **Cuisine**: 粤菜  \n   - **Price**: 57.0  \n   - **推荐理由**: 价格实惠，适合早餐或午餐。\n\n2. **喜荟**  \n   - **Cuisine**: 粤菜  \n   - **Price**: 78.0  \n   - **推荐理由**: 特色点心，适合午餐。\n\n3. **南乡·精功顺德菜(卓悦中心店)**  \n   - **Cuisine**: 粤菜  \n   - **Price**: 170.0  \n   - **推荐理由**: 适合晚餐，顺德菜口味独特。\n\n4. **胖明螺蛳粉**  \n   - **Cuisine**: 小吃  \n   - **Price**: 39.0  \n   - **推荐理由**: 适合小吃，价格便宜。\n\n#### 行程安排：\n\n- **早餐**: 克茗冰室 (57.0)\n- **午餐**: 喜荟 (78.0)\n- **小吃**: 胖明螺蛳粉 (39.0)\n- **晚餐**: 南乡·精功顺德菜 (170.0)\n\n#### 总预算：\n- 早餐: 57.0\n- 午餐: 78.0\n- 小吃: 39.0\n- 晚餐: 170.0  \n**合计**: 344.0\n\n#### 剩余预算：1000 - 344 = 656.0\n\n### 其他活动建议：\n- 参观深圳的主要景点，如深圳湾公园、欢乐海岸等，享受美丽的海景和城市风光。\n\n这样安排可以让你在深圳享受美食的同时，保持在预算内。\n请将上述内容中涉及到的名字（景点、餐厅）提取出来，并用逗号隔开。Answer:'}]
+Answer: 克茗冰室(中心城店), 喜荟, 南乡·精功顺德菜(卓悦中心店), 胖明螺蛳粉, 深圳湾公园, 欢乐海岸
+Score Over!
+intercity_cost:  109.41
+in-city budget:  890.59
+search: ...
+POI planning, day 0 06:55, 深圳东站, next-poi type: attraction
+POI planning, day 0 14:21, 大鹏半岛地质公园, next-poi type: lunch
+try another poi type
+POI planning, day 0 14:21, 大鹏半岛地质公园, next-poi type: attraction
+POI planning, day 0 21:14, 罗瑞合台湾美食街, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 1, 'people_number': 1, 'cost': 128.41, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'G', 'K'}, 'food_type': set(), 'spot_type': {'公园', '商业街区'}, 'hotel_feature': set(), 'food_price': 0, 'hotel_price': 0, 'hotel_names': set(), 'restaurant_names': set(), 'attraction_names': {'大鹏半岛地质公园', '罗瑞合台湾美食街'}, 'tickets': 1, 'rooms': 0, 'room_type': 0}
+[True, True, True, True]
+days==1 passed!
+people_number==1 passed!
+cost<=1000 passed!
+tickets==1 passed!
+
+ Pass! 
+
+True {'people_number': 1, 'start_city': '广州', 'target_city': '深圳', 'itinerary': [{'day': 1, 'activities': [{'start_time': '05:03', 'end_time': '06:55', 'start': '广州北站', 'end': '深圳东站', 'TrainID': 'K9262', 'type': 'train', 'transports': [], 'cost': 41.68, 'tickets': 1}, {'position': '大鹏半岛地质公园', 'type': 'attraction', 'transports': [{'start': '深圳东站', 'end': '布吉-地铁站', 'mode': 'walk', 'start_time': '06:55', 'end_time': '06:58', 'cost': 0, 'distance': 0.28}, {'start': '布吉-地铁站', 'end': '田心-地铁站', 'mode': 'metro', 'start_time': '06:58', 'end_time': '08:01', 'cost': 7, 'distance': 31.78, 'tickets': 1}, {'start': '田心-地铁站', 'end': '大鹏半岛地质公园', 'mode': 'walk', 'start_time': '08:01', 'end_time': '12:21', 'cost': 0, 'distance': 21.72}], 'cost': 0, 'start_time': '12:21', 'end_time': '14:21'}, {'position': '罗瑞合台湾美食街', 'type': 'attraction', 'transports': [{'start': '大鹏半岛地质公园', 'end': '田心-地铁站', 'mode': 'walk', 'start_time': '14:21', 'end_time': '18:41', 'cost': 0, 'distance': 21.72}, {'start': '田心-地铁站', 'end': '双龙-地铁站', 'mode': 'metro', 'start_time': '18:41', 'end_time': '19:10', 'cost': 5, 'distance': 14.58, 'tickets': 1}, {'start': '双龙-地铁站', 'end': '罗瑞合台湾美食街', 'mode': 'walk', 'start_time': '19:10', 'end_time': '19:14', 'cost': 0, 'distance': 0.39}], 'cost': 0, 'start_time': '19:14', 'end_time': '21:14'}, {'start_time': '23:30', 'end_time': '23:59', 'start': '深圳北站', 'end': '广州南站', 'TrainID': 'G6568', 'type': 'train', 'transports': [{'start': '罗瑞合台湾美食街', 'end': '双龙-地铁站', 'mode': 'walk', 'start_time': '21:14', 'end_time': '21:18', 'cost': 0, 'distance': 0.39}, {'start': '双龙-地铁站', 'end': '深圳北站-地铁站', 'mode': 'metro', 'start_time': '21:18', 'end_time': '22:15', 'cost': 7, 'distance': 28.58, 'tickets': 1}, {'start': '深圳北站-地铁站', 'end': '深圳北站', 'mode': 'walk', 'start_time': '22:15', 'end_time': '22:16', 'cost': 0, 'distance': 0.15}], 'cost': 67.73, 'tickets': 1}]}]}
+{'people_number': 1, 'start_city': '广州', 'target_city': '深圳', 'itinerary': [{'day': 1, 'activities': [{'start_time': '05:03', 'end_time': '06:55', 'start': '广州北站', 'end': '深圳东站', 'TrainID': 'K9262', 'type': 'train', 'transports': [], 'cost': 41.68, 'tickets': 1}, {'position': '大鹏半岛地质公园', 'type': 'attraction', 'transports': [{'start': '深圳东站', 'end': '布吉-地铁站', 'mode': 'walk', 'start_time': '06:55', 'end_time': '06:58', 'cost': 0, 'distance': 0.28}, {'start': '布吉-地铁站', 'end': '田心-地铁站', 'mode': 'metro', 'start_time': '06:58', 'end_time': '08:01', 'cost': 7, 'distance': 31.78, 'tickets': 1}, {'start': '田心-地铁站', 'end': '大鹏半岛地质公园', 'mode': 'walk', 'start_time': '08:01', 'end_time': '12:21', 'cost': 0, 'distance': 21.72}], 'cost': 0, 'start_time': '12:21', 'end_time': '14:21'}, {'position': '罗瑞合台湾美食街', 'type': 'attraction', 'transports': [{'start': '大鹏半岛地质公园', 'end': '田心-地铁站', 'mode': 'walk', 'start_time': '14:21', 'end_time': '18:41', 'cost': 0, 'distance': 21.72}, {'start': '田心-地铁站', 'end': '双龙-地铁站', 'mode': 'metro', 'start_time': '18:41', 'end_time': '19:10', 'cost': 5, 'distance': 14.58, 'tickets': 1}, {'start': '双龙-地铁站', 'end': '罗瑞合台湾美食街', 'mode': 'walk', 'start_time': '19:10', 'end_time': '19:14', 'cost': 0, 'distance': 0.39}], 'cost': 0, 'start_time': '19:14', 'end_time': '21:14'}, {'start_time': '23:30', 'end_time': '23:59', 'start': '深圳北站', 'end': '广州南站', 'TrainID': 'G6568', 'type': 'train', 'transports': [{'start': '罗瑞合台湾美食街', 'end': '双龙-地铁站', 'mode': 'walk', 'start_time': '21:14', 'end_time': '21:18', 'cost': 0, 'distance': 0.39}, {'start': '双龙-地铁站', 'end': '深圳北站-地铁站', 'mode': 'metro', 'start_time': '21:18', 'end_time': '22:15', 'cost': 7, 'distance': 28.58, 'tickets': 1}, {'start': '深圳北站-地铁站', 'end': '深圳北站', 'mode': 'walk', 'start_time': '22:15', 'end_time': '22:16', 'cost': 0, 'distance': 0.15}], 'cost': 67.73, 'tickets': 1}]}]}
+query: {'start_city': '广州', 'target_city': '深圳', 'hard_logic': ['days==1', 'people_number==1', 'cost<=1000', 'tickets==1'], 'nature_language': '当前位置广州。我一个人想去深圳玩一天，预算1000人民币，请给我一个旅行规划。'}
+query: {'start_city': '广州', 'target_city': '深圳', 'hard_logic': ['days==1', 'people_number==1', 'cost<=1000', 'tickets==1'], 'nature_language': '当前位置广州。我一个人想去深圳玩一天，预算1000人民币，请给我一个旅行规划。', 'days': 1, 'people_number': 1, 'transport_preference': 'metro', 'hard_logic_unseen': [], 'cost': 1000}
+from 广州 to 深圳: 10 flights, 345 trains
+from 深圳 to 广州: 10 flights, 361 trains
+深圳 accommmodation, 498 hotels (satisfied requirments)
+LLM query:  [{'role': 'user', 'content': '**258** name: SGP卡丁车俱乐部 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**231** name: 塘朗山郊野公园 , price_per_preson: 0.0, type: 公园\n**128** name: 清平古墟影视文化园 , price_per_preson: 0.0, type: 文化旅游区\n**79** name: 观澜山水田园文化园 , price_per_preson: 99.0, type: 文化旅游区\n**156** name: 茶翁古镇 , price_per_preson: 0.0, type: 文化旅游区\n**123** name: 大鹏半岛地质公园 , price_per_preson: 0.0, type: 公园\n**239** name: 宝安体育馆 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**92** name: 海昌·乐漫冰雪王国(深圳海雅店) , price_per_preson: 178.0, type: 游乐园/体育娱乐\n**145** name: 中山公园 , price_per_preson: 0.0, type: 公园\n**178** name: 东部通航·空中的士直升机飞行基地(大中华店) , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**277** name: 石岩湿地公园 , price_per_preson: 0.0, type: 公园\n**154** name: 背仔角灯塔 , price_per_preson: 0.0, type: 人文景观\n**86** name: 蛇口口岸 , price_per_preson: 0.0, type: 人文景观\n**231** name: 塘朗山郊野公园 , price_per_preson: 0.0, type: 公园\n**189** name: 大澳湾沙滩 , price_per_preson: 0.0, type: 自然风光\n**76** name: 观澜版画村 , price_per_preson: 0.0, type: 文化旅游区\n**278** name: 天涯海角 , price_per_preson: 0.0, type: 自然风光\n**300** name: 彩虹星球游乐园 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**247** name: 银湖山郊野公园 , price_per_preson: 0.0, type: 公园\n**276** name: 深圳望野博物馆 , price_per_preson: 0.0, type: 博物馆/纪念馆\n**94** name: 奈尔宝家庭中心(卓悦店) , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**223** name: 光明滑草游乐园 , price_per_preson: 63.59, type: 游乐园/体育娱乐\n**275** name: 广东翔云跳伞俱乐部(深圳店) , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**209** name: 香蜜湖 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**144** name: 龙岗区科技馆 , price_per_preson: 0.0, type: 博物馆/纪念馆\n**30** name: 欢乐海岸海洋奇梦馆 , price_per_preson: 45.0, type: 游乐园/体育娱乐\n**132** name: 锦绣中华-莫高窟 , price_per_preson: 0.0, type: 人文景观\n**186** name: 海贝湾潜水基地 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**279** name: 葵涌官湖村海滩 , price_per_preson: 0.0, type: 自然风光\n**295** name: 龙兴寺 , price_per_preson: 0.0, type: 历史古迹\n**145** name: 中山公园 , price_per_preson: 0.0, type: 公园\n**264** name: 罗瑞合台湾美食街 , price_per_preson: 0.0, type: 商业街区\n**79** name: 观澜山水田园文化园 , price_per_preson: 99.0, type: 文化旅游区\n**246** name: 东部华侨城-1号观景台 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**167** name: 荔枝公园 , price_per_preson: 0.0, type: 公园\n**4** name: 深圳野生动物园 , price_per_preson: 99.0, type: 游乐园/体育娱乐\n**220** name: 深圳博物馆历史民俗馆 , price_per_preson: 0.0, type: 博物馆/纪念馆\n**122** name: 锦绣中华-少数民族民居 , price_per_preson: 0.0, type: 人文景观\n**252** name: 昭君墓 , price_per_preson: 0.0, type: 历史古迹\n**204** name: 香格里拉雪域 , price_per_preson: 0.0, type: 自然风光\n**0** name: 世界之窗 , price_per_preson: 115.0, type: 游乐园/体育娱乐\n**151** name: 深圳湾公园-流花山 , price_per_preson: 0.0, type: 公园\n**265** name: 深圳宝安马拉松 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**74** name: 愿望塔 , price_per_preson: 39.0, type: 游乐园/体育娱乐\n**99** name: 水围1368文化街区 , price_per_preson: 0.0, type: 商业街区\n**266** name: 深圳自由鹿游艇尾波冲浪俱乐部 , price_per_preson: 1770.0, type: 游乐园/体育娱乐\n**58** name: 湾区游轮 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**173** name: 深圳失恋博物馆（东门老街旗舰店） , price_per_preson: 138.0, type: 博物馆/纪念馆\n**73** name: 虹桥公园 , price_per_preson: 0.0, type: 公园\n**296** name: 东山村 , price_per_preson: 0.0, type: 历史古迹\n当前位置广州。我一个人想去深圳玩一天，预算1000人民币，请给我一个旅行规划。\n在这次在深圳的旅行中，请帮我评估每个景点的游玩重要性，看看是否需要安排到行程里\n请根据以上信息考虑什么样的景点满足我们的需求\n请简洁的回复:'}]
+Answer: ### 深圳一日游旅行规划
+
+#### 预算：1000人民币
+
+#### 行程安排：
+
+1. **早上**
+   - **深圳野生动物园** (99.0元)
+     - 重要性：高，适合动物爱好者，适合早晨游玩。
+   - **中山公园** (免费)
+     - 重要性：中，适合散步和放松。
+
+2. **中午**
+   - **欢乐海岸海洋奇梦馆** (45.0元)
+     - 重要性：中，适合家庭游玩，体验海洋主题。
+
+3. **下午**
+   - **观澜山水田园文化园** (99.0元)
+     - 重要性：高，体验文化和自然的结合。
+   - **光明滑草游乐园** (63.59元)
+     - 重要性：中，适合喜欢户外活动的人。
+
+4. **晚上**
+   - **世界之窗** (115.0元)
+     - 重要性：高，体验世界各地的文化和景观。
+
+#### 总费用：
+- 深圳野生动物园：99.0元
+- 欢乐海岸海洋奇梦馆：45.0元
+- 观澜山水田园文化园：99.0元
+- 光明滑草游乐园：63.59元
+- 世界之窗：115.0元
+- **合计：421.59元**
+
+#### 预算剩余：
+- **1000 - 421.59 = 578.41元**
+
+#### 其他建议：
+- 可选择在中午或晚上享用当地美食，预算充足。
+- 余下的预算可用于交通、购物或其他小型景点。
+
+### 重要性评估：
+- **高**：深圳野生动物园、观澜山水田园文化园、世界之窗
+- **中**：中山公园、欢乐海岸海洋奇梦馆、光明滑草游乐园
+
+希望你在深圳玩得愉快！
+LLM query:  [{'role': 'user', 'content': '### 深圳一日游旅行规划\n\n#### 预算：1000人民币\n\n#### 行程安排：\n\n1. **早上**\n   - **深圳野生动物园** (99.0元)\n     - 重要性：高，适合动物爱好者，适合早晨游玩。\n   - **中山公园** (免费)\n     - 重要性：中，适合散步和放松。\n\n2. **中午**\n   - **欢乐海岸海洋奇梦馆** (45.0元)\n     - 重要性：中，适合家庭游玩，体验海洋主题。\n\n3. **下午**\n   - **观澜山水田园文化园** (99.0元)\n     - 重要性：高，体验文化和自然的结合。\n   - **光明滑草游乐园** (63.59元)\n     - 重要性：中，适合喜欢户外活动的人。\n\n4. **晚上**\n   - **世界之窗** (115.0元)\n     - 重要性：高，体验世界各地的文化和景观。\n\n#### 总费用：\n- 深圳野生动物园：99.0元\n- 欢乐海岸海洋奇梦馆：45.0元\n- 观澜山水田园文化园：99.0元\n- 光明滑草游乐园：63.59元\n- 世界之窗：115.0元\n- **合计：421.59元**\n\n#### 预算剩余：\n- **1000 - 421.59 = 578.41元**\n\n#### 其他建议：\n- 可选择在中午或晚上享用当地美食，预算充足。\n- 余下的预算可用于交通、购物或其他小型景点。\n\n### 重要性评估：\n- **高**：深圳野生动物园、观澜山水田园文化园、世界之窗\n- **中**：中山公园、欢乐海岸海洋奇梦馆、光明滑草游乐园\n\n希望你在深圳玩得愉快！\n请将上述内容中涉及到的名字（景点、餐厅）提取出来，并用逗号隔开。Answer:'}]
+Answer: 深圳野生动物园, 中山公园, 欢乐海岸海洋奇梦馆, 观澜山水田园文化园, 光明滑草游乐园, 世界之窗
+Score Over!
+LLM query:  [{'role': 'user', 'content': '**383** name: 克茗冰室(中心城店) , cusine: 粤菜, price_per_preson: 57.0, recommended food:  \n**214** name: 深圳福田香格里拉大酒店·大堂酒廊 , cusine: 咖啡店, price_per_preson: 139.0, recommended food:  \n**38** name: 龙腾海鲜火锅酒家 , cusine: 火锅, price_per_preson: 1054.0, recommended food:  \n**152** name: 1001西域餐厅·生日聚会餐厅(欢乐海岸店) , cusine: 新疆菜, price_per_preson: 110.0, recommended food: 大盘鸡,椒麻鸡,羊肉串,新疆炒米粉,丁丁炒面,米泉凉皮\n**242** name: 清晖小苑·功夫烧腊顺德菜(观澜湖MHmall店) , cusine: 粤菜, price_per_preson: 87.0, recommended food: 盐焗乳鸽,鲜嫩香豆滑,顺德捞起手撕鸡,顺德捞鱼皮,砂锅鱼头,顺德豆腐烧\n**445** name: 神坂烧肉酒场(博今国际店) , cusine: 日本料理, price_per_preson: 236.0, recommended food:  \n**52** name: 鮨政·Omakase(平安金融中心店) , cusine: 日本料理, price_per_preson: 283.0, recommended food: 红酒鹅肝,甜虾刺身,鮟鱇鱼肝,茶碗蒸,矶煮鲍鱼伴肝酱,鹅肝蓉伴吞拿鱼 \n**263** name: 深圳君悦酒店·悦景扒房·西餐厅 , cusine: 西餐, price_per_preson: 836.0, recommended food: 牛肉塔塔,纽约客牛排,战斧牛排,豪华海鲜拼盘,阿拉斯加冰淇淋,柑橘腌挪威三文鱼,法式椒香牛柳\n**337** name: Panos The Steakhouse & Lounge 潘若斯牛排馆酒廊 , cusine: 西餐, price_per_preson: 1141.0, recommended food: 澳洲干式熟成战斧牛排,招牌珍宝蟹肉饼,脆炸虎虾配塔布勒沙拉,熟成乳鸽配松露蘑菇\n**261** name: 新粤塔里木河餐厅 , cusine: 新疆菜, price_per_preson: 125.0, recommended food: 手抓饭,大盘鸡,手抓羊肉,风味馕包肉,新粤秘制烤羊排,新疆凉皮,羊肉串,西域大拌菜\n**389** name: 费大厨辣椒炒肉(皇庭广场店) , cusine: 湘菜, price_per_preson: 80.0, recommended food:  \n**258** name: 喜荟 , cusine: 粤菜, price_per_preson: 78.0, recommended food: 金沙红米肠,水晶虾饺皇,酱皇蒸凤爪,烤乳鸽,蜜汁叉烧包,荔湾艇仔粥\n**460** name: 哎呦喂小龙虾·川湘菜(下沙店) , cusine: 小吃, price_per_preson: 131.0, recommended food:  \n**288** name: 深圳趣墅HAJANA海边民宿·WildSpark·欢畔海景餐厅 , cusine: 西餐, price_per_preson: 225.0, recommended food: 香煎大黑虎虾,老人与海·烟熏银鳕鱼颊,惠灵顿牛排,老虎蟹炒年糕,芝士牛油果吞拿鱼·海员馅饼,大虾牛油果沙拉\n**280** name: 杉姐老火锅(深圳总店) , cusine: 火锅, price_per_preson: 140.0, recommended food:  \n**212** name: 3號碼頭·海鲜饭店(盐田店) , cusine: 海鲜, price_per_preson: 186.0, recommended food: 海胆炒饭,红烧乳鸽,鲜花椒蒸鱼,避风塘炒蟹,蒜蓉粉丝蒸元贝,盐焗海螺\n**285** name: 深圳登喜路国际大酒店·柏顿餐厅(西乡店) , cusine: 自助餐, price_per_preson: 223.0, recommended food: 长脚蟹,烤生蚝,三文鱼,龙虾,小鲍鱼,花螺\n**183** name: 潮悦牛肉火锅店(西丽龙井店) , cusine: 火锅, price_per_preson: 132.0, recommended food: 牛胸油,牛展肉,吊龙,牛肉丸,湿炒牛河,炸腐竹\n**275** name: 深圳湾万丽酒店·万丽轩WAN LI XUAN中餐厅 , cusine: 粤菜, price_per_preson: 599.0, recommended food: 黄椒酱鱼头,夫妻肺片,招牌盐香脆皮桂香鸡,牛油果脆皮卷,炭烧牛肋皇,龙虾泡饭\n**138** name: 牛小灶牛杂煲(中心城店) , cusine: 火锅, price_per_preson: 81.0, recommended food:  \n**90** name: 荣川菜(华侨城店) , cusine: 川菜, price_per_preson: 282.0, recommended food:  \n**89** name: 润园四季椰子鸡火锅(华侨城创意园店) , cusine: 火锅, price_per_preson: 125.0, recommended food: 竹荪椰子鸡,牛肉丸,炸腐竹,海南芋头,泰式轻甜椰冻\n**292** name: 南乡·精功顺德菜(卓悦中心店) , cusine: 粤菜, price_per_preson: 170.0, recommended food:  \n**313** name: 闽和南(深圳万象城店) , cusine: 闽菜, price_per_preson: 187.0, recommended food:  \n**227** name: MAGPIE喜鹊派餐厅(华侨城店) , cusine: 融合菜, price_per_preson: 285.0, recommended food: 地三鲜,谁又把我鸭子杀了,酸面包,锅巴棒棒肉,鳗鱼,烤羊肉\n**42** name: 炳胜品味(深圳湾万象城店) , cusine: 粤菜, price_per_preson: 323.0, recommended food: 招牌菠萝包,秘制黑叉烧,姜豉汁焗珊瑚鱼,捞起章红,豉油皇鹅肠,炳胜辣海参粒煮豆腐\n**362** name: 巴迪奥餐吧 , cusine: 西餐, price_per_preson: 169.0, recommended food:  \n**419** name: 胖明螺蛳粉 , cusine: 小吃, price_per_preson: 39.0, recommended food:  \n**441** name: 云来居素食馆(总店、原香蜜湖店) , cusine: 素食, price_per_preson: 111.0, recommended food:  \n**402** name: 鮨一日本料理(大中华店) , cusine: 日本料理, price_per_preson: 1486.0, recommended food:  \n**429** name: 翠华餐厅(华强北店) , cusine: 粤菜, price_per_preson: 62.0, recommended food:  \n**441** name: 云来居素食馆(总店、原香蜜湖店) , cusine: 素食, price_per_preson: 111.0, recommended food:  \n**258** name: 喜荟 , cusine: 粤菜, price_per_preson: 78.0, recommended food: 金沙红米肠,水晶虾饺皇,酱皇蒸凤爪,烤乳鸽,蜜汁叉烧包,荔湾艇仔粥\n**187** name: 老吉士·上海菜(深圳湾万象城店) , cusine: 本帮菜, price_per_preson: 327.0, recommended food: 外婆红烧肉,糖醋小排,熏小黄鱼,响油鳝丝,蟹粉小笼包,葱油拌面\n**337** name: Panos The Steakhouse & Lounge 潘若斯牛排馆酒廊 , cusine: 西餐, price_per_preson: 1141.0, recommended food: 澳洲干式熟成战斧牛排,招牌珍宝蟹肉饼,脆炸虎虾配塔布勒沙拉,熟成乳鸽配松露蘑菇\n**131** name: 新世界餐厅(万达店) , cusine: 粤菜, price_per_preson: 55.0, recommended food: 干炒牛河,品牌烧鹅饭,冰镇菠萝油,鲜虾云吞面,公司三文治,蜜汁叉烧\n**387** name: 岚山庭 , cusine: 日本料理, price_per_preson: 738.0, recommended food:  \n**406** name: 隐谷Omakase(福田财富店) , cusine: 日本料理, price_per_preson: 926.0, recommended food: 茶碗蒸,清酒煮鲍鱼,紫苏海胆天妇罗,日本生蚝,静冈蜜瓜,北海道松叶蟹肉啫喱\n**427** name: 润园四季椰子鸡火锅(卓悦汇店) , cusine: 火锅, price_per_preson: 129.0, recommended food:  \n**281** name: 好好味面家(桃园店) , cusine: 小吃, price_per_preson: 26.0, recommended food:  \n**453** name: 千叶·寿喜锅·和牛自助(KKONE店) , cusine: 自助餐, price_per_preson: 148.0, recommended food:  \n**277** name: GODIVA(海岸城店) , cusine: 面包甜点, price_per_preson: 54.0, recommended food:  \n**215** name: 亿民平安国际大酒店·西餐厅(彩田北路店) , cusine: 自助餐, price_per_preson: 163.0, recommended food:  \n**315** name: 木屋烧烤(东门一店) , cusine: 烧烤, price_per_preson: 90.0, recommended food:  \n**476** name: 周师兄重庆火锅(KK MALL 京基店) , cusine: 火锅, price_per_preson: 149.0, recommended food:  \n**438** name: 老碗会·陕西手工面(群星店) , cusine: 西北菜, price_per_preson: 38.0, recommended food:  \n**379** name: KYOKU日本料理(嘉里建设广场店) , cusine: 日本料理, price_per_preson: 331.0, recommended food:  \n**39** name: 1949全鸭季·北京烤鸭(欢乐海岸购物中心店) , cusine: 北京菜, price_per_preson: 438.0, recommended food: 北京烤鸭,樱桃鹅肝,鲜花椒炝海螺,香辣澳洲牛仔粒,宫保虾球,番茄脆菇沙拉\n**292** name: 南乡·精功顺德菜(卓悦中心店) , cusine: 粤菜, price_per_preson: 170.0, recommended food:  \n**232** name: 柿合缘新京菜(万象天地里巷店) , cusine: 北京菜, price_per_preson: 395.0, recommended food:  \n当前位置广州。我一个人想去深圳玩一天，预算1000人民币，请给我一个旅行规划。\n在这次在深圳的旅行中,请帮我选择一些餐厅去吃，评估每个餐厅的相关性，看看是否需要安排到行程里\n请根据以上信息考虑什么样的餐厅满足我们的需求\n请简洁的回复:'}]
+Answer: ### 深圳一日旅行规划
+
+#### 预算：1000人民币
+
+#### 餐厅推荐：
+
+1. **克茗冰室(中心城店)**  
+   - **Cuisine**: 粤菜  
+   - **Price**: 57.0  
+   - **推荐理由**: 价格实惠，适合早餐或午餐。
+
+2. **喜荟**  
+   - **Cuisine**: 粤菜  
+   - **Price**: 78.0  
+   - **推荐理由**: 特色点心，适合午餐。
+
+3. **牛小灶牛杂煲(中心城店)**  
+   - **Cuisine**: 火锅  
+   - **Price**: 81.0  
+   - **推荐理由**: 适合晚餐，价格合理。
+
+4. **润园四季椰子鸡火锅(华侨城创意园店)**  
+   - **Cuisine**: 火锅  
+   - **Price**: 125.0  
+   - **推荐理由**: 适合晚餐，特色火锅。
+
+5. **深圳湾万丽酒店·万丽轩WAN LI XUAN中餐厅**  
+   - **Cuisine**: 粤菜  
+   - **Price**: 599.0  
+   - **推荐理由**: 高档餐厅，适合特别的晚餐体验。
+
+#### 行程安排：
+
+- **早餐**: 克茗冰室 (57.0)
+- **午餐**: 喜荟 (78.0)
+- **晚餐**: 牛小灶牛杂煲 (81.0) 或 润园四季椰子鸡火锅 (125.0)
+
+#### 总预算评估：
+- 早餐 + 午餐 + 晚餐 = 57 + 78 + 81 = 216.0 (选择牛小灶)
+- 如果选择润园四季火锅，预算为 57 + 78 + 125 = 260.0
+
+### 结论：
+在预算1000人民币内，以上餐厅均可安排，且各具特色，适合不同的用餐需求。
+LLM query:  [{'role': 'user', 'content': '### 深圳一日旅行规划\n\n#### 预算：1000人民币\n\n#### 餐厅推荐：\n\n1. **克茗冰室(中心城店)**  \n   - **Cuisine**: 粤菜  \n   - **Price**: 57.0  \n   - **推荐理由**: 价格实惠，适合早餐或午餐。\n\n2. **喜荟**  \n   - **Cuisine**: 粤菜  \n   - **Price**: 78.0  \n   - **推荐理由**: 特色点心，适合午餐。\n\n3. **牛小灶牛杂煲(中心城店)**  \n   - **Cuisine**: 火锅  \n   - **Price**: 81.0  \n   - **推荐理由**: 适合晚餐，价格合理。\n\n4. **润园四季椰子鸡火锅(华侨城创意园店)**  \n   - **Cuisine**: 火锅  \n   - **Price**: 125.0  \n   - **推荐理由**: 适合晚餐，特色火锅。\n\n5. **深圳湾万丽酒店·万丽轩WAN LI XUAN中餐厅**  \n   - **Cuisine**: 粤菜  \n   - **Price**: 599.0  \n   - **推荐理由**: 高档餐厅，适合特别的晚餐体验。\n\n#### 行程安排：\n\n- **早餐**: 克茗冰室 (57.0)\n- **午餐**: 喜荟 (78.0)\n- **晚餐**: 牛小灶牛杂煲 (81.0) 或 润园四季椰子鸡火锅 (125.0)\n\n#### 总预算评估：\n- 早餐 + 午餐 + 晚餐 = 57 + 78 + 81 = 216.0 (选择牛小灶)\n- 如果选择润园四季火锅，预算为 57 + 78 + 125 = 260.0\n\n### 结论：\n在预算1000人民币内，以上餐厅均可安排，且各具特色，适合不同的用餐需求。\n请将上述内容中涉及到的名字（景点、餐厅）提取出来，并用逗号隔开。Answer:'}]
+Answer: 克茗冰室(中心城店), 喜荟, 牛小灶牛杂煲(中心城店), 润园四季椰子鸡火锅(华侨城创意园店), 深圳湾万丽酒店·万丽轩WAN LI XUAN中餐厅
+Score Over!
+intercity_cost:  109.41
+in-city budget:  890.59
+search: ...
+POI planning, day 0 06:55, 深圳东站, next-poi type: attraction
+POI planning, day 0 09:30, 观澜山水田园文化园, next-poi type: attraction
+POI planning, day 0 13:04, 光明滑草游乐园, next-poi type: lunch
+try another poi type
+POI planning, day 0 13:04, 光明滑草游乐园, next-poi type: attraction
+POI planning, day 0 16:02, 深圳野生动物园, next-poi type: lunch
+try another poi type
+POI planning, day 0 16:02, 深圳野生动物园, next-poi type: attraction
+POI planning, day 0 18:36, 欢乐海岸海洋奇梦馆, next-poi type: lunch
+try another poi type
+POI planning, day 0 18:36, 欢乐海岸海洋奇梦馆, next-poi type: dinner
+POI planning, day 0 20:18, 润园四季椰子鸡火锅(华侨城创意园店), next-poi type: lunch
+try another poi type
+POI planning, day 0 20:18, 润园四季椰子鸡火锅(华侨城创意园店), next-poi type: attraction
+POI planning, day 0 21:00, 中山公园, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 1, 'people_number': 1, 'cost': 260.41, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'K', 'G'}, 'food_type': {'火锅'}, 'spot_type': {'文化旅游区', '游乐园/体育娱乐', '公园'}, 'hotel_feature': set(), 'food_price': 125.0, 'hotel_price': 0, 'hotel_names': set(), 'restaurant_names': {'润园四季椰子鸡火锅(华侨城创意园店)'}, 'attraction_names': {'观澜山水田园文化园', '中山公园', '欢乐海岸海洋奇梦馆', '深圳野生动物园', '光明滑草游乐园'}, 'tickets': 1, 'rooms': 0, 'room_type': 0}
+[True, True, True, True]
+days==1 passed!
+people_number==1 passed!
+cost<=1000 passed!
+tickets==1 passed!
+
+ Pass! 
+
+True {'people_number': 1, 'start_city': '广州', 'target_city': '深圳', 'itinerary': [{'day': 1, 'activities': [{'start_time': '05:03', 'end_time': '06:55', 'start': '广州北站', 'end': '深圳东站', 'TrainID': 'K9262', 'type': 'train', 'transports': [], 'cost': 41.68, 'tickets': 1}, {'position': '观澜山水田园文化园', 'type': 'attraction', 'transports': [{'start': '深圳东站', 'end': '布吉-地铁站', 'mode': 'walk', 'start_time': '06:55', 'end_time': '06:58', 'cost': 0, 'distance': 0.28}, {'start': '布吉-地铁站', 'end': '牛湖-地铁站', 'mode': 'metro', 'start_time': '06:58', 'end_time': '07:25', 'cost': 4, 'distance': 13.93, 'tickets': 1}, {'start': '牛湖-地铁站', 'end': '观澜山水田园文化园', 'mode': 'walk', 'start_time': '07:25', 'end_time': '07:55', 'cost': 0, 'distance': 2.57}], 'cost': 99, 'start_time': '08:30', 'end_time': '09:30'}, {'position': '光明滑草游乐园', 'type': 'attraction', 'transports': [{'start': '观澜山水田园文化园', 'end': '牛湖-地铁站', 'mode': 'walk', 'start_time': '09:30', 'end_time': '10:00', 'cost': 0, 'distance': 2.57}, {'start': '牛湖-地铁站', 'end': '光明大街-地铁站', 'mode': 'metro', 'start_time': '10:00', 'end_time': '10:31', 'cost': 5, 'distance': 15.61, 'tickets': 1}, {'start': '光明大街-地铁站', 'end': '光明滑草游乐园', 'mode': 'walk', 'start_time': '10:31', 'end_time': '11:04', 'cost': 0, 'distance': 2.82}], 'cost': 63, 'start_time': '11:04', 'end_time': '13:04'}, {'position': '深圳野生动物园', 'type': 'attraction', 'transports': [{'start': '光明滑草游乐园', 'end': '光明大街-地铁站', 'mode': 'walk', 'start_time': '13:04', 'end_time': '13:37', 'cost': 0, 'distance': 2.82}, {'start': '光明大街-地铁站', 'end': '西丽湖-地铁站', 'mode': 'metro', 'start_time': '13:37', 'end_time': '14:14', 'cost': 5, 'distance': 18.8, 'tickets': 1}, {'start': '西丽湖-地铁站', 'end': '深圳野生动物园', 'mode': 'walk', 'start_time': '14:14', 'end_time': '14:32', 'cost': 0, 'distance': 1.55}], 'cost': 99, 'start_time': '14:32', 'end_time': '16:02'}, {'position': '欢乐海岸海洋奇梦馆', 'type': 'attraction', 'transports': [{'start': '深圳野生动物园', 'end': '西丽湖-地铁站', 'mode': 'walk', 'start_time': '16:02', 'end_time': '16:20', 'cost': 0, 'distance': 1.55}, {'start': '西丽湖-地铁站', 'end': '侨城东-地铁站', 'mode': 'metro', 'start_time': '16:20', 'end_time': '16:34', 'cost': 3, 'distance': 7.49, 'tickets': 1}, {'start': '侨城东-地铁站', 'end': '欢乐海岸海洋奇梦馆', 'mode': 'walk', 'start_time': '16:34', 'end_time': '16:36', 'cost': 0, 'distance': 0.21}], 'cost': 45, 'start_time': '16:36', 'end_time': '18:36'}, {'position': '润园四季椰子鸡火锅(华侨城创意园店)', 'type': 'dinner', 'transports': [{'start': '欢乐海岸海洋奇梦馆', 'end': '侨城东-地铁站', 'mode': 'walk', 'start_time': '18:36', 'end_time': '18:38', 'cost': 0, 'distance': 0.21}, {'start': '侨城东-地铁站', 'end': '侨城北-地铁站', 'mode': 'metro', 'start_time': '18:38', 'end_time': '18:40', 'cost': 2, 'distance': 1.5, 'tickets': 1}, {'start': '侨城北-地铁站', 'end': '润园四季椰子鸡火锅(华侨城创意园店)', 'mode': 'walk', 'start_time': '18:40', 'end_time': '18:48', 'cost': 0, 'distance': 0.69}], 'cost': 125, 'start_time': '18:48', 'end_time': '20:18'}, {'position': '中山公园', 'type': 'attraction', 'transports': [{'start': '润园四季椰子鸡火锅(华侨城创意园店)', 'end': '侨城北-地铁站', 'mode': 'walk', 'start_time': '20:18', 'end_time': '20:26', 'cost': 0, 'distance': 0.69}, {'start': '侨城北-地铁站', 'end': '同乐南-地铁站', 'mode': 'metro', 'start_time': '20:26', 'end_time': '20:40', 'cost': 3, 'distance': 7.37, 'tickets': 1}, {'start': '同乐南-地铁站', 'end': '中山公园', 'mode': 'walk', 'start_time': '20:40', 'end_time': '20:48', 'cost': 0, 'distance': 0.74}], 'cost': 0, 'start_time': '20:48', 'end_time': '21:00'}, {'start_time': '23:30', 'end_time': '23:59', 'start': '深圳北站', 'end': '广州南站', 'TrainID': 'G6568', 'type': 'train', 'transports': [{'start': '中山公园', 'end': '同乐南-地铁站', 'mode': 'walk', 'start_time': '21:00', 'end_time': '21:08', 'cost': 0, 'distance': 0.74}, {'start': '同乐南-地铁站', 'end': '深圳北站-地铁站', 'mode': 'metro', 'start_time': '21:08', 'end_time': '21:33', 'cost': 4, 'distance': 12.94, 'tickets': 1}, {'start': '深圳北站-地铁站', 'end': '深圳北站', 'mode': 'walk', 'start_time': '21:33', 'end_time': '21:34', 'cost': 0, 'distance': 0.15}], 'cost': 67.73, 'tickets': 1}]}]}
+{'people_number': 1, 'start_city': '广州', 'target_city': '深圳', 'itinerary': [{'day': 1, 'activities': [{'start_time': '05:03', 'end_time': '06:55', 'start': '广州北站', 'end': '深圳东站', 'TrainID': 'K9262', 'type': 'train', 'transports': [], 'cost': 41.68, 'tickets': 1}, {'position': '观澜山水田园文化园', 'type': 'attraction', 'transports': [{'start': '深圳东站', 'end': '布吉-地铁站', 'mode': 'walk', 'start_time': '06:55', 'end_time': '06:58', 'cost': 0, 'distance': 0.28}, {'start': '布吉-地铁站', 'end': '牛湖-地铁站', 'mode': 'metro', 'start_time': '06:58', 'end_time': '07:25', 'cost': 4, 'distance': 13.93, 'tickets': 1}, {'start': '牛湖-地铁站', 'end': '观澜山水田园文化园', 'mode': 'walk', 'start_time': '07:25', 'end_time': '07:55', 'cost': 0, 'distance': 2.57}], 'cost': 99, 'start_time': '08:30', 'end_time': '09:30'}, {'position': '光明滑草游乐园', 'type': 'attraction', 'transports': [{'start': '观澜山水田园文化园', 'end': '牛湖-地铁站', 'mode': 'walk', 'start_time': '09:30', 'end_time': '10:00', 'cost': 0, 'distance': 2.57}, {'start': '牛湖-地铁站', 'end': '光明大街-地铁站', 'mode': 'metro', 'start_time': '10:00', 'end_time': '10:31', 'cost': 5, 'distance': 15.61, 'tickets': 1}, {'start': '光明大街-地铁站', 'end': '光明滑草游乐园', 'mode': 'walk', 'start_time': '10:31', 'end_time': '11:04', 'cost': 0, 'distance': 2.82}], 'cost': 63, 'start_time': '11:04', 'end_time': '13:04'}, {'position': '深圳野生动物园', 'type': 'attraction', 'transports': [{'start': '光明滑草游乐园', 'end': '光明大街-地铁站', 'mode': 'walk', 'start_time': '13:04', 'end_time': '13:37', 'cost': 0, 'distance': 2.82}, {'start': '光明大街-地铁站', 'end': '西丽湖-地铁站', 'mode': 'metro', 'start_time': '13:37', 'end_time': '14:14', 'cost': 5, 'distance': 18.8, 'tickets': 1}, {'start': '西丽湖-地铁站', 'end': '深圳野生动物园', 'mode': 'walk', 'start_time': '14:14', 'end_time': '14:32', 'cost': 0, 'distance': 1.55}], 'cost': 99, 'start_time': '14:32', 'end_time': '16:02'}, {'position': '欢乐海岸海洋奇梦馆', 'type': 'attraction', 'transports': [{'start': '深圳野生动物园', 'end': '西丽湖-地铁站', 'mode': 'walk', 'start_time': '16:02', 'end_time': '16:20', 'cost': 0, 'distance': 1.55}, {'start': '西丽湖-地铁站', 'end': '侨城东-地铁站', 'mode': 'metro', 'start_time': '16:20', 'end_time': '16:34', 'cost': 3, 'distance': 7.49, 'tickets': 1}, {'start': '侨城东-地铁站', 'end': '欢乐海岸海洋奇梦馆', 'mode': 'walk', 'start_time': '16:34', 'end_time': '16:36', 'cost': 0, 'distance': 0.21}], 'cost': 45, 'start_time': '16:36', 'end_time': '18:36'}, {'position': '润园四季椰子鸡火锅(华侨城创意园店)', 'type': 'dinner', 'transports': [{'start': '欢乐海岸海洋奇梦馆', 'end': '侨城东-地铁站', 'mode': 'walk', 'start_time': '18:36', 'end_time': '18:38', 'cost': 0, 'distance': 0.21}, {'start': '侨城东-地铁站', 'end': '侨城北-地铁站', 'mode': 'metro', 'start_time': '18:38', 'end_time': '18:40', 'cost': 2, 'distance': 1.5, 'tickets': 1}, {'start': '侨城北-地铁站', 'end': '润园四季椰子鸡火锅(华侨城创意园店)', 'mode': 'walk', 'start_time': '18:40', 'end_time': '18:48', 'cost': 0, 'distance': 0.69}], 'cost': 125, 'start_time': '18:48', 'end_time': '20:18'}, {'position': '中山公园', 'type': 'attraction', 'transports': [{'start': '润园四季椰子鸡火锅(华侨城创意园店)', 'end': '侨城北-地铁站', 'mode': 'walk', 'start_time': '20:18', 'end_time': '20:26', 'cost': 0, 'distance': 0.69}, {'start': '侨城北-地铁站', 'end': '同乐南-地铁站', 'mode': 'metro', 'start_time': '20:26', 'end_time': '20:40', 'cost': 3, 'distance': 7.37, 'tickets': 1}, {'start': '同乐南-地铁站', 'end': '中山公园', 'mode': 'walk', 'start_time': '20:40', 'end_time': '20:48', 'cost': 0, 'distance': 0.74}], 'cost': 0, 'start_time': '20:48', 'end_time': '21:00'}, {'start_time': '23:30', 'end_time': '23:59', 'start': '深圳北站', 'end': '广州南站', 'TrainID': 'G6568', 'type': 'train', 'transports': [{'start': '中山公园', 'end': '同乐南-地铁站', 'mode': 'walk', 'start_time': '21:00', 'end_time': '21:08', 'cost': 0, 'distance': 0.74}, {'start': '同乐南-地铁站', 'end': '深圳北站-地铁站', 'mode': 'metro', 'start_time': '21:08', 'end_time': '21:33', 'cost': 4, 'distance': 12.94, 'tickets': 1}, {'start': '深圳北站-地铁站', 'end': '深圳北站', 'mode': 'walk', 'start_time': '21:33', 'end_time': '21:34', 'cost': 0, 'distance': 0.15}], 'cost': 67.73, 'tickets': 1}]}]}

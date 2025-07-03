@@ -1,0 +1,124 @@
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 2161, in <module>
+    success, plan, llm_time_cost = searcher.symbolic_search(query_i)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 324, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 415, in search_plan
+    self.self.restaurants_visiting = []
+AttributeError: 'Interactive_Search' object has no attribute 'self'
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 2147, in <module>
+    success, plan, llm_time_cost = searcher.symbolic_search(query_i)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 324, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 464, in search_plan
+    score_list = score_poi_think_overall_act_page(info_list, poi_info_list, react=True)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1169, in score_poi_think_overall_act_page
+    new_poi_info=self.poi_info[0:30]
+NameError: name 'self' is not defined
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 2147, in <module>
+    success, plan, llm_time_cost = searcher.symbolic_search(query_i)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 324, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 464, in search_plan
+    score_list = score_poi_think_overall_act_page(info_list, poi_info_list, react=True)
+NameError: name 'score_poi_think_overall_act_page' is not defined
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 2147, in <module>
+    success, plan, llm_time_cost = searcher.symbolic_search(query_i)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 324, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 464, in search_plan
+    score_list = self.score_poi_think_overall_act_page(info_list, poi_info_list, react=True)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 699, in score_poi_think_overall_act_page
+    new_poi_info=self.poi_info[0:30]
+TypeError: unhashable type: 'slice'
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 2139, in <module>
+    success, plan, llm_time_cost = searcher.symbolic_search(query_i)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 324, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 464, in search_plan
+    score_list = self.score_poi_think_overall_act_page(info_list, poi_info_list, react=True)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 698, in score_poi_think_overall_act_page
+    overall_plan, history_message_think_overall = reason_prompt(info_list, return_history_message=True, history_message=[])
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 918, in reason_prompt
+    llm_step += 1
+NameError: name 'llm_step' is not defined
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 2105, in <module>
+    success, plan, llm_time_cost = searcher.symbolic_search(query_i)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 324, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 464, in search_plan
+    score_list = self.score_poi_think_overall_act_page(info_list, poi_info_list, react=True)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 698, in score_poi_think_overall_act_page
+    overall_plan, history_message_think_overall = reason_prompt(info_list, return_history_message=True, history_message=[])
+NameError: name 'reason_prompt' is not defined
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 2105, in <module>
+    success, plan, llm_time_cost = searcher.symbolic_search(query_i)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 324, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 464, in search_plan
+    score_list = self.score_poi_think_overall_act_page(info_list, poi_info_list, react=True)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 698, in score_poi_think_overall_act_page
+    overall_plan, history_message_think_overall = self.reason_prompt(info_list, return_history_message=True, history_message=[])
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 728, in reason_prompt
+    scratchpad += f'请简洁的回复。Thought[{llm_step}]:  '
+NameError: name 'llm_step' is not defined
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 2105, in <module>
+    success, plan, llm_time_cost = searcher.symbolic_search(query_i)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 324, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 464, in search_plan
+    score_list = self.score_poi_think_overall_act_page(info_list, poi_info_list, react=True)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 698, in score_poi_think_overall_act_page
+    overall_plan, history_message_think_overall = self.reason_prompt(info_list, return_history_message=True, history_message=[])
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 735, in reason_prompt
+    thought = self.llm_model(json_scratchpad)
+AttributeError: 'Interactive_Search' object has no attribute 'llm_model'
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 2102, in <module>
+    success, plan, llm_time_cost = searcher.symbolic_search(query_i)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 321, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 461, in search_plan
+    score_list = self.score_poi_think_overall_act_page(info_list, poi_info_list, react=True)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 695, in score_poi_think_overall_act_page
+    overall_plan, history_message_think_overall = self.reason_prompt(info_list, return_history_message=True, history_message=[])
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 738, in reason_prompt
+    print(f"Thought[{llm_step}]:", thought)
+NameError: name 'llm_step' is not defined
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 2102, in <module>
+    success, plan, llm_time_cost = searcher.symbolic_search(query_i)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 321, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 461, in search_plan
+    score_list = self.score_poi_think_overall_act_page(info_list, poi_info_list, react=True)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 702, in score_poi_think_overall_act_page
+    rewrite_ans=rewrite_plan(overall_plan)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1146, in rewrite_plan
+    llm_step += 1
+NameError: name 'llm_step' is not defined
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 2092, in <module>
+    success, plan, llm_time_cost = searcher.symbolic_search(query_i)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 321, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 521, in search_plan
+    score_list = score_poi_think_overall_act_page(info_list, poi_info_list, react=True)
+NameError: name 'score_poi_think_overall_act_page' is not defined
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 2092, in <module>
+    success, plan, llm_time_cost = searcher.symbolic_search(query_i)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 321, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 656, in search_plan
+    success, plan = search_poi(query, poi_plan, plan=[], current_time = "", current_position="")
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1238, in search_poi
+    if time.time() > time_before_search + TIME_CUT:
+NameError: name 'time_before_search' is not defined

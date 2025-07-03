@@ -1,0 +1,3 @@
+[submodule "NS_agent_inter/models/bge-small-zh-v1.5"]
+	path = NS_agent_inter/models/bge-small-zh-v1.5
+	url = https://huggingface.co/BAAI/bge-small-zh-v1.5

@@ -1,0 +1,12 @@
+{'start_city': '杭州', 'target_city': '上海', 'hard_logic': ['days==1', 'people_number==1', 'cost<=1600', 'tickets==1'], 'nature_language': '当前位置杭州。我一个人想去上海玩一天，预算1600人民币，请给我一个旅行规划。', 'days': 1, 'people_number': 1, 'transport_preference': 'metro', 'hard_logic_unseen': [], 'cost': 1600}
+杭州 上海
+from 杭州 to 上海: 10 flights, 238 trains
+from 上海 to 杭州: 10 flights, 240 trains
+上海 accommmodation, 403 hotels (satisfied requirments)
+score over
+score over
+intercity_cost:  173.12
+in-city budget:  1426.88
+search: ...
+try another poi type
+try another poi type

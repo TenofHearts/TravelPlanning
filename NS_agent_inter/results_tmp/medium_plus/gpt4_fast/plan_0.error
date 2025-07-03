@@ -1,0 +1,101 @@
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1611, in <module>
+    success, plan = searcher.symbolic_search(query_i)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 379, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 713, in search_plan
+    success, plan = self.search_poi(query, poi_plan, plan=[], current_time = "", current_position="")
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 894, in search_poi
+    success, plan = self.search_poi(query, poi_plan, plan, new_time, new_position, current_day)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1043, in search_poi
+    poi_sel = rest_info.iloc[res_idx]
+NameError: name 'rest_info' is not defined
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1613, in <module>
+    success, plan = searcher.symbolic_search(query_i)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 379, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 715, in search_plan
+    success, plan = self.search_poi(query, poi_plan, plan=[], current_time = "", current_position="")
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 896, in search_poi
+    success, plan = self.search_poi(query, poi_plan, plan, new_time, new_position, current_day)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1045, in search_poi
+    poi_sel = rest_info.iloc[res_idx]
+NameError: name 'rest_info' is not defined
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1613, in <module>
+    exit(0)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 379, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 715, in search_plan
+    # exit(0)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 896, in search_poi
+    return True, plan
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1047, in search_poi
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/../envs.py", line 310, in goto
+    res = GoTo(city, start, end, start_time, method, verbose)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/../tools/transportation/apis.py", line 142, in GoTo
+    stationB, distanceB = find_nearest_station(
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/../tools/transportation/apis.py", line 277, in find_nearest_station
+    distance = geodesic(location, station['position']).kilometers
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/geopy/distance.py", line 540, in __init__
+    super().__init__(*args, **kwargs)
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/geopy/distance.py", line 276, in __init__
+    kilometers += self.measure(a, b)
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/geopy/distance.py", line 564, in measure
+    self.geod = Geodesic(self.ELLIPSOID[0], self.ELLIPSOID[2])
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/geographiclib/geodesic.py", line 321, in __init__
+    self._C4coeff()
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/geographiclib/geodesic.py", line 397, in _C4coeff
+    k += 1
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1611, in <module>
+    print(plan)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 379, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 713, in search_plan
+    success, plan = self.search_poi(query, poi_plan, plan=[], current_time = "", current_position="")
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 894, in search_poi
+    success, plan = self.search_poi(query, poi_plan, plan, new_time, new_position, current_day)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1045, in search_poi
+    end=poi_sel["name"], start_time=current_time, method=poi_plan["transport_preference"], verbose=False)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/../envs.py", line 310, in goto
+    res = GoTo(city, start, end, start_time, method, verbose)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/../tools/transportation/apis.py", line 142, in GoTo
+    stationB, distanceB = find_nearest_station(
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/../tools/transportation/apis.py", line 277, in find_nearest_station
+    distance = geodesic(location, station['position']).kilometers
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/geopy/distance.py", line 540, in __init__
+    super().__init__(*args, **kwargs)
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/geopy/distance.py", line 274, in __init__
+    elif len(args) > 1:
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1609, in <module>
+    success, plan = searcher.symbolic_search(query_i)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 379, in symbolic_search
+    success, plan = self.search_plan(query)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 713, in search_plan
+    success, plan = self.search_poi(query, poi_plan, plan=[], current_time = "", current_position="")
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 894, in search_poi
+    success, plan = self.search_poi(query, poi_plan, plan, new_time, new_position, current_day)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/interactive_search_class.py", line 1044, in search_poi
+    transports_sel = goto(city=query["target_city"], start=current_position,
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/../envs.py", line 310, in goto
+    res = GoTo(city, start, end, start_time, method, verbose)
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/../tools/transportation/apis.py", line 140, in GoTo
+    stationA, distanceA = find_nearest_station(
+  File "/lamda/shaojj/codes/TravelPlanner-main/ChinaTravel/server/NS_agent_inter/../tools/transportation/apis.py", line 277, in find_nearest_station
+    distance = geodesic(location, station['position']).kilometers
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/geopy/distance.py", line 540, in __init__
+    super().__init__(*args, **kwargs)
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/geopy/distance.py", line 276, in __init__
+    kilometers += self.measure(a, b)
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/geopy/distance.py", line 564, in measure
+    self.geod = Geodesic(self.ELLIPSOID[0], self.ELLIPSOID[2])
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/geographiclib/geodesic.py", line 320, in __init__
+    self._C3coeff()
+  File "/lamda12/shaojj/miniconda3/envs/travelplanner/lib/python3.9/site-packages/geographiclib/geodesic.py", line 363, in _C3coeff
+    self._C3x[k] = Math.polyval(m, coeff, o, self._n) / coeff[o + m + 1]
+KeyboardInterrupt

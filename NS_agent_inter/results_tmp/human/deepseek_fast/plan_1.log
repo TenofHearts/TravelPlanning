@@ -1,0 +1,2395 @@
+query: {'start_city': '上海', 'target_city': '重庆', 'people_number': 2, 'days': 3, 'hard_logic': ['cost_hotel + cost_intercity_transport <= 4000', 'days==3', 'people_number==2'], 'preference': ['交通尽可能便利'], 'nature_language': '[当前位置上海,目标位置重庆,旅行人数2,旅行天数3] 我要和女朋友从上海出发去重庆玩，大概三天。市内交通要求最省时间，预算4000的差旅费，帮我规划行程。', 'preference_en': ['convenient transportation']}
+query: {'start_city': '上海', 'target_city': '重庆', 'people_number': 2, 'days': 3, 'hard_logic': ['cost_hotel + cost_intercity_transport <= 4000', 'days==3', 'people_number==2'], 'preference': ['交通尽可能便利'], 'nature_language': '[当前位置上海,目标位置重庆,旅行人数2,旅行天数3] 我要和女朋友从上海出发去重庆玩，大概三天。市内交通要求最省时间，预算4000的差旅费，帮我规划行程。', 'preference_en': ['convenient transportation'], 'transport_preference': 'metro', 'hard_logic_unseen': []}
+from 上海 to 重庆: 10 flights, 30 trains
+from 重庆 to 上海: 10 flights, 23 trains
+重庆 accommmodation, 373 hotels (satisfied requirments)
+LLM query:  [{'role': 'user', 'content': '**293** name: 钓鱼台 , price_per_preson: 0.0, type: 历史古迹\n**263** name: 戴家巷崖壁步道 , price_per_preson: 0.0, type: 人文景观\n**145** name: 重庆大剧院 , price_per_preson: 0.0, type: 人文景观\n**89** name: 芙蓉江 , price_per_preson: 100.0, type: 自然风光\n**177** name: 小南海 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**140** name: 联合国际大厦 , price_per_preson: 0.0, type: 商业街区\n**271** name: 西山公园 , price_per_preson: 0.0, type: 公园\n**105** name: 白帝城 , price_per_preson: 0.0, type: 历史古迹\n**165** name: 长寿湖 , price_per_preson: 32.0, type: 自然风光\n**202** name: 滑石古寨景区 , price_per_preson: 36.0, type: 人文景观\n**315** name: 天下第一风雨廊桥 , price_per_preson: 0.0, type: 人文景观\n**175** name: 双桂山国家森林公园 , price_per_preson: 0.0, type: 公园\n**97** name: 鹅岭公园 , price_per_preson: 0.0, type: 公园\n**262** name: 石柱森林王国度假区 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**214** name: 神龟峡 , price_per_preson: 128.0, type: 自然风光\n**86** name: 阿依河景区 , price_per_preson: 81.0, type: 自然风光\n**315** name: 天下第一风雨廊桥 , price_per_preson: 0.0, type: 人文景观\n**341** name: 川剧博物馆 , price_per_preson: 0.0, type: 博物馆/纪念馆\n**281** name: 南湖多彩植物园 , price_per_preson: 60.0, type: 公园\n**313** name: 东水门长江大桥 , price_per_preson: 0.0, type: 人文景观\n**107** name: 天眼洞花岭 , price_per_preson: 49.0, type: 自然风光\n**253** name: 重庆人民广场 , price_per_preson: 0.0, type: 公园\n**311** name: 江北嘴江滩公园 , price_per_preson: 0.0, type: 公园\n**237** name: (重庆黄水旅游度假区)秘境黄水奇幻乐园 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**163** name: 汉海鲸豚湾水世界 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**34** name: 白公馆 , price_per_preson: 0.0, type: 历史古迹\n**150** name: 磁器口转运楼 , price_per_preson: 0.0, type: 历史古迹\n**211** name: 金佛山北坡滑雪场 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**316** name: 重庆工业文化博览园 , price_per_preson: 0.0, type: 博物馆/纪念馆\n**335** name: 碧津公园 , price_per_preson: 0.0, type: 公园\n**165** name: 长寿湖 , price_per_preson: 32.0, type: 自然风光\n**300** name: 两江汇观景台 , price_per_preson: 0.0, type: 人文景观\n**90** name: 汉海海洋公园 , price_per_preson: 145.0, type: 游乐园/体育娱乐\n**279** name: 重庆山城高空跳伞基地 , price_per_preson: 1880.0, type: 游乐园/体育娱乐\n**190** name: 安居古城 , price_per_preson: 0.0, type: 历史古迹\n**4** name: 重庆两江游 , price_per_preson: 138.0, type: 游乐园/体育娱乐\n**249** name: 地方土特产及巴渝名小吃一条街 , price_per_preson: 0.0, type: 商业街区\n**138** name: 仙女山树顶漫步 , price_per_preson: 69.0, type: 游乐园/体育娱乐\n**286** name: 慈云寺 , price_per_preson: 0.0, type: 历史古迹\n**231** name: 昌州古城 , price_per_preson: 0.0, type: 历史古迹\n**0** name: 长江索道 , price_per_preson: 20.0, type: 游乐园/体育娱乐\n**171** name: 际华园极限运动中心 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**301** name: 大足石刻数字影院 , price_per_preson: 0.0, type: 人文景观\n**84** name: 石宝寨 , price_per_preson: 45.0, type: 历史古迹\n**112** name: 重庆海昌加勒比海水世界 , price_per_preson: 45.0, type: 游乐园/体育娱乐\n**302** name: 石柱万寿山景区 , price_per_preson: 62.0, type: 自然风光\n**66** name: 北山石刻 , price_per_preson: 58.0, type: 历史古迹\n**196** name: 飞越重庆悬空影院 , price_per_preson: 29.9, type: 游乐园/体育娱乐\n**82** name: 瞿塘峡 , price_per_preson: 0.0, type: 自然风光\n**335** name: 碧津公园 , price_per_preson: 0.0, type: 公园\n[当前位置上海,目标位置重庆,旅行人数2,旅行天数3] 我要和女朋友从上海出发去重庆玩，大概三天。市内交通要求最省时间，预算4000的差旅费，帮我规划行程。\n在这次在重庆的旅行中，请帮我评估每个景点的游玩重要性，看看是否需要安排到行程里\n请根据以上信息考虑什么样的景点满足我们的需求\n请简洁的回复:'}]
+Answer: ### 重庆三日游行程规划
+
+#### **预算**: 4000元  
+#### **旅行人数**: 2人  
+#### **交通**: 优先选择地铁和打车，节省时间
+
+---
+
+### **第一天: 自然风光与游乐体验**
+1. **长江索道** (20元/人)  
+   - 体验重庆的独特交通方式，俯瞰城市风光。
+   
+2. **芙蓉江** (100元/人)  
+   - 享受自然风光，适合拍照和放松。
+
+3. **阿依河景区** (81元/人)  
+   - 继续自然风光之旅，适合散步和享受美景。
+
+4. **重庆两江游** (138元/人)  
+   - 晚上乘船游览，欣赏夜景。
+
+**第一天总费用**: 400元
+
+---
+
+### **第二天: 人文景观与历史古迹**
+1. **白公馆** (免费)  
+   - 了解重庆的历史，适合拍照。
+
+2. **川剧博物馆** (免费)  
+   - 体验川剧文化，了解地方特色。
+
+3. **滑石古寨景区** (36元/人)  
+   - 探索人文景观，适合散步。
+
+4. **神龟峡** (128元/人)  
+   - 自然与人文结合，适合拍照和放松。
+
+**第二天总费用**: 400元
+
+---
+
+### **第三天: 公园与休闲**
+1. **西山公园** (免费)  
+   - 早晨散步，享受自然。
+
+2. **南湖多彩植物园** (60元/人)  
+   - 适合拍照和放松。
+
+3. **重庆人民广场** (免费)  
+   - 体验城市生活，适合休息。
+
+4. **长寿湖** (32元/人)  
+   - 享受湖边风光，适合散步。
+
+**第三天总费用**: 224元
+
+---
+
+### **总费用**: 1024元  
+### **剩余预算**: 2976元（可用于餐饮、交通和购物）
+
+---
+
+### **重要性评估**
+- **自然风光**: 高（如芙蓉江、长寿湖）
+- **人文景观**: 中（如川剧博物馆、滑石古寨）
+- **历史古迹**: 中（如白公馆、神龟峡）
+
+### **建议**
+- 根据兴趣选择是否增加其他游乐园或景点。
+- 适时调整行程以适应天气和个人喜好。
+LLM query:  [{'role': 'user', 'content': '### 重庆三日游行程规划\n\n#### **预算**: 4000元  \n#### **旅行人数**: 2人  \n#### **交通**: 优先选择地铁和打车，节省时间\n\n---\n\n### **第一天: 自然风光与游乐体验**\n1. **长江索道** (20元/人)  \n   - 体验重庆的独特交通方式，俯瞰城市风光。\n   \n2. **芙蓉江** (100元/人)  \n   - 享受自然风光，适合拍照和放松。\n\n3. **阿依河景区** (81元/人)  \n   - 继续自然风光之旅，适合散步和享受美景。\n\n4. **重庆两江游** (138元/人)  \n   - 晚上乘船游览，欣赏夜景。\n\n**第一天总费用**: 400元\n\n---\n\n### **第二天: 人文景观与历史古迹**\n1. **白公馆** (免费)  \n   - 了解重庆的历史，适合拍照。\n\n2. **川剧博物馆** (免费)  \n   - 体验川剧文化，了解地方特色。\n\n3. **滑石古寨景区** (36元/人)  \n   - 探索人文景观，适合散步。\n\n4. **神龟峡** (128元/人)  \n   - 自然与人文结合，适合拍照和放松。\n\n**第二天总费用**: 400元\n\n---\n\n### **第三天: 公园与休闲**\n1. **西山公园** (免费)  \n   - 早晨散步，享受自然。\n\n2. **南湖多彩植物园** (60元/人)  \n   - 适合拍照和放松。\n\n3. **重庆人民广场** (免费)  \n   - 体验城市生活，适合休息。\n\n4. **长寿湖** (32元/人)  \n   - 享受湖边风光，适合散步。\n\n**第三天总费用**: 224元\n\n---\n\n### **总费用**: 1024元  \n### **剩余预算**: 2976元（可用于餐饮、交通和购物）\n\n---\n\n### **重要性评估**\n- **自然风光**: 高（如芙蓉江、长寿湖）\n- **人文景观**: 中（如川剧博物馆、滑石古寨）\n- **历史古迹**: 中（如白公馆、神龟峡）\n\n### **建议**\n- 根据兴趣选择是否增加其他游乐园或景点。\n- 适时调整行程以适应天气和个人喜好。\n请将上述内容中涉及到的名字（景点、餐厅）提取出来，并用逗号隔开。Answer:'}]
+Answer: 长江索道, 芙蓉江, 阿依河景区, 重庆两江游, 白公馆, 川剧博物馆, 滑石古寨景区, 神龟峡, 西山公园, 南湖多彩植物园, 重庆人民广场, 长寿湖
+Score Over!
+LLM query:  [{'role': 'user', 'content': '**350** name: 可乐老火锅(观音桥店) , cusine: 火锅, price_per_preson: 77.0, recommended food:  \n**195** name: 储奇门鳝鱼火锅(总店) , cusine: 火锅, price_per_preson: 88.0, recommended food: 纯鲜毛肚,现划鳝鱼,现炸酥肉,纯鲜鸭肠,嫩牛肉,纯鲜鹅肠\n**35** name: 超级李板凳·面(总店) , cusine: 小吃, price_per_preson: 19.0, recommended food:  \n**139** name: 庆合府重庆大排档(紫都城店) , cusine: 火锅, price_per_preson: 76.0, recommended food:  \n**221** name: 桃太郎创作料理(大学城店) , cusine: 日本料理, price_per_preson: 65.0, recommended food:  \n**407** name: 皮二哥重庆火锅 , cusine: 火锅, price_per_preson: 61.0, recommended food:  \n**47** name: 酒阳蒸经川菜小酒馆(观音桥总店) , cusine: 川菜, price_per_preson: 74.0, recommended food: 糖醋排骨,煎饺,酒阳蒸经,有机花菜,小土豆烧肉,包浆豆腐,激情秋葵,陈皮兔丁,卤藕片,干炒魔芋丝\n**240** name: 盛天毛血旺非遗美食(重庆来福士店) , cusine: 川菜, price_per_preson: 50.0, recommended food:  \n**308** name: 莽子肥肠鸡(重大c区店) , cusine: 川菜, price_per_preson: 63.0, recommended food:  \n**239** name: 纯阳老酒馆·川菜(观音桥店) , cusine: 川菜, price_per_preson: 79.0, recommended food:  \n**355** name: 酒牛二虎火锅馆 , cusine: 火锅, price_per_preson: 82.0, recommended food: 当日鲜毛肚,酥肉,鲜鹅肠,青花椒牛肉,干黄瓜条,带皮土豆\n**236** name: 嘎嘎鸭脑壳(五里店) , cusine: 川菜, price_per_preson: 78.0, recommended food:  \n**421** name: 较场口夜市 , cusine:  , price_per_preson: 46.0, recommended food:  \n**263** name: 重庆凯宾斯基酒店·国汇宴(会展中心店) , cusine: 粤菜, price_per_preson: 172.0, recommended food:  \n**256** name: 植闰咖啡(观音桥店) , cusine: 咖啡店, price_per_preson: 27.0, recommended food:  \n**194** name: 楠木町居酒屋(观音桥店) , cusine: 日本料理, price_per_preson: 125.0, recommended food: 三文鱼刺身,芥末章鱼,鲣鱼花豆腐排,明太鸡翅,烤青花鱼,玉子烧\n**260** name: 沧龙老火锅(洪崖洞店) , cusine: 火锅, price_per_preson: 77.0, recommended food:  \n**168** name: 啤气熊精酿鲜啤屋 , cusine: 川菜, price_per_preson: 50.0, recommended food: 纸包鲈鱼,猴赛雷比利时小麦,高老庄香橙小麦,桂树下中式艾尔,大暖男棕色艾尔,红孩儿红色艾尔,大境界世涛\n**251** name: 米氏火鱼·泡椒鱼火锅(李子坝老店) , cusine: 火锅, price_per_preson: 75.0, recommended food:  \n**126** name: 镇三关老火锅(北滨店) , cusine: 火锅, price_per_preson: 130.0, recommended food: 六郎老肉,精品鹅肠,鲜猪黄喉,六郎屠场毛肚,六郎血旺,现炸酥肉\n**82** name: 老麻抄手重庆小面(解放碑店) , cusine: 小吃, price_per_preson: 16.0, recommended food: 精品牛肉面二两,干溜豌杂面2两,老麻抄手,酸辣粉,肥肠小面2两,清汤抄手,老麻调料\n**81** name: 喜洋洋(中山四路店) , cusine: 川菜, price_per_preson: 64.0, recommended food: 糖醋里脊,小米排骨,秘制酱油鸡,椒麻鳝段,凉拌莴笋,筒子骨莲藕汤\n**267** name: 重庆嘉发希尔顿逸林酒店·嘉悦轩中餐厅 , cusine: 川菜, price_per_preson: 136.0, recommended food:  \n**286** name: 见涨火锅 , cusine: 火锅, price_per_preson: 83.0, recommended food: 猪蹄,酸梅汤,豆干丝,江团\n**208** name: 奈雪的茶(时代天街店) , cusine: 面包甜点, price_per_preson: 25.0, recommended food:  \n**39** name: 朝天门火锅(长嘉汇江景旗舰店) , cusine: 火锅, price_per_preson: 133.0, recommended food:  \n**331** name: 陶四喜火锅(五里店店) , cusine: 火锅, price_per_preson: 93.0, recommended food:  \n**383** name: 好家园老菜馆(北城天街店) , cusine: 川菜, price_per_preson: 69.0, recommended food:  \n**403** name: Gray Whale灰鲸餐厅(国金店) , cusine: 西餐, price_per_preson: 153.0, recommended food:  \n**368** name: 鲁祖庙古法火锅 , cusine: 火锅, price_per_preson: 84.0, recommended food:  \n**392** name: 猪脑壳老火锅(洋河店) , cusine: 火锅, price_per_preson: 105.0, recommended food:  \n**403** name: Gray Whale灰鲸餐厅(国金店) , cusine: 西餐, price_per_preson: 153.0, recommended food:  \n**236** name: 嘎嘎鸭脑壳(五里店) , cusine: 川菜, price_per_preson: 78.0, recommended food:  \n**170** name: 猪脑壳老火锅(谢家湾店) , cusine: 火锅, price_per_preson: 97.0, recommended food:  \n**308** name: 莽子肥肠鸡(重大c区店) , cusine: 川菜, price_per_preson: 63.0, recommended food:  \n**120** name: 泓崖小面·精品重庆面(解放碑店) , cusine: 小吃, price_per_preson: 15.0, recommended food:  \n**354** name: 尊宝比萨(较场口店) , cusine: 西餐, price_per_preson: 35.0, recommended food:  \n**371** name: 嘿嘟嘟烤肉(观音桥大融城店) , cusine: 韩国料理, price_per_preson: 95.0, recommended food:  \n**391** name: 大风老火锅(江北一店) , cusine: 火锅, price_per_preson: 96.0, recommended food: 特色毛肚,酥肉,多肉午餐肉,干贡菜,猪黄喉,麻辣牛肉\n**257** name: 过道老火锅(解放碑店) , cusine: 火锅, price_per_preson: 90.0, recommended food:  \n**415** name: 大吉烧肉与酒·活海鲜和牛超市(星光68店) , cusine: 烧烤, price_per_preson: 130.0, recommended food:  \n**253** name: 愚小面(解放碑店) , cusine: 小吃, price_per_preson: 32.0, recommended food:  \n**196** name: 城墙拐拐火锅(洋河店) , cusine: 火锅, price_per_preson: 84.0, recommended food:  \n**288** name: 南山有烧烤 , cusine: 烧烤, price_per_preson: 125.0, recommended food: 现切五花肉,八爪鱼,奥尔良鸡皮,扇贝,蔬菜拼盘\n**435** name: 花间一壶酒·私房菜·小酒馆(观音桥店) , cusine: 川菜, price_per_preson: 76.0, recommended food:  \n**400** name: 天棒老火锅(老店) , cusine: 火锅, price_per_preson: 98.0, recommended food: 鲜鸭血,牛杂拼盘,鱼籽虾滑,卤耙鸡脚,现炸酥肉,8秒海带苗\n**346** name: 九街三叁街头鸡脚筋串串(九街店) , cusine: 火锅, price_per_preson: 80.0, recommended food:  \n**35** name: 超级李板凳·面(总店) , cusine: 小吃, price_per_preson: 19.0, recommended food:  \n**267** name: 重庆嘉发希尔顿逸林酒店·嘉悦轩中餐厅 , cusine: 川菜, price_per_preson: 136.0, recommended food:  \n**212** name: 朱光玉火锅馆(北环店) , cusine: 火锅, price_per_preson: 106.0, recommended food:  \n[当前位置上海,目标位置重庆,旅行人数2,旅行天数3] 我要和女朋友从上海出发去重庆玩，大概三天。市内交通要求最省时间，预算4000的差旅费，帮我规划行程。\n在这次在重庆的旅行中,请帮我选择一些餐厅去吃，评估每个餐厅的相关性，看看是否需要安排到行程里\n请根据以上信息考虑什么样的餐厅满足我们的需求\n请简洁的回复:'}]
+Answer: ### 重庆三天行程规划
+
+#### 预算：4000元（含餐饮、交通、景点门票等）
+
+---
+
+### 第一天：到达重庆
+
+- **午餐**：可乐老火锅(观音桥店)  
+  - 人均：77元  
+  - 推荐理由：火锅是重庆的特色，适合初到重庆的体验。
+
+- **下午**：游览解放碑步行街
+
+- **晚餐**：镇三关老火锅(北滨店)  
+  - 人均：130元  
+  - 推荐理由：知名火锅店，体验正宗重庆火锅。
+
+---
+
+### 第二天：重庆文化与美食
+
+- **早餐**：超级李板凳·面(总店)  
+  - 人均：19元  
+  - 推荐理由：当地小吃，性价比高。
+
+- **上午**：游览洪崖洞
+
+- **午餐**：莽子肥肠鸡(重大c区店)  
+  - 人均：63元  
+  - 推荐理由：川菜，适合喜欢重口味的你们。
+
+- **下午**：游览长江索道
+
+- **晚餐**：酒牛二虎火锅馆  
+  - 人均：82元  
+  - 推荐理由：火锅选择，丰富的食材。
+
+---
+
+### 第三天：重庆美食与购物
+
+- **早餐**：老麻抄手重庆小面(解放碑店)  
+  - 人均：16元  
+  - 推荐理由：简单快捷的小吃。
+
+- **上午**：游览磁器口古镇
+
+- **午餐**：猪脑壳老火锅(洋河店)  
+  - 人均：105元  
+  - 推荐理由：火锅体验，适合最后一天的聚餐。
+
+- **下午**：购物或休闲
+
+- **晚餐**：庆合府重庆大排档(紫都城店)  
+  - 人均：76元  
+  - 推荐理由：结束行程前的美味。
+
+---
+
+### 总预算估算
+
+- 餐饮费用（大约）：  
+  - 第一天：77 + 130 = 207元  
+  - 第二天：19 + 63 + 82 = 164元  
+  - 第三天：16 + 105 + 76 = 197元  
+  - **总计**：568元
+
+- 交通、景点门票及其他费用：约3000元（根据个人需求调整）
+
+### 结论
+
+以上餐厅均为重庆特色，适合你们的旅行需求，确保了美食体验与预算控制。希望你们在重庆度过愉快的时光！
+LLM query:  [{'role': 'user', 'content': '### 重庆三天行程规划\n\n#### 预算：4000元（含餐饮、交通、景点门票等）\n\n---\n\n### 第一天：到达重庆\n\n- **午餐**：可乐老火锅(观音桥店)  \n  - 人均：77元  \n  - 推荐理由：火锅是重庆的特色，适合初到重庆的体验。\n\n- **下午**：游览解放碑步行街\n\n- **晚餐**：镇三关老火锅(北滨店)  \n  - 人均：130元  \n  - 推荐理由：知名火锅店，体验正宗重庆火锅。\n\n---\n\n### 第二天：重庆文化与美食\n\n- **早餐**：超级李板凳·面(总店)  \n  - 人均：19元  \n  - 推荐理由：当地小吃，性价比高。\n\n- **上午**：游览洪崖洞\n\n- **午餐**：莽子肥肠鸡(重大c区店)  \n  - 人均：63元  \n  - 推荐理由：川菜，适合喜欢重口味的你们。\n\n- **下午**：游览长江索道\n\n- **晚餐**：酒牛二虎火锅馆  \n  - 人均：82元  \n  - 推荐理由：火锅选择，丰富的食材。\n\n---\n\n### 第三天：重庆美食与购物\n\n- **早餐**：老麻抄手重庆小面(解放碑店)  \n  - 人均：16元  \n  - 推荐理由：简单快捷的小吃。\n\n- **上午**：游览磁器口古镇\n\n- **午餐**：猪脑壳老火锅(洋河店)  \n  - 人均：105元  \n  - 推荐理由：火锅体验，适合最后一天的聚餐。\n\n- **下午**：购物或休闲\n\n- **晚餐**：庆合府重庆大排档(紫都城店)  \n  - 人均：76元  \n  - 推荐理由：结束行程前的美味。\n\n---\n\n### 总预算估算\n\n- 餐饮费用（大约）：  \n  - 第一天：77 + 130 = 207元  \n  - 第二天：19 + 63 + 82 = 164元  \n  - 第三天：16 + 105 + 76 = 197元  \n  - **总计**：568元\n\n- 交通、景点门票及其他费用：约3000元（根据个人需求调整）\n\n### 结论\n\n以上餐厅均为重庆特色，适合你们的旅行需求，确保了美食体验与预算控制。希望你们在重庆度过愉快的时光！\n请将上述内容中涉及到的名字（景点、餐厅）提取出来，并用逗号隔开。Answer:'}]
+Answer: 可乐老火锅, 解放碑步行街, 镇三关老火锅, 超级李板凳·面, 洪崖洞, 莽子肥肠鸡, 长江索道, 酒牛二虎火锅馆, 老麻抄手重庆小面, 磁器口古镇, 猪脑壳老火锅, 庆合府重庆大排档
+Score Over!
+search: ...
+POI planning, day 0 19:30, 重庆北站, next-poi type: lunch
+try another poi type
+POI planning, day 0 19:30, 重庆北站, next-poi type: dinner
+try another poi type
+POI planning, day 0 19:30, 重庆北站, next-poi type: attraction
+POI planning, day 0 20:49, 重庆两江游, next-poi type: hotel
+POI planning, day 1 08:30, 重庆清阅·OneJasper精选酒店, next-poi type: attraction
+POI planning, day 1 09:30, 川剧博物馆, next-poi type: attraction
+POI planning, day 1 14:09, 南湖多彩植物园, next-poi type: lunch
+try another poi type
+POI planning, day 1 14:09, 南湖多彩植物园, next-poi type: attraction
+POI planning, day 1 20:04, 重庆人民广场, next-poi type: lunch
+try another poi type
+POI planning, day 1 20:04, 重庆人民广场, next-poi type: dinner
+try another poi type
+POI planning, day 1 20:04, 重庆人民广场, next-poi type: attraction
+POI planning, day 1 21:30, 重庆两江游-朝天系列, next-poi type: hotel
+POI planning, day 2 08:30, 重庆清阅·OneJasper精选酒店, next-poi type: attraction
+Can not go back source-city in time, current POI 重庆两江游-金碧系列, station arrived time: 20:52
+POI planning, day 2 10:01, 白公馆, next-poi type: attraction
+Can not go back source-city in time, current POI 重庆两江游-金碧系列, station arrived time: 20:52
+POI planning, day 2 11:50, 重庆长江三峡游船, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4414.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': set(), 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': set(), 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 11:50, 重庆长江三峡游船, next-poi type: lunch
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: attraction
+Can not go back source-city in time, current POI 重庆两江游-金碧系列, station arrived time: 20:52
+Can not go back source-city in time, current POI 长江索道, station arrived time: 14:56
+Can not go back source-city in time, current POI 夜游两江, station arrived time: 15:41
+Can not go back source-city in time, current POI 重庆三峡游船, station arrived time: 15:38
+Can not go back source-city in time, current POI 飞跃重庆(东方广场店), station arrived time: 15:28
+Can not go back source-city in time, current POI 重庆夜游, station arrived time: 15:00
+Can not go back source-city in time, current POI 重庆大剧院, station arrived time: 17:16
+Can not go back source-city in time, current POI 飞越重庆(解放碑八一广场店), station arrived time: 14:53
+Can not go back source-city in time, current POI 重庆长江索道南站, station arrived time: 16:36
+Can not go back source-city in time, current POI 两江国际影视城（民国街）, station arrived time: 18:01
+Can not go back source-city in time, current POI 重庆熙街, station arrived time: 17:00
+Can not go back source-city in time, current POI 长寿古镇, station arrived time: 26:38
+Can not go back source-city in time, current POI 重庆沉浸式悬浮剧场, station arrived time: 14:53
+Can not go back source-city in time, current POI 国民政府军事委员会旧址-重庆行营, station arrived time: 17:29
+Can not go back source-city in time, current POI 重庆中央公园, station arrived time: 16:35
+Can not go back source-city in time, current POI 重庆国际博览中心, station arrived time: 15:28
+Can not go back source-city in time, current POI 重庆长江大桥, station arrived time: 17:10
+Can not go back source-city in time, current POI 重庆建川博物馆聚落, station arrived time: 15:31
+Can not go back source-city in time, current POI 重庆市规划展览馆, station arrived time: 15:01
+Can not go back source-city in time, current POI 重庆WFC会仙楼观景台, station arrived time: 14:58
+Can not go back source-city in time, current POI 重庆开埠遗址公园, station arrived time: 16:30
+Can not go back source-city in time, current POI 长江三峡-世纪传奇游轮, station arrived time: 16:57
+Can not go back source-city in time, current POI 重庆云端之眼观景台, station arrived time: 14:58
+Can not go back source-city in time, current POI 重庆融创文旅城, station arrived time: 18:08
+Can not go back source-city in time, current POI 重庆湖广会馆, station arrived time: 15:34
+Can not go back source-city in time, current POI 重庆国际马戏城, station arrived time: 20:31
+Can not go back source-city in time, current POI 两江小渡, station arrived time: 16:00
+Can not go back source-city in time, current POI 长江三峡-长江孚泰号游轮, station arrived time: 15:08
+Can not go back source-city in time, current POI 重庆歌乐山革命纪念馆, station arrived time: 15:42
+Can not go back source-city in time, current POI 重庆国际音乐啤酒节, station arrived time: 15:37
+Can not go back source-city in time, current POI 漫游重庆·都市观光巴士, station arrived time: 15:36
+Can not go back source-city in time, current POI 重庆工业文化博览园, station arrived time: 17:33
+Can not go back source-city in time, current POI 重庆融创渝乐小镇, station arrived time: 19:13
+Can not go back source-city in time, current POI 重庆美术馆, station arrived time: 15:28
+Can not go back source-city in time, current POI 重庆自然博物馆（新馆）, station arrived time: 18:10
+Can not go back source-city in time, current POI 重庆十八梯传统风貌区, station arrived time: 17:29
+Can not go back source-city in time, current POI 重庆国泰艺术中心, station arrived time: 15:58
+Can not go back source-city in time, current POI 重庆欢乐谷, station arrived time: 17:30
+Can not go back source-city in time, current POI 朝天门号两江夜景游轮, station arrived time: 16:36
+Can not go back source-city in time, current POI 中共中央南方局暨八路军驻重庆办事处旧址, station arrived time: 17:26
+Can not go back source-city in time, current POI 重庆动物园, station arrived time: 15:43
+Can not go back source-city in time, current POI 长江游轮, station arrived time: 16:42
+Can not go back source-city in time, current POI 重庆城上天幕乐游观光塔, station arrived time: 17:35
+Can not go back source-city in time, current POI 重庆工业博物馆, station arrived time: 16:33
+Can not go back source-city in time, current POI 重庆谈判旧址-怡园, station arrived time: 15:12
+Can not go back source-city in time, current POI 重庆园博园, station arrived time: 17:35
+Can not go back source-city in time, current POI 巴蜀古代建筑博物馆, station arrived time: 16:15
+Can not go back source-city in time, current POI 重庆枇杷山公园, station arrived time: 14:51
+Can not go back source-city in time, current POI 长寿菩提山文化旅游景区, station arrived time: 27:18
+Can not go back source-city in time, current POI 两江汇观景台, station arrived time: 16:23
+Can not go back source-city in time, current POI 重庆融创水世界, station arrived time: 17:32
+Can not go back source-city in time, current POI 周公馆, station arrived time: 15:27
+Can not go back source-city in time, current POI 重庆大轰炸“六五”隧道惨案史实展馆, station arrived time: 15:23
+Can not go back source-city in time, current POI 重庆科技馆, station arrived time: 17:25
+Can not go back source-city in time, current POI 重庆海洋世界, station arrived time: 16:13
+Can not go back source-city in time, current POI 重庆玛雅海滩水公园, station arrived time: 17:04
+Can not go back source-city in time, current POI 重庆杜莎夫人蜡像馆, station arrived time: 16:21
+Can not go back source-city in time, current POI 重庆图书馆, station arrived time: 17:16
+Can not go back source-city in time, current POI 重庆建川海疆博物馆（166舰）, station arrived time: 15:54
+Can not go back source-city in time, current POI 重庆润泽射击俱乐部, station arrived time: 15:49
+Can not go back source-city in time, current POI 三峡广场, station arrived time: 15:42
+Can not go back source-city in time, current POI 飞越重庆悬空影院, station arrived time: 17:01
+Can not go back source-city in time, current POI 人民大礼堂, station arrived time: 15:49
+Can not go back source-city in time, current POI 重庆融创海世界, station arrived time: 16:34
+Can not go back source-city in time, current POI 渝北龙头寺公园, station arrived time: 15:13
+Can not go back source-city in time, current POI 东水门长江大桥, station arrived time: 16:01
+Can not go back source-city in time, current POI 歌乐山国家森林公园, station arrived time: 16:04
+Can not go back source-city in time, current POI 重庆动物园熊猫冰雪世界, station arrived time: 15:09
+Can not go back source-city in time, current POI 重庆光环购物公园室内植物园“沐光森林”, station arrived time: 16:41
+Can not go back source-city in time, current POI 巴渝文化会馆, station arrived time: 15:27
+Can not go back source-city in time, current POI 重庆海昌加勒比海水世界, station arrived time: 17:39
+Can not go back source-city in time, current POI 嘉陵江, station arrived time: 17:22
+Can not go back source-city in time, current POI 重庆独角兽星空艺术馆, station arrived time: 17:23
+Can not go back source-city in time, current POI 铜锣山矿山公园, station arrived time: 20:01
+Can not go back source-city in time, current POI 重庆热雪奇迹, station arrived time: 17:02
+Can not go back source-city in time, current POI 江北嘴江滩公园, station arrived time: 17:18
+Can not go back source-city in time, current POI 28度活水馆, station arrived time: 15:37
+Can not go back source-city in time, current POI 龙浒峡漂流, station arrived time: 22:10
+Can not go back source-city in time, current POI 李子坝轻轨站, station arrived time: 15:46
+Can not go back source-city in time, current POI 嘉陵江小三峡风光带, station arrived time: 19:56
+Can not go back source-city in time, current POI 洪崖洞, station arrived time: 17:26
+Can not go back source-city in time, current POI 南山风景区, station arrived time: 15:59
+Can not go back source-city in time, current POI 三峡博物馆, station arrived time: 15:19
+Can not go back source-city in time, current POI 人民解放纪念碑, station arrived time: 16:29
+Can not go back source-city in time, current POI 1941茶馆·戏院, station arrived time: 15:27
+Can not go back source-city in time, current POI 地方土特产及巴渝名小吃一条街, station arrived time: 14:58
+Can not go back source-city in time, current POI 白象街, station arrived time: 15:02
+Can not go back source-city in time, current POI 秀湖公园, station arrived time: 18:34
+Can not go back source-city in time, current POI 融汇西流沱小镇, station arrived time: 17:32
+Can not go back source-city in time, current POI 朝天门广场, station arrived time: 15:08
+Can not go back source-city in time, current POI 涂山寺, station arrived time: 17:03
+Can not go back source-city in time, current POI 统景风景区, station arrived time: 23:22
+Can not go back source-city in time, current POI 佛图关公园, station arrived time: 14:57
+Can not go back source-city in time, current POI 黄桷坪涂鸦艺术街, station arrived time: 15:33
+Can not go back source-city in time, current POI 歌乐山烈士陵园, station arrived time: 16:10
+Can not go back source-city in time, current POI 重庆融创海世界海底埃及博物馆, station arrived time: 16:46
+Can not go back source-city in time, current POI 半山崖线, station arrived time: 15:01
+Can not go back source-city in time, current POI 戴家巷崖壁步道, station arrived time: 15:00
+Can not go back source-city in time, current POI 鹅岭公园, station arrived time: 16:54
+Can not go back source-city in time, current POI 大圆祥博物馆, station arrived time: 18:00
+Can not go back source-city in time, current POI 轮渡嘉陵, station arrived time: 17:32
+Can not go back source-city in time, current POI 龙门浩老街, station arrived time: 16:31
+Can not go back source-city in time, current POI 李子坝单轨穿楼观景平台, station arrived time: 15:46
+Can not go back source-city in time, current POI 长嘉汇弹子石老街, station arrived time: 15:51
+Can not go back source-city in time, current POI 红岩红沉浸式剧场, station arrived time: 16:12
+Can not go back source-city in time, current POI 绿色星球动物主题公园, station arrived time: 15:04
+Can not go back source-city in time, current POI 际华园滑雪馆, station arrived time: 18:21
+Can not go back source-city in time, current POI 鸿恩寺公园, station arrived time: 14:59
+Can not go back source-city in time, current POI 黄葛古道, station arrived time: 16:49
+Can not go back source-city in time, current POI 杨家坪步行街, station arrived time: 15:21
+Can not go back source-city in time, current POI 大渡口公园, station arrived time: 15:27
+Can not go back source-city in time, current POI 洪崖洞重逢1980街区, station arrived time: 15:56
+Can not go back source-city in time, current POI 壹华里夜景公园, station arrived time: 16:19
+Can not go back source-city in time, current POI 汉海海洋公园, station arrived time: 17:09
+Can not go back source-city in time, current POI 涂鸦一条街, station arrived time: 16:05
+Can not go back source-city in time, current POI 桂园, station arrived time: 16:20
+Can not go back source-city in time, current POI 汉海鲸豚湾水世界, station arrived time: 17:51
+Can not go back source-city in time, current POI 南滨路钟楼, station arrived time: 15:32
+Can not go back source-city in time, current POI 北碚天坑, station arrived time: 19:22
+Can not go back source-city in time, current POI 华岩寺, station arrived time: 17:37
+Can not go back source-city in time, current POI 南滨路, station arrived time: 17:02
+Can not go back source-city in time, current POI 画游梵高沉浸式艺术馆, station arrived time: 17:16
+Can not go back source-city in time, current POI 不夜九街, station arrived time: 15:42
+Can not go back source-city in time, current POI 钓鱼台, station arrived time: 25:38
+Can not go back source-city in time, current POI 缙云山, station arrived time: 17:44
+Can not go back source-city in time, current POI 山城步道, station arrived time: 14:52
+Can not go back source-city in time, current POI 李子坝公园, station arrived time: 14:48
+Can not go back source-city in time, current POI 九曲河湿地公园, station arrived time: 15:15
+Can not go back source-city in time, current POI 联合国际大厦, station arrived time: 15:58
+Can not go back source-city in time, current POI 解放碑步行街, station arrived time: 14:59
+Can not go back source-city in time, current POI 北泉风景区, station arrived time: 20:40
+Can not go back source-city in time, current POI 观音桥步行街, station arrived time: 15:26
+Can not go back source-city in time, current POI 中山四路, station arrived time: 16:57
+Can not go back source-city in time, current POI 皇冠大扶梯, station arrived time: 17:22
+Can not go back source-city in time, current POI 民俗文化村, station arrived time: 15:43
+Can not go back source-city in time, current POI 红岩革命纪念馆, station arrived time: 15:43
+Can not go back source-city in time, current POI 碧津公园, station arrived time: 17:41
+Can not go back source-city in time, current POI 千厮门大桥, station arrived time: 15:00
+Can not go back source-city in time, current POI 黄山蒋介石官邸, station arrived time: 16:18
+Can not go back source-city in time, current POI 二厂文创公园, station arrived time: 16:54
+Can not go back source-city in time, current POI 山城巷历史文化风貌区, station arrived time: 17:22
+Can not go back source-city in time, current POI 圣名欢乐水世界, station arrived time: 16:54
+Can not go back source-city in time, current POI 际华园极限运动中心, station arrived time: 17:49
+Can not go back source-city in time, current POI 山城夜景, station arrived time: 15:12
+Can not go back source-city in time, current POI 黄桷垭老街, station arrived time: 18:07
+Can not go back source-city in time, current POI 朝天门大桥, station arrived time: 15:28
+Can not go back source-city in time, current POI 三毛故居(区级文物), station arrived time: 18:01
+Can not go back source-city in time, current POI 熊婆婆的花园, station arrived time: 14:51
+Can not go back source-city in time, current POI 巴滨水世界, station arrived time: 17:04
+Can not go back source-city in time, current POI 千佛寺, station arrived time: 15:30
+Can not go back source-city in time, current POI 华生园金色蛋糕梦幻王国, station arrived time: 17:00
+Can not go back source-city in time, current POI 老君洞, station arrived time: 17:01
+Can not go back source-city in time, current POI 渣滓洞, station arrived time: 15:16
+Can not go back source-city in time, current POI 圣名游乐城, station arrived time: 16:58
+Can not go back source-city in time, current POI 磁器口古镇, station arrived time: 18:04
+Can not go back source-city in time, current POI 东水门及古城墙, station arrived time: 15:39
+Can not go back source-city in time, current POI 文峰古街, station arrived time: 27:20
+Can not go back source-city in time, current POI 东水门, station arrived time: 16:39
+Can not go back source-city in time, current POI 戴家巷老街, station arrived time: 15:02
+Can not go back source-city in time, current POI 红岩村, station arrived time: 15:37
+Can not go back source-city in time, current POI 铁路四村, station arrived time: 16:07
+Can not go back source-city in time, current POI 北仓文创街区, station arrived time: 16:22
+Can not go back source-city in time, current POI 奥体中心, station arrived time: 15:35
+Can not go back source-city in time, current POI 大耳朵亲子乐园, station arrived time: 16:09
+Can not go back source-city in time, current POI 烟雨公园, station arrived time: 15:37
+Can not go back source-city in time, current POI 十八梯, station arrived time: 16:28
+Can not go back source-city in time, current POI 能仁寺, station arrived time: 14:55
+Can not go back source-city in time, current POI 魁星楼, station arrived time: 16:26
+Can not go back source-city in time, current POI 罗汉寺, station arrived time: 16:22
+Can not go back source-city in time, current POI 上新街, station arrived time: 15:36
+Can not go back source-city in time, current POI 探索舱·云端乐园, station arrived time: 16:42
+Can not go back source-city in time, current POI 宝轮寺, station arrived time: 16:08
+Can not go back source-city in time, current POI 凯旋路电梯, station arrived time: 16:25
+Can not go back source-city in time, current POI 圣名蹦极(环球城), station arrived time: 15:54
+Can not go back source-city in time, current POI 欢乐海底世界, station arrived time: 17:31
+Can not go back source-city in time, current POI 洞舰1号, station arrived time: 15:34
+Can not go back source-city in time, current POI 广阳岛, station arrived time: 17:27
+Can not go back source-city in time, current POI 磁器口转运楼, station arrived time: 15:38
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+False GoTo error
+GoTo error
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+False GoTo error
+GoTo error
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+False GoTo error
+GoTo error
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+False GoTo error
+GoTo error
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:49, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+False GoTo error
+GoTo error
+{'days': 3, 'people_number': 2, 'cost': 4584.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'火锅'}, 'spot_type': {'游乐园/体育娱乐', '历史古迹', '公园', '博物馆/纪念馆'}, 'hotel_feature': {'管家服务'}, 'food_price': 82.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆'}, 'attraction_names': {'重庆人民广场', '重庆两江游', '重庆长江三峡游船', '川剧博物馆', '白公馆', '重庆两江游-朝天系列', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+query: {'start_city': '上海', 'target_city': '重庆', 'people_number': 2, 'days': 3, 'hard_logic': ['cost_hotel + cost_intercity_transport <= 4000', 'days==3', 'people_number==2'], 'preference': ['交通尽可能便利'], 'nature_language': '[当前位置上海,目标位置重庆,旅行人数2,旅行天数3] 我要和女朋友从上海出发去重庆玩，大概三天。市内交通要求最省时间，预算4000的差旅费，帮我规划行程。', 'preference_en': ['convenient transportation']}
+query: {'start_city': '上海', 'target_city': '重庆', 'people_number': 2, 'days': 3, 'hard_logic': ['cost_hotel + cost_intercity_transport <= 4000', 'days==3', 'people_number==2'], 'preference': ['交通尽可能便利'], 'nature_language': '[当前位置上海,目标位置重庆,旅行人数2,旅行天数3] 我要和女朋友从上海出发去重庆玩，大概三天。市内交通要求最省时间，预算4000的差旅费，帮我规划行程。', 'preference_en': ['convenient transportation'], 'transport_preference': 'metro', 'hard_logic_unseen': ['cost_hotel + cost_intercity_transport <= 4000', 'days==3', 'people_number==2']}
+from 上海 to 重庆: 10 flights, 30 trains
+from 重庆 to 上海: 10 flights, 23 trains
+重庆 accommmodation, 373 hotels (satisfied requirments)
+LLM query:  [{'role': 'user', 'content': '**293** name: 钓鱼台 , price_per_preson: 0.0, type: 历史古迹\n**263** name: 戴家巷崖壁步道 , price_per_preson: 0.0, type: 人文景观\n**145** name: 重庆大剧院 , price_per_preson: 0.0, type: 人文景观\n**89** name: 芙蓉江 , price_per_preson: 100.0, type: 自然风光\n**177** name: 小南海 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**140** name: 联合国际大厦 , price_per_preson: 0.0, type: 商业街区\n**271** name: 西山公园 , price_per_preson: 0.0, type: 公园\n**105** name: 白帝城 , price_per_preson: 0.0, type: 历史古迹\n**165** name: 长寿湖 , price_per_preson: 32.0, type: 自然风光\n**202** name: 滑石古寨景区 , price_per_preson: 36.0, type: 人文景观\n**315** name: 天下第一风雨廊桥 , price_per_preson: 0.0, type: 人文景观\n**175** name: 双桂山国家森林公园 , price_per_preson: 0.0, type: 公园\n**97** name: 鹅岭公园 , price_per_preson: 0.0, type: 公园\n**262** name: 石柱森林王国度假区 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**214** name: 神龟峡 , price_per_preson: 128.0, type: 自然风光\n**86** name: 阿依河景区 , price_per_preson: 81.0, type: 自然风光\n**315** name: 天下第一风雨廊桥 , price_per_preson: 0.0, type: 人文景观\n**341** name: 川剧博物馆 , price_per_preson: 0.0, type: 博物馆/纪念馆\n**281** name: 南湖多彩植物园 , price_per_preson: 60.0, type: 公园\n**313** name: 东水门长江大桥 , price_per_preson: 0.0, type: 人文景观\n**107** name: 天眼洞花岭 , price_per_preson: 49.0, type: 自然风光\n**253** name: 重庆人民广场 , price_per_preson: 0.0, type: 公园\n**311** name: 江北嘴江滩公园 , price_per_preson: 0.0, type: 公园\n**237** name: (重庆黄水旅游度假区)秘境黄水奇幻乐园 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**163** name: 汉海鲸豚湾水世界 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**34** name: 白公馆 , price_per_preson: 0.0, type: 历史古迹\n**150** name: 磁器口转运楼 , price_per_preson: 0.0, type: 历史古迹\n**211** name: 金佛山北坡滑雪场 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**316** name: 重庆工业文化博览园 , price_per_preson: 0.0, type: 博物馆/纪念馆\n**335** name: 碧津公园 , price_per_preson: 0.0, type: 公园\n**165** name: 长寿湖 , price_per_preson: 32.0, type: 自然风光\n**300** name: 两江汇观景台 , price_per_preson: 0.0, type: 人文景观\n**90** name: 汉海海洋公园 , price_per_preson: 145.0, type: 游乐园/体育娱乐\n**279** name: 重庆山城高空跳伞基地 , price_per_preson: 1880.0, type: 游乐园/体育娱乐\n**190** name: 安居古城 , price_per_preson: 0.0, type: 历史古迹\n**4** name: 重庆两江游 , price_per_preson: 138.0, type: 游乐园/体育娱乐\n**249** name: 地方土特产及巴渝名小吃一条街 , price_per_preson: 0.0, type: 商业街区\n**138** name: 仙女山树顶漫步 , price_per_preson: 69.0, type: 游乐园/体育娱乐\n**286** name: 慈云寺 , price_per_preson: 0.0, type: 历史古迹\n**231** name: 昌州古城 , price_per_preson: 0.0, type: 历史古迹\n**0** name: 长江索道 , price_per_preson: 20.0, type: 游乐园/体育娱乐\n**171** name: 际华园极限运动中心 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**301** name: 大足石刻数字影院 , price_per_preson: 0.0, type: 人文景观\n**84** name: 石宝寨 , price_per_preson: 45.0, type: 历史古迹\n**112** name: 重庆海昌加勒比海水世界 , price_per_preson: 45.0, type: 游乐园/体育娱乐\n**302** name: 石柱万寿山景区 , price_per_preson: 62.0, type: 自然风光\n**66** name: 北山石刻 , price_per_preson: 58.0, type: 历史古迹\n**196** name: 飞越重庆悬空影院 , price_per_preson: 29.9, type: 游乐园/体育娱乐\n**82** name: 瞿塘峡 , price_per_preson: 0.0, type: 自然风光\n**335** name: 碧津公园 , price_per_preson: 0.0, type: 公园\n[当前位置上海,目标位置重庆,旅行人数2,旅行天数3] 我要和女朋友从上海出发去重庆玩，大概三天。市内交通要求最省时间，预算4000的差旅费，帮我规划行程。\n在这次在重庆的旅行中，请帮我评估每个景点的游玩重要性，看看是否需要安排到行程里\n请根据以上信息考虑什么样的景点满足我们的需求\n请简洁的回复:'}]
+Answer: ### 重庆三日游行程规划
+
+#### 预算：4000元（含交通、餐饮、门票等）
+
+#### 第一天：历史与文化
+1. **钓鱼台** (免费) - 了解重庆的历史。
+2. **白公馆** (免费) - 参观历史遗址。
+3. **重庆大剧院** (免费) - 欣赏建筑美。
+4. **长江索道** (20元/人) - 体验重庆的独特交通方式。
+5. **晚餐** - 尝试当地美食，预算约200元。
+
+#### 第二天：自然风光与游乐
+1. **长寿湖** (32元/人) - 享受湖边风光。
+2. **阿依河景区** (81元/人) - 体验自然美景。
+3. **汉海海洋公园** (145元/人) - 游玩水上乐园。
+4. **晚餐** - 预算约200元。
+
+#### 第三天：人文与休闲
+1. **滑石古寨景区** (36元/人) - 体验人文景观。
+2. **南湖多彩植物园** (60元/人) - 享受宁静的公园时光。
+3. **重庆人民广场** (免费) - 休闲散步。
+4. **晚餐** - 预算约200元。
+
+### 总预算估算
+- **门票**：约 400元（2人）
+- **餐饮**：约 600元（3天）
+- **交通**：约 1000元（市内交通）
+- **其他**：约 2000元（购物、纪念品等）
+
+### 重要性评估
+- **历史古迹**：高 - 了解重庆文化。
+- **自然风光**：中 - 享受美景。
+- **游乐园**：中 - 适合放松与娱乐。
+- **人文景观**：高 - 体验地方特色。
+
+### 建议
+- 优先安排历史与人文景点，适当加入自然风光与游乐活动，确保行程丰富而不紧凑。
+LLM query:  [{'role': 'user', 'content': '### 重庆三日游行程规划\n\n#### 预算：4000元（含交通、餐饮、门票等）\n\n#### 第一天：历史与文化\n1. **钓鱼台** (免费) - 了解重庆的历史。\n2. **白公馆** (免费) - 参观历史遗址。\n3. **重庆大剧院** (免费) - 欣赏建筑美。\n4. **长江索道** (20元/人) - 体验重庆的独特交通方式。\n5. **晚餐** - 尝试当地美食，预算约200元。\n\n#### 第二天：自然风光与游乐\n1. **长寿湖** (32元/人) - 享受湖边风光。\n2. **阿依河景区** (81元/人) - 体验自然美景。\n3. **汉海海洋公园** (145元/人) - 游玩水上乐园。\n4. **晚餐** - 预算约200元。\n\n#### 第三天：人文与休闲\n1. **滑石古寨景区** (36元/人) - 体验人文景观。\n2. **南湖多彩植物园** (60元/人) - 享受宁静的公园时光。\n3. **重庆人民广场** (免费) - 休闲散步。\n4. **晚餐** - 预算约200元。\n\n### 总预算估算\n- **门票**：约 400元（2人）\n- **餐饮**：约 600元（3天）\n- **交通**：约 1000元（市内交通）\n- **其他**：约 2000元（购物、纪念品等）\n\n### 重要性评估\n- **历史古迹**：高 - 了解重庆文化。\n- **自然风光**：中 - 享受美景。\n- **游乐园**：中 - 适合放松与娱乐。\n- **人文景观**：高 - 体验地方特色。\n\n### 建议\n- 优先安排历史与人文景点，适当加入自然风光与游乐活动，确保行程丰富而不紧凑。\n请将上述内容中涉及到的名字（景点、餐厅）提取出来，并用逗号隔开。Answer:'}]
+Answer: 钓鱼台, 白公馆, 重庆大剧院, 长江索道, 长寿湖, 阿依河景区, 汉海海洋公园, 滑石古寨景区, 南湖多彩植物园, 重庆人民广场
+Score Over!
+LLM query:  [{'role': 'user', 'content': '**350** name: 可乐老火锅(观音桥店) , cusine: 火锅, price_per_preson: 77.0, recommended food:  \n**195** name: 储奇门鳝鱼火锅(总店) , cusine: 火锅, price_per_preson: 88.0, recommended food: 纯鲜毛肚,现划鳝鱼,现炸酥肉,纯鲜鸭肠,嫩牛肉,纯鲜鹅肠\n**35** name: 超级李板凳·面(总店) , cusine: 小吃, price_per_preson: 19.0, recommended food:  \n**139** name: 庆合府重庆大排档(紫都城店) , cusine: 火锅, price_per_preson: 76.0, recommended food:  \n**221** name: 桃太郎创作料理(大学城店) , cusine: 日本料理, price_per_preson: 65.0, recommended food:  \n**407** name: 皮二哥重庆火锅 , cusine: 火锅, price_per_preson: 61.0, recommended food:  \n**47** name: 酒阳蒸经川菜小酒馆(观音桥总店) , cusine: 川菜, price_per_preson: 74.0, recommended food: 糖醋排骨,煎饺,酒阳蒸经,有机花菜,小土豆烧肉,包浆豆腐,激情秋葵,陈皮兔丁,卤藕片,干炒魔芋丝\n**240** name: 盛天毛血旺非遗美食(重庆来福士店) , cusine: 川菜, price_per_preson: 50.0, recommended food:  \n**308** name: 莽子肥肠鸡(重大c区店) , cusine: 川菜, price_per_preson: 63.0, recommended food:  \n**239** name: 纯阳老酒馆·川菜(观音桥店) , cusine: 川菜, price_per_preson: 79.0, recommended food:  \n**355** name: 酒牛二虎火锅馆 , cusine: 火锅, price_per_preson: 82.0, recommended food: 当日鲜毛肚,酥肉,鲜鹅肠,青花椒牛肉,干黄瓜条,带皮土豆\n**236** name: 嘎嘎鸭脑壳(五里店) , cusine: 川菜, price_per_preson: 78.0, recommended food:  \n**421** name: 较场口夜市 , cusine:  , price_per_preson: 46.0, recommended food:  \n**263** name: 重庆凯宾斯基酒店·国汇宴(会展中心店) , cusine: 粤菜, price_per_preson: 172.0, recommended food:  \n**256** name: 植闰咖啡(观音桥店) , cusine: 咖啡店, price_per_preson: 27.0, recommended food:  \n**194** name: 楠木町居酒屋(观音桥店) , cusine: 日本料理, price_per_preson: 125.0, recommended food: 三文鱼刺身,芥末章鱼,鲣鱼花豆腐排,明太鸡翅,烤青花鱼,玉子烧\n**260** name: 沧龙老火锅(洪崖洞店) , cusine: 火锅, price_per_preson: 77.0, recommended food:  \n**168** name: 啤气熊精酿鲜啤屋 , cusine: 川菜, price_per_preson: 50.0, recommended food: 纸包鲈鱼,猴赛雷比利时小麦,高老庄香橙小麦,桂树下中式艾尔,大暖男棕色艾尔,红孩儿红色艾尔,大境界世涛\n**251** name: 米氏火鱼·泡椒鱼火锅(李子坝老店) , cusine: 火锅, price_per_preson: 75.0, recommended food:  \n**126** name: 镇三关老火锅(北滨店) , cusine: 火锅, price_per_preson: 130.0, recommended food: 六郎老肉,精品鹅肠,鲜猪黄喉,六郎屠场毛肚,六郎血旺,现炸酥肉\n**82** name: 老麻抄手重庆小面(解放碑店) , cusine: 小吃, price_per_preson: 16.0, recommended food: 精品牛肉面二两,干溜豌杂面2两,老麻抄手,酸辣粉,肥肠小面2两,清汤抄手,老麻调料\n**81** name: 喜洋洋(中山四路店) , cusine: 川菜, price_per_preson: 64.0, recommended food: 糖醋里脊,小米排骨,秘制酱油鸡,椒麻鳝段,凉拌莴笋,筒子骨莲藕汤\n**267** name: 重庆嘉发希尔顿逸林酒店·嘉悦轩中餐厅 , cusine: 川菜, price_per_preson: 136.0, recommended food:  \n**286** name: 见涨火锅 , cusine: 火锅, price_per_preson: 83.0, recommended food: 猪蹄,酸梅汤,豆干丝,江团\n**208** name: 奈雪的茶(时代天街店) , cusine: 面包甜点, price_per_preson: 25.0, recommended food:  \n**39** name: 朝天门火锅(长嘉汇江景旗舰店) , cusine: 火锅, price_per_preson: 133.0, recommended food:  \n**331** name: 陶四喜火锅(五里店店) , cusine: 火锅, price_per_preson: 93.0, recommended food:  \n**383** name: 好家园老菜馆(北城天街店) , cusine: 川菜, price_per_preson: 69.0, recommended food:  \n**403** name: Gray Whale灰鲸餐厅(国金店) , cusine: 西餐, price_per_preson: 153.0, recommended food:  \n**368** name: 鲁祖庙古法火锅 , cusine: 火锅, price_per_preson: 84.0, recommended food:  \n**392** name: 猪脑壳老火锅(洋河店) , cusine: 火锅, price_per_preson: 105.0, recommended food:  \n**403** name: Gray Whale灰鲸餐厅(国金店) , cusine: 西餐, price_per_preson: 153.0, recommended food:  \n**236** name: 嘎嘎鸭脑壳(五里店) , cusine: 川菜, price_per_preson: 78.0, recommended food:  \n**170** name: 猪脑壳老火锅(谢家湾店) , cusine: 火锅, price_per_preson: 97.0, recommended food:  \n**308** name: 莽子肥肠鸡(重大c区店) , cusine: 川菜, price_per_preson: 63.0, recommended food:  \n**120** name: 泓崖小面·精品重庆面(解放碑店) , cusine: 小吃, price_per_preson: 15.0, recommended food:  \n**354** name: 尊宝比萨(较场口店) , cusine: 西餐, price_per_preson: 35.0, recommended food:  \n**371** name: 嘿嘟嘟烤肉(观音桥大融城店) , cusine: 韩国料理, price_per_preson: 95.0, recommended food:  \n**391** name: 大风老火锅(江北一店) , cusine: 火锅, price_per_preson: 96.0, recommended food: 特色毛肚,酥肉,多肉午餐肉,干贡菜,猪黄喉,麻辣牛肉\n**257** name: 过道老火锅(解放碑店) , cusine: 火锅, price_per_preson: 90.0, recommended food:  \n**415** name: 大吉烧肉与酒·活海鲜和牛超市(星光68店) , cusine: 烧烤, price_per_preson: 130.0, recommended food:  \n**253** name: 愚小面(解放碑店) , cusine: 小吃, price_per_preson: 32.0, recommended food:  \n**196** name: 城墙拐拐火锅(洋河店) , cusine: 火锅, price_per_preson: 84.0, recommended food:  \n**288** name: 南山有烧烤 , cusine: 烧烤, price_per_preson: 125.0, recommended food: 现切五花肉,八爪鱼,奥尔良鸡皮,扇贝,蔬菜拼盘\n**435** name: 花间一壶酒·私房菜·小酒馆(观音桥店) , cusine: 川菜, price_per_preson: 76.0, recommended food:  \n**400** name: 天棒老火锅(老店) , cusine: 火锅, price_per_preson: 98.0, recommended food: 鲜鸭血,牛杂拼盘,鱼籽虾滑,卤耙鸡脚,现炸酥肉,8秒海带苗\n**346** name: 九街三叁街头鸡脚筋串串(九街店) , cusine: 火锅, price_per_preson: 80.0, recommended food:  \n**35** name: 超级李板凳·面(总店) , cusine: 小吃, price_per_preson: 19.0, recommended food:  \n**267** name: 重庆嘉发希尔顿逸林酒店·嘉悦轩中餐厅 , cusine: 川菜, price_per_preson: 136.0, recommended food:  \n**212** name: 朱光玉火锅馆(北环店) , cusine: 火锅, price_per_preson: 106.0, recommended food:  \n[当前位置上海,目标位置重庆,旅行人数2,旅行天数3] 我要和女朋友从上海出发去重庆玩，大概三天。市内交通要求最省时间，预算4000的差旅费，帮我规划行程。\n在这次在重庆的旅行中,请帮我选择一些餐厅去吃，评估每个餐厅的相关性，看看是否需要安排到行程里\n请根据以上信息考虑什么样的餐厅满足我们的需求\n请简洁的回复:'}]
+Answer: ### 重庆三天行程规划
+
+#### 预算：4000元（含餐饮、交通、景点门票等）
+
+---
+
+### 第一天：到达重庆
+
+- **午餐**：可乐老火锅(观音桥店)  
+  - 人均：77元  
+  - 推荐理由：火锅是重庆的特色，适合开启美食之旅。
+
+- **下午**：游览解放碑、洪崖洞
+
+- **晚餐**：朝天门火锅(长嘉汇江景旗舰店)  
+  - 人均：133元  
+  - 推荐理由：享受江景火锅，体验重庆夜景。
+
+---
+
+### 第二天：重庆文化与美食
+
+- **早餐**：超级李板凳·面(总店)  
+  - 人均：19元  
+  - 推荐理由：尝试重庆小吃，经济实惠。
+
+- **上午**：参观大足石刻
+
+- **午餐**：莽子肥肠鸡(重大c区店)  
+  - 人均：63元  
+  - 推荐理由：川菜风味，适合午餐。
+
+- **下午**：游览磁器口古镇
+
+- **晚餐**：酒牛二虎火锅馆  
+  - 人均：82元  
+  - 推荐理由：继续火锅体验，丰富口味。
+
+---
+
+### 第三天：放松与购物
+
+- **早餐**：植闰咖啡(观音桥店)  
+  - 人均：27元  
+  - 推荐理由：轻松的咖啡早餐。
+
+- **上午**：游览南山一棵树观景台
+
+- **午餐**：酒阳蒸经川菜小酒馆(观音桥总店)  
+  - 人均：74元  
+  - 推荐理由：尝试川菜，丰富口味。
+
+- **下午**：购物或休闲
+
+- **晚餐**：猪脑壳老火锅(洋河店)  
+  - 人均：105元  
+  - 推荐理由：结束美食之旅，享受火锅。
+
+---
+
+### 总预算估算
+
+- 餐饮费用（2人）：
+  - 第一天：77 + 133 = 210元
+  - 第二天：19 + 63 + 82 = 164元
+  - 第三天：27 + 74 + 105 = 206元
+  - **总计**：580元
+
+- 交通、景点门票、其他费用：约3200元（根据个人需求调整）
+
+---
+
+### 餐厅相关性评估
+
+- **火锅**：重庆特色，适合多次体验。
+- **川菜**：丰富的地方风味，适合午餐和晚餐。
+- **小吃**：经济实惠，适合早餐和轻食。
+
+### 结论
+
+以上行程和餐厅选择满足了美食、文化和休闲的需求，适合你和女朋友的重庆之旅。
+LLM query:  [{'role': 'user', 'content': '### 重庆三天行程规划\n\n#### 预算：4000元（含餐饮、交通、景点门票等）\n\n---\n\n### 第一天：到达重庆\n\n- **午餐**：可乐老火锅(观音桥店)  \n  - 人均：77元  \n  - 推荐理由：火锅是重庆的特色，适合开启美食之旅。\n\n- **下午**：游览解放碑、洪崖洞\n\n- **晚餐**：朝天门火锅(长嘉汇江景旗舰店)  \n  - 人均：133元  \n  - 推荐理由：享受江景火锅，体验重庆夜景。\n\n---\n\n### 第二天：重庆文化与美食\n\n- **早餐**：超级李板凳·面(总店)  \n  - 人均：19元  \n  - 推荐理由：尝试重庆小吃，经济实惠。\n\n- **上午**：参观大足石刻\n\n- **午餐**：莽子肥肠鸡(重大c区店)  \n  - 人均：63元  \n  - 推荐理由：川菜风味，适合午餐。\n\n- **下午**：游览磁器口古镇\n\n- **晚餐**：酒牛二虎火锅馆  \n  - 人均：82元  \n  - 推荐理由：继续火锅体验，丰富口味。\n\n---\n\n### 第三天：放松与购物\n\n- **早餐**：植闰咖啡(观音桥店)  \n  - 人均：27元  \n  - 推荐理由：轻松的咖啡早餐。\n\n- **上午**：游览南山一棵树观景台\n\n- **午餐**：酒阳蒸经川菜小酒馆(观音桥总店)  \n  - 人均：74元  \n  - 推荐理由：尝试川菜，丰富口味。\n\n- **下午**：购物或休闲\n\n- **晚餐**：猪脑壳老火锅(洋河店)  \n  - 人均：105元  \n  - 推荐理由：结束美食之旅，享受火锅。\n\n---\n\n### 总预算估算\n\n- 餐饮费用（2人）：\n  - 第一天：77 + 133 = 210元\n  - 第二天：19 + 63 + 82 = 164元\n  - 第三天：27 + 74 + 105 = 206元\n  - **总计**：580元\n\n- 交通、景点门票、其他费用：约3200元（根据个人需求调整）\n\n---\n\n### 餐厅相关性评估\n\n- **火锅**：重庆特色，适合多次体验。\n- **川菜**：丰富的地方风味，适合午餐和晚餐。\n- **小吃**：经济实惠，适合早餐和轻食。\n\n### 结论\n\n以上行程和餐厅选择满足了美食、文化和休闲的需求，适合你和女朋友的重庆之旅。\n请将上述内容中涉及到的名字（景点、餐厅）提取出来，并用逗号隔开。Answer:'}]
+Answer: 可乐老火锅, 解放碑, 洪崖洞, 朝天门火锅, 超级李板凳·面, 大足石刻, 莽子肥肠鸡, 磁器口古镇, 酒牛二虎火锅馆, 植闰咖啡, 南山一棵树观景台, 酒阳蒸经川菜小酒馆, 猪脑壳老火锅
+Score Over!
+search: ...
+POI planning, day 0 19:30, 重庆北站, next-poi type: lunch
+try another poi type
+POI planning, day 0 19:30, 重庆北站, next-poi type: dinner
+try another poi type
+POI planning, day 0 19:30, 重庆北站, next-poi type: attraction
+POI planning, day 0 21:44, 重庆人民广场, next-poi type: hotel
+POI planning, day 1 08:30, 重庆清阅·OneJasper精选酒店, next-poi type: attraction
+POI planning, day 1 12:53, 南湖多彩植物园, next-poi type: lunch
+try another poi type
+POI planning, day 1 12:53, 南湖多彩植物园, next-poi type: attraction
+POI planning, day 1 18:00, 重庆大剧院, next-poi type: lunch
+try another poi type
+POI planning, day 1 18:00, 重庆大剧院, next-poi type: dinner
+POI planning, day 1 19:54, 酒阳蒸经川菜小酒馆(观音桥总店), next-poi type: lunch
+try another poi type
+POI planning, day 1 19:54, 酒阳蒸经川菜小酒馆(观音桥总店), next-poi type: attraction
+POI planning, day 1 20:38, 长江索道, next-poi type: hotel
+POI planning, day 2 08:30, 重庆清阅·OneJasper精选酒店, next-poi type: attraction
+POI planning, day 2 10:44, 汉海海洋公园, next-poi type: lunch
+POI planning, day 2 12:57, 酒阳蒸经小酒馆(解放碑店), next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4698.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 12:57, 酒阳蒸经小酒馆(解放碑店), next-poi type: attraction
+Can not go back source-city in time, current POI 白公馆, station arrived time: 15:06
+Can not go back source-city in time, current POI 钓鱼台, station arrived time: 24:46
+Can not go back source-city in time, current POI 飞跃重庆(东方广场店), station arrived time: 14:22
+Can not go back source-city in time, current POI 汉海鲸豚湾水世界, station arrived time: 17:03
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: attraction
+Can not go back source-city in time, current POI 白公馆, station arrived time: 15:51
+Can not go back source-city in time, current POI 钓鱼台, station arrived time: 25:28
+Can not go back source-city in time, current POI 飞跃重庆(东方广场店), station arrived time: 15:00
+Can not go back source-city in time, current POI 汉海鲸豚湾水世界, station arrived time: 17:35
+Can not go back source-city in time, current POI 重庆沉浸式悬浮剧场, station arrived time: 14:28
+Can not go back source-city in time, current POI 飞越重庆(解放碑八一广场店), station arrived time: 14:28
+Can not go back source-city in time, current POI 重庆长江索道南站, station arrived time: 16:09
+Can not go back source-city in time, current POI 重庆熙街, station arrived time: 16:55
+Can not go back source-city in time, current POI 长寿古镇, station arrived time: 26:15
+Can not go back source-city in time, current POI 国民政府军事委员会旧址-重庆行营, station arrived time: 17:04
+Can not go back source-city in time, current POI 重庆中央公园, station arrived time: 16:18
+Can not go back source-city in time, current POI 重庆国际博览中心, station arrived time: 15:15
+Can not go back source-city in time, current POI 重庆长江大桥, station arrived time: 16:48
+Can not go back source-city in time, current POI 重庆市规划展览馆, station arrived time: 14:38
+Can not go back source-city in time, current POI 重庆WFC会仙楼观景台, station arrived time: 14:27
+Can not go back source-city in time, current POI 重庆开埠遗址公园, station arrived time: 16:03
+Can not go back source-city in time, current POI 重庆两江游, station arrived time: 14:54
+Can not go back source-city in time, current POI 重庆云端之眼观景台, station arrived time: 14:32
+Can not go back source-city in time, current POI 重庆融创文旅城, station arrived time: 18:03
+Can not go back source-city in time, current POI 重庆湖广会馆, station arrived time: 15:09
+Can not go back source-city in time, current POI 重庆国际马戏城, station arrived time: 20:31
+Can not go back source-city in time, current POI 重庆歌乐山革命纪念馆, station arrived time: 15:37
+Can not go back source-city in time, current POI 重庆国际音乐啤酒节, station arrived time: 15:12
+Can not go back source-city in time, current POI 漫游重庆·都市观光巴士, station arrived time: 15:11
+Can not go back source-city in time, current POI 重庆工业文化博览园, station arrived time: 17:23
+Can not go back source-city in time, current POI 重庆融创渝乐小镇, station arrived time: 19:13
+Can not go back source-city in time, current POI 重庆美术馆, station arrived time: 14:56
+Can not go back source-city in time, current POI 重庆自然博物馆（新馆）, station arrived time: 18:10
+Can not go back source-city in time, current POI 重庆十八梯传统风貌区, station arrived time: 17:04
+Can not go back source-city in time, current POI 重庆国泰艺术中心, station arrived time: 15:26
+Can not go back source-city in time, current POI 重庆欢乐谷, station arrived time: 17:18
+Can not go back source-city in time, current POI 中共中央南方局暨八路军驻重庆办事处旧址, station arrived time: 17:26
+Can not go back source-city in time, current POI 重庆动物园, station arrived time: 15:31
+Can not go back source-city in time, current POI 重庆城上天幕乐游观光塔, station arrived time: 17:10
+Can not go back source-city in time, current POI 重庆工业博物馆, station arrived time: 16:23
+Can not go back source-city in time, current POI 重庆谈判旧址-怡园, station arrived time: 15:00
+Can not go back source-city in time, current POI 重庆园博园, station arrived time: 17:25
+Can not go back source-city in time, current POI 重庆枇杷山公园, station arrived time: 14:33
+Can not go back source-city in time, current POI 重庆两江游-朝天系列, station arrived time: 21:52
+Can not go back source-city in time, current POI 长寿菩提山文化旅游景区, station arrived time: 26:55
+Can not go back source-city in time, current POI 重庆建川博物馆聚落, station arrived time: 15:20
+Can not go back source-city in time, current POI 重庆大轰炸“六五”隧道惨案史实展馆, station arrived time: 14:58
+Can not go back source-city in time, current POI 飞越重庆悬空影院, station arrived time: 16:36
+Can not go back source-city in time, current POI 周公馆, station arrived time: 15:11
+Can not go back source-city in time, current POI 重庆科技馆, station arrived time: 17:22
+Can not go back source-city in time, current POI 重庆海洋世界, station arrived time: 16:03
+Can not go back source-city in time, current POI 重庆玛雅海滩水公园, station arrived time: 16:52
+Can not go back source-city in time, current POI 重庆三峡游船, station arrived time: 15:12
+Can not go back source-city in time, current POI 重庆长江三峡游船, station arrived time: 15:16
+Can not go back source-city in time, current POI 重庆杜莎夫人蜡像馆, station arrived time: 15:58
+Can not go back source-city in time, current POI 重庆图书馆, station arrived time: 17:10
+Can not go back source-city in time, current POI 重庆润泽射击俱乐部, station arrived time: 15:34
+Can not go back source-city in time, current POI 三峡广场, station arrived time: 15:37
+Can not go back source-city in time, current POI 人民大礼堂, station arrived time: 15:33
+Can not go back source-city in time, current POI 重庆两江游-金碧系列, station arrived time: 20:52
+Can not go back source-city in time, current POI 渝北龙头寺公园, station arrived time: 14:58
+Can not go back source-city in time, current POI 东水门长江大桥, station arrived time: 15:34
+Can not go back source-city in time, current POI 两江国际影视城（民国街）, station arrived time: 17:37
+Can not go back source-city in time, current POI 重庆融创海世界, station arrived time: 16:29
+Can not go back source-city in time, current POI 重庆融创水世界, station arrived time: 17:27
+Can not go back source-city in time, current POI 重庆动物园熊猫冰雪世界, station arrived time: 14:57
+Can not go back source-city in time, current POI 重庆光环购物公园室内植物园“沐光森林”, station arrived time: 16:28
+Can not go back source-city in time, current POI 长江三峡-世纪传奇游轮, station arrived time: 16:32
+Can not go back source-city in time, current POI 巴渝文化会馆, station arrived time: 15:11
+Can not go back source-city in time, current POI 川剧博物馆, station arrived time: 14:39
+Can not go back source-city in time, current POI 重庆独角兽星空艺术馆, station arrived time: 16:58
+Can not go back source-city in time, current POI 重庆建川海疆博物馆（166舰）, station arrived time: 15:39
+Can not go back source-city in time, current POI 28度活水馆, station arrived time: 15:24
+Can not go back source-city in time, current POI 李子坝轻轨站, station arrived time: 15:35
+Can not go back source-city in time, current POI 重庆热雪奇迹, station arrived time: 16:57
+Can not go back source-city in time, current POI 洪崖洞, station arrived time: 16:54
+Can not go back source-city in time, current POI 长江游轮, station arrived time: 16:16
+Can not go back source-city in time, current POI 人民解放纪念碑, station arrived time: 16:04
+Can not go back source-city in time, current POI 重庆海昌加勒比海水世界, station arrived time: 17:12
+Can not go back source-city in time, current POI 地方土特产及巴渝名小吃一条街, station arrived time: 14:24
+Can not go back source-city in time, current POI 白象街, station arrived time: 14:37
+Can not go back source-city in time, current POI 两江汇观景台, station arrived time: 16:00
+Can not go back source-city in time, current POI 1941茶馆·戏院, station arrived time: 15:02
+Can not go back source-city in time, current POI 秀湖公园, station arrived time: 18:29
+Can not go back source-city in time, current POI 长江三峡-长江孚泰号游轮, station arrived time: 14:39
+Can not go back source-city in time, current POI 朝天门广场, station arrived time: 14:42
+Can not go back source-city in time, current POI 涂山寺, station arrived time: 16:36
+Can not go back source-city in time, current POI 统景风景区, station arrived time: 22:59
+Can not go back source-city in time, current POI 黄桷坪涂鸦艺术街, station arrived time: 15:18
+Can not go back source-city in time, current POI 重庆融创海世界海底埃及博物馆, station arrived time: 16:41
+Can not go back source-city in time, current POI 南山风景区, station arrived time: 15:32
+Can not go back source-city in time, current POI 戴家巷崖壁步道, station arrived time: 14:24
+Can not go back source-city in time, current POI 龙门浩老街, station arrived time: 16:04
+Can not go back source-city in time, current POI 李子坝单轨穿楼观景平台, station arrived time: 15:35
+Can not go back source-city in time, current POI 长嘉汇弹子石老街, station arrived time: 15:28
+Can not go back source-city in time, current POI 绿色星球动物主题公园, station arrived time: 14:44
+Can not go back source-city in time, current POI 江北嘴江滩公园, station arrived time: 16:52
+Can not go back source-city in time, current POI 嘉陵江小三峡风光带, station arrived time: 19:46
+Can not go back source-city in time, current POI 欢乐海底世界, station arrived time: 17:24
+Can not go back source-city in time, current POI 际华园滑雪馆, station arrived time: 17:57
+Can not go back source-city in time, current POI 融汇西流沱小镇, station arrived time: 17:17
+Can not go back source-city in time, current POI 鸿恩寺公园, station arrived time: 14:53
+Can not go back source-city in time, current POI 黄葛古道, station arrived time: 16:24
+Can not go back source-city in time, current POI 杨家坪步行街, station arrived time: 15:10
+Can not go back source-city in time, current POI 夜游两江, station arrived time: 15:14
+Can not go back source-city in time, current POI 洪崖洞重逢1980街区, station arrived time: 15:24
+Can not go back source-city in time, current POI 壹华里夜景公园, station arrived time: 15:57
+Can not go back source-city in time, current POI 烟雨公园, station arrived time: 15:12
+Can not go back source-city in time, current POI 涂鸦一条街, station arrived time: 15:50
+Can not go back source-city in time, current POI 大圆祥博物馆, station arrived time: 18:00
+Can not go back source-city in time, current POI 南滨路钟楼, station arrived time: 15:06
+Can not go back source-city in time, current POI 桂园, station arrived time: 16:08
+Can not go back source-city in time, current POI 华岩寺, station arrived time: 17:37
+Can not go back source-city in time, current POI 南滨路, station arrived time: 16:36
+Can not go back source-city in time, current POI 不夜九街, station arrived time: 15:30
+Can not go back source-city in time, current POI 红岩红沉浸式剧场, station arrived time: 16:07
+Can not go back source-city in time, current POI 缙云山, station arrived time: 17:44
+Can not go back source-city in time, current POI 山城步道, station arrived time: 14:31
+Can not go back source-city in time, current POI 嘉陵江, station arrived time: 17:11
+Can not go back source-city in time, current POI 三峡博物馆, station arrived time: 15:03
+too late, after 23:00
+Can not go back source-city in time, current POI 联合国际大厦, station arrived time: 15:32
+Can not go back source-city in time, current POI 解放碑步行街, station arrived time: 14:34
+Can not go back source-city in time, current POI 北泉风景区, station arrived time: 20:30
+Can not go back source-city in time, current POI 观音桥步行街, station arrived time: 15:17
+Can not go back source-city in time, current POI 龙浒峡漂流, station arrived time: 21:53
+Can not go back source-city in time, current POI 皇冠大扶梯, station arrived time: 17:07
+Can not go back source-city in time, current POI 李子坝公园, station arrived time: 14:37
+Can not go back source-city in time, current POI 民俗文化村, station arrived time: 15:24
+Can not go back source-city in time, current POI 红岩革命纪念馆, station arrived time: 15:36
+Can not go back source-city in time, current POI 千厮门大桥, station arrived time: 14:27
+Can not go back source-city in time, current POI 黄山蒋介石官邸, station arrived time: 15:52
+Can not go back source-city in time, current POI 二厂文创公园, station arrived time: 16:43
+Can not go back source-city in time, current POI 巴滨水世界, station arrived time: 16:48
+Can not go back source-city in time, current POI 大渡口公园, station arrived time: 15:17
+Can not go back source-city in time, current POI 山城巷历史文化风貌区, station arrived time: 17:01
+Can not go back source-city in time, current POI 圣名欢乐水世界, station arrived time: 16:34
+Can not go back source-city in time, current POI 北碚天坑, station arrived time: 19:08
+Can not go back source-city in time, current POI 际华园极限运动中心, station arrived time: 17:25
+Can not go back source-city in time, current POI 山城夜景, station arrived time: 15:07
+Can not go back source-city in time, current POI 黄桷垭老街, station arrived time: 17:42
+Can not go back source-city in time, current POI 朝天门大桥, station arrived time: 15:10
+Can not go back source-city in time, current POI 半山崖线, station arrived time: 14:51
+Can not go back source-city in time, current POI 两江小渡, station arrived time: 15:24
+Can not go back source-city in time, current POI 三毛故居(区级文物), station arrived time: 17:36
+Can not go back source-city in time, current POI 熊婆婆的花园, station arrived time: 14:38
+Can not go back source-city in time, current POI 碧津公园, station arrived time: 17:22
+Can not go back source-city in time, current POI 千佛寺, station arrived time: 15:04
+Can not go back source-city in time, current POI 歌乐山烈士陵园, station arrived time: 16:05
+Can not go back source-city in time, current POI 华生园金色蛋糕梦幻王国, station arrived time: 16:50
+Can not go back source-city in time, current POI 老君洞, station arrived time: 16:36
+Can not go back source-city in time, current POI 渣滓洞, station arrived time: 15:11
+Can not go back source-city in time, current POI 鹅岭公园, station arrived time: 16:43
+Can not go back source-city in time, current POI 九曲河湿地公园, station arrived time: 15:07
+Can not go back source-city in time, current POI 佛图关公园, station arrived time: 14:47
+Can not go back source-city in time, current POI 圣名游乐城, station arrived time: 16:38
+Can not go back source-city in time, current POI 巴蜀古代建筑博物馆, station arrived time: 16:09
+Can not go back source-city in time, current POI 磁器口古镇, station arrived time: 17:59
+Can not go back source-city in time, current POI 画游梵高沉浸式艺术馆, station arrived time: 17:07
+Can not go back source-city in time, current POI 东水门及古城墙, station arrived time: 15:12
+Can not go back source-city in time, current POI 轮渡嘉陵, station arrived time: 17:27
+Can not go back source-city in time, current POI 中山四路, station arrived time: 16:41
+Can not go back source-city in time, current POI 朝天门号两江夜景游轮, station arrived time: 16:10
+Can not go back source-city in time, current POI 东水门, station arrived time: 16:12
+Can not go back source-city in time, current POI 歌乐山国家森林公园, station arrived time: 15:59
+Can not go back source-city in time, current POI 戴家巷老街, station arrived time: 14:28
+Can not go back source-city in time, current POI 红岩村, station arrived time: 15:30
+Can not go back source-city in time, current POI 铁路四村, station arrived time: 15:52
+Can not go back source-city in time, current POI 广阳岛, station arrived time: 17:01
+Can not go back source-city in time, current POI 北仓文创街区, station arrived time: 16:10
+Can not go back source-city in time, current POI 奥体中心, station arrived time: 15:25
+Can not go back source-city in time, current POI 文峰古街, station arrived time: 27:10
+Can not go back source-city in time, current POI 铜锣山矿山公园, station arrived time: 19:38
+Can not go back source-city in time, current POI 大耳朵亲子乐园, station arrived time: 15:52
+Can not go back source-city in time, current POI 探索舱·云端乐园, station arrived time: 16:16
+Can not go back source-city in time, current POI 十八梯, station arrived time: 16:07
+Can not go back source-city in time, current POI 能仁寺, station arrived time: 14:30
+Can not go back source-city in time, current POI 魁星楼, station arrived time: 16:04
+Can not go back source-city in time, current POI 罗汉寺, station arrived time: 15:56
+Can not go back source-city in time, current POI 上新街, station arrived time: 15:09
+Can not go back source-city in time, current POI 宝轮寺, station arrived time: 16:03
+Can not go back source-city in time, current POI 凯旋路电梯, station arrived time: 16:00
+Can not go back source-city in time, current POI 洞舰1号, station arrived time: 15:29
+Can not go back source-city in time, current POI 磁器口转运楼, station arrived time: 15:33
+Can not go back source-city in time, current POI 圣名蹦极(环球城), station arrived time: 15:34
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4702.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜'}, 'spot_type': {'游乐园/体育娱乐', '人文景观', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 71.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒阳蒸经川菜小酒馆(观音桥总店)', '酒阳蒸经小酒馆(解放碑店)'}, 'attraction_names': {'南湖多彩植物园', '重庆人民广场', '重庆夜游', '长江索道', '汉海海洋公园', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:35, 重庆夜游, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+query: {'start_city': '上海', 'target_city': '重庆', 'people_number': 2, 'days': 3, 'hard_logic': ['cost_hotel + cost_intercity_transport <= 4000', 'days==3', 'people_number==2'], 'preference': ['交通尽可能便利'], 'nature_language': '[当前位置上海,目标位置重庆,旅行人数2,旅行天数3] 我要和女朋友从上海出发去重庆玩，大概三天。市内交通要求最省时间，预算4000的差旅费，帮我规划行程。', 'preference_en': ['convenient transportation']}
+query: {'start_city': '上海', 'target_city': '重庆', 'people_number': 2, 'days': 3, 'hard_logic': ['cost_hotel + cost_intercity_transport <= 4000', 'days==3', 'people_number==2'], 'preference': ['交通尽可能便利'], 'nature_language': '[当前位置上海,目标位置重庆,旅行人数2,旅行天数3] 我要和女朋友从上海出发去重庆玩，大概三天。市内交通要求最省时间，预算4000的差旅费，帮我规划行程。', 'preference_en': ['convenient transportation'], 'transport_preference': 'metro', 'hard_logic_unseen': ['cost_hotel + cost_intercity_transport <= 4000']}
+from 上海 to 重庆: 10 flights, 30 trains
+from 重庆 to 上海: 10 flights, 23 trains
+重庆 accommmodation, 373 hotels (satisfied requirments)
+LLM query:  [{'role': 'user', 'content': '**293** name: 钓鱼台 , price_per_preson: 0.0, type: 历史古迹\n**263** name: 戴家巷崖壁步道 , price_per_preson: 0.0, type: 人文景观\n**145** name: 重庆大剧院 , price_per_preson: 0.0, type: 人文景观\n**89** name: 芙蓉江 , price_per_preson: 100.0, type: 自然风光\n**177** name: 小南海 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**140** name: 联合国际大厦 , price_per_preson: 0.0, type: 商业街区\n**271** name: 西山公园 , price_per_preson: 0.0, type: 公园\n**105** name: 白帝城 , price_per_preson: 0.0, type: 历史古迹\n**165** name: 长寿湖 , price_per_preson: 32.0, type: 自然风光\n**202** name: 滑石古寨景区 , price_per_preson: 36.0, type: 人文景观\n**315** name: 天下第一风雨廊桥 , price_per_preson: 0.0, type: 人文景观\n**175** name: 双桂山国家森林公园 , price_per_preson: 0.0, type: 公园\n**97** name: 鹅岭公园 , price_per_preson: 0.0, type: 公园\n**262** name: 石柱森林王国度假区 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**214** name: 神龟峡 , price_per_preson: 128.0, type: 自然风光\n**86** name: 阿依河景区 , price_per_preson: 81.0, type: 自然风光\n**315** name: 天下第一风雨廊桥 , price_per_preson: 0.0, type: 人文景观\n**341** name: 川剧博物馆 , price_per_preson: 0.0, type: 博物馆/纪念馆\n**281** name: 南湖多彩植物园 , price_per_preson: 60.0, type: 公园\n**313** name: 东水门长江大桥 , price_per_preson: 0.0, type: 人文景观\n**107** name: 天眼洞花岭 , price_per_preson: 49.0, type: 自然风光\n**253** name: 重庆人民广场 , price_per_preson: 0.0, type: 公园\n**311** name: 江北嘴江滩公园 , price_per_preson: 0.0, type: 公园\n**237** name: (重庆黄水旅游度假区)秘境黄水奇幻乐园 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**163** name: 汉海鲸豚湾水世界 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**34** name: 白公馆 , price_per_preson: 0.0, type: 历史古迹\n**150** name: 磁器口转运楼 , price_per_preson: 0.0, type: 历史古迹\n**211** name: 金佛山北坡滑雪场 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**316** name: 重庆工业文化博览园 , price_per_preson: 0.0, type: 博物馆/纪念馆\n**335** name: 碧津公园 , price_per_preson: 0.0, type: 公园\n**165** name: 长寿湖 , price_per_preson: 32.0, type: 自然风光\n**300** name: 两江汇观景台 , price_per_preson: 0.0, type: 人文景观\n**90** name: 汉海海洋公园 , price_per_preson: 145.0, type: 游乐园/体育娱乐\n**279** name: 重庆山城高空跳伞基地 , price_per_preson: 1880.0, type: 游乐园/体育娱乐\n**190** name: 安居古城 , price_per_preson: 0.0, type: 历史古迹\n**4** name: 重庆两江游 , price_per_preson: 138.0, type: 游乐园/体育娱乐\n**249** name: 地方土特产及巴渝名小吃一条街 , price_per_preson: 0.0, type: 商业街区\n**138** name: 仙女山树顶漫步 , price_per_preson: 69.0, type: 游乐园/体育娱乐\n**286** name: 慈云寺 , price_per_preson: 0.0, type: 历史古迹\n**231** name: 昌州古城 , price_per_preson: 0.0, type: 历史古迹\n**0** name: 长江索道 , price_per_preson: 20.0, type: 游乐园/体育娱乐\n**171** name: 际华园极限运动中心 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**301** name: 大足石刻数字影院 , price_per_preson: 0.0, type: 人文景观\n**84** name: 石宝寨 , price_per_preson: 45.0, type: 历史古迹\n**112** name: 重庆海昌加勒比海水世界 , price_per_preson: 45.0, type: 游乐园/体育娱乐\n**302** name: 石柱万寿山景区 , price_per_preson: 62.0, type: 自然风光\n**66** name: 北山石刻 , price_per_preson: 58.0, type: 历史古迹\n**196** name: 飞越重庆悬空影院 , price_per_preson: 29.9, type: 游乐园/体育娱乐\n**82** name: 瞿塘峡 , price_per_preson: 0.0, type: 自然风光\n**335** name: 碧津公园 , price_per_preson: 0.0, type: 公园\n[当前位置上海,目标位置重庆,旅行人数2,旅行天数3] 我要和女朋友从上海出发去重庆玩，大概三天。市内交通要求最省时间，预算4000的差旅费，帮我规划行程。\n在这次在重庆的旅行中，请帮我评估每个景点的游玩重要性，看看是否需要安排到行程里\n请根据以上信息考虑什么样的景点满足我们的需求\n请简洁的回复:'}]
+Answer: ### 重庆三日游行程规划
+
+#### 预算：4000元（含交通、餐饮、门票等）
+
+#### 第一天：历史与文化
+1. **钓鱼台** (免费) - 了解重庆的历史。
+2. **白公馆** (免费) - 参观历史遗址。
+3. **重庆大剧院** (免费) - 欣赏建筑美。
+4. **长江索道** (20元/人) - 体验重庆的独特交通方式。
+5. **晚餐** - 尝试当地美食，预算约200元。
+
+#### 第二天：自然风光与游乐
+1. **长寿湖** (32元/人) - 享受湖边风光。
+2. **阿依河景区** (81元/人) - 体验自然美景。
+3. **汉海海洋公园** (145元/人) - 游玩水上乐园。
+4. **晚餐** - 继续品尝重庆美食，预算约200元。
+
+#### 第三天：人文与休闲
+1. **滑石古寨景区** (36元/人) - 体验人文景观。
+2. **南湖多彩植物园** (60元/人) - 享受宁静的公园时光。
+3. **飞越重庆悬空影院** (29.9元/人) - 体验刺激的影院。
+4. **晚餐** - 最后一次享受重庆美食，预算约200元。
+
+### 总预算估算
+- **门票**：约 400元（2人）
+- **餐饮**：约 600元（3天）
+- **交通**：约 500元（市内交通）
+- **总计**：约 1500元，剩余2500元可用于购物或其他活动。
+
+### 重要性评估
+- **历史古迹**：高（钓鱼台、白公馆）
+- **自然风光**：高（长寿湖、阿依河）
+- **游乐园**：中（汉海海洋公园）
+- **人文景观**：中（滑石古寨、南湖植物园）
+
+### 建议
+- 优先选择历史和自然景点，适当安排游乐项目。
+- 根据天气和个人兴趣灵活调整行程。
+LLM query:  [{'role': 'user', 'content': '### 重庆三日游行程规划\n\n#### 预算：4000元（含交通、餐饮、门票等）\n\n#### 第一天：历史与文化\n1. **钓鱼台** (免费) - 了解重庆的历史。\n2. **白公馆** (免费) - 参观历史遗址。\n3. **重庆大剧院** (免费) - 欣赏建筑美。\n4. **长江索道** (20元/人) - 体验重庆的独特交通方式。\n5. **晚餐** - 尝试当地美食，预算约200元。\n\n#### 第二天：自然风光与游乐\n1. **长寿湖** (32元/人) - 享受湖边风光。\n2. **阿依河景区** (81元/人) - 体验自然美景。\n3. **汉海海洋公园** (145元/人) - 游玩水上乐园。\n4. **晚餐** - 继续品尝重庆美食，预算约200元。\n\n#### 第三天：人文与休闲\n1. **滑石古寨景区** (36元/人) - 体验人文景观。\n2. **南湖多彩植物园** (60元/人) - 享受宁静的公园时光。\n3. **飞越重庆悬空影院** (29.9元/人) - 体验刺激的影院。\n4. **晚餐** - 最后一次享受重庆美食，预算约200元。\n\n### 总预算估算\n- **门票**：约 400元（2人）\n- **餐饮**：约 600元（3天）\n- **交通**：约 500元（市内交通）\n- **总计**：约 1500元，剩余2500元可用于购物或其他活动。\n\n### 重要性评估\n- **历史古迹**：高（钓鱼台、白公馆）\n- **自然风光**：高（长寿湖、阿依河）\n- **游乐园**：中（汉海海洋公园）\n- **人文景观**：中（滑石古寨、南湖植物园）\n\n### 建议\n- 优先选择历史和自然景点，适当安排游乐项目。\n- 根据天气和个人兴趣灵活调整行程。\n请将上述内容中涉及到的名字（景点、餐厅）提取出来，并用逗号隔开。Answer:'}]
+Answer: 钓鱼台, 白公馆, 重庆大剧院, 长江索道, 长寿湖, 阿依河景区, 汉海海洋公园, 滑石古寨景区, 南湖多彩植物园, 飞越重庆悬空影院
+Score Over!
+LLM query:  [{'role': 'user', 'content': '**350** name: 可乐老火锅(观音桥店) , cusine: 火锅, price_per_preson: 77.0, recommended food:  \n**195** name: 储奇门鳝鱼火锅(总店) , cusine: 火锅, price_per_preson: 88.0, recommended food: 纯鲜毛肚,现划鳝鱼,现炸酥肉,纯鲜鸭肠,嫩牛肉,纯鲜鹅肠\n**35** name: 超级李板凳·面(总店) , cusine: 小吃, price_per_preson: 19.0, recommended food:  \n**139** name: 庆合府重庆大排档(紫都城店) , cusine: 火锅, price_per_preson: 76.0, recommended food:  \n**221** name: 桃太郎创作料理(大学城店) , cusine: 日本料理, price_per_preson: 65.0, recommended food:  \n**407** name: 皮二哥重庆火锅 , cusine: 火锅, price_per_preson: 61.0, recommended food:  \n**47** name: 酒阳蒸经川菜小酒馆(观音桥总店) , cusine: 川菜, price_per_preson: 74.0, recommended food: 糖醋排骨,煎饺,酒阳蒸经,有机花菜,小土豆烧肉,包浆豆腐,激情秋葵,陈皮兔丁,卤藕片,干炒魔芋丝\n**240** name: 盛天毛血旺非遗美食(重庆来福士店) , cusine: 川菜, price_per_preson: 50.0, recommended food:  \n**308** name: 莽子肥肠鸡(重大c区店) , cusine: 川菜, price_per_preson: 63.0, recommended food:  \n**239** name: 纯阳老酒馆·川菜(观音桥店) , cusine: 川菜, price_per_preson: 79.0, recommended food:  \n**355** name: 酒牛二虎火锅馆 , cusine: 火锅, price_per_preson: 82.0, recommended food: 当日鲜毛肚,酥肉,鲜鹅肠,青花椒牛肉,干黄瓜条,带皮土豆\n**236** name: 嘎嘎鸭脑壳(五里店) , cusine: 川菜, price_per_preson: 78.0, recommended food:  \n**421** name: 较场口夜市 , cusine:  , price_per_preson: 46.0, recommended food:  \n**263** name: 重庆凯宾斯基酒店·国汇宴(会展中心店) , cusine: 粤菜, price_per_preson: 172.0, recommended food:  \n**256** name: 植闰咖啡(观音桥店) , cusine: 咖啡店, price_per_preson: 27.0, recommended food:  \n**194** name: 楠木町居酒屋(观音桥店) , cusine: 日本料理, price_per_preson: 125.0, recommended food: 三文鱼刺身,芥末章鱼,鲣鱼花豆腐排,明太鸡翅,烤青花鱼,玉子烧\n**260** name: 沧龙老火锅(洪崖洞店) , cusine: 火锅, price_per_preson: 77.0, recommended food:  \n**168** name: 啤气熊精酿鲜啤屋 , cusine: 川菜, price_per_preson: 50.0, recommended food: 纸包鲈鱼,猴赛雷比利时小麦,高老庄香橙小麦,桂树下中式艾尔,大暖男棕色艾尔,红孩儿红色艾尔,大境界世涛\n**251** name: 米氏火鱼·泡椒鱼火锅(李子坝老店) , cusine: 火锅, price_per_preson: 75.0, recommended food:  \n**126** name: 镇三关老火锅(北滨店) , cusine: 火锅, price_per_preson: 130.0, recommended food: 六郎老肉,精品鹅肠,鲜猪黄喉,六郎屠场毛肚,六郎血旺,现炸酥肉\n**82** name: 老麻抄手重庆小面(解放碑店) , cusine: 小吃, price_per_preson: 16.0, recommended food: 精品牛肉面二两,干溜豌杂面2两,老麻抄手,酸辣粉,肥肠小面2两,清汤抄手,老麻调料\n**81** name: 喜洋洋(中山四路店) , cusine: 川菜, price_per_preson: 64.0, recommended food: 糖醋里脊,小米排骨,秘制酱油鸡,椒麻鳝段,凉拌莴笋,筒子骨莲藕汤\n**267** name: 重庆嘉发希尔顿逸林酒店·嘉悦轩中餐厅 , cusine: 川菜, price_per_preson: 136.0, recommended food:  \n**286** name: 见涨火锅 , cusine: 火锅, price_per_preson: 83.0, recommended food: 猪蹄,酸梅汤,豆干丝,江团\n**208** name: 奈雪的茶(时代天街店) , cusine: 面包甜点, price_per_preson: 25.0, recommended food:  \n**39** name: 朝天门火锅(长嘉汇江景旗舰店) , cusine: 火锅, price_per_preson: 133.0, recommended food:  \n**331** name: 陶四喜火锅(五里店店) , cusine: 火锅, price_per_preson: 93.0, recommended food:  \n**383** name: 好家园老菜馆(北城天街店) , cusine: 川菜, price_per_preson: 69.0, recommended food:  \n**403** name: Gray Whale灰鲸餐厅(国金店) , cusine: 西餐, price_per_preson: 153.0, recommended food:  \n**368** name: 鲁祖庙古法火锅 , cusine: 火锅, price_per_preson: 84.0, recommended food:  \n**392** name: 猪脑壳老火锅(洋河店) , cusine: 火锅, price_per_preson: 105.0, recommended food:  \n**403** name: Gray Whale灰鲸餐厅(国金店) , cusine: 西餐, price_per_preson: 153.0, recommended food:  \n**236** name: 嘎嘎鸭脑壳(五里店) , cusine: 川菜, price_per_preson: 78.0, recommended food:  \n**170** name: 猪脑壳老火锅(谢家湾店) , cusine: 火锅, price_per_preson: 97.0, recommended food:  \n**308** name: 莽子肥肠鸡(重大c区店) , cusine: 川菜, price_per_preson: 63.0, recommended food:  \n**120** name: 泓崖小面·精品重庆面(解放碑店) , cusine: 小吃, price_per_preson: 15.0, recommended food:  \n**354** name: 尊宝比萨(较场口店) , cusine: 西餐, price_per_preson: 35.0, recommended food:  \n**371** name: 嘿嘟嘟烤肉(观音桥大融城店) , cusine: 韩国料理, price_per_preson: 95.0, recommended food:  \n**391** name: 大风老火锅(江北一店) , cusine: 火锅, price_per_preson: 96.0, recommended food: 特色毛肚,酥肉,多肉午餐肉,干贡菜,猪黄喉,麻辣牛肉\n**257** name: 过道老火锅(解放碑店) , cusine: 火锅, price_per_preson: 90.0, recommended food:  \n**415** name: 大吉烧肉与酒·活海鲜和牛超市(星光68店) , cusine: 烧烤, price_per_preson: 130.0, recommended food:  \n**253** name: 愚小面(解放碑店) , cusine: 小吃, price_per_preson: 32.0, recommended food:  \n**196** name: 城墙拐拐火锅(洋河店) , cusine: 火锅, price_per_preson: 84.0, recommended food:  \n**288** name: 南山有烧烤 , cusine: 烧烤, price_per_preson: 125.0, recommended food: 现切五花肉,八爪鱼,奥尔良鸡皮,扇贝,蔬菜拼盘\n**435** name: 花间一壶酒·私房菜·小酒馆(观音桥店) , cusine: 川菜, price_per_preson: 76.0, recommended food:  \n**400** name: 天棒老火锅(老店) , cusine: 火锅, price_per_preson: 98.0, recommended food: 鲜鸭血,牛杂拼盘,鱼籽虾滑,卤耙鸡脚,现炸酥肉,8秒海带苗\n**346** name: 九街三叁街头鸡脚筋串串(九街店) , cusine: 火锅, price_per_preson: 80.0, recommended food:  \n**35** name: 超级李板凳·面(总店) , cusine: 小吃, price_per_preson: 19.0, recommended food:  \n**267** name: 重庆嘉发希尔顿逸林酒店·嘉悦轩中餐厅 , cusine: 川菜, price_per_preson: 136.0, recommended food:  \n**212** name: 朱光玉火锅馆(北环店) , cusine: 火锅, price_per_preson: 106.0, recommended food:  \n[当前位置上海,目标位置重庆,旅行人数2,旅行天数3] 我要和女朋友从上海出发去重庆玩，大概三天。市内交通要求最省时间，预算4000的差旅费，帮我规划行程。\n在这次在重庆的旅行中,请帮我选择一些餐厅去吃，评估每个餐厅的相关性，看看是否需要安排到行程里\n请根据以上信息考虑什么样的餐厅满足我们的需求\n请简洁的回复:'}]
+Answer: ### 重庆三日行程规划
+
+#### 餐厅推荐
+1. **可乐老火锅(观音桥店)**  
+   - **Cuisine:** 火锅  
+   - **Price per person:** 77.0  
+   - **推荐理由:** 适合火锅爱好者，价格适中。
+
+2. **庆合府重庆大排档(紫都城店)**  
+   - **Cuisine:** 火锅  
+   - **Price per person:** 76.0  
+   - **推荐理由:** 经典重庆火锅，性价比高。
+
+3. **酒阳蒸经川菜小酒馆(观音桥总店)**  
+   - **Cuisine:** 川菜  
+   - **Price per person:** 74.0  
+   - **推荐理由:** 体验地道川菜，适合想尝试不同口味的你们。
+
+4. **猪脑壳老火锅(谢家湾店)**  
+   - **Cuisine:** 火锅  
+   - **Price per person:** 97.0  
+   - **推荐理由:** 特色火锅，适合火锅爱好者。
+
+5. **大风老火锅(江北一店)**  
+   - **Cuisine:** 火锅  
+   - **Price per person:** 96.0  
+   - **推荐理由:** 特色毛肚，适合火锅爱好者。
+
+#### 行程安排
+- **第一天:** 
+  - 抵达重庆，入住酒店。
+  - 晚餐：可乐老火锅(观音桥店)。
+
+- **第二天:** 
+  - 上午：游览解放碑、洪崖洞。
+  - 午餐：庆合府重庆大排档(紫都城店)。
+  - 下午：游览长江索道。
+  - 晚餐：酒阳蒸经川菜小酒馆(观音桥总店)。
+
+- **第三天:** 
+  - 上午：游览磁器口古镇。
+  - 午餐：猪脑壳老火锅(谢家湾店)。
+  - 下午：游览南山一棵树观景台。
+  - 晚餐：大风老火锅(江北一店)。
+
+#### 预算评估
+- 餐饮预算（假设每餐两人）：
+  - 可乐老火锅: 154.0
+  - 庆合府: 152.0
+  - 酒阳蒸经: 148.0
+  - 猪脑壳: 194.0
+  - 大风老火锅: 192.0
+  - **总计:** 840.0
+
+- 交通、住宿及其他费用可根据预算灵活调整。
+
+### 总结
+以上餐厅均为火锅和川菜，符合重庆特色，适合你们的需求。希望你们在重庆度过愉快的时光！
+LLM query:  [{'role': 'user', 'content': '### 重庆三日行程规划\n\n#### 餐厅推荐\n1. **可乐老火锅(观音桥店)**  \n   - **Cuisine:** 火锅  \n   - **Price per person:** 77.0  \n   - **推荐理由:** 适合火锅爱好者，价格适中。\n\n2. **庆合府重庆大排档(紫都城店)**  \n   - **Cuisine:** 火锅  \n   - **Price per person:** 76.0  \n   - **推荐理由:** 经典重庆火锅，性价比高。\n\n3. **酒阳蒸经川菜小酒馆(观音桥总店)**  \n   - **Cuisine:** 川菜  \n   - **Price per person:** 74.0  \n   - **推荐理由:** 体验地道川菜，适合想尝试不同口味的你们。\n\n4. **猪脑壳老火锅(谢家湾店)**  \n   - **Cuisine:** 火锅  \n   - **Price per person:** 97.0  \n   - **推荐理由:** 特色火锅，适合火锅爱好者。\n\n5. **大风老火锅(江北一店)**  \n   - **Cuisine:** 火锅  \n   - **Price per person:** 96.0  \n   - **推荐理由:** 特色毛肚，适合火锅爱好者。\n\n#### 行程安排\n- **第一天:** \n  - 抵达重庆，入住酒店。\n  - 晚餐：可乐老火锅(观音桥店)。\n\n- **第二天:** \n  - 上午：游览解放碑、洪崖洞。\n  - 午餐：庆合府重庆大排档(紫都城店)。\n  - 下午：游览长江索道。\n  - 晚餐：酒阳蒸经川菜小酒馆(观音桥总店)。\n\n- **第三天:** \n  - 上午：游览磁器口古镇。\n  - 午餐：猪脑壳老火锅(谢家湾店)。\n  - 下午：游览南山一棵树观景台。\n  - 晚餐：大风老火锅(江北一店)。\n\n#### 预算评估\n- 餐饮预算（假设每餐两人）：\n  - 可乐老火锅: 154.0\n  - 庆合府: 152.0\n  - 酒阳蒸经: 148.0\n  - 猪脑壳: 194.0\n  - 大风老火锅: 192.0\n  - **总计:** 840.0\n\n- 交通、住宿及其他费用可根据预算灵活调整。\n\n### 总结\n以上餐厅均为火锅和川菜，符合重庆特色，适合你们的需求。希望你们在重庆度过愉快的时光！\n请将上述内容中涉及到的名字（景点、餐厅）提取出来，并用逗号隔开。Answer:'}]
+Answer: 可乐老火锅(观音桥店), 庆合府重庆大排档(紫都城店), 酒阳蒸经川菜小酒馆(观音桥总店), 猪脑壳老火锅(谢家湾店), 大风老火锅(江北一店), 解放碑, 洪崖洞, 长江索道, 磁器口古镇, 南山一棵树观景台
+Score Over!
+search: ...
+POI planning, day 0 19:30, 重庆北站, next-poi type: lunch
+try another poi type
+POI planning, day 0 19:30, 重庆北站, next-poi type: dinner
+try another poi type
+POI planning, day 0 19:30, 重庆北站, next-poi type: attraction
+POI planning, day 0 22:00, 飞越重庆悬空影院, next-poi type: hotel
+POI planning, day 1 08:30, 重庆清阅·OneJasper精选酒店, next-poi type: attraction
+POI planning, day 1 12:53, 南湖多彩植物园, next-poi type: lunch
+try another poi type
+POI planning, day 1 12:53, 南湖多彩植物园, next-poi type: attraction
+POI planning, day 1 18:00, 重庆大剧院, next-poi type: lunch
+try another poi type
+POI planning, day 1 18:00, 重庆大剧院, next-poi type: dinner
+POI planning, day 1 19:54, 酒阳蒸经川菜小酒馆(观音桥总店), next-poi type: lunch
+try another poi type
+POI planning, day 1 19:54, 酒阳蒸经川菜小酒馆(观音桥总店), next-poi type: attraction
+POI planning, day 1 20:38, 长江索道, next-poi type: hotel
+POI planning, day 2 08:30, 重庆清阅·OneJasper精选酒店, next-poi type: attraction
+POI planning, day 2 10:44, 汉海海洋公园, next-poi type: lunch
+POI planning, day 2 13:00, 猪脑壳老火锅(谢家湾店), next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+False GoTo error
+GoTo error
+{'days': 3, 'people_number': 2, 'cost': 4756.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'Z', 'D'}, 'food_type': {'火锅', '川菜'}, 'spot_type': {'游乐园/体育娱乐', '公园', '人文景观'}, 'hotel_feature': {'管家服务'}, 'food_price': 85.5, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'猪脑壳老火锅(谢家湾店)', '酒阳蒸经川菜小酒馆(观音桥总店)'}, 'attraction_names': {'长江索道', '汉海海洋公园', '南湖多彩植物园', '飞越重庆悬空影院', '重庆大剧院'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:00, 猪脑壳老火锅(谢家湾店), next-poi type: attraction
+Can not go back source-city in time, current POI 白公馆, station arrived time: 15:12
+Can not go back source-city in time, current POI 钓鱼台, station arrived time: 25:02
+query: {'start_city': '上海', 'target_city': '重庆', 'people_number': 2, 'days': 3, 'hard_logic': ['cost_hotel + cost_intercity_transport <= 4000', 'days==3', 'people_number==2'], 'preference': ['交通尽可能便利'], 'nature_language': '[当前位置上海,目标位置重庆,旅行人数2,旅行天数3] 我要和女朋友从上海出发去重庆玩，大概三天。市内交通要求最省时间，预算4000的差旅费，帮我规划行程。', 'preference_en': ['convenient transportation']}
+query: {'start_city': '上海', 'target_city': '重庆', 'people_number': 2, 'days': 3, 'hard_logic': ['cost_hotel + cost_intercity_transport <= 4000', 'days==3', 'people_number==2'], 'preference': ['交通尽可能便利'], 'nature_language': '[当前位置上海,目标位置重庆,旅行人数2,旅行天数3] 我要和女朋友从上海出发去重庆玩，大概三天。市内交通要求最省时间，预算4000的差旅费，帮我规划行程。', 'preference_en': ['convenient transportation'], 'transport_preference': 'metro', 'hard_logic_unseen': ['cost_hotel + cost_intercity_transport <= 4000']}
+from 上海 to 重庆: 10 flights, 30 trains
+from 重庆 to 上海: 10 flights, 23 trains
+重庆 accommmodation, 373 hotels (satisfied requirments)
+LLM query:  [{'role': 'user', 'content': '**293** name: 钓鱼台 , price_per_preson: 0.0, type: 历史古迹\n**263** name: 戴家巷崖壁步道 , price_per_preson: 0.0, type: 人文景观\n**145** name: 重庆大剧院 , price_per_preson: 0.0, type: 人文景观\n**89** name: 芙蓉江 , price_per_preson: 100.0, type: 自然风光\n**177** name: 小南海 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**140** name: 联合国际大厦 , price_per_preson: 0.0, type: 商业街区\n**271** name: 西山公园 , price_per_preson: 0.0, type: 公园\n**105** name: 白帝城 , price_per_preson: 0.0, type: 历史古迹\n**165** name: 长寿湖 , price_per_preson: 32.0, type: 自然风光\n**202** name: 滑石古寨景区 , price_per_preson: 36.0, type: 人文景观\n**315** name: 天下第一风雨廊桥 , price_per_preson: 0.0, type: 人文景观\n**175** name: 双桂山国家森林公园 , price_per_preson: 0.0, type: 公园\n**97** name: 鹅岭公园 , price_per_preson: 0.0, type: 公园\n**262** name: 石柱森林王国度假区 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**214** name: 神龟峡 , price_per_preson: 128.0, type: 自然风光\n**86** name: 阿依河景区 , price_per_preson: 81.0, type: 自然风光\n**315** name: 天下第一风雨廊桥 , price_per_preson: 0.0, type: 人文景观\n**341** name: 川剧博物馆 , price_per_preson: 0.0, type: 博物馆/纪念馆\n**281** name: 南湖多彩植物园 , price_per_preson: 60.0, type: 公园\n**313** name: 东水门长江大桥 , price_per_preson: 0.0, type: 人文景观\n**107** name: 天眼洞花岭 , price_per_preson: 49.0, type: 自然风光\n**253** name: 重庆人民广场 , price_per_preson: 0.0, type: 公园\n**311** name: 江北嘴江滩公园 , price_per_preson: 0.0, type: 公园\n**237** name: (重庆黄水旅游度假区)秘境黄水奇幻乐园 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**163** name: 汉海鲸豚湾水世界 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**34** name: 白公馆 , price_per_preson: 0.0, type: 历史古迹\n**150** name: 磁器口转运楼 , price_per_preson: 0.0, type: 历史古迹\n**211** name: 金佛山北坡滑雪场 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**316** name: 重庆工业文化博览园 , price_per_preson: 0.0, type: 博物馆/纪念馆\n**335** name: 碧津公园 , price_per_preson: 0.0, type: 公园\n**165** name: 长寿湖 , price_per_preson: 32.0, type: 自然风光\n**300** name: 两江汇观景台 , price_per_preson: 0.0, type: 人文景观\n**90** name: 汉海海洋公园 , price_per_preson: 145.0, type: 游乐园/体育娱乐\n**279** name: 重庆山城高空跳伞基地 , price_per_preson: 1880.0, type: 游乐园/体育娱乐\n**190** name: 安居古城 , price_per_preson: 0.0, type: 历史古迹\n**4** name: 重庆两江游 , price_per_preson: 138.0, type: 游乐园/体育娱乐\n**249** name: 地方土特产及巴渝名小吃一条街 , price_per_preson: 0.0, type: 商业街区\n**138** name: 仙女山树顶漫步 , price_per_preson: 69.0, type: 游乐园/体育娱乐\n**286** name: 慈云寺 , price_per_preson: 0.0, type: 历史古迹\n**231** name: 昌州古城 , price_per_preson: 0.0, type: 历史古迹\n**0** name: 长江索道 , price_per_preson: 20.0, type: 游乐园/体育娱乐\n**171** name: 际华园极限运动中心 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**301** name: 大足石刻数字影院 , price_per_preson: 0.0, type: 人文景观\n**84** name: 石宝寨 , price_per_preson: 45.0, type: 历史古迹\n**112** name: 重庆海昌加勒比海水世界 , price_per_preson: 45.0, type: 游乐园/体育娱乐\n**302** name: 石柱万寿山景区 , price_per_preson: 62.0, type: 自然风光\n**66** name: 北山石刻 , price_per_preson: 58.0, type: 历史古迹\n**196** name: 飞越重庆悬空影院 , price_per_preson: 29.9, type: 游乐园/体育娱乐\n**82** name: 瞿塘峡 , price_per_preson: 0.0, type: 自然风光\n**335** name: 碧津公园 , price_per_preson: 0.0, type: 公园\n[当前位置上海,目标位置重庆,旅行人数2,旅行天数3] 我要和女朋友从上海出发去重庆玩，大概三天。市内交通要求最省时间，预算4000的差旅费，帮我规划行程。\n在这次在重庆的旅行中，请帮我评估每个景点的游玩重要性，看看是否需要安排到行程里\n请根据以上信息考虑什么样的景点满足我们的需求\n请简洁的回复:'}]
+Answer: ### 重庆三日游行程规划
+
+#### 预算：4000元（含交通、餐饮、门票等）
+
+#### 第一天：历史与文化
+1. **钓鱼台** (免费) - 了解重庆的历史。
+2. **白公馆** (免费) - 参观历史遗址。
+3. **重庆大剧院** (免费) - 欣赏建筑美。
+4. **长江索道** (20元/人) - 体验重庆的独特交通方式。
+5. **晚餐** - 尝试当地美食，预算约200元。
+
+#### 第二天：自然风光与游乐
+1. **长寿湖** (32元/人) - 享受湖边风光。
+2. **阿依河景区** (81元/人) - 体验自然美景。
+3. **汉海海洋公园** (145元/人) - 游玩水上乐园。
+4. **晚餐** - 预算约200元。
+
+#### 第三天：人文与休闲
+1. **滑石古寨景区** (36元/人) - 体验人文景观。
+2. **南湖多彩植物园** (60元/人) - 享受宁静的公园。
+3. **飞越重庆悬空影院** (29.9元/人) - 体验新奇的影院。
+4. **晚餐** - 预算约200元。
+
+### 总预算估算
+- **门票**：约 400元（2人）
+- **餐饮**：约 600元（3天）
+- **交通**：约 500元（市内交通）
+- **其他**：约 2500元（住宿及其他）
+
+### 重要性评估
+- **历史古迹**：高 - 了解重庆文化。
+- **自然风光**：高 - 享受美丽景色。
+- **游乐园**：中 - 适合放松与娱乐。
+- **人文景观**：中 - 增加旅行的多样性。
+
+### 建议
+- 优先选择历史与自然景点，适当安排游乐项目，确保行程丰富而不匆忙。
+LLM query:  [{'role': 'user', 'content': '### 重庆三日游行程规划\n\n#### 预算：4000元（含交通、餐饮、门票等）\n\n#### 第一天：历史与文化\n1. **钓鱼台** (免费) - 了解重庆的历史。\n2. **白公馆** (免费) - 参观历史遗址。\n3. **重庆大剧院** (免费) - 欣赏建筑美。\n4. **长江索道** (20元/人) - 体验重庆的独特交通方式。\n5. **晚餐** - 尝试当地美食，预算约200元。\n\n#### 第二天：自然风光与游乐\n1. **长寿湖** (32元/人) - 享受湖边风光。\n2. **阿依河景区** (81元/人) - 体验自然美景。\n3. **汉海海洋公园** (145元/人) - 游玩水上乐园。\n4. **晚餐** - 预算约200元。\n\n#### 第三天：人文与休闲\n1. **滑石古寨景区** (36元/人) - 体验人文景观。\n2. **南湖多彩植物园** (60元/人) - 享受宁静的公园。\n3. **飞越重庆悬空影院** (29.9元/人) - 体验新奇的影院。\n4. **晚餐** - 预算约200元。\n\n### 总预算估算\n- **门票**：约 400元（2人）\n- **餐饮**：约 600元（3天）\n- **交通**：约 500元（市内交通）\n- **其他**：约 2500元（住宿及其他）\n\n### 重要性评估\n- **历史古迹**：高 - 了解重庆文化。\n- **自然风光**：高 - 享受美丽景色。\n- **游乐园**：中 - 适合放松与娱乐。\n- **人文景观**：中 - 增加旅行的多样性。\n\n### 建议\n- 优先选择历史与自然景点，适当安排游乐项目，确保行程丰富而不匆忙。\n请将上述内容中涉及到的名字（景点、餐厅）提取出来，并用逗号隔开。Answer:'}]
+Answer: 钓鱼台, 白公馆, 重庆大剧院, 长江索道, 长寿湖, 阿依河景区, 汉海海洋公园, 滑石古寨景区, 南湖多彩植物园, 飞越重庆悬空影院
+Score Over!
+LLM query:  [{'role': 'user', 'content': '**350** name: 可乐老火锅(观音桥店) , cusine: 火锅, price_per_preson: 77.0, recommended food:  \n**195** name: 储奇门鳝鱼火锅(总店) , cusine: 火锅, price_per_preson: 88.0, recommended food: 纯鲜毛肚,现划鳝鱼,现炸酥肉,纯鲜鸭肠,嫩牛肉,纯鲜鹅肠\n**35** name: 超级李板凳·面(总店) , cusine: 小吃, price_per_preson: 19.0, recommended food:  \n**139** name: 庆合府重庆大排档(紫都城店) , cusine: 火锅, price_per_preson: 76.0, recommended food:  \n**221** name: 桃太郎创作料理(大学城店) , cusine: 日本料理, price_per_preson: 65.0, recommended food:  \n**407** name: 皮二哥重庆火锅 , cusine: 火锅, price_per_preson: 61.0, recommended food:  \n**47** name: 酒阳蒸经川菜小酒馆(观音桥总店) , cusine: 川菜, price_per_preson: 74.0, recommended food: 糖醋排骨,煎饺,酒阳蒸经,有机花菜,小土豆烧肉,包浆豆腐,激情秋葵,陈皮兔丁,卤藕片,干炒魔芋丝\n**240** name: 盛天毛血旺非遗美食(重庆来福士店) , cusine: 川菜, price_per_preson: 50.0, recommended food:  \n**308** name: 莽子肥肠鸡(重大c区店) , cusine: 川菜, price_per_preson: 63.0, recommended food:  \n**239** name: 纯阳老酒馆·川菜(观音桥店) , cusine: 川菜, price_per_preson: 79.0, recommended food:  \n**355** name: 酒牛二虎火锅馆 , cusine: 火锅, price_per_preson: 82.0, recommended food: 当日鲜毛肚,酥肉,鲜鹅肠,青花椒牛肉,干黄瓜条,带皮土豆\n**236** name: 嘎嘎鸭脑壳(五里店) , cusine: 川菜, price_per_preson: 78.0, recommended food:  \n**421** name: 较场口夜市 , cusine:  , price_per_preson: 46.0, recommended food:  \n**263** name: 重庆凯宾斯基酒店·国汇宴(会展中心店) , cusine: 粤菜, price_per_preson: 172.0, recommended food:  \n**256** name: 植闰咖啡(观音桥店) , cusine: 咖啡店, price_per_preson: 27.0, recommended food:  \n**194** name: 楠木町居酒屋(观音桥店) , cusine: 日本料理, price_per_preson: 125.0, recommended food: 三文鱼刺身,芥末章鱼,鲣鱼花豆腐排,明太鸡翅,烤青花鱼,玉子烧\n**260** name: 沧龙老火锅(洪崖洞店) , cusine: 火锅, price_per_preson: 77.0, recommended food:  \n**168** name: 啤气熊精酿鲜啤屋 , cusine: 川菜, price_per_preson: 50.0, recommended food: 纸包鲈鱼,猴赛雷比利时小麦,高老庄香橙小麦,桂树下中式艾尔,大暖男棕色艾尔,红孩儿红色艾尔,大境界世涛\n**251** name: 米氏火鱼·泡椒鱼火锅(李子坝老店) , cusine: 火锅, price_per_preson: 75.0, recommended food:  \n**126** name: 镇三关老火锅(北滨店) , cusine: 火锅, price_per_preson: 130.0, recommended food: 六郎老肉,精品鹅肠,鲜猪黄喉,六郎屠场毛肚,六郎血旺,现炸酥肉\n**82** name: 老麻抄手重庆小面(解放碑店) , cusine: 小吃, price_per_preson: 16.0, recommended food: 精品牛肉面二两,干溜豌杂面2两,老麻抄手,酸辣粉,肥肠小面2两,清汤抄手,老麻调料\n**81** name: 喜洋洋(中山四路店) , cusine: 川菜, price_per_preson: 64.0, recommended food: 糖醋里脊,小米排骨,秘制酱油鸡,椒麻鳝段,凉拌莴笋,筒子骨莲藕汤\n**267** name: 重庆嘉发希尔顿逸林酒店·嘉悦轩中餐厅 , cusine: 川菜, price_per_preson: 136.0, recommended food:  \n**286** name: 见涨火锅 , cusine: 火锅, price_per_preson: 83.0, recommended food: 猪蹄,酸梅汤,豆干丝,江团\n**208** name: 奈雪的茶(时代天街店) , cusine: 面包甜点, price_per_preson: 25.0, recommended food:  \n**39** name: 朝天门火锅(长嘉汇江景旗舰店) , cusine: 火锅, price_per_preson: 133.0, recommended food:  \n**331** name: 陶四喜火锅(五里店店) , cusine: 火锅, price_per_preson: 93.0, recommended food:  \n**383** name: 好家园老菜馆(北城天街店) , cusine: 川菜, price_per_preson: 69.0, recommended food:  \n**403** name: Gray Whale灰鲸餐厅(国金店) , cusine: 西餐, price_per_preson: 153.0, recommended food:  \n**368** name: 鲁祖庙古法火锅 , cusine: 火锅, price_per_preson: 84.0, recommended food:  \n**392** name: 猪脑壳老火锅(洋河店) , cusine: 火锅, price_per_preson: 105.0, recommended food:  \n**403** name: Gray Whale灰鲸餐厅(国金店) , cusine: 西餐, price_per_preson: 153.0, recommended food:  \n**236** name: 嘎嘎鸭脑壳(五里店) , cusine: 川菜, price_per_preson: 78.0, recommended food:  \n**170** name: 猪脑壳老火锅(谢家湾店) , cusine: 火锅, price_per_preson: 97.0, recommended food:  \n**308** name: 莽子肥肠鸡(重大c区店) , cusine: 川菜, price_per_preson: 63.0, recommended food:  \n**120** name: 泓崖小面·精品重庆面(解放碑店) , cusine: 小吃, price_per_preson: 15.0, recommended food:  \n**354** name: 尊宝比萨(较场口店) , cusine: 西餐, price_per_preson: 35.0, recommended food:  \n**371** name: 嘿嘟嘟烤肉(观音桥大融城店) , cusine: 韩国料理, price_per_preson: 95.0, recommended food:  \n**391** name: 大风老火锅(江北一店) , cusine: 火锅, price_per_preson: 96.0, recommended food: 特色毛肚,酥肉,多肉午餐肉,干贡菜,猪黄喉,麻辣牛肉\n**257** name: 过道老火锅(解放碑店) , cusine: 火锅, price_per_preson: 90.0, recommended food:  \n**415** name: 大吉烧肉与酒·活海鲜和牛超市(星光68店) , cusine: 烧烤, price_per_preson: 130.0, recommended food:  \n**253** name: 愚小面(解放碑店) , cusine: 小吃, price_per_preson: 32.0, recommended food:  \n**196** name: 城墙拐拐火锅(洋河店) , cusine: 火锅, price_per_preson: 84.0, recommended food:  \n**288** name: 南山有烧烤 , cusine: 烧烤, price_per_preson: 125.0, recommended food: 现切五花肉,八爪鱼,奥尔良鸡皮,扇贝,蔬菜拼盘\n**435** name: 花间一壶酒·私房菜·小酒馆(观音桥店) , cusine: 川菜, price_per_preson: 76.0, recommended food:  \n**400** name: 天棒老火锅(老店) , cusine: 火锅, price_per_preson: 98.0, recommended food: 鲜鸭血,牛杂拼盘,鱼籽虾滑,卤耙鸡脚,现炸酥肉,8秒海带苗\n**346** name: 九街三叁街头鸡脚筋串串(九街店) , cusine: 火锅, price_per_preson: 80.0, recommended food:  \n**35** name: 超级李板凳·面(总店) , cusine: 小吃, price_per_preson: 19.0, recommended food:  \n**267** name: 重庆嘉发希尔顿逸林酒店·嘉悦轩中餐厅 , cusine: 川菜, price_per_preson: 136.0, recommended food:  \n**212** name: 朱光玉火锅馆(北环店) , cusine: 火锅, price_per_preson: 106.0, recommended food:  \n[当前位置上海,目标位置重庆,旅行人数2,旅行天数3] 我要和女朋友从上海出发去重庆玩，大概三天。市内交通要求最省时间，预算4000的差旅费，帮我规划行程。\n在这次在重庆的旅行中,请帮我选择一些餐厅去吃，评估每个餐厅的相关性，看看是否需要安排到行程里\n请根据以上信息考虑什么样的餐厅满足我们的需求\n请简洁的回复:'}]
+Answer: ### 重庆三日行程规划
+
+#### 餐厅推荐
+1. **可乐老火锅(观音桥店)**  
+   - **Cuisine:** 火锅  
+   - **Price per person:** 77.0  
+   - **推荐理由:** 适合火锅爱好者，性价比高。
+
+2. **庆合府重庆大排档(紫都城店)**  
+   - **Cuisine:** 火锅  
+   - **Price per person:** 76.0  
+   - **推荐理由:** 经典重庆火锅，价格合理。
+
+3. **酒阳蒸经川菜小酒馆(观音桥总店)**  
+   - **Cuisine:** 川菜  
+   - **Price per person:** 74.0  
+   - **推荐理由:** 适合想尝试川菜的游客，菜品丰富。
+
+4. **酒牛二虎火锅馆**  
+   - **Cuisine:** 火锅  
+   - **Price per person:** 82.0  
+   - **推荐理由:** 新鲜食材，适合火锅聚餐。
+
+5. **大风老火锅(江北一店)**  
+   - **Cuisine:** 火锅  
+   - **Price per person:** 96.0  
+   - **推荐理由:** 特色菜品，适合火锅爱好者。
+
+#### 行程安排
+- **第一天:** 
+  - 抵达重庆，入住酒店。
+  - 晚餐：可乐老火锅(观音桥店)。
+
+- **第二天:** 
+  - 上午：游览解放碑、洪崖洞。
+  - 午餐：庆合府重庆大排档(紫都城店)。
+  - 下午：游览长江索道。
+  - 晚餐：酒阳蒸经川菜小酒馆(观音桥总店)。
+
+- **第三天:** 
+  - 上午：游览磁器口古镇。
+  - 午餐：酒牛二虎火锅馆。
+  - 下午：游览重庆博物馆。
+  - 晚餐：大风老火锅(江北一店)。
+
+#### 预算评估
+- 餐饮预算（3天，2人）: 约 1000 - 1200元
+- 交通、住宿及其他费用：约 2800 - 3000元
+- 总预算：4000元内可行。
+
+### 总结
+以上餐厅均为火锅和川菜，符合重庆特色，适合情侣共享美食。行程安排合理，确保时间利用高效。
+LLM query:  [{'role': 'user', 'content': '### 重庆三日行程规划\n\n#### 餐厅推荐\n1. **可乐老火锅(观音桥店)**  \n   - **Cuisine:** 火锅  \n   - **Price per person:** 77.0  \n   - **推荐理由:** 适合火锅爱好者，性价比高。\n\n2. **庆合府重庆大排档(紫都城店)**  \n   - **Cuisine:** 火锅  \n   - **Price per person:** 76.0  \n   - **推荐理由:** 经典重庆火锅，价格合理。\n\n3. **酒阳蒸经川菜小酒馆(观音桥总店)**  \n   - **Cuisine:** 川菜  \n   - **Price per person:** 74.0  \n   - **推荐理由:** 适合想尝试川菜的游客，菜品丰富。\n\n4. **酒牛二虎火锅馆**  \n   - **Cuisine:** 火锅  \n   - **Price per person:** 82.0  \n   - **推荐理由:** 新鲜食材，适合火锅聚餐。\n\n5. **大风老火锅(江北一店)**  \n   - **Cuisine:** 火锅  \n   - **Price per person:** 96.0  \n   - **推荐理由:** 特色菜品，适合火锅爱好者。\n\n#### 行程安排\n- **第一天:** \n  - 抵达重庆，入住酒店。\n  - 晚餐：可乐老火锅(观音桥店)。\n\n- **第二天:** \n  - 上午：游览解放碑、洪崖洞。\n  - 午餐：庆合府重庆大排档(紫都城店)。\n  - 下午：游览长江索道。\n  - 晚餐：酒阳蒸经川菜小酒馆(观音桥总店)。\n\n- **第三天:** \n  - 上午：游览磁器口古镇。\n  - 午餐：酒牛二虎火锅馆。\n  - 下午：游览重庆博物馆。\n  - 晚餐：大风老火锅(江北一店)。\n\n#### 预算评估\n- 餐饮预算（3天，2人）: 约 1000 - 1200元\n- 交通、住宿及其他费用：约 2800 - 3000元\n- 总预算：4000元内可行。\n\n### 总结\n以上餐厅均为火锅和川菜，符合重庆特色，适合情侣共享美食。行程安排合理，确保时间利用高效。\n请将上述内容中涉及到的名字（景点、餐厅）提取出来，并用逗号隔开。Answer:'}]
+Answer: 可乐老火锅(观音桥店), 庆合府重庆大排档(紫都城店), 酒阳蒸经川菜小酒馆(观音桥总店), 酒牛二虎火锅馆, 大风老火锅(江北一店), 解放碑, 洪崖洞, 长江索道, 磁器口古镇, 重庆博物馆
+Score Over!
+search: ...
+POI planning, day 0 19:30, 重庆北站, next-poi type: lunch
+try another poi type
+POI planning, day 0 19:30, 重庆北站, next-poi type: dinner
+try another poi type
+POI planning, day 0 19:30, 重庆北站, next-poi type: attraction
+POI planning, day 0 22:00, 飞越重庆悬空影院, next-poi type: hotel
+POI planning, day 1 08:30, 重庆清阅·OneJasper精选酒店, next-poi type: attraction
+POI planning, day 1 12:53, 南湖多彩植物园, next-poi type: lunch
+try another poi type
+POI planning, day 1 12:53, 南湖多彩植物园, next-poi type: attraction
+POI planning, day 1 18:00, 重庆大剧院, next-poi type: lunch
+try another poi type
+POI planning, day 1 18:00, 重庆大剧院, next-poi type: dinner
+POI planning, day 1 19:54, 酒阳蒸经川菜小酒馆(观音桥总店), next-poi type: lunch
+try another poi type
+POI planning, day 1 19:54, 酒阳蒸经川菜小酒馆(观音桥总店), next-poi type: attraction
+POI planning, day 1 20:38, 长江索道, next-poi type: hotel
+POI planning, day 2 08:30, 重庆清阅·OneJasper精选酒店, next-poi type: attraction
+POI planning, day 2 10:44, 汉海海洋公园, next-poi type: lunch
+POI planning, day 2 13:07, 酒牛二虎火锅馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4726.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜', '火锅'}, 'spot_type': {'公园', '人文景观', '游乐园/体育娱乐'}, 'hotel_feature': {'管家服务'}, 'food_price': 78.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆', '酒阳蒸经川菜小酒馆(观音桥总店)'}, 'attraction_names': {'飞越重庆悬空影院', '长江索道', '汉海海洋公园', '重庆大剧院', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:07, 酒牛二虎火锅馆, next-poi type: attraction
+Can not go back source-city in time, current POI 白公馆, station arrived time: 15:14
+Can not go back source-city in time, current POI 钓鱼台, station arrived time: 24:56
+Can not go back source-city in time, current POI 汉海鲸豚湾水世界, station arrived time: 17:09
+Can not go back source-city in time, current POI 重庆沉浸式悬浮剧场, station arrived time: 14:11
+Can not go back source-city in time, current POI 重庆长江索道南站, station arrived time: 15:54
+Can not go back source-city in time, current POI 长寿古镇, station arrived time: 25:56
+Can not go back source-city in time, current POI 重庆长江大桥, station arrived time: 16:28
+Can not go back source-city in time, current POI 重庆夜游, station arrived time: 14:18
+Can not go back source-city in time, current POI 重庆市规划展览馆, station arrived time: 14:19
+Can not go back source-city in time, current POI 重庆WFC会仙楼观景台, station arrived time: 14:16
+Can not go back source-city in time, current POI 重庆人民广场, station arrived time: 15:35
+Can not go back source-city in time, current POI 长寿菩提山文化旅游景区, station arrived time: 26:36
+Can not go back source-city in time, current POI 重庆美术馆, station arrived time: 14:46
+Can not go back source-city in time, current POI 重庆工业文化博览园, station arrived time: 16:51
+Can not go back source-city in time, current POI 重庆大轰炸“六五”隧道惨案史实展馆, station arrived time: 14:41
+Can not go back source-city in time, current POI 周公馆, station arrived time: 14:45
+Can not go back source-city in time, current POI 重庆云端之眼观景台, station arrived time: 14:16
+Can not go back source-city in time, current POI 重庆自然博物馆（新馆）, station arrived time: 18:06
+Can not go back source-city in time, current POI 重庆科技馆, station arrived time: 17:03
+Can not go back source-city in time, current POI 国民政府军事委员会旧址-重庆行营, station arrived time: 16:47
+Can not go back source-city in time, current POI 重庆开埠遗址公园, station arrived time: 15:48
+Can not go back source-city in time, current POI 重庆中央公园, station arrived time: 15:53
+Can not go back source-city in time, current POI 东水门长江大桥, station arrived time: 15:19
+Can not go back source-city in time, current POI 重庆工业博物馆, station arrived time: 15:51
+Can not go back source-city in time, current POI 重庆图书馆, station arrived time: 17:00
+Can not go back source-city in time, current POI 飞越重庆(解放碑八一广场店), station arrived time: 14:11
+Can not go back source-city in time, current POI 重庆国际马戏城, station arrived time: 20:31
+Can not go back source-city in time, current POI 重庆国泰艺术中心, station arrived time: 15:16
+Can not go back source-city in time, current POI 漫游重庆·都市观光巴士, station arrived time: 14:54
+Can not go back source-city in time, current POI 重庆国际博览中心, station arrived time: 14:46
+Can not go back source-city in time, current POI 重庆建川博物馆聚落, station arrived time: 14:49
+Can not go back source-city in time, current POI 重庆歌乐山革命纪念馆, station arrived time: 15:00
+Can not go back source-city in time, current POI 重庆长江三峡游船, station arrived time: 15:00
+Can not go back source-city in time, current POI 重庆园博园, station arrived time: 16:59
+Can not go back source-city in time, current POI 重庆十八梯传统风貌区, station arrived time: 16:47
+Can not go back source-city in time, current POI 重庆熙街, station arrived time: 16:18
+Can not go back source-city in time, current POI 神女湖, station arrived time: 29:27
+Can not go back source-city in time, current POI 重庆谈判旧址-怡园, station arrived time: 14:30
+Can not go back source-city in time, current POI 重庆海洋世界, station arrived time: 15:31
+Can not go back source-city in time, current POI 重庆湖广会馆, station arrived time: 14:52
+Can not go back source-city in time, current POI 重庆动物园, station arrived time: 15:01
+Can not go back source-city in time, current POI 重庆光环购物公园室内植物园“沐光森林”, station arrived time: 15:59
+Can not go back source-city in time, current POI 重庆两江游, station arrived time: 14:48
+Can not go back source-city in time, current POI 长江三峡-世纪传奇游轮, station arrived time: 16:15
+Can not go back source-city in time, current POI 重庆融创渝乐小镇, station arrived time: 19:13
+POI planning, day 2 13:58, 川剧博物馆, next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4730.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'D', 'Z'}, 'food_type': {'川菜', '火锅'}, 'spot_type': {'博物馆/纪念馆', '公园', '人文景观', '游乐园/体育娱乐'}, 'hotel_feature': {'管家服务'}, 'food_price': 78.0, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'酒牛二虎火锅馆', '酒阳蒸经川菜小酒馆(观音桥总店)'}, 'attraction_names': {'飞越重庆悬空影院', '长江索道', '汉海海洋公园', '川剧博物馆', '重庆大剧院', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+Error evaluating constraint 'cost_hotel + cost_intercity_transport <= 4000': 'NoneType' object is not subscriptable
+[False, True, True]
+cost_hotel + cost_intercity_transport <= 4000 failed...
+days==3 passed!
+people_number==2 passed!
+
+ Failed 
+
+[We choose to go back transport and finish this trip], but constraints_validation failed...
+try another poi type
+POI planning, day 2 13:58, 川剧博物馆, next-poi type: attraction
+Can not go back source-city in time, current POI 白公馆, station arrived time: 16:02
+Can not go back source-city in time, current POI 钓鱼台, station arrived time: 25:31
+Can not go back source-city in time, current POI 汉海鲸豚湾水世界, station arrived time: 18:08
+Can not go back source-city in time, current POI 重庆沉浸式悬浮剧场, station arrived time: 15:05
+Can not go back source-city in time, current POI 重庆长江索道南站, station arrived time: 16:47
+Can not go back source-city in time, current POI 长寿古镇, station arrived time: 26:35
+Can not go back source-city in time, current POI 重庆长江大桥, station arrived time: 17:23
+Can not go back source-city in time, current POI 重庆夜游, station arrived time: 15:11
+Can not go back source-city in time, current POI 重庆市规划展览馆, station arrived time: 15:09
+Can not go back source-city in time, current POI 重庆WFC会仙楼观景台, station arrived time: 15:09
+Can not go back source-city in time, current POI 重庆人民广场, station arrived time: 16:30
+Can not go back source-city in time, current POI 长寿菩提山文化旅游景区, station arrived time: 27:15
+Can not go back source-city in time, current POI 重庆美术馆, station arrived time: 15:39
+Can not go back source-city in time, current POI 重庆工业文化博览园, station arrived time: 17:49
+query: {'start_city': '上海', 'target_city': '重庆', 'people_number': 2, 'days': 3, 'hard_logic': ['cost_hotel + cost_intercity_transport <= 4000', 'days==3', 'people_number==2'], 'preference': ['交通尽可能便利'], 'nature_language': '[当前位置上海,目标位置重庆,旅行人数2,旅行天数3] 我要和女朋友从上海出发去重庆玩，大概三天。市内交通要求最省时间，预算4000的差旅费，帮我规划行程。', 'preference_en': ['convenient transportation']}
+query: {'start_city': '上海', 'target_city': '重庆', 'people_number': 2, 'days': 3, 'hard_logic': ['days==3', 'people_number==2'], 'preference': ['交通尽可能便利'], 'nature_language': '[当前位置上海,目标位置重庆,旅行人数2,旅行天数3] 我要和女朋友从上海出发去重庆玩，大概三天。市内交通要求最省时间，预算4000的差旅费，帮我规划行程。', 'preference_en': ['convenient transportation'], 'transport_preference': 'metro', 'hard_logic_unseen': ['cost_hotel + cost_intercity_transport <= 4000']}
+from 上海 to 重庆: 10 flights, 30 trains
+from 重庆 to 上海: 10 flights, 23 trains
+重庆 accommmodation, 373 hotels (satisfied requirments)
+LLM query:  [{'role': 'user', 'content': '**293** name: 钓鱼台 , price_per_preson: 0.0, type: 历史古迹\n**263** name: 戴家巷崖壁步道 , price_per_preson: 0.0, type: 人文景观\n**145** name: 重庆大剧院 , price_per_preson: 0.0, type: 人文景观\n**89** name: 芙蓉江 , price_per_preson: 100.0, type: 自然风光\n**177** name: 小南海 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**140** name: 联合国际大厦 , price_per_preson: 0.0, type: 商业街区\n**271** name: 西山公园 , price_per_preson: 0.0, type: 公园\n**105** name: 白帝城 , price_per_preson: 0.0, type: 历史古迹\n**165** name: 长寿湖 , price_per_preson: 32.0, type: 自然风光\n**202** name: 滑石古寨景区 , price_per_preson: 36.0, type: 人文景观\n**315** name: 天下第一风雨廊桥 , price_per_preson: 0.0, type: 人文景观\n**175** name: 双桂山国家森林公园 , price_per_preson: 0.0, type: 公园\n**97** name: 鹅岭公园 , price_per_preson: 0.0, type: 公园\n**262** name: 石柱森林王国度假区 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**214** name: 神龟峡 , price_per_preson: 128.0, type: 自然风光\n**86** name: 阿依河景区 , price_per_preson: 81.0, type: 自然风光\n**315** name: 天下第一风雨廊桥 , price_per_preson: 0.0, type: 人文景观\n**341** name: 川剧博物馆 , price_per_preson: 0.0, type: 博物馆/纪念馆\n**281** name: 南湖多彩植物园 , price_per_preson: 60.0, type: 公园\n**313** name: 东水门长江大桥 , price_per_preson: 0.0, type: 人文景观\n**107** name: 天眼洞花岭 , price_per_preson: 49.0, type: 自然风光\n**253** name: 重庆人民广场 , price_per_preson: 0.0, type: 公园\n**311** name: 江北嘴江滩公园 , price_per_preson: 0.0, type: 公园\n**237** name: (重庆黄水旅游度假区)秘境黄水奇幻乐园 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**163** name: 汉海鲸豚湾水世界 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**34** name: 白公馆 , price_per_preson: 0.0, type: 历史古迹\n**150** name: 磁器口转运楼 , price_per_preson: 0.0, type: 历史古迹\n**211** name: 金佛山北坡滑雪场 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**316** name: 重庆工业文化博览园 , price_per_preson: 0.0, type: 博物馆/纪念馆\n**335** name: 碧津公园 , price_per_preson: 0.0, type: 公园\n**165** name: 长寿湖 , price_per_preson: 32.0, type: 自然风光\n**300** name: 两江汇观景台 , price_per_preson: 0.0, type: 人文景观\n**90** name: 汉海海洋公园 , price_per_preson: 145.0, type: 游乐园/体育娱乐\n**279** name: 重庆山城高空跳伞基地 , price_per_preson: 1880.0, type: 游乐园/体育娱乐\n**190** name: 安居古城 , price_per_preson: 0.0, type: 历史古迹\n**4** name: 重庆两江游 , price_per_preson: 138.0, type: 游乐园/体育娱乐\n**249** name: 地方土特产及巴渝名小吃一条街 , price_per_preson: 0.0, type: 商业街区\n**138** name: 仙女山树顶漫步 , price_per_preson: 69.0, type: 游乐园/体育娱乐\n**286** name: 慈云寺 , price_per_preson: 0.0, type: 历史古迹\n**231** name: 昌州古城 , price_per_preson: 0.0, type: 历史古迹\n**0** name: 长江索道 , price_per_preson: 20.0, type: 游乐园/体育娱乐\n**171** name: 际华园极限运动中心 , price_per_preson: 0.0, type: 游乐园/体育娱乐\n**301** name: 大足石刻数字影院 , price_per_preson: 0.0, type: 人文景观\n**84** name: 石宝寨 , price_per_preson: 45.0, type: 历史古迹\n**112** name: 重庆海昌加勒比海水世界 , price_per_preson: 45.0, type: 游乐园/体育娱乐\n**302** name: 石柱万寿山景区 , price_per_preson: 62.0, type: 自然风光\n**66** name: 北山石刻 , price_per_preson: 58.0, type: 历史古迹\n**196** name: 飞越重庆悬空影院 , price_per_preson: 29.9, type: 游乐园/体育娱乐\n**82** name: 瞿塘峡 , price_per_preson: 0.0, type: 自然风光\n**335** name: 碧津公园 , price_per_preson: 0.0, type: 公园\n[当前位置上海,目标位置重庆,旅行人数2,旅行天数3] 我要和女朋友从上海出发去重庆玩，大概三天。市内交通要求最省时间，预算4000的差旅费，帮我规划行程。\n在这次在重庆的旅行中，请帮我评估每个景点的游玩重要性，看看是否需要安排到行程里\n请根据以上信息考虑什么样的景点满足我们的需求\n请简洁的回复:'}]
+Answer: ### 重庆三日游行程规划
+
+#### 预算：4000元（含交通、餐饮、门票等）
+
+#### 第一天：历史与文化
+1. **钓鱼台** (免费) - 了解重庆的历史。
+2. **白公馆** (免费) - 参观历史遗址。
+3. **重庆大剧院** (免费) - 欣赏建筑美。
+4. **长江索道** (20元/人) - 体验重庆的独特交通方式。
+5. **晚餐** - 尝试当地美食，预算约200元。
+
+#### 第二天：自然风光与游乐
+1. **长寿湖** (32元/人) - 享受湖边风光。
+2. **阿依河景区** (81元/人) - 体验自然美景。
+3. **汉海海洋公园** (145元/人) - 游玩水上乐园。
+4. **晚餐** - 继续品尝重庆美食，预算约200元。
+
+#### 第三天：人文与休闲
+1. **滑石古寨景区** (36元/人) - 体验人文景观。
+2. **南湖多彩植物园** (60元/人) - 享受宁静的公园时光。
+3. **飞越重庆悬空影院** (29.9元/人) - 体验刺激的影院。
+4. **晚餐** - 最后一次享受重庆美食，预算约200元。
+
+### 总预算估算
+- **门票**：约 400元（2人）
+- **餐饮**：约 600元（3天）
+- **交通**：约 500元（市内交通）
+- **总计**：约 1500元
+
+### 重要性评估
+- **历史古迹**：高 - 了解重庆文化。
+- **自然风光**：高 - 享受美丽景色。
+- **游乐园**：中 - 适合放松和娱乐。
+- **人文景观**：中 - 增加旅行的多样性。
+
+### 结论
+以上行程结合了历史、自然和娱乐，适合你和女朋友的需求，预算也在合理范围内。希望你们在重庆度过愉快的时光！
+LLM query:  [{'role': 'user', 'content': '### 重庆三日游行程规划\n\n#### 预算：4000元（含交通、餐饮、门票等）\n\n#### 第一天：历史与文化\n1. **钓鱼台** (免费) - 了解重庆的历史。\n2. **白公馆** (免费) - 参观历史遗址。\n3. **重庆大剧院** (免费) - 欣赏建筑美。\n4. **长江索道** (20元/人) - 体验重庆的独特交通方式。\n5. **晚餐** - 尝试当地美食，预算约200元。\n\n#### 第二天：自然风光与游乐\n1. **长寿湖** (32元/人) - 享受湖边风光。\n2. **阿依河景区** (81元/人) - 体验自然美景。\n3. **汉海海洋公园** (145元/人) - 游玩水上乐园。\n4. **晚餐** - 继续品尝重庆美食，预算约200元。\n\n#### 第三天：人文与休闲\n1. **滑石古寨景区** (36元/人) - 体验人文景观。\n2. **南湖多彩植物园** (60元/人) - 享受宁静的公园时光。\n3. **飞越重庆悬空影院** (29.9元/人) - 体验刺激的影院。\n4. **晚餐** - 最后一次享受重庆美食，预算约200元。\n\n### 总预算估算\n- **门票**：约 400元（2人）\n- **餐饮**：约 600元（3天）\n- **交通**：约 500元（市内交通）\n- **总计**：约 1500元\n\n### 重要性评估\n- **历史古迹**：高 - 了解重庆文化。\n- **自然风光**：高 - 享受美丽景色。\n- **游乐园**：中 - 适合放松和娱乐。\n- **人文景观**：中 - 增加旅行的多样性。\n\n### 结论\n以上行程结合了历史、自然和娱乐，适合你和女朋友的需求，预算也在合理范围内。希望你们在重庆度过愉快的时光！\n请将上述内容中涉及到的名字（景点、餐厅）提取出来，并用逗号隔开。Answer:'}]
+Answer: 钓鱼台, 白公馆, 重庆大剧院, 长江索道, 长寿湖, 阿依河景区, 汉海海洋公园, 滑石古寨景区, 南湖多彩植物园, 飞越重庆悬空影院
+Score Over!
+LLM query:  [{'role': 'user', 'content': '**350** name: 可乐老火锅(观音桥店) , cusine: 火锅, price_per_preson: 77.0, recommended food:  \n**195** name: 储奇门鳝鱼火锅(总店) , cusine: 火锅, price_per_preson: 88.0, recommended food: 纯鲜毛肚,现划鳝鱼,现炸酥肉,纯鲜鸭肠,嫩牛肉,纯鲜鹅肠\n**35** name: 超级李板凳·面(总店) , cusine: 小吃, price_per_preson: 19.0, recommended food:  \n**139** name: 庆合府重庆大排档(紫都城店) , cusine: 火锅, price_per_preson: 76.0, recommended food:  \n**221** name: 桃太郎创作料理(大学城店) , cusine: 日本料理, price_per_preson: 65.0, recommended food:  \n**407** name: 皮二哥重庆火锅 , cusine: 火锅, price_per_preson: 61.0, recommended food:  \n**47** name: 酒阳蒸经川菜小酒馆(观音桥总店) , cusine: 川菜, price_per_preson: 74.0, recommended food: 糖醋排骨,煎饺,酒阳蒸经,有机花菜,小土豆烧肉,包浆豆腐,激情秋葵,陈皮兔丁,卤藕片,干炒魔芋丝\n**240** name: 盛天毛血旺非遗美食(重庆来福士店) , cusine: 川菜, price_per_preson: 50.0, recommended food:  \n**308** name: 莽子肥肠鸡(重大c区店) , cusine: 川菜, price_per_preson: 63.0, recommended food:  \n**239** name: 纯阳老酒馆·川菜(观音桥店) , cusine: 川菜, price_per_preson: 79.0, recommended food:  \n**355** name: 酒牛二虎火锅馆 , cusine: 火锅, price_per_preson: 82.0, recommended food: 当日鲜毛肚,酥肉,鲜鹅肠,青花椒牛肉,干黄瓜条,带皮土豆\n**236** name: 嘎嘎鸭脑壳(五里店) , cusine: 川菜, price_per_preson: 78.0, recommended food:  \n**421** name: 较场口夜市 , cusine:  , price_per_preson: 46.0, recommended food:  \n**263** name: 重庆凯宾斯基酒店·国汇宴(会展中心店) , cusine: 粤菜, price_per_preson: 172.0, recommended food:  \n**256** name: 植闰咖啡(观音桥店) , cusine: 咖啡店, price_per_preson: 27.0, recommended food:  \n**194** name: 楠木町居酒屋(观音桥店) , cusine: 日本料理, price_per_preson: 125.0, recommended food: 三文鱼刺身,芥末章鱼,鲣鱼花豆腐排,明太鸡翅,烤青花鱼,玉子烧\n**260** name: 沧龙老火锅(洪崖洞店) , cusine: 火锅, price_per_preson: 77.0, recommended food:  \n**168** name: 啤气熊精酿鲜啤屋 , cusine: 川菜, price_per_preson: 50.0, recommended food: 纸包鲈鱼,猴赛雷比利时小麦,高老庄香橙小麦,桂树下中式艾尔,大暖男棕色艾尔,红孩儿红色艾尔,大境界世涛\n**251** name: 米氏火鱼·泡椒鱼火锅(李子坝老店) , cusine: 火锅, price_per_preson: 75.0, recommended food:  \n**126** name: 镇三关老火锅(北滨店) , cusine: 火锅, price_per_preson: 130.0, recommended food: 六郎老肉,精品鹅肠,鲜猪黄喉,六郎屠场毛肚,六郎血旺,现炸酥肉\n**82** name: 老麻抄手重庆小面(解放碑店) , cusine: 小吃, price_per_preson: 16.0, recommended food: 精品牛肉面二两,干溜豌杂面2两,老麻抄手,酸辣粉,肥肠小面2两,清汤抄手,老麻调料\n**81** name: 喜洋洋(中山四路店) , cusine: 川菜, price_per_preson: 64.0, recommended food: 糖醋里脊,小米排骨,秘制酱油鸡,椒麻鳝段,凉拌莴笋,筒子骨莲藕汤\n**267** name: 重庆嘉发希尔顿逸林酒店·嘉悦轩中餐厅 , cusine: 川菜, price_per_preson: 136.0, recommended food:  \n**286** name: 见涨火锅 , cusine: 火锅, price_per_preson: 83.0, recommended food: 猪蹄,酸梅汤,豆干丝,江团\n**208** name: 奈雪的茶(时代天街店) , cusine: 面包甜点, price_per_preson: 25.0, recommended food:  \n**39** name: 朝天门火锅(长嘉汇江景旗舰店) , cusine: 火锅, price_per_preson: 133.0, recommended food:  \n**331** name: 陶四喜火锅(五里店店) , cusine: 火锅, price_per_preson: 93.0, recommended food:  \n**383** name: 好家园老菜馆(北城天街店) , cusine: 川菜, price_per_preson: 69.0, recommended food:  \n**403** name: Gray Whale灰鲸餐厅(国金店) , cusine: 西餐, price_per_preson: 153.0, recommended food:  \n**368** name: 鲁祖庙古法火锅 , cusine: 火锅, price_per_preson: 84.0, recommended food:  \n**392** name: 猪脑壳老火锅(洋河店) , cusine: 火锅, price_per_preson: 105.0, recommended food:  \n**403** name: Gray Whale灰鲸餐厅(国金店) , cusine: 西餐, price_per_preson: 153.0, recommended food:  \n**236** name: 嘎嘎鸭脑壳(五里店) , cusine: 川菜, price_per_preson: 78.0, recommended food:  \n**170** name: 猪脑壳老火锅(谢家湾店) , cusine: 火锅, price_per_preson: 97.0, recommended food:  \n**308** name: 莽子肥肠鸡(重大c区店) , cusine: 川菜, price_per_preson: 63.0, recommended food:  \n**120** name: 泓崖小面·精品重庆面(解放碑店) , cusine: 小吃, price_per_preson: 15.0, recommended food:  \n**354** name: 尊宝比萨(较场口店) , cusine: 西餐, price_per_preson: 35.0, recommended food:  \n**371** name: 嘿嘟嘟烤肉(观音桥大融城店) , cusine: 韩国料理, price_per_preson: 95.0, recommended food:  \n**391** name: 大风老火锅(江北一店) , cusine: 火锅, price_per_preson: 96.0, recommended food: 特色毛肚,酥肉,多肉午餐肉,干贡菜,猪黄喉,麻辣牛肉\n**257** name: 过道老火锅(解放碑店) , cusine: 火锅, price_per_preson: 90.0, recommended food:  \n**415** name: 大吉烧肉与酒·活海鲜和牛超市(星光68店) , cusine: 烧烤, price_per_preson: 130.0, recommended food:  \n**253** name: 愚小面(解放碑店) , cusine: 小吃, price_per_preson: 32.0, recommended food:  \n**196** name: 城墙拐拐火锅(洋河店) , cusine: 火锅, price_per_preson: 84.0, recommended food:  \n**288** name: 南山有烧烤 , cusine: 烧烤, price_per_preson: 125.0, recommended food: 现切五花肉,八爪鱼,奥尔良鸡皮,扇贝,蔬菜拼盘\n**435** name: 花间一壶酒·私房菜·小酒馆(观音桥店) , cusine: 川菜, price_per_preson: 76.0, recommended food:  \n**400** name: 天棒老火锅(老店) , cusine: 火锅, price_per_preson: 98.0, recommended food: 鲜鸭血,牛杂拼盘,鱼籽虾滑,卤耙鸡脚,现炸酥肉,8秒海带苗\n**346** name: 九街三叁街头鸡脚筋串串(九街店) , cusine: 火锅, price_per_preson: 80.0, recommended food:  \n**35** name: 超级李板凳·面(总店) , cusine: 小吃, price_per_preson: 19.0, recommended food:  \n**267** name: 重庆嘉发希尔顿逸林酒店·嘉悦轩中餐厅 , cusine: 川菜, price_per_preson: 136.0, recommended food:  \n**212** name: 朱光玉火锅馆(北环店) , cusine: 火锅, price_per_preson: 106.0, recommended food:  \n[当前位置上海,目标位置重庆,旅行人数2,旅行天数3] 我要和女朋友从上海出发去重庆玩，大概三天。市内交通要求最省时间，预算4000的差旅费，帮我规划行程。\n在这次在重庆的旅行中,请帮我选择一些餐厅去吃，评估每个餐厅的相关性，看看是否需要安排到行程里\n请根据以上信息考虑什么样的餐厅满足我们的需求\n请简洁的回复:'}]
+Answer: ### 重庆三天行程规划
+
+#### 预算：4000元（含餐饮、交通、景点门票等）
+
+---
+
+### 第一天：到达重庆
+
+- **午餐**：可乐老火锅(观音桥店)  
+  - 人均：77元  
+  - 推荐理由：火锅是重庆的特色，适合初到重庆的体验。
+
+- **下午**：游览解放碑步行街
+
+- **晚餐**：朝天门火锅(长嘉汇江景旗舰店)  
+  - 人均：133元  
+  - 推荐理由：享受江景火锅，体验重庆的夜景。
+
+---
+
+### 第二天：重庆文化与美食
+
+- **早餐**：超级李板凳·面(总店)  
+  - 人均：19元  
+  - 推荐理由：尝试重庆小吃，经济实惠。
+
+- **上午**：游览洪崖洞
+
+- **午餐**：莽子肥肠鸡(重大c区店)  
+  - 人均：63元  
+  - 推荐理由：川菜风味，适合午餐。
+
+- **下午**：游览磁器口古镇
+
+- **晚餐**：酒牛二虎火锅馆  
+  - 人均：82元  
+  - 推荐理由：继续体验火锅，丰富的菜品选择。
+
+---
+
+### 第三天：自然与休闲
+
+- **早餐**：植闰咖啡(观音桥店)  
+  - 人均：27元  
+  - 推荐理由：轻松的早餐，适合开始新的一天。
+
+- **上午**：游览南山一棵树观景台
+
+- **午餐**：猪脑壳老火锅(谢家湾店)  
+  - 人均：97元  
+  - 推荐理由：尝试不同的火锅风味。
+
+- **下午**：游览白公馆或红岩革命纪念馆
+
+- **晚餐**：大风老火锅(江北一店)  
+  - 人均：96元  
+  - 推荐理由：结束旅行的最后一餐，享受特色火锅。
+
+---
+
+### 总预算估算
+
+- 餐饮（6餐）：约 77 + 133 + 19 + 63 + 82 + 97 + 96 = 567元
+- 交通、景点门票、其他：约 3000元（根据个人需求调整）
+
+### 结论
+
+以上行程涵盖了重庆的美食与文化，适合你和女朋友的旅行需求。希望你们在重庆度过愉快的时光！
+LLM query:  [{'role': 'user', 'content': '### 重庆三天行程规划\n\n#### 预算：4000元（含餐饮、交通、景点门票等）\n\n---\n\n### 第一天：到达重庆\n\n- **午餐**：可乐老火锅(观音桥店)  \n  - 人均：77元  \n  - 推荐理由：火锅是重庆的特色，适合初到重庆的体验。\n\n- **下午**：游览解放碑步行街\n\n- **晚餐**：朝天门火锅(长嘉汇江景旗舰店)  \n  - 人均：133元  \n  - 推荐理由：享受江景火锅，体验重庆的夜景。\n\n---\n\n### 第二天：重庆文化与美食\n\n- **早餐**：超级李板凳·面(总店)  \n  - 人均：19元  \n  - 推荐理由：尝试重庆小吃，经济实惠。\n\n- **上午**：游览洪崖洞\n\n- **午餐**：莽子肥肠鸡(重大c区店)  \n  - 人均：63元  \n  - 推荐理由：川菜风味，适合午餐。\n\n- **下午**：游览磁器口古镇\n\n- **晚餐**：酒牛二虎火锅馆  \n  - 人均：82元  \n  - 推荐理由：继续体验火锅，丰富的菜品选择。\n\n---\n\n### 第三天：自然与休闲\n\n- **早餐**：植闰咖啡(观音桥店)  \n  - 人均：27元  \n  - 推荐理由：轻松的早餐，适合开始新的一天。\n\n- **上午**：游览南山一棵树观景台\n\n- **午餐**：猪脑壳老火锅(谢家湾店)  \n  - 人均：97元  \n  - 推荐理由：尝试不同的火锅风味。\n\n- **下午**：游览白公馆或红岩革命纪念馆\n\n- **晚餐**：大风老火锅(江北一店)  \n  - 人均：96元  \n  - 推荐理由：结束旅行的最后一餐，享受特色火锅。\n\n---\n\n### 总预算估算\n\n- 餐饮（6餐）：约 77 + 133 + 19 + 63 + 82 + 97 + 96 = 567元\n- 交通、景点门票、其他：约 3000元（根据个人需求调整）\n\n### 结论\n\n以上行程涵盖了重庆的美食与文化，适合你和女朋友的旅行需求。希望你们在重庆度过愉快的时光！\n请将上述内容中涉及到的名字（景点、餐厅）提取出来，并用逗号隔开。Answer:'}]
+Answer: 可乐老火锅, 解放碑步行街, 朝天门火锅, 超级李板凳·面, 洪崖洞, 莽子肥肠鸡, 磁器口古镇, 酒牛二虎火锅馆, 植闰咖啡, 南山一棵树观景台, 猪脑壳老火锅, 白公馆, 红岩革命纪念馆, 大风老火锅
+Score Over!
+search: ...
+POI planning, day 0 19:30, 重庆北站, next-poi type: lunch
+try another poi type
+POI planning, day 0 19:30, 重庆北站, next-poi type: dinner
+try another poi type
+POI planning, day 0 19:30, 重庆北站, next-poi type: attraction
+POI planning, day 0 22:00, 飞越重庆悬空影院, next-poi type: hotel
+POI planning, day 1 08:30, 重庆清阅·OneJasper精选酒店, next-poi type: attraction
+POI planning, day 1 12:53, 南湖多彩植物园, next-poi type: lunch
+try another poi type
+POI planning, day 1 12:53, 南湖多彩植物园, next-poi type: attraction
+POI planning, day 1 18:00, 重庆大剧院, next-poi type: lunch
+try another poi type
+POI planning, day 1 18:00, 重庆大剧院, next-poi type: dinner
+POI planning, day 1 20:00, 酒牛二虎火锅馆, next-poi type: lunch
+try another poi type
+POI planning, day 1 20:00, 酒牛二虎火锅馆, next-poi type: attraction
+POI planning, day 1 20:50, 长江索道, next-poi type: hotel
+POI planning, day 2 08:30, 重庆清阅·OneJasper精选酒店, next-poi type: attraction
+POI planning, day 2 10:44, 汉海海洋公园, next-poi type: lunch
+POI planning, day 2 13:00, 猪脑壳老火锅(谢家湾店), next-poi type: back-intercity-transport
+True Intercity_transport passed!
+True attractions passed!
+True hotels passed!
+True restaurants passed!
+True innercity transport passed!
+True time passed!
+True space passed!
+{'days': 3, 'people_number': 2, 'cost': 4772.42, 'transport_type': {'metro'}, 'intercity_transport': {'train'}, 'train_type': {'Z', 'D'}, 'food_type': {'火锅'}, 'spot_type': {'人文景观', '游乐园/体育娱乐', '公园'}, 'hotel_feature': {'管家服务'}, 'food_price': 89.5, 'hotel_price': 291.0, 'hotel_names': {'重庆清阅·OneJasper精选酒店'}, 'restaurant_names': {'猪脑壳老火锅(谢家湾店)', '酒牛二虎火锅馆'}, 'attraction_names': {'汉海海洋公园', '飞越重庆悬空影院', '长江索道', '重庆大剧院', '南湖多彩植物园'}, 'tickets': 2, 'rooms': 2, 'room_type': 1}
+[True, True]
+days==3 passed!
+people_number==2 passed!
+
+ Pass! 
+
+{'people_number': 2, 'start_city': '上海', 'target_city': '重庆', 'itinerary': [{'day': 1, 'activities': [{'start_time': '06:01', 'end_time': '19:30', 'start': '上海虹桥站', 'end': '重庆北站', 'TrainID': 'D2207', 'type': 'train', 'transports': [], 'cost': 865.21, 'tickets': 2}, {'position': '飞越重庆悬空影院', 'type': 'attraction', 'transports': [{'start': '重庆北站', 'end': '重庆北站南广场-地铁站', 'mode': 'walk', 'start_time': '19:30', 'end_time': '19:33', 'cost': 0, 'distance': 0.27}, {'start': '重庆北站南广场-地铁站', 'end': '小什字-地铁站', 'mode': 'metro', 'start_time': '19:33', 'end_time': '19:45', 'cost': 3, 'distance': 6.15, 'tickets': 2}, {'start': '小什字-地铁站', 'end': '飞越重庆悬空影院', 'mode': 'walk', 'start_time': '19:45', 'end_time': '19:50', 'cost': 0, 'distance': 0.48}], 'cost': 29, 'start_time': '19:50', 'end_time': '22:00'}, {'position': '重庆清阅·OneJasper精选酒店', 'type': 'accommodation', 'room_type': 1, 'transports': [{'start': '飞越重庆悬空影院', 'end': '小什字-地铁站', 'mode': 'walk', 'start_time': '22:00', 'end_time': '22:05', 'cost': 0, 'distance': 0.48}, {'start': '小什字-地铁站', 'end': '石油路-地铁站', 'mode': 'metro', 'start_time': '22:05', 'end_time': '22:20', 'cost': 3, 'distance': 7.69, 'tickets': 2}, {'start': '石油路-地铁站', 'end': '重庆清阅·OneJasper精选酒店', 'mode': 'walk', 'start_time': '22:20', 'end_time': '22:25', 'cost': 0, 'distance': 0.42}], 'cost': 291.0, 'start_time': '22:25', 'end_time': '24:00', 'rooms': 2}]}, {'day': 2, 'activities': [{'position': '重庆清阅·OneJasper精选酒店', 'type': 'breakfast', 'transports': [], 'cost': 0, 'start_time': '08:00', 'end_time': '08:30'}, {'position': '南湖多彩植物园', 'type': 'attraction', 'transports': [{'start': '重庆清阅·OneJasper精选酒店', 'end': '石油路-地铁站', 'mode': 'walk', 'start_time': '08:30', 'end_time': '08:35', 'cost': 0, 'distance': 0.42}, {'start': '石油路-地铁站', 'end': '鱼胡路-地铁站', 'mode': 'metro', 'start_time': '08:35', 'end_time': '09:11', 'cost': 5, 'distance': 18.02, 'tickets': 2}, {'start': '鱼胡路-地铁站', 'end': '南湖多彩植物园', 'mode': 'walk', 'start_time': '09:11', 'end_time': '12:23', 'cost': 0, 'distance': 16.01}], 'cost': 60, 'start_time': '12:23', 'end_time': '12:53'}, {'position': '重庆大剧院', 'type': 'attraction', 'transports': [{'start': '南湖多彩植物园', 'end': '鱼胡路-地铁站', 'mode': 'walk', 'start_time': '12:53', 'end_time': '16:05', 'cost': 0, 'distance': 16.01}, {'start': '鱼胡路-地铁站', 'end': '朝天门-地铁站', 'mode': 'metro', 'start_time': '16:05', 'end_time': '16:47', 'cost': 6, 'distance': 21.42, 'tickets': 2}, {'start': '朝天门-地铁站', 'end': '重庆大剧院', 'mode': 'walk', 'start_time': '16:47', 'end_time': '17:00', 'cost': 0, 'distance': 1.09}], 'cost': 0, 'start_time': '17:00', 'end_time': '18:00'}, {'position': '酒牛二虎火锅馆', 'type': 'dinner', 'transports': [{'start': '重庆大剧院', 'end': '朝天门-地铁站', 'mode': 'walk', 'start_time': '18:00', 'end_time': '18:13', 'cost': 0, 'distance': 1.09}, {'start': '朝天门-地铁站', 'end': '观音桥-地铁站', 'mode': 'metro', 'start_time': '18:13', 'end_time': '18:23', 'cost': 3, 'distance': 5.38, 'tickets': 2}, {'start': '观音桥-地铁站', 'end': '酒牛二虎火锅馆', 'mode': 'walk', 'start_time': '18:23', 'end_time': '18:30', 'cost': 0, 'distance': 0.64}], 'cost': 82, 'start_time': '18:30', 'end_time': '20:00'}, {'position': '长江索道', 'type': 'attraction', 'transports': [{'start': '酒牛二虎火锅馆', 'end': '观音桥-地铁站', 'mode': 'walk', 'start_time': '20:00', 'end_time': '20:07', 'cost': 0, 'distance': 0.64}, {'start': '观音桥-地铁站', 'end': '朝天门-地铁站', 'mode': 'metro', 'start_time': '20:07', 'end_time': '20:17', 'cost': 3, 'distance': 5.38, 'tickets': 2}, {'start': '朝天门-地铁站', 'end': '长江索道', 'mode': 'walk', 'start_time': '20:17', 'end_time': '20:20', 'cost': 0, 'distance': 0.33}], 'cost': 20, 'start_time': '20:20', 'end_time': '20:50'}, {'position': '重庆清阅·OneJasper精选酒店', 'type': 'accommodation', 'room_type': 1, 'transports': [{'start': '长江索道', 'end': '朝天门-地铁站', 'mode': 'walk', 'start_time': '20:50', 'end_time': '20:53', 'cost': 0, 'distance': 0.33}, {'start': '朝天门-地铁站', 'end': '石油路-地铁站', 'mode': 'metro', 'start_time': '20:53', 'end_time': '21:09', 'cost': 3, 'distance': 8.28, 'tickets': 2}, {'start': '石油路-地铁站', 'end': '重庆清阅·OneJasper精选酒店', 'mode': 'walk', 'start_time': '21:09', 'end_time': '21:14', 'cost': 0, 'distance': 0.42}], 'cost': 291.0, 'start_time': '21:14', 'end_time': '24:00', 'rooms': 2}]}, {'day': 3, 'activities': [{'position': '重庆清阅·OneJasper精选酒店', 'type': 'breakfast', 'transports': [], 'cost': 0, 'start_time': '08:00', 'end_time': '08:30'}, {'position': '汉海海洋公园', 'type': 'attraction', 'transports': [{'start': '重庆清阅·OneJasper精选酒店', 'end': '石油路-地铁站', 'mode': 'walk', 'start_time': '08:30', 'end_time': '08:35', 'cost': 0, 'distance': 0.42}, {'start': '石油路-地铁站', 'end': '学堂湾-地铁站', 'mode': 'metro', 'start_time': '08:35', 'end_time': '09:06', 'cost': 5, 'distance': 15.88, 'tickets': 2}, {'start': '学堂湾-地铁站', 'end': '汉海海洋公园', 'mode': 'walk', 'start_time': '09:06', 'end_time': '09:14', 'cost': 0, 'distance': 0.75}], 'cost': 145, 'start_time': '09:14', 'end_time': '10:44'}, {'position': '猪脑壳老火锅(谢家湾店)', 'type': 'lunch', 'transports': [{'start': '汉海海洋公园', 'end': '学堂湾-地铁站', 'mode': 'walk', 'start_time': '10:44', 'end_time': '10:52', 'cost': 0, 'distance': 0.75}, {'start': '学堂湾-地铁站', 'end': '杨家坪-地铁站', 'mode': 'metro', 'start_time': '10:52', 'end_time': '11:16', 'cost': 4, 'distance': 12.45, 'tickets': 2}, {'start': '杨家坪-地铁站', 'end': '猪脑壳老火锅(谢家湾店)', 'mode': 'walk', 'start_time': '11:16', 'end_time': '11:23', 'cost': 0, 'distance': 0.63}], 'cost': 97, 'start_time': '11:30', 'end_time': '13:00'}, {'start_time': '14:10', 'end_time': '07:57', 'start': '重庆北站', 'end': '上海南站', 'TrainID': 'Z258', 'type': 'train', 'transports': [{'start': '猪脑壳老火锅(谢家湾店)', 'end': '杨家坪-地铁站', 'mode': 'walk', 'start_time': '13:00', 'end_time': '13:07', 'cost': 0, 'distance': 0.63}, {'start': '杨家坪-地铁站', 'end': '重庆北站南广场-地铁站', 'mode': 'metro', 'start_time': '13:07', 'end_time': '13:29', 'cost': 4, 'distance': 11.42, 'tickets': 2}, {'start': '重庆北站南广场-地铁站', 'end': '重庆北站', 'mode': 'walk', 'start_time': '13:29', 'end_time': '13:32', 'cost': 0, 'distance': 0.27}], 'cost': 721.0, 'tickets': 2}]}]}
