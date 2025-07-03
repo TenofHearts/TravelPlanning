@@ -257,6 +257,9 @@ def generate_plan(request: dict, task_id, debug_mode=False):
             or logic_str.startswith("people_number")
             or "food_type" in logic_str
             or "spot_type" in logic_str
+            or "attraction_names" in logic_str
+            or "hotel_names" in logic_str
+            or "restaurant_names" in logic_str
         )
     ]
     query["hard_logic"].insert(0, f"days=={days}")
@@ -325,7 +328,7 @@ if __name__ == "__main__":
         "destinationCity": "武汉",
         "peopleCount": 2,
         "daysCount": 3,
-        "additionalRequirements": "红色之旅",
+        "additionalRequirements": "请为我规划一个红色文化主题的旅行，重点参观革命历史遗址、纪念馆、红色教育基地等，让我能够重温历史、传承红色精神。其他需求：红色之旅",
     }
     print(plan_main(request=request_data, task_id=1, debug_mode=True))
     # print(modify_plan(modify_str="也要吃烧烤", task_id=0, debug_mode=True))
