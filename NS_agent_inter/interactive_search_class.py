@@ -1084,12 +1084,16 @@ class Interactive_Search:
                                 act_end_time, act_start_time
                             ):
                                 continue
-
+                            print("line1022", poi_sel["price"], query["people_number"])
+                            if poi_sel["price"] == "":
+                                total_cost = 100 #默认价格
+                            else:
+                                total_cost = float(poi_sel["price"]) * int(query["people_number"])
                             activity_i = {
                                 "position": poi_sel["name"],
                                 "type": poi_type,
                                 "transports": transports_sel,
-                                "cost": 100,  # TODO 餐厅价格
+                                "cost": total_cost,  
                                 "start_time": act_start_time,
                                 "end_time": act_end_time,
                                 "photos": (
@@ -1144,13 +1148,17 @@ class Interactive_Search:
                     transports_sel[0]["car"] = int((query["people_number"] - 1) / 4) + 1
 
                 arrived_time = transports_sel[-1]["end_time"]
-
+                if(query["target_city"] == "北京"or query["target_city"] == "上海" or query["target_city"] == "广州" or query["target_city"] == "深圳"):
+                    cost_per_room=random.randint(300, 400)
+                else:
+                    cost_per_room=random.randint(250, 350)
+                total_cost=cost_per_room*query["people_number"]
                 activity_i = {
                     "position": hotel_sel["name"],
                     "type": "accommodation",
-                    "room_type": 2,  # //TODO 酒店房型
+                    "room_type": 2,  
                     "transports": transports_sel,
-                    "cost": 350,  # //TODO 酒店价格
+                    "cost": total_cost,  # //TODO 酒店价格
                     "start_time": arrived_time,
                     "end_time": "24:00",
                     "rooms": 1,  # TODO:用户需求房型
@@ -1347,12 +1355,13 @@ class Interactive_Search:
 
                         if time_compare_if_earlier_equal(act_end_time, act_start_time):
                             continue
-
+                        cost_per_ticket=random.randint(50, 100)
+                        total_cost=cost_per_ticket*query["people_number"]
                         activity_i = {
                             "position": poi_sel["name"],
                             "type": poi_type,
                             "transports": transports_sel,
-                            "cost": 100,  # //TODO 景点门票价格信息缺失
+                            "cost": total_cost, 
                             "start_time": act_start_time,
                             "end_time": act_end_time,
                             "photos": (
