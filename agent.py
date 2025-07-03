@@ -237,14 +237,21 @@ def process_after_search(plan: dict):
             )
             act["type"] = activity["type"]
             if act["type"] in ["breakfast", "lunch", "dinner"]:
-                food_list = restaurants_tool.select(
+                food_list_df = restaurants_tool.select(
                     city=city, key="name", func=lambda x: x == act["position"]
                 )
-                food_list = food_list["recommendedfood"].values.tolist()
-                food_list = food_list[0] if len(food_list) > 0 else ""
-                food_list = str(food_list).replace(" ", "")
-                food_list = food_list.replace(",", "  ")
-                act["food_list"] = food_list
+                # 安全检查：确保DataFrame不为空且包含recommendedfood列
+                if (food_list_df is not None and 
+                    not food_list_df.empty and 
+                    "recommendedfood" in food_list_df.columns):
+                    food_list = food_list_df["recommendedfood"].values.tolist()
+                    food_list = food_list[0] if len(food_list) > 0 else ""
+                    food_list = str(food_list).replace(" ", "")
+                    food_list = food_list.replace(",", "  ")
+                    act["food_list"] = food_list
+                else:
+                    # 如果没有找到推荐食物信息，设置为空字符串
+                    act["food_list"] = ""
             act["cost"] = activity["cost"]
             # 转整数
             act["cost"] = int(act["cost"])
@@ -369,8 +376,8 @@ if __name__ == "__main__":
         "startCity": "上海",
         "destinationCity": "北京",
         "peopleCount": 1,
-        "daysCount": 2,
-        "additionalRequirements": "",
+        "daysCount": 3,
+        "additionalRequirements": "我想要进行一次红色之旅, 多去几个红色景点. 我也想吃火锅和北京烤鸭",
     }
     print(plan_main(request=request_data, task_id=1, debug_mode=True))
     # print(modify_plan(modify_str="也要吃烧烤", task_id=0, debug_mode=True))
