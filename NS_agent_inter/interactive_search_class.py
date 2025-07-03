@@ -1534,7 +1534,7 @@ class Interactive_Search:
                             self.poi_info["attractions"] = pd.concat(
                                 [self.poi_info["attractions"], new_attractions],
                                 ignore_index=True,
-                            )
+                            )  # TODO: 会导致大量的重复条目
                             if self.verbose:
                                 print(
                                     f"[ATTRACTION_SEARCH] 添加了特定类型的景点（去重后）"
