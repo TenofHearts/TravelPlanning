@@ -351,10 +351,75 @@ class Interactive_Search:
             start_city=target_city, end_city=source_city, intercity_type="airplane"
         )
 
-        flight_go["Score"] = flight_go.apply(score_go_intercity_transport, axis=1)
-        flight_back["Score"] = flight_back.apply(score_back_intercity_transport, axis=1)
-        train_go["Score"] = train_go.apply(score_go_intercity_transport, axis=1)
-        train_back["Score"] = train_back.apply(score_back_intercity_transport, axis=1)
+        if flight_go is not None and not flight_go.empty:
+            flight_go["Score"] = flight_go.apply(score_go_intercity_transport, axis=1)
+        else:
+            flight_go = pd.DataFrame(
+                columns=[
+                    "FlightID",
+                    "From",
+                    "To",
+                    "BeginTime",
+                    "EndTime",
+                    "Duration",
+                    "Cost",
+                    "Score",
+                ]
+            )
+
+        if flight_back is not None and not flight_back.empty:
+            flight_back["Score"] = flight_back.apply(
+                score_back_intercity_transport, axis=1
+            )
+        else:
+            flight_back = pd.DataFrame(
+                columns=[
+                    "FlightID",
+                    "From",
+                    "To",
+                    "BeginTime",
+                    "EndTime",
+                    "Duration",
+                    "Cost",
+                    "Score",
+                ]
+            )
+
+        if train_go is not None and not train_go.empty:
+            train_go["Score"] = train_go.apply(score_go_intercity_transport, axis=1)
+        else:
+            train_go = pd.DataFrame(
+                columns=[
+                    "TrainID",
+                    "TrainType",
+                    "From",
+                    "To",
+                    "BeginTime",
+                    "EndTime",
+                    "Duration",
+                    "Cost",
+                    "Score",
+                ]
+            )
+
+        if train_back is not None and not train_back.empty:
+            train_back["Score"] = train_back.apply(
+                score_back_intercity_transport, axis=1
+            )
+        else:
+            train_back = pd.DataFrame(
+                columns=[
+                    "TrainID",
+                    "TrainType",
+                    "From",
+                    "To",
+                    "BeginTime",
+                    "EndTime",
+                    "Duration",
+                    "Cost",
+                    "Score",
+                ]
+            )
 
         go_transport = combine_transport_dataframe(flight_go, train_go)
         back_transport = combine_transport_dataframe(flight_back, train_back)
