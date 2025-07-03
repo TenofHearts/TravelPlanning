@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>语音输入旅行计划测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .upload-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .upload-section:hover {
+            border-color: #007bff;
+        }
+
+        input[type="file"] {
+            margin: 10px;
+            padding: 8px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .result {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+        }
+
+        .success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .loading {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+
+        .info {
+            background-color: #e2e3e5;
+            border: 1px solid #d6d8db;
+            color: #383d41;
+        }
+
+        .plan-detail {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .supported-formats {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🎙️ 语音输入旅行计划测试</h1>
+
+        <div class="upload-section">
+            <h3>上传语音文件</h3>
+            <input type="file" id="audioFile" accept="audio/*" />
+            <br>
+            <button onclick="uploadAudio()" id="uploadBtn">上传并生成旅行计划</button>
+            <div class="supported-formats">
+                支持的音频格式：MP3, MP4, MPEG, M4A, WAV, WEBM
+            </div>
+        </div>
+
+        <div class="upload-section">
+            <h3>录制语音（如果浏览器支持）</h3>
+            <button onclick="startRecording()" id="recordBtn">开始录制</button>
+            <button onclick="stopRecording()" id="stopBtn" disabled>停止录制</button>
+            <div id="recordingStatus"></div>
+        </div>
+
+        <div id="result"></div>
+
+        <div class="info">
+            <h3>测试说明</h3>
+            <p>请准备一个包含旅行计划描述的音频文件，例如：</p>
+            <ul>
+                <li>"我想从上海到北京旅游3天，我一个人，想要体验红色之旅"</li>
+                <li>"明天开始从广州去深圳玩2天，我们有4个人，想吃当地美食"</li>
+                <li>"计划下周从成都到重庆的5天旅行，两个人，喜欢自然风光和火锅"</li>
+            </ul>
+            <p>支持的城市：上海、北京、深圳、广州、重庆、苏州、成都、杭州、武汉、南京</p>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:5000';
+        let mediaRecorder;
+        let recordedChunks = [];
+
+        async function uploadAudio() {
+            const fileInput = document.getElementById('audioFile');
+            const uploadBtn = document.getElementById('uploadBtn');
+            const resultDiv = document.getElementById('result');
+
+            if (!fileInput.files.length) {
+                showResult('请选择音频文件', 'error');
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const formData = new FormData();
+            formData.append('audio_file', file);
+            formData.append('language', 'zh');
+            formData.append('additional_context', '这是一个关于中国旅游的语音输入');
+
+            uploadBtn.disabled = true;
+            showResult('正在上传和处理音频文件...', 'loading');
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/plan/voice`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showResult(`✅ 语音处理成功！\n\n📝 转写文本：\n${result.transcription}\n\n🎯 提取的旅行信息：\n${JSON.stringify(result.extracted_request, null, 2)}\n\n🆔 任务ID：${result.task_id}\n\n⏳ 正在生成旅行计划...`, 'success');
+
+                    // 轮询获取计划结果
+                    pollPlanResult(result.task_id);
+                } else {
+                    showResult(`❌ 处理失败：${result.error}\n详细信息：${result.details || ''}`, 'error');
+                }
+            } catch (error) {
+                showResult(`❌ 网络错误：${error.message}`, 'error');
+            } finally {
+                uploadBtn.disabled = false;
+            }
+        }
+
+        async function pollPlanResult(taskId) {
+            let attempts = 0;
+            const maxAttempts = 30;
+
+            const poll = async () => {
+                attempts++;
+                try {
+                    const response = await fetch(`${API_BASE_URL}/plan/result/${taskId}`);
+                    const result = await response.json();
+
+                    if (result.success === 1) {
+                        showPlanResult(result.plan);
+                    } else if (result.success === 0) {
+                        showResult(`❌ 计划生成失败：${result.message}`, 'error');
+                    } else if (attempts < maxAttempts) {
+                        setTimeout(poll, 2000);
+                    } else {
+                        showResult('⏰ 等待超时，请稍后手动查询结果', 'error');
+                    }
+                } catch (error) {
+                    if (attempts < maxAttempts) {
+                        setTimeout(poll, 2000);
+                    } else {
+                        showResult(`❌ 轮询失败：${error.message}`, 'error');
+                    }
+                }
+            };
+
+            poll();
+        }
+
+        function showPlanResult(plan) {
+            let resultHTML = `✅ 旅行计划生成成功！\n\n`;
+            resultHTML += `📍 出发地：${plan.start_city}\n`;
+            resultHTML += `🎯 目的地：${plan.target_city}\n`;
+            resultHTML += `👥 人数：${plan.people_number}人\n`;
+            resultHTML += `📅 天数：${plan.itinerary.length}天\n\n`;
+
+            resultHTML += `📋 详细行程：\n`;
+            plan.itinerary.forEach((day, index) => {
+                resultHTML += `\n📍 第${index + 1}天：\n`;
+                day.activities.forEach(activity => {
+                    const timeRange = activity.start_time && activity.end_time ?
+                        `${activity.start_time}-${activity.end_time}` : '时间待定';
+                    const location = activity.position || activity.start || '位置待定';
+                    resultHTML += `  ⏰ ${timeRange} | ${activity.type} | 📍 ${location}\n`;
+                });
+            });
+
+            showResult(resultHTML, 'success');
+        }
+
+        function showResult(message, type) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `<div class="result ${type}">${message}</div>`;
+        }
+
+        // 录制功能
+        async function startRecording() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                recordedChunks = [];
+
+                mediaRecorder.ondataavailable = (event) => {
+                    if (event.data.size > 0) {
+                        recordedChunks.push(event.data);
+                    }
+                };
+
+                mediaRecorder.onstop = () => {
+                    const blob = new Blob(recordedChunks, { type: 'audio/webm' });
+                    const file = new File([blob], 'recorded_audio.webm', { type: 'audio/webm' });
+
+                    // 创建一个新的文件输入
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    document.getElementById('audioFile').files = dataTransfer.files;
+
+                    document.getElementById('recordingStatus').textContent = '录制完成！';
+                };
+
+                mediaRecorder.start();
+                document.getElementById('recordBtn').disabled = true;
+                document.getElementById('stopBtn').disabled = false;
+                document.getElementById('recordingStatus').textContent = '正在录制...';
+            } catch (error) {
+                showResult(`❌ 录制失败：${error.message}`, 'error');
+            }
+        }
+
+        function stopRecording() {
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                mediaRecorder.stop();
+                mediaRecorder.stream.getTracks().forEach(track => track.stop());
+                document.getElementById('recordBtn').disabled = false;
+                document.getElementById('stopBtn').disabled = true;
+            }
+        }
+
+        // 页面加载时检查服务器状态
+        window.onload = async function () {
+            try {
+                const response = await fetch(`${API_BASE_URL}/`);
+                if (response.ok) {
+                    showResult('✅ 服务器连接正常，可以开始测试', 'success');
+                } else {
+                    showResult('⚠️ 服务器响应异常', 'error');
+                }
+            } catch (error) {
+                showResult(`❌ 无法连接到服务器，请确保Flask应用已启动\n错误：${error.message}`, 'error');
+            }
+        };
+    </script>
+</body>
+
+</html>

@@ -2,7 +2,7 @@ import torch.nn.functional as F
 import torch
 from torch import Tensor
 from modelscope import AutoTokenizer, AutoModel
-
+# from transformers import AutoTokenizer, AutoModel
 
 def average_pool(last_hidden_states: Tensor, attention_mask: Tensor) -> Tensor:
     last_hidden = last_hidden_states.masked_fill(~attention_mask[..., None].bool(), 0.0)
