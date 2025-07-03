@@ -1,4 +1,8 @@
 import sys
+import re
+import random
+import numpy as np
+import argparse
 
 sys.path.append("../")
 from tools.hotels.apis import Accommodations
@@ -9,11 +13,8 @@ from tools.intercity_transport.apis import IntercityTransport
 from envs import goto
 import json
 import os
-import sys
-
 
 from evaluation.utils import load_json_file
-
 
 from evaluation.commonsense_constraint import func_commonsense_constraints
 from evaluation.hard_constraint import (
@@ -27,7 +28,6 @@ import time
 import datetime
 import llms
 from llms import deepseek, deepseek_json, deepseek_poi, model_GPT_poi
-import sys
 import pandas as pd
 import numpy as np
 from NS_agent_inter.retrieval import Retriever
@@ -536,18 +536,83 @@ class Interactive_Search:
 
     def extract_score_from_plan(self, chart, name_list):
         """从chart中提取分数"""
-        import re
 
         score_list = [0 for _ in range(len(name_list))]
+        
+        # 将表格按行分割
+        lines = chart.split('\n')
+        table_lines = [line.strip() for line in lines if '|' in line and not line.startswith('|--')]
+
         for i, name in enumerate(name_list):
-            match = re.search(rf"\| {name}\s*\|\s*(\d+)\s*\|", chart)
-            if match:
-                score_list[i] = int(match.group(1))
+            # 尝试多种匹配方式
+            found_score = False
+            
+            # 方式1：精确匹配
+            for line in table_lines:
+                if re.search(rf"\|\s*{re.escape(name)}\s*\|\s*(\d+)\s*\|", line):
+                    match = re.search(rf"\|\s*{re.escape(name)}\s*\|\s*(\d+)\s*\|", line)
+                    if match:
+                        score_list[i] = int(match.group(1))
+                        found_score = True
+                        if self.verbose:
+                            print(f"[SCORE_EXTRACTION] 精确匹配 '{name}' -> {score_list[i]}")
+                        break
+            
+            # 方式2：部分匹配（如果精确匹配失败）
+            if not found_score:
+                for line in table_lines:
+                    # 尝试匹配包含目标名字的行
+                    if name in line:
+                        match = re.search(r"\|\s*([^|]+)\s*\|\s*(\d+)\s*\|", line)
+                        if match:
+                            table_name = match.group(1).strip()
+                            score = int(match.group(2))
+                            # 检查是否是部分匹配
+                            if name in table_name or table_name in name:
+                                score_list[i] = score
+                                found_score = True
+                                if self.verbose:
+                                    print(f"[SCORE_EXTRACTION] 部分匹配 '{name}' <- '{table_name}' -> {score}")
+                                break
+            
+            # 方式3：模糊匹配（基于相似度）
+            if not found_score:
+                best_match_score = 0
+                best_similarity = 0
+                
+                for line in table_lines:
+                    match = re.search(r"\|\s*([^|]+)\s*\|\s*(\d+)\s*\|", line)
+                    if match:
+                        table_name = match.group(1).strip()
+                        score = int(match.group(2))
+                        
+                        # 计算相似度（简单的字符串包含检查）
+                        similarity = 0
+                        name_chars = set(name)
+                        table_chars = set(table_name)
+                        if name_chars & table_chars:  # 有共同字符
+                            similarity = len(name_chars & table_chars) / max(len(name_chars), len(table_chars))
+                        
+                        if similarity > best_similarity and similarity > 0.3:  # 相似度阈值
+                            best_similarity = similarity
+                            best_match_score = score
+                
+                if best_similarity > 0.3:
+                    score_list[i] = best_match_score
+                    found_score = True
+                    if self.verbose:
+                        print(f"[SCORE_EXTRACTION] 模糊匹配 '{name}' -> {best_match_score} (相似度: {best_similarity:.2f})")
+            
+            if not found_score and self.verbose:
+                print(f"[SCORE_EXTRACTION] 未找到匹配 '{name}' -> 默认分数 0")
+        
+        if self.verbose:
+            print(f"[SCORE_EXTRACTION] 最终评分列表: {score_list}")
+        
         return score_list
 
     def extract_name_list(self, poi_info_list):
         """从poi_info_list中提取名字列表"""
-        import re
 
         name_list = ["" for _ in range(len(poi_info_list))]
         for i, rest in enumerate(poi_info_list):
@@ -566,6 +631,11 @@ class Interactive_Search:
         react=False,
         history_message=[],
     ):
+        # 添加输入验证
+        if not poi_info_list or len(poi_info_list) == 0:
+            if self.verbose:
+                print("[POI_SCORING] 警告: poi_info_list 为空，返回空评分列表")
+            return []
 
         info_list = []
         # new_poi_info=poi_info_list[0:30]
@@ -582,14 +652,23 @@ class Interactive_Search:
         #     new_poi_info = random.choices(poi_info_list, k=min(25, len(poi_info_list)))
         for item in poi_info_list:
             info_list.append(item)
-        print("-------------------------------------------------------------------------")
-        print("poi_info_list前三条: ", poi_info_list[0:3])
+            
+        if self.verbose:
+            print("-------------------------------------------------------------------------")
+            print(f"[POI_SCORING] poi_info_list 长度: {len(poi_info_list)}")
+            print("poi_info_list前三条: ", poi_info_list[0:3])
+            
         overall_plan, history_message_think_overall = self.reason_prompt(
             info_list, return_history_message=True, history_message=[]
         )
 
         name_list = self.extract_name_list(poi_info_list)
         score_list = self.extract_score_from_plan(overall_plan, name_list)
+        
+        if self.verbose:
+            print(f"[POI_SCORING] 提取的名字列表: {name_list}")
+            print(f"[POI_SCORING] 评分列表: {score_list}")
+        
         # print("score_list: ", score_list)
         # print("poi_info_list: ", poi_info_list)
         # exit(0)
@@ -660,10 +739,10 @@ class Interactive_Search:
     ):
         if self.verbose:
             print(f"[SEARCH_POI] 开始POI搜索")
-            print(f"  查询: {query}")
+            # print(f"  查询: {query}")
             print(f"  当前时间: {current_time}, 位置: {current_position}, 天数: {current_day}")
-            print(f"  计划: {plan}")
-            print(f"  POI计划: {poi_plan}")
+            # print(f"  当前计划: {plan}")
+            # print(f"  POI计划: {poi_plan}")
 
         target_city = query["target_city"]
         if "cost_wo_intercity" in query:
@@ -749,7 +828,7 @@ class Interactive_Search:
             try:
                 hotel_info = self.accommodation.select(target_city, keywords=final_keywords)
                 if self.verbose:
-                    print(f"  酒店搜索结果: 类型={type(hotel_info)}")
+                    print(f"  酒店搜索结果(只输出前5条):",hotel_info[0:5])
                     if hotel_info is not None:
                         print(f"  搜索结果数量: {len(hotel_info) if hasattr(hotel_info, '__len__') else 'N/A'}")
                     else:
@@ -960,6 +1039,9 @@ class Interactive_Search:
 
             elif poi_type in ["lunch", "dinner"]:
                 keywords = f"{current_position}" + "附近美食"  # 吃附近的餐厅
+                if self.verbose:
+                    print(f"[RESTAURANT_SEARCH] 开始搜索餐厅 - 关键词: {keywords}, 城市: {target_city}")
+                
                 self.poi_info["restaurants"] = self.restaurants.select(
                     target_city, keywords
                 )
@@ -974,6 +1056,41 @@ class Interactive_Search:
                     )
                 )
                 rest_info = self.poi_info["restaurants"]
+                
+                # 添加调试信息
+                if self.verbose:
+                    print(f"[RESTAURANT_SEARCH] 餐厅搜索原始结果: {type(rest_info)}")
+                    if rest_info is not None:
+                        print(f"[RESTAURANT_SEARCH] 餐厅数量: {len(rest_info) if hasattr(rest_info, '__len__') else 'N/A'}")
+                        if hasattr(rest_info, 'empty'):
+                            print(f"[RESTAURANT_SEARCH] 是否为空: {rest_info.empty}")
+                    else:
+                        print("[RESTAURANT_SEARCH] 餐厅搜索结果为 None")
+                
+                # 检查搜索结果是否为空
+                if (rest_info is None or 
+                    (hasattr(rest_info, 'empty') and rest_info.empty) or 
+                    (hasattr(rest_info, '__len__') and len(rest_info) == 0)):
+                    if self.verbose:
+                        print(f"[RESTAURANT_SEARCH] 警告: 在{target_city}没有找到餐厅，尝试更宽泛的搜索")
+                    
+                    # 尝试使用更宽泛的搜索条件
+                    backup_keywords = "餐厅"
+                    self.poi_info["restaurants"] = self.restaurants.select(target_city, backup_keywords)
+                    rest_info = self.poi_info["restaurants"]
+                    
+                    if self.verbose:
+                        print(f"[RESTAURANT_SEARCH] 备用搜索结果: {type(rest_info)}")
+                        if rest_info is not None and hasattr(rest_info, '__len__'):
+                            print(f"[RESTAURANT_SEARCH] 备用搜索餐厅数量: {len(rest_info)}")
+                    
+                    # 如果仍然没有结果，跳过这个POI类型
+                    if (rest_info is None or 
+                        (hasattr(rest_info, 'empty') and rest_info.empty) or 
+                        (hasattr(rest_info, '__len__') and len(rest_info) == 0)):
+                        if self.verbose:
+                            print(f"[RESTAURANT_SEARCH] 错误: 在{target_city}没有找到任何餐厅，跳过此POI类型")
+                        continue
 
                 if "food_type" in query:
                     req_food_type = set()
@@ -998,32 +1115,52 @@ class Interactive_Search:
 
                 poi_info_list = []
                 score_list = []
-                for idx in range(len(rest_info)):
+                
+                # 确保 rest_info 不为空且有数据
+                if rest_info is not None and len(rest_info) > 0:
+                    for idx in range(len(rest_info)):
+                        try:
+                            res_i = self.poi_info["restaurants"].iloc[idx]
 
-                    res_i = self.poi_info["restaurants"].iloc[idx]
-
-                    poi_info_list.append(
-                        "**{}** name: {} , cusine: {},price_per_preson: {},recommended food: {}".format(
-                            idx,
-                            res_i["name"],
-                            res_i["cuisine"],
-                            res_i["price"],
-                            res_i["recommendedfood"],
-                        )
+                            poi_info_list.append(
+                                "**{}** name: {} , cusine: {},price_per_preson: {},recommended food: {}".format(
+                                    idx,
+                                    res_i["name"],
+                                    res_i["cuisine"],
+                                    res_i["price"],
+                                    res_i["recommendedfood"],
+                                )
+                            )
+                        except Exception as e:
+                            if self.verbose:
+                                print(f"[RESTAURANT_SEARCH] 处理餐厅数据时出错 (索引 {idx}): {e}")
+                            continue
+                else:
+                    if self.verbose:
+                        print("[RESTAURANT_SEARCH] 餐厅数据为空，无法构建 poi_info_list")
+                    continue
+                
+                if self.verbose:
+                    print(f"[RESTAURANT_SEARCH] 构建的 poi_info_list 长度: {len(poi_info_list)}")
+                print("poi_info_list前三条: ", poi_info_list[0:3])
+                
+                # 只有当 poi_info_list 不为空时才进行评分
+                if len(poi_info_list) > 0:
+                    score_list = self.score_poi_think_overall_act_page(
+                        info_list, poi_info_list, need_db=True, react=True
                     )
-                    # poi_info_list.append("**{}** name: {} , arrived_time: {}, cusine: {}, price_per_preson: {}".format(idx, res_i["name"], arrived_time, res_i["cuisine"], res_i["price"]))
-
-                score_list = self.score_poi_think_overall_act_page(
-                    info_list, poi_info_list, need_db=True, react=True
-                )
-                rest_info["importance"] = score_list
-                rest_info = rest_info.sort_values(
-                    by="importance", ascending=False, ignore_index=True
-                )
+                    rest_info["importance"] = score_list
+                    rest_info = rest_info.sort_values(
+                        by="importance", ascending=False, ignore_index=True
+                    )
+                else:
+                    if self.verbose:
+                        print("[RESTAURANT_SEARCH] poi_info_list 为空，跳过此POI类型")
+                    continue
 
                 # rest_info = mmr_algorithm(name_key="name", df=rest_info)
                 if self.verbose:
-                    print(f"[RESTAURANT_SEARCH] 餐厅搜索结果: {rest_info}")
+                    print(f"[RESTAURANT_SEARCH] 评分后餐厅(只输出前3名): {rest_info[0:3]}")
                 self.poi_info["restaurants"] = rest_info
 
                 score_list = rest_info["importance"].values
@@ -1248,14 +1385,54 @@ class Interactive_Search:
                     )
                 # info_list.append("请根据以上信息, 从以下景点信息中选出最合适的景点. ")
                 attr_info = self.poi_info["attractions"]
+                
+                # 添加调试信息
+                if self.verbose:
+                    print(f"[ATTRACTION_SEARCH] 景点搜索原始结果: {type(attr_info)}")
+                    if attr_info is not None:
+                        print(f"[ATTRACTION_SEARCH] 景点数量: {len(attr_info) if hasattr(attr_info, '__len__') else 'N/A'}")
+                        if hasattr(attr_info, 'empty'):
+                            print(f"[ATTRACTION_SEARCH] 是否为空: {attr_info.empty}")
+                    else:
+                        print("[ATTRACTION_SEARCH] 景点搜索结果为 None")
+                
+                # 检查搜索结果是否为空
+                if (attr_info is None or 
+                    (hasattr(attr_info, 'empty') and attr_info.empty) or 
+                    (hasattr(attr_info, '__len__') and len(attr_info) == 0)):
+                    if self.verbose:
+                        print(f"[ATTRACTION_SEARCH] 错误: 在{query['target_city']}没有找到任何景点，跳过此POI类型")
+                    continue
+                
                 poi_info_list = []
-                for idx in range(len(attr_info)):
-                    res_i = attr_info.iloc[idx]
-                    poi_info_list.append(
-                        "**{}** name: {} , price_per_preson: {},type: {}".format(
-                            idx, res_i["name"], res_i["price"], res_i["type"]
-                        )
-                    )
+                
+                # 确保 attr_info 不为空且有数据
+                if attr_info is not None and len(attr_info) > 0:
+                    for idx in range(len(attr_info)):
+                        try:
+                            res_i = attr_info.iloc[idx]
+                            poi_info_list.append(
+                                "**{}** name: {} , price_per_preson: {},type: {}".format(
+                                    idx, res_i["name"], res_i["price"], res_i["type"]
+                                )
+                            )
+                        except Exception as e:
+                            if self.verbose:
+                                print(f"[ATTRACTION_SEARCH] 处理景点数据时出错 (索引 {idx}): {e}")
+                            continue
+                else:
+                    if self.verbose:
+                        print("[ATTRACTION_SEARCH] 景点数据为空，无法构建 poi_info_list")
+                    continue
+                
+                if self.verbose:
+                    print(f"[ATTRACTION_SEARCH] 构建的 poi_info_list 长度: {len(poi_info_list)}")
+                
+                # 只有当 poi_info_list 不为空时才进行评分
+                if len(poi_info_list) == 0:
+                    if self.verbose:
+                        print("[ATTRACTION_SEARCH] poi_info_list 为空，跳过此POI类型")
+                    continue
 
                 score_list = self.score_poi_think_overall_act_page(
                     info_list, poi_info_list, react=True
@@ -1268,7 +1445,7 @@ class Interactive_Search:
                 )
                 # attr_info = attr_info.sort_values(by = ["importance"], ascending=False)
                 if self.verbose:
-                    print(f"[ATTRACTION_SEARCH] 景点搜索结果(只输出前3条): {attr_info[0:3]}")
+                    print(f"[ATTRACTION_SEARCH] 评分后景点结果(只输出前3名): {attr_info[0:3]}")
                 # attr_info.to_csv(attr_path, index=False)
                 # print("save  >>> ", attr_path)
 
@@ -1485,22 +1662,23 @@ class Interactive_Search:
 
         if bool_result:
             self.avialable_plan = res_plan
+        print("aaaaaaaaaaaaaaaaaaaa现有的计划res_plan：",res_plan)
         #提取所有参数
         try:
-            print("现有的计划：",res_plan)
+            
             extracted_vars = get_symbolic_concepts(query, res_plan)
 
         except:
             extracted_vars = None
         if self.verbose:
             print("[CONSTRAINTS] ========================================")
-            print(f"[CONSTRAINTS] 硬性约束: {extracted_vars}")
+            print(f"[CONSTRAINTS] 硬性约束(extracted_var): {extracted_vars}")
 
         logical_result = evaluate_logical_constraints(
             extracted_vars, query["hard_logic"]
         )
         if self.verbose:
-            print(f"[CONSTRAINTS] 逻辑约束结果: {logical_result}")
+            print(f"[CONSTRAINTS] 逻辑约束结果(logical_result): {logical_result}")
 
         logical_pass = True
         for idx, item in enumerate(logical_result):
