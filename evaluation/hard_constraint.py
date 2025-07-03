@@ -51,7 +51,15 @@ def calc_cost_from_itinerary_wo_intercity(itinerary, people_number):
     return total_cost
                 
 
-def get_symbolic_concepts(symbolic_input,plan_json):
+def get_symbolic_concepts(symbolic_input, plan_json, enable_detailed_search=True):
+    """
+    提取符号概念
+    
+    Args:
+        symbolic_input: 查询输入
+        plan_json: 计划JSON
+        enable_detailed_search: 是否启用详细搜索（获取菜系、景点类型等）
+    """
 
     target_city=symbolic_input['target_city']
     start_city=symbolic_input['start_city']
@@ -81,16 +89,22 @@ def get_symbolic_concepts(symbolic_input,plan_json):
     room_type=0
     food_prices = []
     hotel_prices = []
-
+    print("硬性约束 - 开始提取符号概念")
     for day in plan_json["itinerary"]:
         for activity in day["activities"]:
+            # 安全获取活动类型
+            activity_type = activity.get("type", "")
+            
             if 'tickets' in activity:
                 tickets=activity.get('tickets',0)
             for transport in activity.get("transports", []):
-                if 'tickets' in transport.keys():
-                    tickets=activity.get('tickets',0)
+                if not isinstance(transport, dict):
+                    continue
                     
-                mode = transport["mode"]
+                if 'tickets' in transport.keys():
+                    tickets=transport.get('tickets',0)
+                    
+                mode = transport.get("mode", "")
                 if mode=='taxi':
                     if 'cars' in transport.keys():
                         total_cost += transport.get('cars',0)*transport.get("cost", 0)
@@ -104,45 +118,66 @@ def get_symbolic_concepts(symbolic_input,plan_json):
                 if mode == "walk" and len(activity.get("transports", [])) == 1 and transport.get('distance',2)>1:
                     transport_types.add(mode)
             
-            if activity["type"] == "airplane":
+            if activity_type == "airplane":
                 total_cost += activity.get('tickets',0)*activity.get("cost", 0)
                 intercity_transport.add("airplane")
             
-            if activity["type"] == "train":
+            if activity_type == "train":
                 total_cost += activity.get('tickets',0)*activity.get("cost", 0)
                 intercity_transport.add("train")
-                train_id = activity.get("TrainID", "")
+                train_id = activity.get("ID", "") or activity.get("TrainID", "")
                 if train_id:
                     train_type.add(train_id[0])
 
-
-
-            if activity["type"] == "breakfest" or activity["type"] == "lunch" or activity["type"] == "dinner":
-                select_food_type=restaurants.select(target_city,key='name',func=lambda x:x==activity["position"])['cuisine']
-                if not select_food_type.empty:
-                    food_type.add(select_food_type.iloc[0])
-                restaurant_names.add(activity["position"])
-                food_prices.append(activity["cost"])
+            if activity_type in ["breakfest", "lunch", "dinner"]:
+                restaurant_names.add(activity.get("position", ""))
+                food_prices.append(activity.get("cost", 0))
                 total_cost += activity.get('cost',0)*people_number
                 
+                # 只在启用详细搜索时获取餐厅类型信息
+                if enable_detailed_search:
+                    try:
+                        select_restaurant = restaurants.select(target_city, key='name', func=lambda x: x == activity.get("position", ""))
+                        if not select_restaurant.empty and 'cuisine' in select_restaurant.columns:
+                            food_type.add(select_restaurant['cuisine'].iloc[0])
+                    except Exception as e:
+                        print(f"获取餐厅类型时出错: {e}")
             
-            if activity["type"] == "accommodation":
-                select_hotel_type=accommodation.select(target_city,key='name',func=lambda x:x==activity["position"])['featurehoteltype']
-                if not select_hotel_type.empty:
-                    hotel_feature.add(select_hotel_type.iloc[0])
-                hotel_names.add(activity["position"])
-                hotel_prices.append(activity["cost"])
+            if activity_type == "accommodation":
+                hotel_names.add(activity.get("position", ""))
+                hotel_prices.append(activity.get("cost", 0))
+                total_cost += activity.get('rooms',0)*activity.get("cost", 0)
+                rooms=activity.get('rooms',0)
+                room_type=activity.get('room_type',1)
+                
+                # 只在启用详细搜索时获取酒店特性信息
+                if enable_detailed_search:
+                    try:
+                        select_hotel = accommodation.select(target_city, key='name', func=lambda x: x == activity.get("position", ""))
+                        if not select_hotel.empty and 'featurehoteltype' in select_hotel.columns:
+                            hotel_feature.add(select_hotel['featurehoteltype'].iloc[0])
+                    except Exception as e:
+                        print(f"获取酒店类型时出错: {e}")
+                    
+                hotel_names.add(activity.get("position", ""))
+                hotel_prices.append(activity.get("cost", 0))
                 total_cost += activity.get('rooms',0)*activity.get("cost", 0)
                 rooms=activity.get('rooms',0)
                 room_type=activity.get('room_type',1)
               
 
-            if activity["type"] == "attraction":
-                select_attraction_type=attractions.select(target_city,key='name',func=lambda x:x==activity["position"])['type']
-                if not select_attraction_type.empty:
-                    spot_type.add(select_attraction_type.iloc[0])
-                attraction_names.add(activity["position"])
+            if activity_type == "attraction":
+                attraction_names.add(activity.get("position", ""))
                 total_cost += activity.get('tickets',0)*activity.get("cost", 0)
+                
+                # 只在启用详细搜索时获取景点类型信息
+                if enable_detailed_search:
+                    try:
+                        select_attraction = attractions.select(target_city, key='name', func=lambda x: x == activity.get("position", ""))
+                        if not select_attraction.empty and 'type' in select_attraction.columns:
+                            spot_type.add(select_attraction['type'].iloc[0])
+                    except Exception as e:
+                        print(f"获取景点类型时出错: {e}")
             
             
     # Calculating average food and hotel prices
@@ -151,7 +186,11 @@ def get_symbolic_concepts(symbolic_input,plan_json):
     
     
     #change tickets to int
-
+    print( "days:", days,
+        "people_number:", people_number,
+        "cost:", total_cost,
+        "transport_type:", transport_types,
+        "intercity_transport:", intercity_transport)
     return {
         "days": days,
         "people_number": people_number,

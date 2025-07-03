@@ -1657,18 +1657,19 @@ class Interactive_Search:
             "target_city": query["target_city"],
             "itinerary": plan,
         }
-
+        print("[PLAN_RESULTS]现有的计划res_plan：",res_plan)
         bool_result = func_commonsense_constraints(query, res_plan)
-
-        if bool_result:
-            self.avialable_plan = res_plan
-        print("aaaaaaaaaaaaaaaaaaaa现有的计划res_plan：",res_plan)
+        print("[CONSTRAINTS]常识检验结果:",bool_result)
+        
+        
         #提取所有参数
         try:
-            
-            extracted_vars = get_symbolic_concepts(query, res_plan)
-
-        except:
+            # 默认不启用详细搜索以避免在约束验证时触发大量API调用
+            extracted_vars = get_symbolic_concepts(query, res_plan, enable_detailed_search=False)
+        except Exception as e:
+            if self.verbose:
+                print(f"[CONSTRAINTS] 提取符号概念时出错: {str(e)}")
+                print(f"[CONSTRAINTS] 错误类型: {type(e).__name__}")
             extracted_vars = None
         if self.verbose:
             print("[CONSTRAINTS] ========================================")
@@ -1699,6 +1700,7 @@ class Interactive_Search:
         # exit(0)
 
         if bool_result:
+            self.avialable_plan = res_plan
             if self.verbose:
                 print("[CONSTRAINTS] ========== 通过! ==========")
             return True, res_plan
