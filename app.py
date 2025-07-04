@@ -22,6 +22,9 @@ except ImportError:
     OPENAI_AVAILABLE = False
     print("警告: OpenAI库未安装，语音识别功能将不可用")
 
+from logging import Logger
+logger = Logger()
+
 app = Flask(__name__)
 CORS(app)  # 启用CORS支持前端跨域访问
 
