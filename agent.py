@@ -292,6 +292,25 @@ def generate_plan(request: dict, task_id, debug_mode=False):
     if addition_info != "":
         nature_language += f"此外{addition_info},"
     nature_language += "请给我一个旅行规划."
+
+    city_list = [
+        "上海",
+        "北京",
+        "深圳",
+        "广州",
+        "重庆",
+        "苏州",
+        "成都",
+        "杭州",
+        "武汉",
+        "南京",
+    ]
+    if start_city not in city_list or target_city not in city_list:
+        return {
+            "success": 0,
+            "message": f"抱歉, 目前无法支持 {start_city} 到 {target_city} 的旅行. \n目前支持的城市列表有: 上海, 北京, 深圳, 广州, 重庆, 苏州, 成都, 杭州, 武汉, 南京. \n请重新选择城市.",
+        }
+
     query = {}
     if debug_mode:
         print(nature_language)
@@ -330,7 +349,9 @@ def generate_plan(request: dict, task_id, debug_mode=False):
     result_dir = f"query_results/{task_id}"
 
     flag, plan = searcher.symbolic_search(query=query, query_idx=query_idx)
-    assert flag, "fail to generate plan"
+    if not flag:
+        return {"success": 0, "message": plan}
+    # assert flag, "fail to generate plan"
     # _, plan = symbolic_search(query=query,query_idx=query_idx)
     plan = decode_json(plan)
     if not os.path.exists(result_dir):
@@ -386,7 +407,7 @@ def plan_main(request: dict, task_id: int, debug_mode=False):
 if __name__ == "__main__":
     request_data = {
         "startCity": "苏州",
-        "destinationCity": "武汉",
+        "destinationCity": "长白山",
         "peopleCount": 2,
         "daysCount": 3,
         "additionalRequirements": "请为我规划一个红色文化主题的旅行，重点参观革命历史遗址、纪念馆、红色教育基地等，让我能够重温历史、传承红色精神。其他需求：红色之旅",
