@@ -340,6 +340,12 @@ def generate_plan(request: dict, task_id, debug_mode=False):
             or "attraction_names" in logic_str
             or "hotel_names" in logic_str
             or "restaurant_names" in logic_str
+            or "hotel_features" in logic_str
+            or "hotel_price" in logic_str
+            or "room_type" in logic_str
+            or "rooms" in logic_str
+            or "intercity_transport" in logic_str
+            or "train_type" in logic_str
         )
     ]
     query["hard_logic"].insert(0, f"days=={days}")
@@ -407,7 +413,7 @@ def plan_main(request: dict, task_id: int, debug_mode=False):
 if __name__ == "__main__":
     request_data = {
         "startCity": "苏州",
-        "destinationCity": "长白山",
+        "destinationCity": "北京",
         "peopleCount": 2,
         "daysCount": 3,
         "additionalRequirements": "请为我规划一个红色文化主题的旅行，重点参观革命历史遗址、纪念馆、红色教育基地等，让我能够重温历史、传承红色精神。其他需求：红色之旅",
