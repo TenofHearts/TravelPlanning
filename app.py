@@ -298,7 +298,7 @@ class Task:
         def run_plan():
             nonlocal self
             result = plan_main(self.request, self.id)
-            self.result = json.loads(Path(f"query_results/{self.id}/plan.json").read_text()),
+            self.result = json.loads(Path(f"query_results/{self.id}/plan.json").read_text())
             self.status = 'completed'
 
         self.status = 'running'
@@ -445,64 +445,6 @@ def get_plan(task_id):
 
     tmp = deepcopy(result)
     
-    # 为活动添加地理编码信息
-    def add_geocoding_to_activities(activities, target_city=None):
-        """为活动列表添加地理编码信息"""
-        # 需要地理编码的活动类型
-        geocoding_types = {
-            'attraction',      # 景点
-            'accommodation',   # 住宿
-            'breakfast',       # 早餐
-            'lunch',          # 午餐
-            'dinner'          # 晚餐
-        }
-        
-        if isinstance(activities, list):
-            for activity in activities:
-                if isinstance(activity, dict) and 'position' in activity and 'type' in activity:
-                    # 只对指定类型的活动进行地理编码
-                    if activity['type'] in geocoding_types:
-                        position = activity['position']
-                        
-                        # 对于景点类型，增加更精确的搜索关键词
-                        search_address = position
-                        if activity['type'] == 'attraction':
-                            # 为景点添加更精确的搜索词
-                            if target_city and target_city not in position:
-                                search_address = f"{target_city}{position}"
-                            # 添加景点相关关键词提高准确性
-                            if not any(keyword in position for keyword in ['景区', '公园', '博物馆', '广场', '大厦', '塔', '寺', '庙', '山', '湖', '河']):
-                                search_address = f"{search_address}景点"
-                        
-                        # 调用地理编码获取经纬度
-                        geocoding_result = get_geocoding_from_cache_or_api(search_address, target_city)
-                        
-                        # 如果第一次搜索失败，尝试使用原始地址
-                        if not geocoding_result and search_address != position:
-                            geocoding_result = get_geocoding_from_cache_or_api(position, target_city)
-                        
-                        if geocoding_result:
-                            activity['latitude'] = geocoding_result.get('latitude')
-                            activity['longitude'] = geocoding_result.get('longitude')
-                            activity['formatted_address'] = geocoding_result.get('formatted_address', position)
-                            
-                            # 验证结果的相关性，过滤掉明显不相关的结果
-                            formatted_addr = geocoding_result.get('formatted_address', '')
-                            
-                            # 如果返回的地址包含公交站、地铁站等交通设施，但原地址不是交通设施，则忽略
-                            transport_keywords = ['公交', '地铁', '站台', '车站', '停车场', '收费站']
-                            attraction_keywords = ['景区', '公园', '博物馆', '纪念馆', '广场', '大厦', '中心', '塔', '寺', '庙', '山', '湖', '河', '海', '岛']
-                            
-                            if activity['type'] == 'attraction':
-                                # 如果原地址是景点，但返回的是交通设施，则清除地理编码结果
-                                if (any(keyword in formatted_addr for keyword in transport_keywords) and 
-                                    not any(keyword in position for keyword in transport_keywords) and
-                                    any(keyword in position for keyword in attraction_keywords)):
-                                    # 清除不准确的结果
-                                    activity.pop('latitude', None)
-                                    activity.pop('longitude', None)
-                                    activity.pop('formatted_address', None)
-    
     # 获取目标城市
     target_city = None
     if "plan" in tmp and "target_city" in tmp["plan"]:
@@ -517,12 +459,10 @@ def get_plan(task_id):
             if day <= len(itinerary):
                 # 获取指定天的活动
                 day_data = itinerary[day - 1]
-                if "activities" in day_data:
-                    add_geocoding_to_activities(day_data["activities"], target_city)
                 
                 # 构建返回结果
                 result_plan = {
-                    "activities": day_data["activities"],
+                    "activities": day_data.get("activities", []),
                     "target_city": target_city
                 }
                 
@@ -547,15 +487,8 @@ def get_plan(task_id):
             del tmp["brief_plan"]
             
     else:
-        # 查询完整行程
-        if "plan" in tmp and "itinerary" in tmp["plan"]:
-            itinerary = tmp["plan"]["itinerary"]
-            for day_data in itinerary:
-                if "activities" in day_data:
-                    add_geocoding_to_activities(day_data["activities"], target_city)
-        
-        # 保持原有结构，只返回plan部分
-        tmp = tmp["plan"] if "plan" in tmp else tmp
+        # 查询完整行程，只返回plan部分
+        tmp = tmp.get("plan", tmp)
     
     return jsonify({"status": "success", "result": tmp}), 200
 
@@ -565,40 +498,53 @@ def geocoding():
     地理编码API接口
     
     Args:
-        请求体JSON格式，包含以下字段：
+        请求体JSON格式，为一个列表，每个元素包含以下字段：
         - address (str): 需要进行地理编码的结构化地址信息
         - city (str, optional): 指定查询的城市，可以是中文城市名、拼音、citycode或adcode
         
     Returns:
         JSON响应：
         - success (bool): 是否成功
-        - data (dict): 地理编码结果，包含详细的地址和坐标信息
+        - data (list): 地理编码结果列表，每个元素是单个地址的编码结果或错误信息
         - message (str): 错误信息（如果失败）
     """
     try:
-        data = request.get_json()
-        if not data or 'address' not in data:
-            return jsonify({
-                "success": False,
-                "message": "缺少必需的参数: address"
-            }), 400
-            
-        address = data['address']
-        city = data.get('city')  # 可选的城市参数
+        locations = request.get_json()
+        if not isinstance(locations, list):
+            locations = [locations]
+
+        results = []
+        for loc in locations:
+            if not isinstance(loc, dict) or 'address' not in loc:
+                results.append({
+                    "success": False,
+                    "message": "列表中的每个项目都必须是包含'address'键的JSON对象"
+                })
+                continue
+
+            address = loc['address']
+            city = loc.get('city')
+
+            result = get_geocoding_from_cache_or_api(address, city)
+
+            if result:
+                results.append({
+                    "success": True,
+                    "original_address": address,
+                    "data": result
+                })
+            else:
+                results.append({
+                    "success": False,
+                    "original_address": address,
+                    "message": "无法获取该地址的地理编码信息"
+                })
         
-        result = get_geocoding_from_cache_or_api(address, city)
-        
-        if result:
-            return jsonify({
-                "success": True,
-                "data": result
-            })
-        else:
-            return jsonify({
-                "success": False,
-                "message": "无法获取该地址的地理编码信息，请检查地址格式或网络连接"
-            }), 404
-            
+        return jsonify({
+            "success": True,
+            "data": results
+        })
+
     except Exception as e:
         logger.error(f"地理编码接口处理错误: {e}")
         return jsonify({
