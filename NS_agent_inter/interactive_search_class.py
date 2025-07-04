@@ -1170,7 +1170,7 @@ class Interactive_Search:
                 search_query = ""
                 info_list = [query["nature_language"]]
                 info_list.append(
-                    f"以下是计划中已有的行程: {self.extract_location_from_plan(plan)}"
+                    f"以下是计划中已有的行程和花费的金额: {self.extract_location_from_plan(plan)}"
                 )
                 info_list.append(
                     "在这次在{}的旅行中,请帮我选择一些餐厅去吃，评估每个餐厅的相关性，看看是否需要安排到行程里".format(
@@ -1548,7 +1548,7 @@ class Interactive_Search:
 
                 info_list = [query["nature_language"]]
                 info_list.append(
-                    f"以下是计划中已有的行程: {self.extract_location_from_plan(plan)}"
+                    f"以下是计划中已有的行程和花费的金额: {self.extract_location_from_plan(plan)}"
                 )
                 info_list.append(
                     "在这次在{}的旅行中，请帮我评估每个景点的游玩重要性，看看是否需要安排到行程里".format(
@@ -1994,11 +1994,22 @@ class Interactive_Search:
     def extract_location_from_plan(self, plan):
         """从plan中按照天数提取去过的地点(餐厅, 景点)"""
         location_list = {}
+        cost = 0
         for i, day in enumerate(plan):
             location_list[i] = []
             for activity in day["activities"]:
                 if "position" in activity:
                     location_list[i].append(activity["position"])
+                if "cost" in activity:
+                    cost += activity["cost"]
+                if "transports" in activity:
+                    tickets = 1
+                    for transport in activity["transports"]:
+                        if "ticket" in transport:
+                            tickets = transport["ticket"]
+                        if "cost" in transport:
+                            cost += transport["cost"] * tickets
+        location_list["cost"] = cost
         return location_list
 
 

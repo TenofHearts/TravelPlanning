@@ -415,8 +415,8 @@ if __name__ == "__main__":
         "startCity": "苏州",
         "destinationCity": "北京",
         "peopleCount": 2,
-        "daysCount": 3,
-        "additionalRequirements": "请为我规划一个红色文化主题的旅行，重点参观革命历史遗址、纪念馆、红色教育基地等，让我能够重温历史、传承红色精神。其他需求：红色旅行，带小孩，不想走太多路",
+        "daysCount": 2,
+        "additionalRequirements": "请为我规划一个红色文化主题的旅行，重点参观革命历史遗址、纪念馆、红色教育基地等，让我能够重温历史、传承红色精神。其他需求：预算不超过4000元，想吃北京烤鸭",
     }
     print(plan_main(request=request_data, task_id=1, debug_mode=True))
     # print(modify_plan(modify_str="也要吃烧烤", task_id=0, debug_mode=True))
