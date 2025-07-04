@@ -511,10 +511,7 @@ def geocoding():
     try:
         locations = request.get_json()
         if not isinstance(locations, list):
-            return jsonify({
-                "success": False,
-                "message": "请求体必须是一个JSON数组"
-            }), 400
+            locations = [locations]
 
         results = []
         for loc in locations:
