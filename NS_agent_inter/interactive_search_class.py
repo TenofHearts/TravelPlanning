@@ -1403,11 +1403,17 @@ class Interactive_Search:
                                     f"[RESTAURANT_COST] 餐厅价格: {poi_sel['price']}, 人数: {query['people_number']}"
                                 )
 
+                            if poi_sel["price"] == "":
+                                rest_cost = 100  # 默认价格
+                            else:
+                                rest_cost = float(poi_sel["price"]) * int(
+                                    query["people_number"]
+                                )
                             activity_i = {
                                 "position": poi_sel["name"],
                                 "type": poi_type,
                                 "transports": transports_sel,
-                                "cost": 100,
+                                "cost": rest_cost,
                                 "start_time": act_start_time,
                                 "end_time": act_end_time,
                                 "photos": (
@@ -1475,13 +1481,13 @@ class Interactive_Search:
                     cost_per_room = random.randint(300, 400)
                 else:
                     cost_per_room = random.randint(250, 350)
-
+                hotel_cost_estimate = cost_per_room * query["people_number"]
                 activity_i = {
                     "position": hotel_sel["name"],
                     "type": "accommodation",
                     "room_type": 2,
                     "transports": transports_sel,
-                    "cost": 100,  # //TODO 酒店价格
+                    "cost": hotel_cost_estimate,  # //TODO 酒店价格
                     "start_time": arrived_time,
                     "end_time": "24:00",
                     "rooms": 1,  # TODO:用户需求房型
@@ -1764,12 +1770,13 @@ class Interactive_Search:
 
                         if time_compare_if_earlier_equal(act_end_time, act_start_time):
                             continue
-
+                        cost_per_ticket = random.randint(50, 100)
+                        back_transport_cost = cost_per_ticket * query["people_number"]
                         activity_i = {
                             "position": poi_sel["name"],
                             "type": poi_type,
                             "transports": transports_sel,
-                            "cost": 100,
+                            "cost": back_transport_cost,
                             "start_time": act_start_time,
                             "end_time": act_end_time,
                             "photos": (
@@ -1861,7 +1868,7 @@ class Interactive_Search:
         }
         print("[PLAN_RESULTS]现有的计划res_plan：", res_plan)
         bool_result = func_commonsense_constraints(query, res_plan)
-        print("[CONSTRAINTS]常识检验结果:", bool)
+        print("[CONSTRAINTS]常识检验结果:", bool_result)
 
         # 提取所有参数
         try:
