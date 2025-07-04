@@ -295,7 +295,7 @@ class Task:
         def run_plan():
             nonlocal self
             result = plan_main(self.request, self.id)
-            self.result = result
+            self.result = json.loads(Path(f"query_results/{self.id}/plan.json").read_text()),
             self.status = 'completed'
 
         self.status = 'running'
