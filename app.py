@@ -1035,3 +1035,7 @@ def test_page():
         """, 404
 
 # 现有的路由
+if __name__ == "__main__":
+    print(f"地理编码数据库已加载，缓存条目数: {len(geocoding_db.get('cache', {}))}")
+    print(f"数据库最后更新时间: {geocoding_db.get('last_updated', '未知')}")
+    app.run(host="0.0.0.0", port=8082)
