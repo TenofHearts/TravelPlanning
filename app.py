@@ -14,7 +14,7 @@ from agent import plan_main, modify_plan
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-from tools.base_api import AMAP_KEYS
+from tools.base_api import get_amap_key
 
 # 语音识别相关导入
 try:
@@ -110,7 +110,7 @@ class RateLimiter:
 geocoding_rate_limiter = RateLimiter(max_calls=3, time_window=1)
 
 # 地理编码配置
-AMAP_KEY = AMAP_KEYS[0]  # 高德地图API密钥
+AMAP_KEY = get_amap_key()  # 高德地图API密钥
 GEOCODING_DB_PATH = Path(__file__).parent / "geocoding_database.json"
 
 # 加载地理编码数据库
