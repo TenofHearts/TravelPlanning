@@ -6,12 +6,15 @@ import math
 
 # ****************** 第一步：在此处填入你申请的API密钥 ******************
 AMAP_KEYS = [
-    # "fdba1f2fcdd9369564f871a149d6aa30",
-    # "76435a409d3ebf776460e55acb1a7171",
-    "7d5951bd8860e044cb5967947f46388e",
-    "e8641e97905135c164bb7e21f4bcfb1c",
-    "29650faace73ec6d40cac2c6ed1082d4",
-    "27c570e372bc4b6e2fcb54b9c2ed4212",
+    # "fdba1f2fcdd9369564f871a149d6aa30", # wwm
+    # "76435a409d3ebf776460e55acb1a7171", # yj
+    # "7d5951bd8860e044cb5967947f46388e", # hrh
+    "e8641e97905135c164bb7e21f4bcfb1c",  # zxl
+    "29650faace73ec6d40cac2c6ed1082d4",  # cjn
+    # "27c570e372bc4b6e2fcb54b9c2ed4212",  # cbj
+    "9f2676f76bfe6cec6be5a22bac9b4d8b",  # zbw
+    "7b7492957514b860d64ffb20f1031d57",  # zr
+    "7f2f605045b1669491614986dbde2d4f",  # pjh,
 ]
 _CURRENT_KEY = 0
 # ********************************************************************
